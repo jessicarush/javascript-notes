@@ -8,6 +8,10 @@ Some examples and notes come from the following:
 
 - 'JavaScript: The Good Parts' - *Douglas Crockford*  
 - 'You Don't Know JavaScript' - *Kyle Simpson*  
+- '[The JavaScript Guide](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide)' - *MDN*  
+- '[The JavaScript Reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference)' - *MDN*
+- '[Introduction to JavaScript](https://www.codecademy.com/learn/introduction-to-javascript)' - *codecademy*
+
 
 
 A very special thanks to [aleph2c](https://github.com/aleph2c) for so, so, much support. Check out his epic [statechart library; Miros here](https://aleph2c.github.io/miros/index.html).
