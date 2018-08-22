@@ -9,9 +9,11 @@ while (countdown > 0) {
   console.log('Countdown...' + countdown);
   countdown -= 1;
 }
+```
 
-// compared to
+Compared to:
 
+```javascript
 var countdown = 5;
 
 do {
