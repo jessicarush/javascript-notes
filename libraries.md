@@ -25,8 +25,8 @@ Math.floor(4.5);  // 4
 Math.floor(4.9);  // 4
 Math.round(4.5);  // 5
 Math.round(4.9);  // 5
-Math.ceil(4.5);  // 5
-Math.ceil(4.9);  // 5
+Math.ceil(4.5);   // 5
+Math.ceil(4.9);   // 5
 Math.ceil(-4.9);  // 4
 ```
 
@@ -34,6 +34,13 @@ The [Number library](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Ref
 
 ```javascript
 Number.parseFloat('5.20');  // 5.2
-Number.isInteger(5);  // true
-Number.isFinite(5.2345);  // true
+Number.isInteger(5);        // true
+Number.isFinite(5.2345);    // true
+```
+
+`Number()` itself is a built-in function. Using it alone will convert a string to a number. If you try to convert a string that doesn't translate to a number you'll get `NaN`:
+
+```javascript
+var a = "42";
+var b = Number(a);
 ```

@@ -11,17 +11,7 @@ comment
 */
  ```
 
-## Variables
-
-In JavaScript you need to *declare* your variables by name before you use them. This is done with the `var` keyword. You only need to declare your variables once for each *scope*.
-
-```javascript
-var a = 5;
-
-a = a + 1;
-a = a * 2;
-console.log(a);  // 12
-```
+Comments in your code should explain *why*, not *what*. They can also explain *how* if the code is particularly confusing.
 
 ## Output
 
