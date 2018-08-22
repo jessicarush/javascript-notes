@@ -1,21 +1,23 @@
 # Libraries
 
-Instance methods, by definition, require that you create an instance before you can use them. JavaScript libraries contain methods that you can call without creating an instance. For example, the [Math library]() contains mathematical methods. The .random() method generates a random decimal number between 0 and 1.
+Libraries are collections of methods that can be called without an instance.
+
+The [Math library](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math) contains mathematical methods. The `.random()` method generates a random decimal number between 0 and 1.
 
 ```javascript
 console.log(Math.random());  // 0.6897758230441343
 ```
 
-To generate a random number between 0 and 10, we could multiply this result by 10:
+To generate a random number between 0 and 10, we could multiply the result by 10:
 
 ```javascript
 Math.random() * 10;  // 3.069255352584533
 ```
 
-Some Math built-in methods:
-Math.floor() - takes a decimal number, and rounds down to the nearest whole number.
-Math.round() - returns the nearest integer.
-Math.ceil() - returns the smallest integer greater than or equal to a given number.
+Some Math built-in methods:  
+`Math.floor()` - takes a decimal number, and rounds down to the nearest whole number.  
+`Math.round()` - returns the nearest integer.  
+`Math.ceil()` - returns the smallest integer greater than or equal to a given number.  
 
 ```javascript
 Math.floor(Math.random() * 10);  // 6
