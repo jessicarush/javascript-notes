@@ -12,7 +12,7 @@ console.log('Hey'.startsWith('H'));  // true
 See all the [built-in methods for strings here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String).
 
 
-An example of a built-in function for numbers id `toFixed()`:
+An example of a built-in method for numbers is `toFixed()`:
 
 ```javascript
 var TAX_RATE = 0.12;  // 12% sales tax
@@ -22,7 +22,7 @@ var total = amount + (amount * TAX_RATE);
 console.log(total)             // 11.1888
 console.log(total.toFixed(2))  // 11.19
 
-// You could call it anywhere:
+// You could call it in a number of ways:
 var total = (amount + (amount * TAX_RATE)).toFixed(2);
 total = total.toFixed(2)
 ```

@@ -65,7 +65,7 @@ console.log(1 && false);     // false
 console.log(true || 0);      // true
 console.log(false || 0);     // 0
 console.log(true || false);  // true
-console.log(!true);          // False
+console.log(!true);          // false
 ```
 
 The conditional operator `?` is the only one that takes 3 operands. It says if a condition is true, the operator is assigned the first value, otherwise it's assigned the second value. For example:
