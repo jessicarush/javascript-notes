@@ -1,24 +1,70 @@
 # Data Types
 
-JavaScript uses four *primitive data types*:
+
+JavaScript uses six *primitive data types*, along with one complex type:
 
 Strings — Any grouping of characters surrounded by single or double quotes.  
 Numbers — Any number, including numbers with decimals.  
 Booleans — Either true or false, with no quotations.  
 Null — Can only be null. It represents the absence of value.  
+Undefined - Automatically assigned to variables that have just been declared or to formal arguments for which there are no actual arguments.
+Symbols - (new to ES6) Used as the key for an object property when the property is intended to be private, for the internal use of a class or an object.
+Objects - Refers to a compound value where you can set properties that each hold their own values of any type. Functions and arrays are considered subtypes of the object type.
 
 ```javascript
-console.log('Hello world');  // string
-console.log(40.7);  // number
-console.log(true);  // boolean
-console.log(null);  // null
+console.log('Hello');    // string
+console.log(40.7);       // number
+console.log(true);       // boolean
+console.log(null);       // null
+console.log(undefined);  // undefined
+console.log(Symbol());   // symbol
+console.log({b: 'c'});   // object
 ```
+
+Note that `null` and `undefined` are equal in value but different in type:
+
+```javascript
+console.log(null == undefined);   // true
+console.log(null === undefined);  // false
+```
+
 Note that values that are included directly in the code are called *literals*. For example:
 
 ```javascript
 console.log('Hello');  // 'Hello' is a string literal
 console.log(40.7);     // 40.7 is a number literal
 ```
+
+
+## Determine a value's type with `typeof`
+
+`typeof` is an operator that can be used to return a value's *type* as a string. For example:
+
+```javascript
+var a = 'hello';
+console.log(typeof a);  // string
+
+a = 43;
+console.log(typeof a);  // number
+
+a = true;
+console.log(typeof a);  // boolean
+
+a = null;
+console.log(typeof a);  // object (quirk from early JavaScript)
+
+a = undefined;
+console.log(typeof a);  // undefined
+
+a = Symbol();
+console.log(typeof a);  // symbol
+
+a = {b: 'c'};
+console.log(typeof a);  // object
+```
+
+Notice that `typeof` is not asking for the *type of 'a'* but rather for the *type of the value currently in 'a'*. Only values have types in JavaScript, variables are just containers.
+
 
 ## Converting between data types (coercion)
 
