@@ -42,6 +42,6 @@ Number.isFinite(5.2345);    // true
 `Number()` itself is a built-in function. Using it alone will convert a string to a number. If you try to convert a string that doesn't translate to a number you'll get `NaN`:
 
 ```javascript
-var a = "42";
+var a = '42';
 var b = Number(a);
 ```

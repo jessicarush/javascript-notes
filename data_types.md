@@ -71,7 +71,7 @@ Notice that `typeof` is not asking for the *type of 'a'* but rather for the *typ
 If you have a number and need to print it to the screen, you'll need to convert it to a string. Similarly, if you're working with numbers entered into a form on screen, they'll be strings by default and will need to be converted to numbers if we want to calculate something. In Javascript this conversion of one data type to another is called coercion.
 
 ```javascript
-var a = "42";
+var a = '42';
 var b = Number(a);
 
 console.log(a);  // "42" (text is black in firefox console)
@@ -85,7 +85,7 @@ You can *explicitly coerce* to a string with `String()`:
 ```javascript
 var amount = 9.99;
 var quantity = 3;
-var total = "$" + String(amount * quantity);
+var total = '$' + String(amount * quantity);
 
 console.log(total);  //$29.97
 ```

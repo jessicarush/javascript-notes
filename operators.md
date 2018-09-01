@@ -48,8 +48,7 @@ console.log(a++);  // 3.5
 console.log(a);    // 4.5
 ```
 
-For strict equality/non-equality the data type must be the same. Note the comparison operators are not strict.
-
+For strict equality/non-equality the data type must be the same. Another way to put it is in the case of loose comparisons, JavaScript is allowed to perform *[type coercion](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Equality_comparisons_and_sameness)* on the values before the comparison takes place whereas it does no coercing in a strict comparison.
 ```javascript
 console.log(a == '4.5');     // true
 console.log(a === '4.5');    // false
@@ -66,6 +65,40 @@ console.log(true || 0);      // true
 console.log(false || 0);     // 0
 console.log(true || false);  // true
 console.log(!true);          // false
+```
+
+Note the `< <= > >=` comparison operators are not strict. If you try to compare two strings, the comparison is made alphabetically. If one of the values is a number, then both values are coerced to numbers and a typical numeric comparison occurs. If one of the values cannot be made into a valid number it becomes `NaN` and all comparisons will fail because `NaN` is neither greater than or less than any other value.
+
+```javascript
+var a = 10;
+var b = '15';
+var c = 'apple';
+var b = 'apples';
+
+console.log(a < b);  // true
+console.log(a < c);  // false
+console.log(c < d);  // true
+```
+
+Some general advice for working with strict `=== !==` vs loose `== !=`:
+
+- If either value in a comparison could be a true or false, avoid `==` and use `===`.
+- If either value in a comparison could be a `0`, '""', or `[]`(empty array), avoid `==` and use `===`.
+- In all other cases, its safe to use `==`.
+
+Note that when comparing two objects (arrays, functions), the comparison is checking to see if they are the same object... not that their contents are the same. However, if you compare an array object to a string, the array gets coerced to a comma separated string and therefor the comparison could potentially evaluate true, For example:
+
+```javascript
+var a = [1, 2, 3];
+var b = [1, 2, 3];
+var c = a;
+var d = '1,2,3';
+var e = '1, 2, 3';
+
+console.log(a == b);  // false (because they are different objects)
+console.log(a == c);  // true (because they are the same object)
+console.log(a == d);  // true (because the array gets coerced to a string)
+console.log(a == e);  // false (because the coerced array has no spaces)
 ```
 
 The conditional operator `?` is the only one that takes 3 operands. It says if a condition is true, the operator is assigned the first value, otherwise it's assigned the second value. For example:

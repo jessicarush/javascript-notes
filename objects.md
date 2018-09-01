@@ -4,29 +4,29 @@ In JavaScript, objects are like a Python dictionary. They are compound values wh
 
 ```javascript
 var obj = {
-  name: 'Jessica',
+  firstname: 'Jessica',
   age: 43,
   admin: true
 };
 
 // access properties using dot notation
 
-console.log(obj.name);   // Jessica
-console.log(obj.age);    // 43
-console.log(obj.admin);  // true
+console.log(obj.firstname);  // Jessica
+console.log(obj.age);        // 43
+console.log(obj.admin);      // true
 
 // or bracket notation (but dot notation is preferred):
 
-console.log(obj['name']);   // Jessica
-console.log(obj['age']);    // 43
-console.log(obj['admin']);  // true
+console.log(obj['firstname']);  // Jessica
+console.log(obj['age']);        // 43
+console.log(obj['admin']);      // true
 
 ```
 
 Though dot notation is preferred, bracket notation is useful for when the property name is stored in another variable, such as:
 
 ```javascript
-var p = prompt('name, age or admin? ');
+var p = prompt('firstname, age or admin?');
 
 console.log(obj[p]);
 ```
