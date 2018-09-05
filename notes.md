@@ -55,9 +55,26 @@ console.log('End');
 function foo() {
   console.log('Foo');
 }
+// Start
+// Foo
+// End
 ```
 
-This doesn't really work for variables.
+This sort-of works for variables declared in outer scopes, referenced in inner scopes. Provided the variable is defined before the inner scope is called. For example:
+
+```javascript
+function outer() {
+
+  function inner() {
+    console.log(a);  // 1
+  }
+
+  console.log(a);  // undefined
+  var a = 1;
+  inner();
+}
+outer();
+```
 
 
 ## Strict mode

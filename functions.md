@@ -57,7 +57,7 @@ console.log(one());  // 1
 console.log(two());  // 2
 ```
 
-Lexical scope rules say that the code in a scope can access variables in the same scope **or any other outer scope**. Variables from inner scopes however, can not be accessed. For example:
+Lexical scope rules say that the code in a scope can access variables in the same scope **or any other outer scope**. Variables from inner scopes however, can not be accessed. Note that if you try to access a variables value in a scope where it's not available you'll get a `ReferenceError`. For example:
 
 ```javascript
 
@@ -70,13 +70,84 @@ function outer() {
   }
 
   console.log(a);  // outer() only has direct access to 'a'
+  console.log(b);  // ReferenceError: b is not defined
   inner();
 }
 
 outer();  // 1, 3
 ```
+Function scope encourages the idea that all variables belong to the function and can be used and reused throughout the entirety of the function (and accessible even to nested scopes). On the other hand, if you don't take careful precautions, variables existing across the entirety of a scope can lead to some unexpected pitfalls.
 
-If you try to access a variables value in a scope where it's not available you'll get a `ReferenceError`.
+Note that *scope-related assignments* can occur in two ways: by using the `=` operator or by passing arguments to (assign to) function parameters. When referencing a variable the current scope is checked, then the one above and so on until the global scope is reached. The same *identifier* name can be used at multiple layers of nested scope, which is called *shadowing*. Scope look-up stops once it finds the first match. For example:
+
+```javascript
+function outer(a) {
+  var b = a * 2;  // assignment of 'b'
+  var c = 100;    // assignment of 'c', but this value is NOT used
+
+  function inner(c) {
+    console.log(a, b, c);  // 2 4 8
+  }
+  inner(b * 2);   // assignment of 'c', this value is passed to the inner scope
+}
+outer(2);         // assignment of 'a' happens here
+```
+Note that the lexical scope look-up process only applies to *first-class identifiers* such as `a`, `b`, and `c` above. If you were referencing something through dot notation like `foo.bar.x`, lexical scope look-up would only apply for finding `foo`, but beyond that, *object property-access rules* take over to resolve `bar` and `x`.
+
+## Hiding with scope
+
+If you take a section of code and wrap a function declaration around it, what you're essentially doing is creating a new scope bubble around the code which means that any declarations (variable or function) will now be tied to that scope. In other words, you can *hide* variables and functions by enclosing them in the scope of a function.
+
+There is a software design principle called the *Principle of Least Privilege* (also called *Least Authority* or *Least Exposure*) which basically states that in terms of designing the API for a module or object, you should only expose what is necessary and hide everything else.
+
+For example, when writing code, consider whether its necessary for the surrounding/enclosing scope to have access to certain variables and functions or whether they could be made *private*.
+
+```javascript
+var b
+
+function mySubtotal(a) {
+  return a + 1;
+}
+
+function myTotal(a) {
+  b = mySubtotal(a * 2);
+  console.log(a, b);
+}
+
+myTotal(5);
+
+// versus more private:
+
+function myTotal(a) {
+
+  function mySubtotal(a) {
+    return a + 1;
+  }
+
+  var b = mySubtotal(a * 2);
+  console.log(a, b);
+}
+
+myTotal(5);
+```
+
+That example isn't great, but going back to the first comment about wrapping your code in a function declaration to keep things private. Consider that though this is a decent solution, you're still polluting your code with a new function identifier and a function call. You could remove both of those by using a *[IIFE function expression](Immediately-invoked function-expressions-(IIFE))* described below
+
+## Collision Avoidance
+
+A benefit of hiding variables is *collision avoidance* which happens when you have two different identifiers with the same name. Collision often results in unexpected overwriting of values. Multiple libraries loaded into your program can easily collide with each other if they don't properly hide their internal/private functions and variables. Such libraries will often create a single variable declaration in the global scope (often an object) with a unique name. This object is used as the *namespace* for the library... all specific *exposures of functionality* are made as properties of that object rather than as top-level lexically scoped identifiers. For example:
+
+```javascript
+var MyAwesomeLibrary = {
+  awesome: 'sauce',
+  doSomething: function() {
+    // ...
+  },
+  doOtherthing: function() {
+    // ...
+  }
+};
+```
 
 ## Let
 
@@ -96,7 +167,6 @@ function foo() {
 }
 
 foo();
-
 ```
 
 ## Properties

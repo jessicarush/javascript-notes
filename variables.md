@@ -33,6 +33,21 @@ const TAX_RATE = 0.12;  // 12% sales tax
 const ADMIN_FEE = 5;    // $5 flat admin fee
 ```
 
+## global variables
+
+As a side note: global variables are automatically also properties of the global object (`window` in browsers, etc). It's therefor possible to reference a global variable indirectly as a property reference: `window.a` instead of directly by it's *lexical* name `a`. This technique gives access to values that that might otherwise be *shadowed* an inner scope.
+
+```javascript
+var a = 'global a';
+
+function foo() {
+  var a = 'foo a';
+
+  console.log(a);
+  console.log(window.a);  // only works if run in the browser
+}
+foo();
+```
 
 ## naming
 
