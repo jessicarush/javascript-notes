@@ -41,41 +41,6 @@ x = prompt('Enter a number:');
 console.log(x);
 ```
 
-## Hoisting
-
-Note that in JavaScript, any function declarations in a given scope will get *"hoisted"* to the top of the scope which means you can start calling it before it's declaration. For example:
-
-```javascript
-console.log('Start');
-
-foo();
-
-console.log('End');
-
-function foo() {
-  console.log('Foo');
-}
-// Start
-// Foo
-// End
-```
-
-This sort-of works for variables declared in outer scopes, referenced in inner scopes. Provided the variable is defined before the inner scope is called. For example:
-
-```javascript
-function outer() {
-
-  function inner() {
-    console.log(a);  // 1
-  }
-
-  console.log(a);  // undefined
-  var a = 1;
-  inner();
-}
-outer();
-```
-
 
 ## Strict mode
 

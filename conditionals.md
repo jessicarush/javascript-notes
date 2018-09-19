@@ -2,6 +2,18 @@
 
 Any series of statements in JavaScript can be grouped together into a *block* using the curly braces `{...}`. When working with conditionals or loops, we'll have to move our statements into blocks. Note that you don't need a semicolon after a block `{...}`
 
+## if
+
+The simplest form of an `if` conditional statement:
+
+```javascript
+let flag = true;
+
+if (flag) {
+  console.log('Do some work.');
+}
+```
+
 
 ## if...else statements
 

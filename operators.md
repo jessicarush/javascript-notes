@@ -19,7 +19,7 @@ Comparison: `<` `>` `<=` `>=`
 Logical and: `&&`  
 Logical or: `||`  
 Logical not: `!`  
-Conditional operator: `?`  
+Conditional (or ternary) operator: `?`  
 
 There are other, more complex ones (ie Bitwise operators). See: [MDN Expressions and Operators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_Operators).
 
@@ -101,10 +101,38 @@ console.log(a == d);  // true (because the array gets coerced to a string)
 console.log(a == e);  // false (because the coerced array has no spaces)
 ```
 
-The conditional operator `?` is the only one that takes 3 operands. It says if a condition is true, the operator is assigned the first value, otherwise it's assigned the second value. For example:
+The conditional (ternary) operator `?` is the only one that takes 3 operands. It says if a condition is true, the operator is assigned the first value, otherwise it's assigned the second value. For example:
 
 ```javascript
 // condition ? value1 : value2
 
 var status = (age >= 18) ? 'adult' : 'minor';
 ```
+
+## False and Falsy
+
+Note that the following values will evaluate to false when checked as a condition:
+
+- **0** (zero)
+- **Empty strings** like "" or ''
+- **null** which represent when there is no value at all
+- **undefined** which represent when a declared variable lacks a value
+- **NaN** short for Not a Number
+
+## Shorthand using Operators
+
+The nature of Booleans and operators allow us to write some shorter code. For example:
+
+```javascript
+var nom;
+if (username) {
+  nom = username;
+}
+else {
+  nom = 'Stranger';
+}
+// could be shortened to:
+var nom = username || 'Stranger';
+```
+
+This concept is also referred to as short-circuit evaluation.

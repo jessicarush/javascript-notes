@@ -13,9 +13,17 @@ a = a * 2;
 console.log(a);  // 12
 ```
 
-Some programming languages use *Static typing* or *type enforcement* which means you declare what type of data a variable will be. This method benefits program correctness by preventing unintended value conversions.
+Some programming languages use *Static typing* or *type enforcement* which means you declare what type of data a variable will be. This method benefits program correctness by preventing unintended value conversions. Other languages (including JavaScript) use *weak typing* or *dynamic typing* which allows a variable to hold any type of value at any given time. The benefit of this is program flexibility.
 
-Other languages (including JavaScript) use *weak typing* or *dynamic typing* which allows a variable to hold any type of value at any given time. The benefit of this is program flexibility.
+Note that you *can* declare a variable without making an assignment. Until the assignment is made, the variable will hold the `undefined` primitive data type.
+
+```javascript
+var a;
+console.log(a); // undefined
+
+a = 10;
+console.log(a);  // 10
+```
 
 
 ## constants
@@ -26,12 +34,55 @@ Variables that are considered *constants*, should be written in uppercase with u
 var TAX_RATE = 0.12;  // 12% sales tax
 var ADMIN_FEE = 5;    // $5 flat admin fee
 ```
-The newest version of JavaScript (ES6) includes a new way to declare constants with the `const` keyword. For example:
+JavaScript ES6 introduced a new way to declare constants with the `const` keyword. For example:
 
 ```javascript
 const TAX_RATE = 0.12;  // 12% sales tax
 const ADMIN_FEE = 5;    // $5 flat admin fee
 ```
+
+A `const` variable cannot be reassigned because it is constant. If you try to reassign a const variable, you'll get a `TypeError`. `const` variables must be assigned a value when declared. If you try to declare a `const` variable without a value, you'll get a `SyntaxError`.
+
+
+## let
+
+The `let` keyword was introduced in ES6. `let` allows you to declare variables that are limited in scope to the block, statement `{...}`, or expression on which it is used. This is unlike the var keyword, which defines a variable globally, or locally to an entire function regardless of block scope. `let` variables are usually used when there is a limited use of those variables. Say, in `for` loops, `while` loops or inside the scope of `if` conditions etc. Basically, where ever the scope of the variable has to be limited.
+
+```javascript
+for (let i = 0; i <= 5; i++) {
+  console.log(i + '...');
+};
+
+console.log(i);  // ReferenceError: i is not defined
+
+for (var i = 0; i <= 5; i++) {
+  console.log(i + '...');
+};
+
+console.log(i);  // 6
+```
+
+Like `var`, you can declare a `let` variable before you assign to it:
+
+```javascript
+let a;
+console.log(a); // undefined
+
+a = 10;
+console.log(a);  // 10
+```
+
+At the top level of programs and functions, let, unlike var, does not create a property on the *global object*. For example:
+
+```javascript
+var x = 'var';
+let y = 'let';
+
+console.log(this.x); // var
+console.log(this.y); // undefined
+```
+
+Going forward the intention is that the `var` keyword is used in pre-ES6 versions of JS. `let` is the preferred way to declare a variable when it can be reassigned, and `const` is the preferred way to declare a variable with a constant value.
 
 ## global variables
 

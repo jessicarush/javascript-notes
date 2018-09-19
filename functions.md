@@ -1,8 +1,8 @@
 # Functions
 
-Functions are often used for code that you plan to call repeatedly, but they're also good for simply organizing related bits of code into named groups (even if you plan to only call it once).
+Functions are often used for code that you plan to call repeatedly, but they're also good for simply organizing related bits of code into named groups (even if you plan to only call it once). In JavaScript, there are many ways to create a function. One way to create a function is by using a *function declaration*. A *function declaration* is a function that is bound to an identifier, or name.
 
-A barebones example of a function and function call:
+A barebones example of a **function declaration** and **function call**:
 
 ```javascript
 function logAmount() {
@@ -13,7 +13,7 @@ var amount = 9.9888;
 
 logAmount();  // 9.99
 ```
-Functions can optionally take arguments (also called parameters):
+Functions can optionally include **parameters** (called **arguments** in the function call):
 
 ```javascript
 function logAmount(amt) {
@@ -25,7 +25,17 @@ var amount = 9.9888;
 logAmount(amount * 2);  // 19.98
 ```
 
-Functions can return values:
+As of ES6, you can define **default parameters**:
+
+```javascript
+function logAmount(amt, quantity = 1) {
+  console.log((amt * quantity).toFixed(2));
+}
+
+logAmount(9.9888, 2);  // 19.98
+```
+
+Functions can **return values**:
 
 ```javascript
 function formatAmount(amt) {
@@ -37,12 +47,51 @@ var amount = 9.9888;
 console.log(formatAmount(amount * 2));  // $19.98
 ```
 
+Note that the default returned value of any function is `undefined`.
+
+
+## Hoisting
+
+Note that in JavaScript, any function declarations in a given scope will get *"hoisted"* to the top of the scope which means you can start calling it before it's declaration. For example:
+
+```javascript
+console.log('Start');
+
+foo();
+
+console.log('End');
+
+function foo() {
+  console.log('Foo');
+}
+// Start
+// Foo
+// End
+```
+
+*Hoisting* works a bit differently for variables. In short, only the *declaration* (not the assignment) is hoisted. In the example below, the first `console.log(a);` returns `undefined` because the value isn't assigned until the next line. That being said it doesn't throw a `ReferenceError` which you might think would be the case since it isn't declared until the next line either. The `console.log(a);` in the `inner` function returns `1` because `inner` isn't called until after the `a` declaration/assignment:
+
+
+```javascript
+function outer() {
+
+  function inner() {
+    console.log(a);  // 1
+  }
+
+  console.log(a);  // undefined
+  var a = 1;
+  inner();
+}
+outer();
+```
+
+
 ## Scope (*lexical scope*)
 
 Each function has its own scope. Only code inside the function can access the function's *scoped variables* (variables declared within the function). Variable names must be unique within the same scope, but *can* be the same in different scopes. For example:
 
 ```javascript
-
 function one() {
   var a = 1;  // this 'a' only belongs to function one()
   return a;
@@ -131,7 +180,7 @@ function myTotal(a) {
 myTotal(5);
 ```
 
-That example isn't great, but going back to the first comment about wrapping your code in a function declaration to keep things private. Consider that though this is a decent solution, you're still polluting your code with a new function identifier and a function call. You could remove both of those by using a *[IIFE function expression](Immediately-invoked function-expressions-(IIFE))* described below
+That example isn't great, but going back to the first comment about wrapping your code in a function declaration to keep things private. Consider that though this is a decent solution, you're still polluting your code with a new function identifier and a function call. You could remove both of those by using a *IIFE function expression* described below.
 
 ## Collision Avoidance
 
@@ -201,7 +250,7 @@ var x = function() {
 }
 
 var x = function foo() {
-  // this is called a named function expression.
+  // this is called a named function declaration.
   // It's equivalent to first declaring the function foo,
   // then assigning it to the variable x.
 }
@@ -218,7 +267,9 @@ This is a method to declaring and calling a function at the same time:
 })();
 ```
 
-Basically this is a normal function declaration except we are wrapping the whole thing with outer `()` braces which prevents JavaScript from treating it as a normal declaration, then we add another set of `();` braces and a semicolon at the end which act as the function call. In truth, the name of the function serves no purpose here, you might as well skip it:
+Basically this is a normal function declaration except we are wrapping the whole thing with outer `()` braces which prevents JavaScript from treating it as a normal declaration, then we add another set of `();` braces and a semicolon at the end which act as the function call.
+
+In truth, you don't need to name the function here. If you skip it, you now have an *anonymous function expression*:
 
 ```javascript
 (function () {
@@ -226,10 +277,26 @@ Basically this is a normal function declaration except we are wrapping the whole
 })();
 ```
 
+*Anonymous function expressions* are often used as callback parameters:
+
+```javascript
+setTimeout(function() {
+  console.log('Waited 5 seconds.');
+}, 5000);
+```
+
+There are some downsides to anonymous expressions though... without a name, debugging stack traces can be more difficult. The name can also be helpful in terms of creating self-documented, readable code. It also doesn't work well with more complex functions that use recursion. For these reasons, best practice is to just use names no matter what.
+
+```javascript
+setTimeout(function timeoutHandler() {
+  console.log('Waited 5 seconds.');
+}, 5000);
+```
+
 The function could return a value and the whole thing could be assigned to a variable:
 
 ```javascript
-var x = (function () {
+var x = (function foo() {
   return 'hello';
 })();
 
