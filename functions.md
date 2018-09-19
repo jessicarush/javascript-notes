@@ -1,6 +1,6 @@
 # Functions
 
-Functions are often used for code that you plan to call repeatedly, but they're also good for simply organizing related bits of code into named groups (even if you plan to only call it once). In JavaScript, there are many ways to create a function. One way to create a function is by using a *function declaration*. A *function declaration* is a function that is bound to an identifier, or name.
+Functions are often used for code that you plan to call repeatedly, but they're also good for simply organizing related bits of code into named groups (even if you plan to only call it once). In JavaScript, there are many ways to create a function. One way to create a function is by using a *function declaration* (another way is via a *function expression*, described below). A *function declaration* is a function that is bound to an identifier, or name.
 
 A barebones example of a **function declaration** and **function call**:
 
@@ -13,6 +13,7 @@ var amount = 9.9888;
 
 logAmount();  // 9.99
 ```
+
 Functions can optionally include **parameters** (called **arguments** in the function call):
 
 ```javascript
@@ -125,6 +126,7 @@ function outer() {
 
 outer();  // 1, 3
 ```
+
 Function scope encourages the idea that all variables belong to the function and can be used and reused throughout the entirety of the function (and accessible even to nested scopes). On the other hand, if you don't take careful precautions, variables existing across the entirety of a scope can lead to some unexpected pitfalls.
 
 Note that *scope-related assignments* can occur in two ways: by using the `=` operator or by passing arguments to (assign to) function parameters. When referencing a variable the current scope is checked, then the one above and so on until the global scope is reached. The same *identifier* name can be used at multiple layers of nested scope, which is called *shadowing*. Scope look-up stops once it finds the first match. For example:
@@ -143,7 +145,8 @@ outer(2);         // assignment of 'a' happens here
 ```
 Note that the lexical scope look-up process only applies to *first-class identifiers* such as `a`, `b`, and `c` above. If you were referencing something through dot notation like `foo.bar.x`, lexical scope look-up would only apply for finding `foo`, but beyond that, *object property-access rules* take over to resolve `bar` and `x`.
 
-## Hiding with scope
+
+## Hiding with Scope
 
 If you take a section of code and wrap a function declaration around it, what you're essentially doing is creating a new scope bubble around the code which means that any declarations (variable or function) will now be tied to that scope. In other words, you can *hide* variables and functions by enclosing them in the scope of a function.
 
@@ -182,6 +185,7 @@ myTotal(5);
 
 That example isn't great, but going back to the first comment about wrapping your code in a function declaration to keep things private. Consider that though this is a decent solution, you're still polluting your code with a new function identifier and a function call. You could remove both of those by using a *IIFE function expression* described below.
 
+
 ## Collision Avoidance
 
 A benefit of hiding variables is *collision avoidance* which happens when you have two different identifiers with the same name. Collision often results in unexpected overwriting of values. Multiple libraries loaded into your program can easily collide with each other if they don't properly hide their internal/private functions and variables. Such libraries will often create a single variable declaration in the global scope (often an object) with a unique name. This object is used as the *namespace* for the library... all specific *exposures of functionality* are made as properties of that object rather than as top-level lexically scoped identifiers. For example:
@@ -197,6 +201,7 @@ var MyAwesomeLibrary = {
   }
 };
 ```
+
 
 ## Let
 
@@ -218,6 +223,7 @@ function foo() {
 foo();
 ```
 
+
 ## Properties
 
 Since functions are a subtype of the object type, you can assign new properties to a function.
@@ -232,32 +238,34 @@ foo.b = true
 
 console.log(foo.a);  // hello
 console.log(foo.b);  // true
-
 ```
 
 
-## Functions as values
+## Function Expressions *(functions as values)*
 
-Note that in the example above, `foo` is basically just a variable that's given a reference to the function being declared. That is, the function itself is a value. Just like in Python, functions can be passed to, or returned from other functions. This is the weird part:
+Note that in the example above, `foo` is basically just a variable that's given a reference to the function being declared. That is, the function itself is a value. Just like in Python, functions can be passed to, or returned from other functions.
 
 ```javascript
 function foo() {
-  // typical function declaration syntax
+  // typical function declaration
+  // note: no semicolon required after the declaration
 }
 
 var x = function() {
-  // called an anonymous function declaration (similar to lambda in Python)
-}
+  // called an anonymous function expression (similar to lambda in Python)
+  // semicolon is required after the assignment
+};
 
 var x = function foo() {
-  // this is called a named function declaration.
+  // called a named function declaration/expression.
   // It's equivalent to first declaring the function foo,
   // then assigning it to the variable x.
-}
+  // semicolon is required after the assignment
+};
 ```
+Since the release of ES6, it is common practice to use `const` as the keyword to declare the variable containing a function expression.
 
-
-## Immediately invoked function expressions (IIFE)
+## Immediately Invoked Function Expressions *(IIFE)*
 
 This is a method to declaring and calling a function at the same time:
 
@@ -329,7 +337,6 @@ Since Python was the first language I learned, this makes perfect sense to me bu
 
 ## Modules
 
-
 The most common usage of closure in JavaScript is in the *module pattern*. This pattern lets you define private variables and functions that are hidden from the outside, as well as a public API this is accessible from the outside. For example:
 
 ```javascript
@@ -355,3 +362,65 @@ rick.login('rick', 'password');
 ```
 
 Executing `user()` creates an instance of the `user` module. A whole new scope is created. The inner `doLogin()` function has closure over username and password, meaning it will retain access to them even after the `user()` function finishes running.
+
+
+## Helper Functions
+
+Writing helper functions can help take large, difficult tasks and break them into smaller, more manageable tasks. Since each function is carrying out a specific task, it makes our code easier to read and debug.
+
+
+## Arrow Function Syntax
+
+ES6 introduced *arrow function syntax*, a shorter way to write function by using this special notation `() => {}`.
+
+For example:
+```javascript
+const rectangleArea = (width, height) => {
+  let area = width * height;
+  return area;
+};
+```
+
+Get this, Javascript allows the syntax to be mildly condensed by removing the brackets around the parameter if you have only one. To be clear, functions that take only a single parameter do not need that parameter to be enclosed in parentheses. However, if a function takes zero or multiple parameters, parentheses are required. What the justification is for this mixed ruleset is anybody's guess.
+
+```javascript
+// no parameters, brackets required
+const functionName = () => {};
+
+// single parameter, no brackets required
+const functionName = paramOne => {};
+
+// multiple parameters, brackets required
+const functionName = (paramOne, paramTwo) => {};
+```
+
+In addition, a function body composed of a single-line block doesn't need the curly braces. In this case, whatever that line evaluates will be automatically returned. This is referred to as implicit return:
+
+```javascript
+const squareNumber = num => num * num;
+
+console.log(squareNumber(5));  // 25
+```
+
+Here's an example of condensing a lengthy function:
+```javascript
+// long version
+const plantNeedsWater = function(day) {
+  if (day === 'Wednesday') {
+    return true;
+  }
+  else {
+    return false;
+  }
+};
+
+// condensed using the conditional/ternary operator
+const plantNeedsWater = function(day) {
+  return day === 'Wednesday' ? true : false;
+};
+
+// condensed even more using ES6 arrow function syntax
+const plantNeedsWater = day => day === 'Wednesday' ? true : false;
+```
+
+In my opinion the last example trades off readability for condensed code. 

@@ -9,9 +9,59 @@ a = 5;  // single line comment
 Multi-line
 comment
 */
- ```
+```
 
 Comments in your code should explain *why*, not *what*. They can also explain *how* if the code is particularly confusing.
+
+
+## Semicolons
+
+When to use semicolons in JavaScript? In general, you don't need semicolons after a block `{...}` *unless* that block is part of an assignment as with object assignments and function expressions.
+
+**YES semicolons after:**
+```javascript
+// variable declarations
+var x;
+
+// value assignments
+var x = '';
+
+// variable declaration & assignment
+const tax = 12;
+
+// variable assignment of objects
+var obj = {name: 'Morty'};
+
+// function expressions
+var foo = function() {...};
+
+// immediately invoked function expressions
+var foo = function() {...}();
+
+// function calls
+alert('Hi');
+
+// do while loops
+do {...} while (...);
+```
+
+**NO semicolons after:**
+```javascript
+// conditional (control flow) statements
+if  (...) {...}
+else if (...) {...}
+else {...}
+
+// for loops
+for (...) {...}
+
+// while loops
+while (...) {...}
+
+// function declarations
+function identifier (arg) {...}
+```
+
 
 ## Output
 
@@ -56,7 +106,9 @@ versus:
 
 ```javascript
 'use strict';
-// the whole document is strict mode... just do this
+// the whole document is strict mode...
+// though this would seem much simpler than placing in each function,
+// the linters appear to get all pissy about about it.
 
 function foo() {
 }

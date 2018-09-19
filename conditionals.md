@@ -55,8 +55,23 @@ switch (day) {
 ```
 
 The `switch` statement is often used together with a `break` or a `default` keyword (or both). These are both optional:
-The `break` keyword breaks out of the switch block. This will stop the execution of code and/or case testing inside the block. If `break` is omitted, the next code block in the switch statement is executed.
-The `default` keyword specifies some code to run if there is no case match. There can only be one `default` keyword in a switch. Although this is optional, it is recommended that you use it, as it takes care of unexpected cases.
+The `break` keyword breaks out of the switch block. This will stop the execution of code and/or case testing inside the block. If `break` is omitted, the next code block in the switch statement is executed. That being said, if you are returning something, you don't need a `break`. The `default` keyword specifies some code to run if there is no case match. There can only be one `default` keyword in a switch. Although this is optional, it is recommended that you use it, as it takes care of unexpected cases.
+
+```javascript
+function getRandom() {
+  const num = Math.floor(Math.random() * 3);
+  switch (num) {
+    case 0:
+      // no break required because we are using return
+      return 'rock';
+    case 1:
+      return 'paper';
+    default:
+      return 'scissors';
+  }
+}
+```
+
 
 ## conditional operator
 
