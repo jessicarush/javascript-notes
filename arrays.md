@@ -10,22 +10,24 @@ const exampleArray = ['example', 10, true, ['nested', 'array']];
 Array elements/items can be accessed with bracket notation:
 
 ```javascript
+// Array indexing starts at 0
 console.log(exampleArray[0]);  // example
 
 // Access items within nested arrays:
 console.log(exampleArray[3][0]);  // nested
 
 // FYI bracket notation works on strings too:
-console.log(exampleArray[0][1]); // x
+console.log(exampleArray[0][1]);  // x
 
 //If you try to access an index out of range, you'll get `undefined`
-console.log(exampleArray[4]); // undefined
+console.log(exampleArray[4]);  // undefined
 ```
 
 You can use bracket notation to assign a new value to an array index:
 
 ```javascript
 exampleArray[2] = false;
+
 console.log(exampleArray);  // [ 'example', 10, false ]
 ```
 
@@ -42,6 +44,7 @@ JavaScript also has built-in *methods* which can be applied to arrays. The `push
 const myList = ['one', 'two', 'three'];
 myList.push('four', 'five');
 myList.unshift('zero');
+
 console.log(myList);  // [ 'zero', 'one', 'two', 'three', 'four', 'five' ]
 ```
 
