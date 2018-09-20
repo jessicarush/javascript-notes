@@ -54,23 +54,59 @@ switch (day) {
 }
 ```
 
-The `switch` statement is often used together with a `break` or a `default` keyword (or both). These are both optional:
-The `break` keyword breaks out of the switch block. This will stop the execution of code and/or case testing inside the block. If `break` is omitted, the next code block in the switch statement is executed. That being said, if you are returning something, you don't need a `break`. The `default` keyword specifies some code to run if there is no case match. There can only be one `default` keyword in a switch. Although this is optional, it is recommended that you use it, as it takes care of unexpected cases.
+The `switch` block usually includes the `break` and `default` keywords. These are both optional. The `break` keyword breaks out of the switch block. This will stop the execution of code and/or case testing inside the block and continue on to the rest of the code. If `break` is omitted, the next code block in the switch statement is executed. The `default` keyword specifies some code to run if there is no case match. There can only be one `default` keyword in a switch. Although this is optional, it is recommended that you use it, as it takes care of unexpected cases.
+
+### Returning values in switch statements
+
+Note that if you want to `return` something from your switch block, there's a couple things to consider.
+
+First off, if you are using the `return` keyword in your cases, you wouldn't need a `break` as well. In the function example below, each case returns a value. Placing breaks after the return would be pointless because once something is returned, we exit the function. In other words, if we use multiple returns like this, any code that follows the switch block (inside the function) will never run.
 
 ```javascript
-function getRandom() {
-  const num = Math.floor(Math.random() * 3);
-  switch (num) {
+function badSwitch() {
+  const i = Math.floor(Math.random() * 3);
+  switch (i) {
     case 0:
-      // no break required because we are using return
       return 'rock';
+      /* Using breaks here would be pointless.
+      In general, this is bad practice anyways.
+      Our last line of code will never run and,
+      debugging will be more difficult. */
     case 1:
       return 'paper';
     default:
       return 'scissors';
   }
+  console.log('This will never run.');
 }
+
+console.log(badSwitch());
 ```
+
+Even if you have no intention of running additional code after the block **putting multiple returns in a `switch` statement like this is not ideal** because it increases your *[cyclomatic complexity](https://en.wikipedia.org/wiki/Cyclomatic_complexity)*. Basically, this means that debugging can become much more difficult. A better approach would be to use breaks and return once at the end:
+
+```javascript
+function goodSwitch() {
+  const i = Math.floor(Math.random() * 3);
+  let item;
+  switch (i) {
+    case 0:
+      item = 'rock';
+      break;
+    case 1:
+      item = 'paper';
+      break;
+    default:
+      item = 'scissors';
+  }
+  console.log('Item is assigned, time to return it.');
+  return item;
+}
+
+console.log(goodSwitch());
+```
+
+Technically speaking, the downside of using breaks and returning at the end is you are ever-so-slightly reducing performance in terms of the extra step, but this is by far the better trade-off.
 
 
 ## conditional operator

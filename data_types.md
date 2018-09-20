@@ -61,6 +61,12 @@ console.log(typeof a);  // symbol
 
 a = {b: 'c'};
 console.log(typeof a);  // object
+
+a = ['one', 'two', 'three'];
+console.log(typeof a);  // object
+
+a = function () {};
+console.log(typeof a);  // function
 ```
 
 Notice that `typeof` is not asking for the *type of 'a'* but rather for the *type of the value currently in 'a'*. Only values have types in JavaScript, variables are just containers.

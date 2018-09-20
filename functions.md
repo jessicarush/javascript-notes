@@ -29,7 +29,7 @@ logAmount(amount * 2);  // 19.98
 As of ES6, you can define **default parameters**:
 
 ```javascript
-function logAmount(amt, quantity = 1) {
+function logAmount(amt, quantity=1) {
   console.log((amt * quantity).toFixed(2));
 }
 
@@ -146,6 +146,38 @@ outer(2);         // assignment of 'a' happens here
 Note that the lexical scope look-up process only applies to *first-class identifiers* such as `a`, `b`, and `c` above. If you were referencing something through dot notation like `foo.bar.x`, lexical scope look-up would only apply for finding `foo`, but beyond that, *object property-access rules* take over to resolve `bar` and `x`.
 
 
+## Scope Pollution
+
+When working with global variables, it's really easy to accidentally overwrite a value from a local scope into the global one. For example:
+
+```javascript
+let num = 50;
+
+const logNum = () => {
+  num = 100;
+  console.log(num);
+};
+
+logNum(); // 100
+console.log(num); // 100
+```
+
+ Versus:
+```javascript
+let num = 50;
+
+const logNum = () => {
+  let num = 100;
+  console.log(num);
+};
+
+logNum(); // 100
+console.log(num); // 50
+```
+
+As a result, the general advice is it's best to **not** define variables in the global scope. It's also important to not that by limiting your variables to the local scopes in which they're used, it will save memory because the variable will cease to exist after the block finishes running. 
+
+
 ## Hiding with Scope
 
 If you take a section of code and wrap a function declaration around it, what you're essentially doing is creating a new scope bubble around the code which means that any declarations (variable or function) will now be tied to that scope. In other words, you can *hide* variables and functions by enclosing them in the scope of a function.
@@ -251,7 +283,7 @@ function foo() {
   // note: no semicolon required after the declaration
 }
 
-var x = function() {
+var x = function () {
   // called an anonymous function expression (similar to lambda in Python)
   // semicolon is required after the assignment
 };
@@ -288,7 +320,7 @@ In truth, you don't need to name the function here. If you skip it, you now have
 *Anonymous function expressions* are often used as callback parameters:
 
 ```javascript
-setTimeout(function() {
+setTimeout(function () {
   console.log('Waited 5 seconds.');
 }, 5000);
 ```
@@ -423,4 +455,4 @@ const plantNeedsWater = function(day) {
 const plantNeedsWater = day => day === 'Wednesday' ? true : false;
 ```
 
-In my opinion the last example trades off readability for condensed code. 
+In my opinion the last example trades off readability for condensed code.
