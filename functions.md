@@ -175,7 +175,7 @@ logNum(); // 100
 console.log(num); // 50
 ```
 
-As a result, the general advice is it's best to **not** define variables in the global scope. It's also important to not that by limiting your variables to the local scopes in which they're used, it will save memory because the variable will cease to exist after the block finishes running. 
+As a result, the general advice is it's best to **not** define variables in the global scope. It's also important to not that by limiting your variables to the local scopes in which they're used, it will save memory because the variable will cease to exist after the block finishes running.
 
 
 ## Hiding with Scope
@@ -253,23 +253,6 @@ function foo() {
 }
 
 foo();
-```
-
-
-## Properties
-
-Since functions are a subtype of the object type, you can assign new properties to a function.
-
-```javascript
-function foo() {
-  return 43;
-}
-
-foo.a = 'hello';
-foo.b = true
-
-console.log(foo.a);  // hello
-console.log(foo.b);  // true
 ```
 
 
@@ -367,6 +350,51 @@ console.log( x100(5) );
 Since Python was the first language I learned, this makes perfect sense to me but if you're coming from another language like `C`, apparently this is a bit of a head f*. Whatever.
 
 
+## Properties and Methods
+
+In JavaScript, functions are *first class objects*, this means that like other objects they can have properties and methods.
+
+Since functions are a subtype of object, they have properties such as `.length` and `.name` and methods such as `.toString()`. You can see more about the [methods and properties of functions here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function).
+
+Here we're using a built-in property `name` as well as assigning new properties to a function:
+
+```javascript
+function veryLongFunctionName() {
+  return 43;
+}
+
+const foo = veryLongFunctionName;
+
+foo.a = 'hello';
+foo.b = true;
+
+console.log(foo.a);  // hello
+console.log(foo.b);  // true
+console.log(foo.name);  // veryLongFunctionName
+```
+
+Here we're checking the name of the  function:
+
+
+## Helper Functions
+
+Writing helper functions can help take large, difficult tasks and break them into smaller, more manageable tasks. Since each function is carrying out a specific task, it makes our code easier to read and debug.
+
+
+## Abstractions
+
+When we communicate, our language includes vocabulary that allows us to convey more complicated tasks in a few words. For example, to say *bake* a cake we understand the concept without having to list all the details. In programming, we can accomplish *abstraction* by writing functions. In addition to allowing us to reuse our code, functions help to make clear, readable programs.
+
+
+## Higher-order Functions
+
+*Higher-order functions* are functions that accept other functions as arguments and/or return functions as output. This enables us to build abstractions on other abstractions. Using more abstraction in our code allows us to write more modular code which is easier to read and debug.
+
+## Callback Functions
+
+Functions that get passed in as parameters and invoked are called *callback functions* because they get called during the execution of the higher-order function. When we pass a function in as an argument to another function, we don't invoke it. Invoking the function would evaluate to the return value of that function call. With callbacks, we pass in the function itself by typing the function name without the parentheses.
+
+
 ## Modules
 
 The most common usage of closure in JavaScript is in the *module pattern*. This pattern lets you define private variables and functions that are hidden from the outside, as well as a public API this is accessible from the outside. For example:
@@ -394,11 +422,6 @@ rick.login('rick', 'password');
 ```
 
 Executing `user()` creates an instance of the `user` module. A whole new scope is created. The inner `doLogin()` function has closure over username and password, meaning it will retain access to them even after the `user()` function finishes running.
-
-
-## Helper Functions
-
-Writing helper functions can help take large, difficult tasks and break them into smaller, more manageable tasks. Since each function is carrying out a specific task, it makes our code easier to read and debug.
 
 
 ## Arrow Function Syntax
@@ -432,6 +455,23 @@ In addition, a function body composed of a single-line block doesn't need the cu
 const squareNumber = num => num * num;
 
 console.log(squareNumber(5));  // 25
+```
+
+You can also drop the name to create an anonymous function. This can be useful when passing a function in as a parameter:
+
+```javascript
+const timeFuncRuntime = funcParameter => {
+   let t1 = Date.now();
+   funcParameter();
+   let t2 = Date.now();
+   return t2 - t1;
+};
+
+timeFuncRuntime(() => { // anonymous function passed to timeFuncRuntime();
+  for (let i = 10; i>0; i--){
+    console.log(i);
+  }
+});
 ```
 
 Here's an example of condensing a lengthy function:
