@@ -92,7 +92,7 @@ for (let i = 0; i < choices.length; i++) {
 
 ## for...in
 
-Iterates over the enumerable properties of an object, in arbitrary order. For each distinct property, statements can be executed.
+`for...in` will execute a given block of code for each property in an object, in arbitrary order. You will need to use bracket notation instead if dot notation to access properties because dot notation expects the property name to be an objects actual/literal property name at the time the program was evaluated whereas bracket notation allows you to pass a variable.
 
 ```javascript
 const obj = {first: 'jessica', last: 'rush', sign: 'scorpio'};
@@ -103,6 +103,55 @@ for (let property in obj) {
 // jessica
 // rush
 // scorpio
+
+for (let property in obj) {
+  console.log(obj.property);
+}
+// undefined
+// undefined
+// undefined
+```
+
+One weird thing is that when you want to access properties in nested objects, you have to explicitly list the path, for example:
+
+```javascript
+let spaceship = {
+    crew: {
+    captain: {
+        name: 'Maeve',
+        degree: 'Computer Engineering',
+        },
+    'chief officer': {
+        name: 'Dan',
+        degree: 'Aerospace Engineering',
+        },
+    medic: {
+        name: 'Clementine',
+        degree: 'Physics',
+        },
+    }
+};
+
+for (let person in spaceship.crew) {
+  console.log(`${person}: ${person.name}`);
+}
+// captain: undefined
+// chief officer: undefined
+// medic: undefined
+
+for (let person in spaceship.crew) {
+  console.log(`${person}: ${[person].name}`);
+}
+// captain: undefined
+// chief officer: undefined
+// medic: undefined
+
+for (let person in spaceship.crew) {
+  console.log(`${person}: ${spaceship.crew[person].name}`);
+}
+// captain: Maeve
+// chief officer: Dan
+// medic: Clementine
 ```
 
 ## for...of
