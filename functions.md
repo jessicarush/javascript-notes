@@ -390,9 +390,58 @@ When we communicate, our language includes vocabulary that allows us to convey m
 
 *Higher-order functions* are functions that accept other functions as arguments and/or return functions as output. This enables us to build abstractions on other abstractions. Using more abstraction in our code allows us to write more modular code which is easier to read and debug.
 
+
 ## Callback Functions
 
 Functions that get passed in as parameters and invoked are called *callback functions* because they get called during the execution of the higher-order function. When we pass a function in as an argument to another function, we don't invoke it. Invoking the function would evaluate to the return value of that function call. With callbacks, we pass in the function itself by typing the function name without the parentheses.
+
+
+## Factory Functions
+
+A factory function is a function that returns an object and can be reused to make multiple object instances. Factory functions can also have parameters allowing us to customize the object that gets returned.
+
+```javascript
+const plantFactory = (name, age, waterFrequency, sunlight) => {
+  return {
+    age: age,
+    name: name,
+    waterFrequency: waterFrequency,
+    sunlight: sunlight
+  };
+};
+
+const spider = plantFactory('spider plant', 10, 7, 'full');
+const coffee = plantFactory('coffee plant', 3, 5, 'partial');
+
+console.log(spider.name);  // spider plant
+console.log(coffee.name);  // coffee plant
+```
+
+ES6 introduced some new shortcuts for assigning properties to variables known as **destructuring**. Specifically, a destructuring technique, called *property value shorthand* allows us to omit the `: value` if the property & value are the same, for example:
+
+```javascript
+const plantFactory = (name, age, waterFrequency, sunlight) => {
+  return {
+    age,
+    name,
+    waterFrequency,
+    sunlight
+  };
+};
+
+const spider = plantFactory('spider plant', 10, 7, 'full');
+```
+
+Though not specific to functions per se, there's also a destructuring technique for assigning object properties. In *destructured assignment* we can create a new variable with the name of an object's key with shorthand that wraps the key name in curly braces `{}`. For example, using the spider object created above:
+
+```javascript
+// normal assignment:
+const sunlight = spider.sunlight;
+
+// destructured assignment
+const {sunlight} = spider;
+```
+TBH, as someone new to Javascript, this kind of shit makes me crazy. Moving on...
 
 
 ## Modules
