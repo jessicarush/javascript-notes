@@ -126,3 +126,13 @@ console.log(myString);  // one two three four five
 
 console.log(typeof myString);  // string
 ```
+
+### Convert a string to an array with *split()*
+
+```javascript
+const myString = 'one two three four five';
+
+let myList = myString.split(' ');  // the argument passed is the separator
+
+console.log(myList);  // [ 'one', 'two', 'three', 'four', 'five' ]
+```

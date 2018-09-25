@@ -89,3 +89,39 @@ for (let i = 0; i < choices.length; i++) {
 // toast
 // cheese
 ```
+
+## for...in
+
+Iterates over the enumerable properties of an object, in arbitrary order. For each distinct property, statements can be executed.
+
+```javascript
+const obj = {first: 'jessica', last: 'rush', sign: 'scorpio'};
+
+for (let property in obj) {
+  console.log(obj[property]);
+}
+// jessica
+// rush
+// scorpio
+```
+
+## for...of
+
+Iterates over iterable objects (including arrays, array-like objects, iterators and generators), invoking a custom iteration hook with statements to be executed for the value of each distinct property.
+
+```javascript
+// for (variable of iterable) {
+//   statement
+// }
+
+const myArray = ['yes', 'no', 'yes', 'yes', 'maybe'];
+
+let counter = 0;
+for (let item of myArray) {
+  if (item === 'yes') {
+    counter++;
+  }
+}
+
+console.log(counter); // 3
+```

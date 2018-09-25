@@ -30,7 +30,25 @@ var p = prompt('firstname, age or admin?');
 
 console.log(obj[p]);
 ```
+In addition we must use bracket notation when accessing keys that have numbers, spaces, or special characters in them. Without bracket notation in these situations, our code would throw an error.
 
+You can assigned new properties or delete properties on an object:
+
+```javascript
+const obj = {
+  firstname: 'Jessica',
+  age: 43,
+  admin: true
+};
+
+obj.age = 100;
+obj.lastname = 'Rush';
+delete obj.admin;
+
+console.log(obj);  // { firstname: 'Jessica', age: 100, lastname: 'Rush' }
+```
+
+When the data stored on an object is a function we call that a method. A property is what an object has, while a method is what an object does.
 
 ## Arrays
 
