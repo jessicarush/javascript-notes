@@ -67,7 +67,7 @@ We pass JavaScript ES6 to Babel, which will transpile it to ES5 and write it to 
 
 #### Step 1: create a *src* directory
 
-The first step is to place your ES6 JavaScript file in a directory called `src`. From your root directory, the path to the ES6 file is `./src/main.js`
+The first step is to place your ES6 JavaScript file(s) in a directory called `src`. From your root directory, the path to an ES6 file is `./src/main.js`
 
 
 #### Step 2. create a package.json
@@ -77,7 +77,7 @@ Before installing Babel with `npm`, we should have a `package.json`. This file h
 To create a package file, use the `npm init` command from the root folder of your project.
 
 
-#### Step 3. Install Babel
+#### Step 3. Install Babel CLI package
 
 Once you've created the `package.json` file in your project root folder with `npm init`, You can install the Babel CLI. The install command creates a folder called `node_modules` and copies the package files to it.
 
@@ -87,24 +87,18 @@ npm install babel-cli -D
 
 Note the `-D` or `--save-dev` flag tells npm that this package is for development only. It gets recorded in your `package.json` under `devDependencies`.
 
-Similarly, there's a `-P` or `--save-prod` flag which saves the package as production dependency (a package required at run time by your program). This is actually the default option and these get recorded in your `package.json` under `dependencies`.
 
-There's also a `-O` or `--save-optional` where the package will appear as `optionalDependencies` and a `--no-save` which prevents saving to dependencies at all.
+#### Step 4. Install the Babel ES6+ to ES5 preset
 
-For more information see the [npm install page](https://docs.npmjs.com/cli/install).
-
-
-#### 4. Install the Babel ES6+ to ES5 preset
-
-This preset enables transforms for ES2015+ (ES6) to ES5.
+This package contains all the ES6+ to ES5 syntax mapping information.
 
 ```sh
 npm install babel-preset-env -D
 ```
 
-#### 5. babelrc
+#### Step 5. babelrc
 
-Next, we need to create a `.babelrc` config file in the project root folder. Here we need specify the version of the source JavaScript code (called a *preset*).
+Next, we need to create a `.babelrc` config file in the project root folder. This is where we tell Babel the version of the source JavaScript code (called a *preset*).
 
 To specify that we are transpiling code from an ES6+ source, we have to add the following into `.babelrc`:
 
@@ -117,7 +111,7 @@ To specify that we are transpiling code from an ES6+ source, we have to add the 
 
 #### Step 6. Babel scripts
 
-Instead of running Babel directly from the command line we're going to put our commands in npm scripts which will use our local version. Simply add a "scripts" field to your `package.json` and put the babel command inside there as build.
+Instead of running Babel directly from the command line we're going to put our commands in npm scripts which will use our local version. Simply add to "scripts" in to your `package.json` and put the babel command inside there as build.
 
 ```json
 ...
