@@ -10,7 +10,7 @@ Modules are particularly useful for separating code with similar logic into file
 - prevent pollution of the global namespace and potential naming collisions, by cautiously selecting the variables and behavior we load into a program
 
 
-## Defining & Exporting Modules
+## Exporting Modules with module.exports
 
 The pattern we use to export modules is this:
 
@@ -22,24 +22,134 @@ For example:
 
 ```javascript
 let Menu = {};
-Menu.specialty = "Roasted Beet Burger";
+
+Menu.specialty = 'Roasted Beet Burger';
 
 module.exports = Menu;
 ```
 
 `module.exports = Menu;` exports the `Menu` object as a module. `module` is a variable that represents the module, and `exports` exposes the module as an object.
 
+An alternate way would be:
 
-## Import with require()
+```javascript
+let Menu = {};
+
+module.exports = {
+  specialty: 'Roasted Beet Burger',
+  getSpecialty: function() {
+    return this.specialty;
+  }
+};
+```
+
+The idea here with module.exports is that you are exporting one module per file.
+
+
+## Importing Modules with require()
 
 A common way to import a module is with the require() function. Provided the code above was saved in a file called `menu.js`, in another file we could do the following:
 
 ```javascript
 const Menu = require('./menu.js');
 
+console.log(Menu.getSpecialty());  // Roasted Beet Burger
+
 function placeOrder() {
   console.log('My order is: ' + Menu.specialty);
 }
 
-placeOrder();
+placeOrder();  // My order is: Roasted Beet Burger
 ```
+
+## ES6 Export syntax
+
+ES6 implemented a more readable, flexible syntax for exporting modules. These are usually broken down into one of two techniques, default export and named exports. The default export syntax works similarly to the module.exports syntax, allowing us to export one module per file.
+
+### default export
+
+```javascript
+let Menu = {};
+
+Menu.specialty = 'Roasted Beet Burger';
+
+export default Menu;
+```
+
+`export default` uses the JavaScript export statement to export objects, functions, and primitive data types. `Menu` refers to the name of the `Menu` object, which is the object that we are setting the properties on within our module.
+
+When using ES6 syntax, use `export default` in place of `module.exports`
+
+### named export
+
+With the other export technique called named exports, we are not setting the properties on an object. Each export is stored in its own variable.
+
+```javascript
+let specialty = 'Roasted Beet Burger';
+
+function isVegetarian() {
+  console.log('Vegetarian');
+}
+
+export { specialty, isVegetarian };
+```
+
+Named exports are special in that they can be exported as soon as they are declared, by placing the keyword `export` in front of variable declarations.
+
+```javascript
+export let specialty = 'Roasted Beet Burger';
+
+export function isVegetarian() {
+  console.log('Vegetarian');
+}
+```
+
+Named exports also allow us to change the name (create an alias) of the variables when we export or import them using the `as` keyword. Note that this can also be done in the import statement.
+
+```javascript
+let specialty = 'Roasted Beet Burger';
+
+function isVegetarian() {
+  console.log('Vegetarian');
+}
+
+export { specialty as special, isVegetarian as veg };
+```
+
+### summary
+
+Use `export default` to export JavaScript objects, functions, and primitive data types.
+Use named exports to `export` data in variables.
+
+## ES6 Import Syntax
+
+ES6 also introduced a new syntax for imports:
+
+```javascript
+import Menu from './menu';
+```
+
+The `import` keyword begins the statement. `Menu` specifies the name of the variable to store the default export in. `from` specifies where to load the module from. When dealing with local files, it refers to the name of the file without the extension.
+
+When using named exports you would import like:
+
+```javascript
+import { specialty, isVegetarian } from './menu';
+```
+
+Optionally create an alias:
+
+```javascript
+import { specialty as special, isVegetarian as veg} from './menu';
+```
+
+Another way of using aliases is to import the entire module as an alias:
+
+```javascript
+import * as Whatever from './menu';
+
+Whatever.specialty;
+Whatever.isVegetarian();
+```
+
+Note that `import` doesn't work in Node yet.
