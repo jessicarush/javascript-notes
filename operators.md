@@ -114,10 +114,10 @@ var status = (age >= 18) ? 'adult' : 'minor';
 Note that the following values will evaluate to false when checked as a condition:
 
 - **0** (zero)
-- **Empty strings** like "" or ''
+- **Empty strings** like `""` or `''`
 - **null** which represent when there is no value at all
 - **undefined** which represent when a declared variable lacks a value
-- **NaN** short for Not a Number
+- **NaN** short for *Not a Number*, it is teh result of an operation that cannot produce normal result. `Nan` is nit equal to any other value, including itself.
 
 ## Shorthand using Operators
 

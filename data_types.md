@@ -4,7 +4,7 @@
 JavaScript uses six *primitive data types*, along with one complex type:
 
 **Strings** — Any grouping of characters surrounded by single or double quotes.  
-**Numbers** — Any number, including numbers with decimals.  
+**Numbers** — Any number, including numbers with decimals. Internally, they're represented as 64-bit floating point.  
 **Booleans** — Either true or false, with no quotations.  
 **Null** — Can only be null. It represents the absence of value.  
 **Undefined** — Automatically assigned to variables that have just been declared or to formal arguments for which there are no actual arguments.  
@@ -94,4 +94,20 @@ var quantity = 3;
 var total = '$' + String(amount * quantity);
 
 console.log(total);  //$29.97
+```
+
+## Escape Character
+
+The backslash `\` can be used in strings to escape characters or insert control characters, such as:
+
+```javascript
+const doublequote = "\"";
+const singlequote = '\'';
+const backslash = '\\';
+const backspace = '\b';
+const formfeed = '\f';
+const newline = '\n';
+const carriagereturn = '\r';
+const tab = '\t';
+const unicode = '\u25b6';
 ```

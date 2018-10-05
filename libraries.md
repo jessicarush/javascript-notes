@@ -37,6 +37,12 @@ The [Number library](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Ref
 Number.parseFloat('5.20');  // 5.2
 Number.isInteger(5);        // true
 Number.isFinite(5.2345);    // true
+
+let a = 5;
+let b = 'string';
+let c = a * b;
+
+Number.isNaN(c);  // true
 ```
 
 `Number()` itself is a built-in function. Using it alone will convert a string to a number. If you try to convert a string that doesn't translate to a number you'll get `NaN`:

@@ -11,6 +11,8 @@ comment
 */
 ```
 
+That being said, this pair `*/` can occur in regular expressions and so are not safe for commenting out blocks of code. It's best to stick with `//` and avoid `/* */` altogether.
+
 Comments in your code should explain *why*, not *what*. They can also explain *how* if the code is particularly confusing.
 
 
@@ -82,6 +84,7 @@ This function will write to an alert pop-up:
 alert('Hello.');
 ```
 
+
 ## Input
 
 While you would generally create an HTML form to receive user input, a cheap and easy way for learning and demonstration purposes is to use the `prompt()` function:
@@ -111,6 +114,17 @@ versus:
 // the linters appear to get all pissy about about it.
 
 function foo() {
+}
+```
+
+
+## JSHint
+
+When using a linter like JSHint, you can avoid ES6 syntax errors by creating a `.jshintrc` file and placing it in the root directory of your project. In this file type the following:
+
+```json
+{
+  "esversion": 6
 }
 ```
 
