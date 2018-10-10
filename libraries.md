@@ -48,6 +48,6 @@ Number.isNaN(c);  // true
 `Number()` itself is a built-in function. Using it alone will convert a string to a number. If you try to convert a string that doesn't translate to a number you'll get `NaN`:
 
 ```javascript
-var a = '42';
-var b = Number(a);
+let a = '42';
+let b = Number(a);
 ```

@@ -8,7 +8,7 @@ A loop includes a test condition as well as a block `{...}`. Each time a loop bl
 while (condition) { code }
 
 ```javascript
-var countdown = 5;
+let countdown = 5;
 
 while (countdown > 0) {
   console.log('Count...' + countdown);
@@ -21,7 +21,7 @@ while (countdown > 0) {
 do { code } while (condition)
 
 ```javascript
-var countdown = 5;
+let countdown = 5;
 
 do {
   console.log('Count...' + countdown);
@@ -35,18 +35,18 @@ The only practical difference between these two is whether the conditional is te
 
 JavaScript also has a `for` loop. These loops take three clauses:
 
-1. an initialization clause such as `var i = 0`
+1. an initialization clause such as `let i = 0`
 2. a conditional clause such as `i <= 5`
 3. an update clause such as `i++`
 
 Put together, it looks like this:
 ```javascript
-for (var i = 0; i <= 5; i++) {
+for (let i = 0; i <= 5; i++) {
   console.log('Count...' + i);
 }
 ```
 
-To iterate over an array, you have to use the length parameter and index positions.
+To iterate over an array, you would have to use the length parameter and index positions.
 
 ```javascript
 const stupid = ['I', 'miss', 'Python'];
@@ -89,6 +89,34 @@ for (let i = 0; i < choices.length; i++) {
 // toast
 // cheese
 ```
+
+By using the `break` keyword, you can actually omit the the conditional clause in some cases. For example, the following loop will stop when it reaches the first number that is greater than 100 and divisible by 7:
+
+```Javascript
+for (let num = 100; ; num = num++) {
+  if (num % 7 === 0) {
+    console.log(num);
+    break;
+  }
+}
+```
+
+The `continue` keyword skips past an iteration and moves onto the next, for example:
+
+```javascript
+let things = ['Sam', 345, null, 'Jane', true, 'Jim'];
+
+for (let i = 0; i < things.length; i++) {
+  if (typeof things[i] !== 'string') {
+    continue;
+  }
+  console.log(things[i]);
+}
+// Sam
+// Jane
+// Jim
+```
+
 
 ## for...in
 

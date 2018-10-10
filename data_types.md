@@ -41,7 +41,7 @@ console.log(40.7);     // 40.7 is a number literal
 `typeof` is an operator that can be used to return a value's *type* as a string. For example:
 
 ```javascript
-var a = 'hello';
+let a = 'hello';
 console.log(typeof a);  // string
 
 a = 43;
@@ -77,8 +77,8 @@ Notice that `typeof` is not asking for the *type of 'a'* but rather for the *typ
 If you have a number and need to print it to the screen, you'll need to convert it to a string. Similarly, if you're working with numbers entered into a form on screen, they'll be strings by default and will need to be converted to numbers if we want to calculate something. In Javascript this conversion of one data type to another is called coercion.
 
 ```javascript
-var a = '42';
-var b = Number(a);
+let a = '42';
+let b = Number(a);
 
 console.log(a);  // "42" (text is black in firefox console)
 console.log(b);  // 42 (numbers are green in firefox console)
@@ -89,11 +89,22 @@ Using the `Number()` function like this is considered *explicit* coercion. But, 
 You can *explicitly coerce* to a string with `String()`:
 
 ```javascript
-var amount = 9.99;
-var quantity = 3;
-var total = '$' + String(amount * quantity);
+let amount = 9.99;
+let quantity = 3;
+const total = '$' + String(amount * quantity);
 
 console.log(total);  //$29.97
+```
+
+When it comes to *implicit* coercion, JavaScript doesn't always do what you expect, for example:
+
+```javascript
+console.log(5 * null);
+// 0
+console.log(5 - '1');
+// 4
+console.log(5 + '1');
+// 51
 ```
 
 ## Escape Character

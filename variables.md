@@ -13,6 +13,12 @@ a = a * 2;
 console.log(a);  // 12
 ```
 
+You can declare more than one variable using the same `var` (or `const`,`let`) keyword:
+
+```javascript 
+var a = 5, b = 10, c = 100;
+```
+
 Some programming languages use *Static typing* or *type enforcement* which means you declare what type of data a variable will be. This method benefits program correctness by preventing unintended value conversions. Other languages (including JavaScript) use *weak typing* or *dynamic typing* which allows a variable to hold any type of value at any given time. The benefit of this is program flexibility.
 
 Note that you *can* declare a variable without making an assignment. Until the assignment is made, the variable will hold the `undefined` primitive data type.

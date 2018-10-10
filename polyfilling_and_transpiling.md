@@ -5,8 +5,8 @@ In working with a language that has many new features but having to also conside
 *Polyfilling* means to produce a piece of code that's equivalent in behavior to the new feature, but will run in older JavaScript environments. Here's an example of polyfilling... ES6 defines a utility called `Number.isNaN()` to check for `NaN` values. This replaces the deprecated `isNaN()` utility:
 
 ```javascript
-var a = 10;
-var b = NaN;
+let a = 10;
+let b = NaN;
 
 console.log(Number.isNaN(a));  // false
 console.log(Number.isNaN(b));  // true
@@ -38,14 +38,14 @@ A transpilier would take that code and turn it into something like this:
 
 ```javascript
 function foo() {
-  var a = arguments[0] !== (void 0) ? arguments[0] : 5;
+  let a = arguments[0] !== (void 0) ? arguments[0] : 5;
   console.log(a);
 }
 foo(10);  // 10
 foo();    // 5
 ```
 
-The `var a` statement uses the conditional operator. Provided the first argument isn't undefined `(void 0)`, use it, otherwise use 5.
+The `let a` statement uses the conditional operator. Provided the first argument isn't undefined `(void 0)`, use it, otherwise use 5.
 
 Since JS will continue to evolve, transpilers should be thought of as part of the standard JS development process. Here are some good ones:
 

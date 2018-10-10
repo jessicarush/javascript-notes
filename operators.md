@@ -1,6 +1,6 @@
 # Operators
 
-JavaScript supports the following operators:
+Operators that use two values are called *binary operators*, while those that take one are called *unary operators*. There in also a *ternary operator* `?:` that takes three.
 
 Add: `+`  
 Subtract: `-`  
@@ -19,7 +19,7 @@ Comparison: `<` `>` `<=` `>=`
 Logical and: `&&`  
 Logical or: `||`  
 Logical not: `!`  
-Conditional (or ternary) operator: `?`  
+Conditional (ternary) operator: `?`  
 
 There are other, more complex ones (ie Bitwise operators). See: [MDN Expressions and Operators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_Operators).
 
@@ -31,7 +31,7 @@ console.log(4 * 2);   // 8
 console.log(5 / 2);   // 2.5
 console.log(12 % 5);  // 2
 
-var a = 5;
+let a = 5;
 
 console.log(a += 1);  // 6
 console.log(a -= 1);  // 5
@@ -49,6 +49,7 @@ console.log(a);    // 4.5
 ```
 
 For strict equality/non-equality the data type must be the same. Another way to put it is in the case of loose comparisons, JavaScript is allowed to perform *[type coercion](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Equality_comparisons_and_sameness)* on the values before the comparison takes place whereas it does no coercing in a strict comparison.
+
 ```javascript
 console.log(a == '4.5');     // true
 console.log(a === '4.5');    // false
@@ -70,10 +71,10 @@ console.log(!true);          // false
 Note the `< <= > >=` comparison operators are not strict. If you try to compare two strings, the comparison is made alphabetically. If one of the values is a number, then both values are coerced to numbers and a typical numeric comparison occurs. If one of the values cannot be made into a valid number it becomes `NaN` and all comparisons will fail because `NaN` is neither greater than or less than any other value.
 
 ```javascript
-var a = 10;
-var b = '15';
-var c = 'apple';
-var b = 'apples';
+let a = 10;
+let b = '15';
+let c = 'apple';
+let b = 'apples';
 
 console.log(a < b);  // true
 console.log(a < c);  // false
@@ -89,11 +90,11 @@ Some general advice for working with strict `=== !==` vs loose `== !=`:
 Note that when comparing two objects (arrays, functions), the comparison is checking to see if they are the same object... not that their contents are the same. However, if you compare an array object to a string, the array gets coerced to a comma separated string and therefor the comparison could potentially evaluate true, For example:
 
 ```javascript
-var a = [1, 2, 3];
-var b = [1, 2, 3];
-var c = a;
-var d = '1,2,3';
-var e = '1, 2, 3';
+let a = [1, 2, 3];
+let b = [1, 2, 3];
+let c = a;
+let d = '1,2,3';
+let e = '1, 2, 3';
 
 console.log(a == b);  // false (because they are different objects)
 console.log(a == c);  // true (because they are the same object)
@@ -106,7 +107,7 @@ The conditional (ternary) operator `?` is the only one that takes 3 operands. It
 ```javascript
 // condition ? value1 : value2
 
-var status = (age >= 18) ? 'adult' : 'minor';
+let status = (age >= 18) ? 'adult' : 'minor';
 ```
 
 ## False and Falsy
@@ -124,7 +125,7 @@ Note that the following values will evaluate to false when checked as a conditio
 The nature of Booleans and operators allow us to write some shorter code. For example:
 
 ```javascript
-var nom;
+let nom;
 if (username) {
   nom = username;
 }
@@ -132,7 +133,7 @@ else {
   nom = 'Stranger';
 }
 // could be shortened to:
-var nom = username || 'Stranger';
+let nom = username || 'Stranger';
 ```
 
 This concept is also referred to as short-circuit evaluation.

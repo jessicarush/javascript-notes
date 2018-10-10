@@ -20,7 +20,7 @@ if (flag) {
 ```javascript
 const LEGAL_AGE = 19;  
 const RETIREMENT_AGE = 65;
-var age = prompt('Enter your age:');
+let age = prompt('Enter your age:');
 
 if (age < LEGAL_AGE) {
   console.log('Young enough to dream!');
@@ -39,7 +39,7 @@ else {
 This `if...else if...else` structure works but there's another option using `switch` that reduces the amount of code required to specify the condition **if you are comparing against single values** (in other words, `switch` does not work with `<, >`):
 
 ```javascript
-var day = prompt('What day of the week?').toLowerCase();
+let day = prompt('What day of the week?').toLowerCase();
 
 switch (day) {
   case 'saturday':
@@ -114,7 +114,7 @@ Technically speaking, the downside of using breaks and returning at the end is y
 Also called the *ternary operator*, this is like a condensed form of a single `if...else` statement. For example:
 
 ```javascript
-var a = 50;
+let a = 50;
 
 // if...else statement:
 if (a > 25) {
@@ -125,7 +125,7 @@ else {
 }
 
 // same as conditional operator:
-var b = (a > 25) ? 'hello' :  'world';
+let b = (a > 25) ? 'hello' :  'world';
 ```
 
 Note the conditional operator doesn't have to be used in an assignment, but it's definitely the most common usage.

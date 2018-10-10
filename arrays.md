@@ -40,7 +40,7 @@ console.log(exampleArray.length);  // 3
 
 ## Array Methods
 
-JavaScript also has a number of built-in *methods* which can be applied to arrays. Keep in mind, some methods will modifty the original array, while others only return something from it.
+JavaScript also has a number of built-in *methods* which can be applied to arrays. Keep in mind, some methods will modify the original array, while others only return something from it.
 
 You can see a full list of [built-in methods for arrays here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array).
 

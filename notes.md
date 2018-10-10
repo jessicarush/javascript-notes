@@ -23,22 +23,22 @@ When to use semicolons in JavaScript? In general, you don't need semicolons afte
 **YES semicolons after:**
 ```javascript
 // variable declarations
-var x;
+let x;
 
 // value assignments
-var x = '';
+let x = '';
 
 // variable declaration & assignment
 const tax = 12;
 
 // variable assignment of objects
-var obj = {name: 'Morty'};
+let obj = {name: 'Morty'};
 
 // function expressions
-var foo = function() {...};
+let foo = function() {...};
 
 // immediately invoked function expressions
-var foo = function() {...}();
+let foo = function() {...}();
 
 // function calls
 alert('Hi');
@@ -131,3 +131,5 @@ When using a linter like JSHint, you can avoid ES6 syntax errors by creating a `
 ## About the Language
 
 [Ecma International](https://www.ecma-international.org/), is the organization responsible for standardizing JavaScript. It stands for European Computer Manufacturers Association. It released a new version of JavaScript in 2015, called ECMAScript2015, commonly referred to as ES6. Note, the 6 refers to the version of JavaScript and is not related to the year it was released (the previous version was ES5 released in 2009).
+
+Web browsers are not the only platforms on which JavaScript is used. Some databases, such as MongoDB and CouchDB, use JavaScript as their scripting and query language. Several platforms for desktop and server programming, most notably the Node.js project, provide an environment for programming JavaScript outside of the browser.

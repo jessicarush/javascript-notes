@@ -9,7 +9,7 @@ function logAmount() {
   console.log(amount.toFixed(2));
 }
 
-var amount = 9.9888;
+let amount = 9.9888;
 
 logAmount();  // 9.99
 ```
@@ -21,7 +21,7 @@ function logAmount(amt) {
   console.log(amt.toFixed(2));
 }
 
-var amount = 9.9888;
+let amount = 9.9888;
 
 logAmount(amount * 2);  // 19.98
 ```
@@ -43,13 +43,25 @@ function formatAmount(amt) {
   return '$' + amt.toFixed(2);
 }
 
-var amount = 9.9888;
+let amount = 9.9888;
 
 console.log(formatAmount(amount * 2));  // $19.98
 ```
 
 Note that the default returned value of any function is `undefined`.
 
+One of the many weird things about JavaScript is that it is very forgiving. If, for example, you pass too many arguments to a function, it will accept the first and ignore the rest. If you don't pass enough, the value of the missing arg will be `undefined` but the function will still run.
+
+```javascript
+function square(num) {
+  return num * num;
+}
+
+console.log(square(4, 'fart', 100));
+// 16
+console.log(square());
+// NaN
+```
 
 ## Hoisting
 
@@ -88,18 +100,39 @@ outer();
 ```
 
 
+## Let
+
+In addition to declaring variables at the function level, ES6 lets you declare variables that belong to a specific block `{...}` by using the `let` keyword. By using `let` instead of `var`, `c` will belong only to the `if` statement and not to the whole `foo()` scope:
+
+```javascript
+function foo() {
+  var a = 1;                 // accessible to the whole foo() scope
+  if (a >= 1) {
+    var b = 2;               // accessible to the whole foo() scope
+    let c = 3;               // only accessible inside the if {...} block
+    console.log(a + b + c);  // 6
+  }
+  console.log(a);            // 1
+  console.log(b);            // 2
+  // console.log(c);         // ReferenceError
+}
+
+foo();
+```
+
+
 ## Scope (*lexical scope*)
 
 Each function has its own scope. Only code inside the function can access the function's *scoped variables* (variables declared within the function). Variable names must be unique within the same scope, but *can* be the same in different scopes. For example:
 
 ```javascript
 function one() {
-  var a = 1;  // this 'a' only belongs to function one()
+  let a = 1;  // this 'a' only belongs to function one()
   return a;
 }
 
 function two() {
-  var a = 2;  // this 'a' only belongs to function two()
+  let a = 2;  // this 'a' only belongs to function two()
   return a;
 }
 
@@ -112,10 +145,10 @@ Lexical scope rules say that the code in a scope can access variables in the sam
 ```javascript
 
 function outer() {
-  var a = 1;
+  let a = 1;
 
   function inner() {
-    var b = 2;
+    let b = 2;
     console.log(a + b);  // inner() has access to both 'a' and 'b'
   }
 
@@ -133,8 +166,8 @@ Note that *scope-related assignments* can occur in two ways: by using the `=` op
 
 ```javascript
 function outer(a) {
-  var b = a * 2;  // assignment of 'b'
-  var c = 100;    // assignment of 'c', but this value is NOT used
+  let b = a * 2;  // assignment of 'b'
+  let c = 100;    // assignment of 'c', but this value is NOT used
 
   function inner(c) {
     console.log(a, b, c);  // 2 4 8
@@ -187,7 +220,7 @@ There is a software design principle called the *Principle of Least Privilege* (
 For example, when writing code, consider whether its necessary for the surrounding/enclosing scope to have access to certain variables and functions or whether they could be made *private*.
 
 ```javascript
-var b
+let b;
 
 function mySubtotal(a) {
   return a + 1;
@@ -208,7 +241,7 @@ function myTotal(a) {
     return a + 1;
   }
 
-  var b = mySubtotal(a * 2);
+  let b = mySubtotal(a * 2);
   console.log(a, b);
 }
 
@@ -223,7 +256,7 @@ That example isn't great, but going back to the first comment about wrapping you
 A benefit of hiding variables is *collision avoidance* which happens when you have two different identifiers with the same name. Collision often results in unexpected overwriting of values. Multiple libraries loaded into your program can easily collide with each other if they don't properly hide their internal/private functions and variables. Such libraries will often create a single variable declaration in the global scope (often an object) with a unique name. This object is used as the *namespace* for the library... all specific *exposures of functionality* are made as properties of that object rather than as top-level lexically scoped identifiers. For example:
 
 ```javascript
-var MyAwesomeLibrary = {
+const MyAwesomeLibrary = {
   awesome: 'sauce',
   doSomething: function() {
     // ...
@@ -235,24 +268,50 @@ var MyAwesomeLibrary = {
 ```
 
 
-## Let
+## Closure
 
-In addition to declaring variables at the function level, ES6 lets you declare variables that belong to a specific block `{...}` by using the `let` keyword. By using `let` instead of 'var', `c` will belong only to the `if` statement and not to the whole `foo()` scope:
+Like in Python, closures mean that inner functions will remember the variables that were passed to them, even when the function has finished running, For example:
 
 ```javascript
-function foo() {
-  var a = 1;                 // accessible to the whole foo() scope
-  if (a >= 1) {
-    var b = 2;               // accessible to the whole foo() scope
-    let c = 3;               // only accessible inside the if {...} block
-    console.log(a + b + c);  // 6
+function multiplier(x) {
+  // the inner function uses x, so it has "closure" over it
+  function multiply(y) {
+    return x * y;
   }
-  console.log(a);            // 1
-  console.log(b);            // 2
-  // console.log(c);         // ReferenceError
+  return multiply;
 }
 
-foo();
+let x10 = multiplier(10);
+let x100 = multiplier(100);
+
+console.log( x10(5) );
+console.log( x100(5) );
+```
+
+Since Python was the first language I learned, this makes perfect sense to me but if you're coming from another language like `C`, apparently this is a bit of a head f*. Whatever.
+
+
+## Properties and Methods
+
+In JavaScript, functions are *first class objects*, this means that like other objects they can have properties and methods.
+
+Since functions are a subtype of object, they have properties such as `.length` and `.name` and methods such as `.toString()`. You can see more about the [methods and properties of functions here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function).
+
+Here we're using a built-in property `name` as well as assigning new properties to a function:
+
+```javascript
+function veryLongFunctionName() {
+  return 43;
+}
+
+const foo = veryLongFunctionName;
+
+foo.a = 'hello';
+foo.b = true;
+
+console.log(foo.a);  // hello
+console.log(foo.b);  // true
+console.log(foo.name);  // veryLongFunctionName
 ```
 
 
@@ -266,12 +325,12 @@ function foo() {
   // note: no semicolon required after the declaration
 }
 
-var x = function () {
+const x = function () {
   // called an anonymous function expression (similar to lambda in Python)
   // semicolon is required after the assignment
 };
 
-var x = function foo() {
+const x = function foo() {
   // called a named function declaration/expression.
   // It's equivalent to first declaring the function foo,
   // then assigning it to the variable x.
@@ -279,6 +338,7 @@ var x = function foo() {
 };
 ```
 Since the release of ES6, it is common practice to use `const` as the keyword to declare the variable containing a function expression.
+
 
 ## Immediately Invoked Function Expressions *(IIFE)*
 
@@ -319,61 +379,12 @@ setTimeout(function timeoutHandler() {
 The function could return a value and the whole thing could be assigned to a variable:
 
 ```javascript
-var x = (function foo() {
+let x = (function foo() {
   return 'hello';
 })();
 
 console.log(x);
 ```
-
-
-## Closure
-
-Like in Python, closures mean that inner functions will remember the variables that were passed to them, even when the function has finished running, For example:
-
-```javascript
-function multiplier(x) {
-  // the inner function uses x, so it has "closure" over it
-  function multiply(y) {
-    return x * y;
-  };
-  return multiply;
-}
-
-var x10 = multiplier(10);
-var x100 = multiplier(100);
-
-console.log( x10(5) );
-console.log( x100(5) );
-```
-
-Since Python was the first language I learned, this makes perfect sense to me but if you're coming from another language like `C`, apparently this is a bit of a head f*. Whatever.
-
-
-## Properties and Methods
-
-In JavaScript, functions are *first class objects*, this means that like other objects they can have properties and methods.
-
-Since functions are a subtype of object, they have properties such as `.length` and `.name` and methods such as `.toString()`. You can see more about the [methods and properties of functions here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function).
-
-Here we're using a built-in property `name` as well as assigning new properties to a function:
-
-```javascript
-function veryLongFunctionName() {
-  return 43;
-}
-
-const foo = veryLongFunctionName;
-
-foo.a = 'hello';
-foo.b = true;
-
-console.log(foo.a);  // hello
-console.log(foo.b);  // true
-console.log(foo.name);  // veryLongFunctionName
-```
-
-Here we're checking the name of the  function:
 
 
 ## Helper Functions
@@ -384,6 +395,11 @@ Writing helper functions can help take large, difficult tasks and break them int
 ## Abstractions
 
 When we communicate, our language includes vocabulary that allows us to convey more complicated tasks in a few words. For example, to say *bake* a cake we understand the concept without having to list all the details. In programming, we can accomplish *abstraction* by writing functions. In addition to allowing us to reuse our code, functions help to make clear, readable programs.
+
+
+## Pure Functions
+
+A pure function is a specific kind of value-producing function (it returns something) that not only has no side effects but also doesn’t rely on side effects from other code—for example, it doesn’t read global variables whose value might change. A pure function, when called with the same arguments, always produces the same value (and doesn’t do anything else). A call to such a function can be substituted by its return value without changing the meaning of the code. When you're not sure that a pure function is working correctly, you can test it by simply calling it and know that if it works in that context, it will work in any context. Non-pure functions tend to require more scaffolding to test.
 
 
 ## Higher-order Functions
@@ -450,7 +466,7 @@ The most common usage of closure in JavaScript is in the *module pattern*. This 
 
 ```javascript
 function user() {
-  var username, password;  // declared but not assigned yet
+  const username, password;  // declared but not assigned yet
 
   function doLogin(u, p) {
     username = u;
@@ -458,14 +474,14 @@ function user() {
     // do the rest of the login work here
   }
 
-  var publicAPI = {
+  const publicAPI = {
     login: doLogin,  // an object containing one property
   };
 
   return publicAPI;
 }
 
-var rick = user();
+const rick = user();
 
 rick.login('rick', 'password');
 ```
@@ -544,4 +560,6 @@ const plantNeedsWater = function(day) {
 const plantNeedsWater = day => day === 'Wednesday' ? true : false;
 ```
 
-In my opinion the last example trades off readability for condensed code.
+Be careful when trading off readability for condensed code.
+
+There’s no deep reason to have both arrow functions and function expressions in the language. Arrow functions were added mainly to make it possible to write small function expressions in a less verbose way.

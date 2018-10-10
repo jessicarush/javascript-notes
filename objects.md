@@ -3,7 +3,7 @@
 In JavaScript, objects are like a Python dictionary. They are compound values where you can set properties (named locations, keys) that each hold their own values of any type. For example:
 
 ```javascript
-var obj = {
+const obj = {
   firstname: 'Jessica',
   age: 43,
   admin: true
@@ -26,7 +26,7 @@ console.log(obj['admin']);      // true
 Though dot notation is preferred, bracket notation is useful for when the property name is stored in another variable. In contrast, **dot notation expects the property name to be the objects actual, literal property name** at the time the program was evaluated.
 
 ```javascript
-var p = prompt('firstname, age or admin?');
+let p = prompt('firstname, age or admin?');
 
 console.log(obj[p]);
 ```

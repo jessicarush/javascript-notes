@@ -6,6 +6,7 @@ In the same spirit as [my python notes](https://github.com/jessicarush/python-no
 ## credits
 Some examples and notes come from the following:
 
+- '[Eloquent JavaScript](https://eloquentjavascript.net)' - *Marijn Haverbeke*  
 - '[JavaScript: The Good Parts](https://www.amazon.ca/JavaScript-Good-Parts-Douglas-Crockford/dp/0596517742/ref=sr_1_1?ie=UTF8&qid=1535566567&sr=8-1&keywords=JavaScript%3A+The+Good+Parts&dpID=5131OWtQRaL&preST=_SX258_BO1,204,203,200_QL70_&dpSrc=srch)' - *Douglas Crockford*  
 - '[You Don't Know JavaScript](https://www.amazon.ca/s/ref=nb_sb_noss?url=search-alias%3Dstripbooks&field-keywords=You+Don%27t+Know+JavaScript+Kyle+Simpson&rh=n%3A916520%2Ck%3AYou+Don%27t+Know+JavaScript+Kyle+Simpson)' - *Kyle Simpson*  
 - '[The JavaScript Guide](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide)' - *MDN*  

@@ -15,15 +15,15 @@ See all the [built-in methods for strings here](https://developer.mozilla.org/en
 An example of a built-in method for numbers is `toFixed()`:
 
 ```javascript
-var TAX_RATE = 0.12;  // 12% sales tax
-var amount = 9.99;
-var total = amount + (amount * TAX_RATE);
+const tax_rate = 0.12;  // 12% sales tax
+let amount = 9.99;
+const total = amount + (amount * tax_rate);
 
 console.log(total)             // 11.1888
 console.log(total.toFixed(2))  // 11.19
 
 // You could call it in a number of ways:
-var total = (amount + (amount * TAX_RATE)).toFixed(2);
+const total = (amount + (amount * tax_rate)).toFixed(2);
 total = total.toFixed(2)
 ```
 
