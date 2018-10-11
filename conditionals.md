@@ -18,19 +18,31 @@ if (flag) {
 ## if...else statements
 
 ```javascript
-const LEGAL_AGE = 19;  
-const RETIREMENT_AGE = 65;
+const legal_age = 19;  
+const retire_age = 65;
 let age = prompt('Enter your age:');
 
-if (age < LEGAL_AGE) {
+if (age < legal_age) {
   console.log('Young enough to dream!');
 }
-else if (age > RETIREMENT_AGE) {
+else if (age > retire_age) {
   console.log('Old enough to relax!');
 }
 else {
   console.log('Get back to work!');
 }
+```
+
+Technically speaking, if your condition hold only a single statement, you can omit the `{}` braces. That being said, most programmers use them anyways to avoid having to think about whether they are needed.
+
+```javascript
+const legal_age = 19;
+const retire_age = 65;
+let age = prompt('Enter your age:');
+
+if (age < legal_age) console.log('Young enough to dream!');
+else if (age > retire_age) console.log('Old enough to relax!');
+else console.log('Get back to work!');
 ```
 
 

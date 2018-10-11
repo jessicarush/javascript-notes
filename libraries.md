@@ -18,6 +18,7 @@ Some Math built-in methods:
 `Math.floor()` - takes a decimal number, and rounds down to the nearest whole number.  
 `Math.round()` - returns the nearest integer.  
 `Math.ceil()` - returns the smallest integer greater than or equal to a given number.  
+`Math.abs()` - returns the absolute value of a number.  
 
 ```javascript
 Math.floor(Math.random() * 10);  // 6
@@ -29,6 +30,7 @@ Math.round(4.9);  // 5
 Math.ceil(4.5);   // 5
 Math.ceil(4.9);   // 5
 Math.ceil(-4.9);  // -4
+Math.abs(-4.9);  // 4.9
 ```
 
 The [Number library](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) has methods that check if an instance in an integer or a finite number, or parses a string into a float:
