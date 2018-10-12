@@ -1,5 +1,13 @@
 # Misc JavaScript Notes
 
+
+## About the Language
+
+[Ecma International](https://www.ecma-international.org/), is the organization responsible for standardizing JavaScript. It stands for European Computer Manufacturers Association. It released a new version of JavaScript in 2015, called ECMAScript2015, commonly referred to as ES6. Note, the 6 refers to the version of JavaScript and is not related to the year it was released (the previous version was ES5 released in 2009).
+
+Web browsers are not the only platforms on which JavaScript is used. Some databases, such as MongoDB and CouchDB, use JavaScript as their scripting and query language. Several platforms for desktop and server programming, most notably the Node.js project, provide an environment for programming JavaScript outside of the browser.
+
+
 ## Comments
 Code comments can be done in two ways:
 ```javascript
@@ -128,8 +136,25 @@ When using a linter like JSHint, you can avoid ES6 syntax errors by creating a `
 }
 ```
 
-## About the Language
 
-[Ecma International](https://www.ecma-international.org/), is the organization responsible for standardizing JavaScript. It stands for European Computer Manufacturers Association. It released a new version of JavaScript in 2015, called ECMAScript2015, commonly referred to as ES6. Note, the 6 refers to the version of JavaScript and is not related to the year it was released (the previous version was ES5 released in 2009).
+## JSON
 
-Web browsers are not the only platforms on which JavaScript is used. Some databases, such as MongoDB and CouchDB, use JavaScript as their scripting and query language. Several platforms for desktop and server programming, most notably the Node.js project, provide an environment for programming JavaScript outside of the browser.
+If you want to save data in a file for later or send it to another computer over a network, you have to *serialize* the data. That means it is converted into a flat description. A popular serialization format is JSON (JavaScript Object Notation). It is widely used as a data storage and communication format on the Web, even in languages other than JavaScript.
+
+JSON looks similar to JavaScript’s way of writing arrays and objects, with a few restrictions. All property names have to be surrounded by double quotes, and only simple data expressions are allowed—no function calls, bindings, or anything that involves actual computation. Comments are not allowed in JSON.
+
+JavaScript gives us the functions `JSON.stringify` and `JSON.parse` to convert data to and from this format. The first takes a JavaScript value and returns a JSON-encoded string. The second takes such a string and converts it to the value it encodes.
+
+```javascript
+let obj = { name: 'jessica', age: 43, codeword: 'pingpong' };
+
+let str = JSON.stringify(obj);
+
+console.log(typeof str, str);
+// string {"name":"jessica","age":43,"codeword":"pingpong"}
+
+let name = JSON.parse(str).name;
+
+console.log(name);
+// jessica
+```

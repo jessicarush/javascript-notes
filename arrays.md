@@ -12,16 +12,20 @@ Array elements/items can be accessed with bracket notation:
 
 ```javascript
 // Array indexing starts at 0
-console.log(exampleArray[0]);  // example
+console.log(exampleArray[0]);  
+// example
 
 // Access items within nested arrays:
-console.log(exampleArray[3][0]);  // nested
+console.log(exampleArray[3][0]);  
+// nested
 
 // FYI bracket notation works on strings too:
-console.log(exampleArray[0][1]);  // x
+console.log(exampleArray[0][1]);  
+// x
 
 //If you try to access an index out of range, you'll get `undefined`
-console.log(exampleArray[4]);  // undefined
+console.log(exampleArray[4]);  
+// undefined
 ```
 
 You can use bracket notation to assign a new value to an array index:
@@ -29,12 +33,14 @@ You can use bracket notation to assign a new value to an array index:
 ```javascript
 exampleArray[2] = false;
 
-console.log(exampleArray);  // [ 'example', 10, false ]
+console.log(exampleArray);  
+// [ 'example', 10, false ]
 ```
 
 Arrays have a built-in `length` *property* which can be accessed with dot notation:
 ```javascript
-console.log(exampleArray.length);  // 3
+console.log(exampleArray.length);  
+// 3
 ```
 
 
@@ -50,11 +56,12 @@ You can see a full list of [built-in methods for arrays here](https://developer.
 The `push()` method adds items to the end of an array and `unshift()` adds to the start:
 
 ```javascript
-const myList = ['one', 'two', 'three'];
-myList.push('four', 'five');
-myList.unshift('zero');
+const myArray = ['one', 'two', 'three'];
+myArray.push('four', 'five');
+myArray.unshift('zero');
 
-console.log(myList);  // [ 'zero', 'one', 'two', 'three', 'four', 'five' ]
+console.log(myArray);  
+// [ 'zero', 'one', 'two', 'three', 'four', 'five' ]
 ```
 
 
@@ -63,16 +70,20 @@ console.log(myList);  // [ 'zero', 'one', 'two', 'three', 'four', 'five' ]
 The `pop()` method removes the last item and makes it available for use, `shift()` removes the first item.
 
 ```javascript
-const myList = ['one', 'two', 'three'];
-let removed = myList.pop();
+const myArray = ['one', 'two', 'three'];
+let removed = myArray.pop();
 
-console.log(myList);   // [ 'one', 'two' ]
-console.log(removed);  // three
+console.log(myArray);   
+// [ 'one', 'two' ]
+console.log(removed);  
+// three
 
-removed = myList.shift();
+removed = myArray.shift();
 
-console.log(myList);   // [ 'two' ]
-console.log(removed);  // one
+console.log(myArray);   
+// [ 'two' ]
+console.log(removed);
+ // one
 ```
 
 
@@ -81,10 +92,12 @@ console.log(removed);  // one
 Note this method does *not* modify/mutate the original array.
 
 ```javascript
-const myList = ['one', 'two', 'three', 'four', 'five'];
+const myArray = ['one', 'two', 'three', 'four', 'five'];
 
-console.log(myList.slice(1, 4));  // [ ''two', 'three', 'four' ]
-console.log(myList);              // [ 'one', 'two', 'three', 'four', 'five ']
+console.log(myArray.slice(1, 4));  
+// [ ''two', 'three', 'four' ]
+console.log(myArray);              
+// [ 'one', 'two', 'three', 'four', 'five ']
 ```
 
 
@@ -93,46 +106,95 @@ console.log(myList);              // [ 'one', 'two', 'three', 'four', 'five ']
 This method takes 3 arguments: the starting index number, the total number of elements to remove from that position, and the items to insert. For example:
 
 ```javascript
-const myList = ['one', 'two', 'three', 'four', 'five'];
+const myArray = ['one', 'two', 'three', 'four', 'five'];
 
-myList.splice(2, 0, 'hey');
-console.log(myList);  // [ 'one', 'two', 'hey', 'three', 'four', 'five' ]
+myArray.splice(2, 0, 'hey');
+console.log(myArray);  
+// [ 'one', 'two', 'hey', 'three', 'four', 'five' ]
 
-myList.splice(2, 1, 'hello');
-console.log(myList);  // [ 'one', 'two', 'hello', 'three', 'four', 'five' ]
+myArray.splice(2, 1, 'hello');
+console.log(myArray);  
+// [ 'one', 'two', 'hello', 'three', 'four', 'five' ]
 
-myList.splice(1, 4, 'bye', 'farewell');
-console.log(myList);  // [ 'one', 'bye', 'farewell', 'five' ]
+myArray.splice(1, 4, 'bye', 'farewell');
+console.log(myArray);  
+// [ 'one', 'bye', 'farewell', 'five' ]
 ```
 
 
-### Find the index of an item with *indexOf()*
+### Merge two arrays into a new one with *.concat()*
 
 ```javascript
-const myList = ['one', 'two', 'three', 'four', 'five'];
+const arrayA = ['one', 'two', 'three'];
+const arrayB = ['four', 'five', 'six'];
+const arrayC = arrayA.concat(arrayB);
 
-console.log(myList.indexOf('four'));  // 3
+console.log(arrayC);
+// [ 'one', 'two', 'three', 'four', 'five', 'six' ]
+```
+
+Note, if you pass concat an argument that is not an array, that value will be added to the new array as if it were a one-element array.
+
+### Find if an item is present with *includes()*
+
+```javascript
+const myArray = ['one', 'two', 'three', 'four', 'five'];
+
+console.log(myArray.includes('four'));
+// true
+```
+
+
+### Find the index of an item with *indexOf(), lastIndexOf()*
+
+Both indexOf and lastIndexOf take an optional second argument that indicates where to start searching.
+
+```javascript
+const myArray = ['one', 'two', 'three', 'four', 'one', 'five'];
+
+console.log(myArray.indexOf('one'));  
+// 0
+console.log(myArray.lastIndexOf('one'));  
+// 4
+```
+
+
+### Reverse an array with *reverse()*
+
+```javascript
+const myArray = ['one', 'two', 'three', 'four', 'five'];
+
+myArray.reverse();
+
+console.log(myArray);
+// [ 'five', 'four', 'three', 'two', 'one' ]
 ```
 
 
 ### Convert an array to a string with *join()*
 
 ```javascript
-const myList = ['one', 'two', 'three', 'four', 'five'];
+const myArray = ['one', 'two', 'three', 'four', 'five'];
 
-let myString = myList.join(' ');  // the argument passed is the separator
+// the argument passed is the separator
+let myString = myArray.join(' ');  
 
-console.log(myString);  // one two three four five
+console.log(myString);  
+// one two three four five
 
-console.log(typeof myString);  // string
+console.log(typeof myString);  
+// string
 ```
+
 
 ### Convert a string to an array with *split()*
 
 ```javascript
 const myString = 'one two three four five';
 
-let myList = myString.split(' ');  // the argument passed is the separator
+// the argument passed is the separator
+let myArray = myString.split(' ');  
 
-console.log(myList);  // [ 'one', 'two', 'three', 'four', 'five' ]
+console.log(myArray);  
+// [ 'one', 'two', 'three', 'four', 'five' ]
 ```

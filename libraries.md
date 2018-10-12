@@ -15,10 +15,16 @@ Math.random() * 10;  // 3.069255352584533
 ```
 
 Some Math built-in methods:  
-`Math.floor()` - takes a decimal number, and rounds down to the nearest whole number.  
+`Math.floor()` - takes a decimal number, and rounds down to the nearest integer.  
 `Math.round()` - returns the nearest integer.  
-`Math.ceil()` - returns the smallest integer greater than or equal to a given number.  
+`Math.ceil()` - takes a decimal number, and rounds up to the nearest integer.    
 `Math.abs()` - returns the absolute value of a number.  
+`Math.min()` - returns the smallest value of a group.  
+`Math.max()` - returns the largest value of a group.  
+`Math.sqrt()` - returns the square root of a number.  
+`Math.cos()` - calculates cosine.  
+`Math.sin()` - calculates sine.  
+`Math.tan()` - calculates tangent.  
 
 ```javascript
 Math.floor(Math.random() * 10);  // 6

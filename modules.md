@@ -28,7 +28,7 @@ Menu.specialty = 'Roasted Beet Burger';
 module.exports = Menu;
 ```
 
-`module.exports = Menu;` exports the `Menu` object as a module. `module` is a variable that represents the module, and `exports` exposes the module as an object.
+`module.exports = Menu;` exports the `Menu` object as a module. `module` is a variable that represents the module, and `exports` exposes the module as an object. Note that an array is also an object so we couls export a `Menu = []` in the same way.
 
 An alternate way would be:
 

@@ -63,6 +63,45 @@ console.log(square());
 // NaN
 ```
 
+
+## Rest Parameters
+
+It can be useful for a function to accept any number of arguments. For example, `Math.max()` computes the maximum of all the arguments it is given. To write such a function, you put three dots `...` before the function’s last parameter, for example:
+
+```javascript
+function formatList(...items) {
+  for (let item of items) {
+    console.log(item.padStart(20, '_'));
+  }
+}
+
+formatList('introduction', 'data', 'objects', 'functions', 'classes');
+// ________introduction
+// ________________data
+// _____________objects
+// ___________functions
+// _____________classes
+```
+
+When such a function is called, the rest parameter is bound to an array containing all further arguments. If there are other parameters before it, their values aren’t part of that array.
+
+You can also use this `...` notation to pass an array of arguments when calling a function.
+
+```javascript
+function introduction(name, occupation, city) {
+  console.log(`My name is ${name}, I'm a ${occupation} from ${city}.`);
+}
+
+let a = ['rick', 'scientist', 'earth'];
+let b = ['jessica', 'developer', 'vancouver'];
+
+introduction(...a);
+introduction(...b);
+// My name is rick, I'm a scientist from earth.
+// My name is jessica, I'm a developer from vancouver.
+```
+
+
 ## Hoisting
 
 Note that in JavaScript, any function declarations in a given scope will get *"hoisted"* to the top of the scope which means you can start calling it before it's declaration. For example:
@@ -433,6 +472,9 @@ console.log(spider.name);  // spider plant
 console.log(coffee.name);  // coffee plant
 ```
 
+
+## Destructuring
+
 ES6 introduced some new shortcuts for assigning properties to variables known as **destructuring**. Specifically, a destructuring technique, called *property value shorthand* allows us to omit the `: value` if the property & value are the same, for example:
 
 ```javascript
@@ -458,6 +500,19 @@ const sunlight = spider.sunlight;
 const {sunlight} = spider;
 ```
 TBH, as someone new to Javascript, this kind of shit makes me crazy. Moving on...
+
+A more useful destructuring technique allows you to create variable names for the array items that you intend to pass to a function. This example is similar to the one for 'Rest Parameters':
+
+```javascript
+function introduction2([name, occupation, city]) {
+  console.log(`My name is ${name}, I'm a ${occupation} from ${city}.`);
+}
+
+introduction2(['rick', 'scientist', 'earth']);
+introduction2(['jessica', 'developer', 'vancouver']);
+// My name is rick, I'm a scientist from earth.
+// My name is jessica, I'm a developer from vancouver.
+```
 
 
 ## Modules

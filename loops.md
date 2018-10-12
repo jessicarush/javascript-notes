@@ -118,6 +118,28 @@ for (let i = 0; i < things.length; i++) {
 ```
 
 
+## for...of
+
+Iterates over iterable objects (including arrays, array-like objects, strings, iterators and generators), invoking a custom iteration hook with statements to be executed for the value of each distinct property.
+
+```javascript
+// for (variable of iterable) {
+//   statement
+// }
+
+const myArray = ['yes', 'no', 'yes', 'yes', 'maybe'];
+
+let counter = 0;
+for (let item of myArray) {
+  if (item === 'yes') {
+    counter++;
+  }
+}
+
+console.log(counter); // 3
+```
+
+
 ## for...in
 
 `for...in` will execute a given block of code for each property in an object, in arbitrary order. You will need to use bracket notation instead if dot notation to access properties because dot notation expects the property name to be an objects actual/literal property name at the time the program was evaluated whereas bracket notation allows you to pass a variable.
@@ -180,25 +202,4 @@ for (let person in spaceship.crew) {
 // captain: Maeve
 // chief officer: Dan
 // medic: Clementine
-```
-
-## for...of
-
-Iterates over iterable objects (including arrays, array-like objects, iterators and generators), invoking a custom iteration hook with statements to be executed for the value of each distinct property.
-
-```javascript
-// for (variable of iterable) {
-//   statement
-// }
-
-const myArray = ['yes', 'no', 'yes', 'yes', 'maybe'];
-
-let counter = 0;
-for (let item of myArray) {
-  if (item === 'yes') {
-    counter++;
-  }
-}
-
-console.log(counter); // 3
 ```

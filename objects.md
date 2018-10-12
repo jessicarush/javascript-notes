@@ -53,6 +53,22 @@ console.log(obj);  // { firstname: 'Jessica', age: 100, lastname: 'Rush' }
 ```
 
 
+## Check if a property exists
+
+The binary `in` operator, when applied to a string and an object, tells you whether that object has a property with that name:
+
+```javascript
+const obj = {
+  firstname: 'Jessica',
+  age: 43,
+  admin: true
+};
+
+console.log('age' in obj);
+// true
+```
+
+
 ## Objects with Methods
 
 When the data stored on an object is a function we call that a method. A property is what an object has, while a method is what an object does. We can include methods in our object literals by creating ordinary, comma-separated key-value pairs. The key serves as our method's name, while the value is an anonymous function expression.
@@ -111,6 +127,23 @@ console.log(Object.entries(spider));
 //   [ 'sunlight', 'full' ] ]
 ```
 
+The `.assign()` method copies all properties from one or more source objects to a new target object. You can pass two arguments: `Object.assign(target_object, source_object)`. The method copies properties from the source object to the target object. Properties in the target object will be overwritten by properties in the source(s) if they have the same key.
+
+```javascript
+const spider ={name: 'spider plant', sunlight: 'full'};
+
+const coffee = Object.assign(spider);
+const garlic = Object.assign({name: `garlic`, edible: true}, spider);
+
+console.log(Object.values(spider));
+console.log(Object.values(coffee));
+console.log(Object.values(garlic));
+// [ 'spider plant', 'full' ]
+// [ 'spider plant', 'full' ]
+// [ 'spider plant', true, 'full' ]
+
+```
+
 
 ## Nested Objects
 
@@ -138,7 +171,7 @@ console.log(ship.passengers[0].name);  // jessica
 
 ## Passed by Reference
 
-Objects are passed by reference. This means when we pass a variable assigned to an object into a function as an argument, the computer interprets the parameter name as pointing to the space in memory holding that object. As a result, functions which change object properties actually mutate the object permanently.
+Objects are passed by reference. This means when we pass a variableretire_ageed to an object into a function as an argument, the computer interprets the parameter name as pointing to the space in memory holding that object. As a result, functions which change object properties actually mutate the object permanently.
 
 ```javascript
 const ship = {
