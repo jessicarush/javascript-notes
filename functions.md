@@ -450,6 +450,40 @@ A pure function is a specific kind of value-producing function (it returns somet
 
 Functions that get passed in as parameters and invoked are called *callback functions* because they get called during the execution of the higher-order function. When we pass a function in as an argument to another function, we don't invoke it. Invoking the function would evaluate to the return value of that function call. With callbacks, we pass in the function itself by typing the function name without the parentheses.
 
+```javascript
+// Functions can create new functions:
+
+// function greaterThan(n) {
+//   return function(m) {
+//     return m > n;
+//   };
+// }
+
+function greaterThan(n) {
+  return m => m > n;
+}
+
+let gt10 = greaterThan(10);
+
+console.log(gt10(11));
+//true
+```
+
+```javascript
+// Functions can add to other functions:
+
+function logFunction(func) {
+  return (...args) => {
+    console.log('calling with: ', args);
+    let result = func(...args);
+    console.log('returned: ', result);
+    return result;
+  };
+}
+
+logFunction(Math.min)(7, 13, 5); // I have never seen this syntax before
+```
+
 
 ## Factory Functions
 
