@@ -50,6 +50,7 @@ JavaScript also has a number of built-in *methods* which can be applied to array
 
 You can see a full list of [built-in methods for arrays here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array).
 
+See also: [iterators.md](iterators.md)
 
 ### Add items with *push()* or *unshift()*
 

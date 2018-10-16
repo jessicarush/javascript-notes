@@ -37,7 +37,7 @@ JavaScript also has a `for` loop. These loops take three clauses:
 
 1. an initialization clause such as `let i = 0`
 2. a conditional clause such as `i <= 5`
-3. an update clause such as `i++`
+3. an update clause such as `i++` (not necessarily an increment or decrement...)
 
 Put together, it looks like this:
 ```javascript

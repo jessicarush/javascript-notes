@@ -28,7 +28,7 @@ Menu.specialty = 'Roasted Beet Burger';
 module.exports = Menu;
 ```
 
-`module.exports = Menu;` exports the `Menu` object as a module. `module` is a variable that represents the module, and `exports` exposes the module as an object. Note that an array is also an object so we couls export a `Menu = []` in the same way.
+`module.exports = Menu;` exports the `Menu` object as a module. `module` is a variable that represents the module, and `exports` exposes the module as an object. Note that an array is also an object so we could export a `Menu = []` in the same way.
 
 An alternate way would be:
 
@@ -48,7 +48,7 @@ The idea here with module.exports is that you are exporting one module per file.
 
 ## Importing Modules with require()
 
-A common way to import a module is with the require() function. Provided the code above was saved in a file called `menu.js`, in another file we could do the following:
+A common way to import a module is with the require() function. This function does not work in client-side (browser) javascript though. Provided the code above was saved in a file called `menu.js`, in another file we could do the following:
 
 ```javascript
 const Menu = require('./menu.js');

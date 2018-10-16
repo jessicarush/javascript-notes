@@ -34,35 +34,6 @@ myArray.forEach(firstname => {
 ```
 
 
-## map()
-
-The `map()` method creates a new array with the results of calling a function for every array element. `The map()` method calls the provided function once for each element in an array, in order.
-
-```javascript
-const numbers = [3, 5, 10];
-
-function square(num) {
-  return num * num;
-}
-
-const squareNumbers = numbers.map(square);
-
-console.log(squareNumbers);  // [ 9, 25, 100 ]
-```
-
-This example passes an anonymous function that uses *Arrow* syntax:
-
-```javascript
-const numbers = [3, 5, 10];
-
-const squareNumbers = numbers.map(num => {
-  return num * num;
-});
-
-console.log(squareNumbers);  // [ 9, 25, 100 ]
-```
-
-
 ## filter()
 
 The `filter()` method creates an array filled with all array elements that pass a test (provided as a function). The test function should return either true or false.
@@ -92,7 +63,36 @@ console.log(numbers);  // [ 5, 2.5, 100 ]
 ```
 
 
-## reduce()
+## map()
+
+The `map()` method creates a new array with the results of calling a function for every array element. `The map()` method calls the provided function once for each element in an array, in order.
+
+```javascript
+const numbers = [3, 5, 10];
+
+function square(num) {
+  return num * num;
+}
+
+const squareNumbers = numbers.map(square);
+
+console.log(squareNumbers);  // [ 9, 25, 100 ]
+```
+
+This example passes an anonymous function that uses *Arrow* syntax:
+
+```javascript
+const numbers = [3, 5, 10];
+
+const squareNumbers = numbers.map(num => {
+  return num * num;
+});
+
+console.log(squareNumbers);  // [ 9, 25, 100 ]
+```
+
+
+## reduce() & reduceRight()
 
 The `reduce()` method reduces the array to a single value. This method executes a provided function for each value of the array (from left-to-right). The return value of the function is stored in an accumulator (result/total).
 
@@ -114,6 +114,16 @@ const reducedNum = randomNums.reduce((accumulator, currentValue) => accumulator 
 console.log(reducedNum);  // 50000
 ```
 
+This example flattens an array of arrays into a single array using reduce() and .concat():
+```javascript
+let arrays = [[1, 2, 3], [4, 5], [6]];
+
+let flattened = arrays.reduce((accumulator, currentValue) => accumulator.concat(currentValue));
+
+console.log(flattened);
+// [1, 2, 3, 4, 5, 6]
+```
+
 
 ## findIndex()
 
@@ -125,6 +135,72 @@ const randomNums = [123, 25, 78, 5, 9];
 const lessThanTen = randomNums.findIndex(num => num < 10);
 
 console.log(lessThanTen);  // 3
+```
+
+
+## some()
+
+Returns true if at least one element in the array satisfies the provided testing function.
+
+```javascript
+let array = [1, 3, 8, 9];
+
+const evens = element => element % 2 === 0;
+
+console.log(array.some(evens));
+// true
+```
+
+
+## every()
+
+Returns true if every element in the array satisfies the provided testing function.
+
+```javascript
+let array = [1, 3, 8, 9];
+
+const evens = element => element % 2 === 0;
+
+console.log(array.every(evens));
+// false
+```
+
+
+## keys()
+
+Returns a new Array Iterator that contains the keys for each index in the array
+
+```javascript
+let array = [1, 3, 8, 9];
+
+let arrayKeys = array.keys();
+
+console.log(arrayKeys);
+//Object [Array Iterator] {}
+
+for (let key of arrayKeys) {
+  console.log(key);
+}
+// 0, 1, 2, 3
+```
+
+
+## values()
+
+Returns a new Array Iterator object that contains the values for each index in the array.
+
+```javascript
+let array = [1, 3, 8, 9];
+
+let arrayVals = array.values();
+
+console.log(arrayVals);
+//Object [Array Iterator] {}
+
+for (let val of arrayVals) {
+  console.log(val);
+}
+// 1, 3, 8, 9
 ```
 
 
