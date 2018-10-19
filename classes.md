@@ -1,5 +1,6 @@
 # Classes
 
+
 Classes are a tool for creating templates to quickly produce similar objects. They begin with a `class` keyword and include a `constructor` method. JavaScript calls this `constructor()` method every time it creates a new instance of the class.
 
 ```javascript

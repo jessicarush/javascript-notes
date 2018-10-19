@@ -1,5 +1,6 @@
 # Exceptions
 
+
 The `throw` statement raises a user-defined exception. Execution of the current function will stop (the statements after throw won't be executed), and control will be passed to the first catch block in the call stack. If no catch block exists among caller functions, the program will terminate. In other words, if the `throw` statement is in a `try` block, then control goes to the `catch` clause.
 
 The expression can just be a string, but it's usually an object literal containing a name property and a message property.

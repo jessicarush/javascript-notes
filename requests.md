@@ -1,5 +1,6 @@
 # Requests
 
+
 JavaScript is an asynchronous language. It uses an [event loop](https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop) to handle asynchronous function calls. When a program is run, function calls are made and added to a stack. The functions that make requests that need to wait for servers to respond get sent to a separate queue. Once the stack has cleared, then the functions in the queue are executed one at a time.
 
 To get a glimpse of how the event loop works the following example uses the setTimeout(), which will pass a function call to the queue. The first argument is a callback and the second argument is the number of milliseconds the program must wait before the callback can be run. The other console.log() calls are run from the stack.
@@ -70,6 +71,7 @@ In short, writing GET and POST requests with XHR objects and vanilla JavaScript 
 
 Determining how to correctly write the actual requests and how to properly implement them requires carefully reading the documentation of the API with which you're working.
 
+
 ## ES6 Requests (Promises)
 
 To make asynchronous event handling easier, [promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) were introduced in JavaScript in ES6. A promise is a JavaScript object that handles asynchronous data. They represent data that will eventually be returned from a request. A promise has three states:
@@ -77,6 +79,7 @@ To make asynchronous event handling easier, [promises](https://developer.mozilla
 - *pending:* when a promise is created or waiting for data.
 - *fulfilled:* the asynchronous operation was handled successfully.
 - *rejected:* the asynchronous operation was unsuccessful.
+
 
 ### GET with fetch()
 
@@ -103,6 +106,7 @@ fetch('https://api-to-call.com/endpoint').then(response => {
 
 The second `.then()'`s success callback won’t run until the previous `.then()` method has finished running. It will also not run if there was an error thrown.
 
+
 ### POST with fetch()
 
 The main difference with POST requests with `fetch()`, is that the initial call takes two arguments: an endpoint and an object that contains information for the POST request. The rest of the request is identical to the GET request.
@@ -123,6 +127,7 @@ fetch('https://api-to-call.com/endpoint', {
     return jsonResponse;
 });
 ```
+
 
 ## ES8 async/await GET requests
 
@@ -157,6 +162,7 @@ const getData = async () => {
 };
 ```
 
+
 ## ES8 async/await POST requests
 
 As with the above POST with `fetch()` example, the main difference here between GET and POST is that we have to pass the second argument to `fetch()`.
@@ -181,6 +187,7 @@ const getData = async () => {
   }
 };
 ```
+
 
 ## Summary
 

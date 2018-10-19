@@ -1,5 +1,6 @@
 ## Template literals (string interpolation)
 
+
 In the ES6 version of JavaScript, we can insert, or interpolate, variables into strings using *template literals*.
 
 Back ticks ``` surrounding a string creates a *template literal*, and inside that we create a variable placeholder with `${...}`. For example:

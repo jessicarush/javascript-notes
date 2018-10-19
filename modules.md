@@ -1,5 +1,6 @@
 # Modules
 
+
 JavaScript modules are reusable pieces of code that can be exported from one program and imported into another program.
 
 Modules are particularly useful for separating code with similar logic into files. The files themselves are called modules. The idea is that we can:
@@ -62,9 +63,11 @@ function placeOrder() {
 placeOrder();  // My order is: Roasted Beet Burger
 ```
 
+
 ## ES6 Export syntax
 
 ES6 implemented a more readable, flexible syntax for exporting modules. These are usually broken down into one of two techniques, default export and named exports. The default export syntax works similarly to the module.exports syntax, allowing us to export one module per file.
+
 
 ### default export
 
@@ -79,6 +82,7 @@ export default Menu;
 `export default` uses the JavaScript export statement to export objects, functions, and primitive data types. `Menu` refers to the name of the `Menu` object, which is the object that we are setting the properties on within our module.
 
 When using ES6 syntax, use `export default` in place of `module.exports`
+
 
 ### named export
 
@@ -116,10 +120,12 @@ function isVegetarian() {
 export { specialty as special, isVegetarian as veg };
 ```
 
+
 ### summary
 
 Use `export default` to export JavaScript objects, functions, and primitive data types.
 Use named exports to `export` data in variables.
+
 
 ## ES6 Import Syntax
 

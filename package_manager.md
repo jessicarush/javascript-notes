@@ -1,6 +1,8 @@
 # Node Package Manager
 
+
 [npm](https://www.npmjs.com/) is the main package manager for JavaScript. [Node](https://nodejs.org/en/) is the main JavaScript runtime environment and allows for server-side JavaScript.
+
 
 ## package.json
 

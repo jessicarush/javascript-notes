@@ -1,5 +1,6 @@
 # this Identifier
 
+
 In a function definition, `this` refers to the “owner” of the function. Another way to say it would be: the `this` keyword references the *calling object* which provides access to the *calling object's properties*.
 
 When used alone, this refers to the global object (in strict mode, `this` will be `undefined`, because strict mode does not allow default binding).
@@ -17,6 +18,7 @@ let plant = {
 
 plant.water();  // ReferenceError: name is not defined
 ```
+
 The above doesn't work because **methods do not automatically have access to other internal properties of the calling object**. Here's where the `this` keyword comes into play.
 
 ```javascript
@@ -30,6 +32,7 @@ let plant = {
 
 plant.water();  // Time to water spider plant.
 ```
+
 
 ## Avoid using *Arrow Function Syntax*
 

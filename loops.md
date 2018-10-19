@@ -1,5 +1,6 @@
 # Loops
 
+
 A loop includes a test condition as well as a block `{...}`. Each time a loop block executes it's called an iteration. The block will repeat until the condition no longer evaluates as true. There are different forms of loops: `for` lops, `while` loops and `do...while` loops.
 
 
@@ -16,6 +17,7 @@ while (countdown > 0) {
 }
 ```
 
+
 ## do...while
 
 do { code } while (condition)
@@ -30,6 +32,7 @@ do {
 ```
 
 The only practical difference between these two is whether the conditional is tested before or after the first iteration. In the example above, if the countdown started at 0, the `while` loop would print nothing but the `do...while` loop would print once.
+
 
 ## for
 
@@ -203,3 +206,40 @@ for (let person in spaceship.crew) {
 // chief officer: Dan
 // medic: Clementine
 ```
+
+
+## Loops and closure
+
+For *closure* see first: [functions.md](functions.md)
+
+Consider the following examples. They only difference is `var` is used in the first loop and `let` is used in the other:
+
+```javascript
+for (var i = 1; i <= 5; i++) {
+  setTimeout(function timer() {
+    console.log(i);
+  }, i * 1000);
+}
+// 6
+// 6
+// 6
+// 6
+// 6
+```
+
+```javascript
+for (let i = 1; i <= 5; i++) {
+  setTimeout(function timer() {
+    console.log(i);
+  }, i * 1000);
+}
+// 1
+// 2
+// 3
+// 4
+// 5
+```
+
+In the first example, the terminating condition of the for loop is when `i = 6`. The output is reflecting the final value of `i` after the loop terminates. The timeout function callbacks are all running well after the completion of the for loop.
+
+In the second example, the `let` keyword specifically declares a new variable for each iteration and that is scoped to that block. It essentially turns a block into a scope that we can have closure over. At each iteration it will be initialized with the value from the previous iteration.

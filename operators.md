@@ -1,5 +1,6 @@
 # Operators
 
+
 Operators that use two values are called *binary operators*, while those that take one are called *unary operators*. There in also a *ternary operator* `?:` that takes three.
 
 Add: `+`  
@@ -110,6 +111,7 @@ The conditional (ternary) operator `?` is the only one that takes 3 operands. It
 let status = (age >= 18) ? 'adult' : 'minor';
 ```
 
+
 ## False and Falsy
 
 Note that the following values will evaluate to false when checked as a condition:
@@ -119,6 +121,7 @@ Note that the following values will evaluate to false when checked as a conditio
 - **null** which represent when there is no value at all
 - **undefined** which represent when a declared variable lacks a value
 - **NaN** short for *Not a Number*, it is teh result of an operation that cannot produce normal result. `Nan` is nit equal to any other value, including itself.
+
 
 ## Shorthand using Operators
 

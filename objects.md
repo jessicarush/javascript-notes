@@ -1,5 +1,6 @@
 # Objects
 
+
 In JavaScript, objects are like a Python dictionary. They are compound values where you can set properties (named locations, keys) that each hold their own values of any type. For example:
 
 ```javascript
@@ -224,6 +225,7 @@ let plant = {
 plant._age = 'no problem';
 console.log(plant._age); // no problem
 ```
+
 
 ## Getters & Setters
 

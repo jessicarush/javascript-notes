@@ -1,5 +1,6 @@
 # Libraries
 
+
 Libraries are collections of methods that can be called without an instance.
 
 The [Math library](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math) contains mathematical methods. The `.random()` method generates a random decimal number between 0 and 1.

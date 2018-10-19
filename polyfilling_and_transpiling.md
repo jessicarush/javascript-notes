@@ -1,5 +1,6 @@
 # Polyfilling
 
+
 In working with a language that has many new features but having to also consider outdated browsers, there are a couple of options for addressing the gap between new JavaScript syntax and the JavaScript syntax that a given web browser recognizes: *polyfilling* and *transpiling*.
 
 *Polyfilling* means to produce a piece of code that's equivalent in behavior to the new feature, but will run in older JavaScript environments. Here's an example of polyfilling... ES6 defines a utility called `Number.isNaN()` to check for `NaN` values. This replaces the deprecated `isNaN()` utility:
@@ -17,6 +18,7 @@ if (!Number.isNaN) {
   };
 }
 ```
+
 In JavaScript, `NaN` is the only value in the language that is not equal to itself, therefor our polyfill code will only return true if `x` is `NaN`. Not all new features are *polyfillable* and it can be very difficult to properly implement one yourself. A vetted set of trusted polyfills can be found at [ES5-Shim](https://github.com/es-shims/es5-shim) and [ES6-Shim](https://github.com/es-shims/es6-shim).
 
 
@@ -55,6 +57,7 @@ Since JS will continue to evolve, transpilers should be thought of as part of th
 Also, a [good article here about transpilers](https://scotch.io/tutorials/javascript-transpilers-what-they-are-why-we-need-them).
 
 Finally, [caniuse.com](https://caniuse.com/) is a website that provides data on web browser compatibility for HTML, CSS, and JavaScript features.
+
 
 ### Babel
 
@@ -126,6 +129,7 @@ A breakdown:
 `src` – instructs Babel to transpile all JavaScript code inside the src directory.  
 `-d` – Instructs Babel to write the transpiled code to a directory.
 `lib` – Babel writes the transpiled code to a directory called lib.
+
 
 #### Step 7. Run the script
 

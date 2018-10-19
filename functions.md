@@ -1,5 +1,6 @@
 # Functions
 
+
 Functions are often used for code that you plan to call repeatedly, but they're also good for simply organizing related bits of code into named groups (even if you plan to only call it once). In JavaScript, there are many ways to create a function. One way to create a function is by using a *function declaration* (another way is via a *function expression*, described below). A *function declaration* is a function that is bound to an identifier, or name.
 
 A barebones example of a **function declaration** and **function call**:
@@ -104,25 +105,28 @@ introduction(...b);
 
 ## Hoisting
 
-Note that in JavaScript, any function declarations in a given scope will get *"hoisted"* to the top of the scope which means you can start calling it before it's declaration. For example:
+Note that in JavaScript, any **function declarations** in a given scope will get *"hoisted"* to the top of the scope which means you can start calling it before it's declaration. For example:
 
 ```javascript
-console.log('Start');
-
 foo();
-
-console.log('End');
 
 function foo() {
   console.log('Foo');
 }
-// Start
 // Foo
-// End
 ```
 
-*Hoisting* works a bit differently for variables. In short, only the *declaration* (not the assignment) is hoisted. In the example below, the first `console.log(a);` returns `undefined` because the value isn't assigned until the next line. That being said it doesn't throw a `ReferenceError` which you might think would be the case since it isn't declared until the next line either. The `console.log(a);` in the `inner` function returns `1` because `inner` isn't called until after the `a` declaration/assignment:
+This kind of hoisting only works for function declarations, not function Expressions:
 
+```javascript
+foo(); // TypeError: foo is not a function
+
+var foo = function () {
+  console.log('Foo');
+};
+```
+
+*Hoisting* works a bit differently for variables. In short, only the *declaration* (not the assignment) is hoisted... (and this only happens with the `var` keyword. `let` and `const` declarations don't get hoisted). In the example below, the first `console.log(a);` returns `undefined` because the value isn't assigned until the next line. That being said it doesn't throw a `ReferenceError` which you might think would be the case since it isn't declared until the next line either. The `console.log(a);` in the `inner` function returns `1` because `inner` isn't called until after the `a` declaration/assignment:
 
 ```javascript
 function outer() {
@@ -136,6 +140,23 @@ function outer() {
   inner();
 }
 outer();
+```
+
+One last thing to note about hoisting is that function declarations always get hoisted before variable declarations for example:
+
+```javascript
+foo();
+
+var foo;
+
+foo = function() {
+    console.log('foo the variable');
+};
+
+function foo() {
+    console.log('foo the function declaration');
+}
+// foo the function declaration
 ```
 
 
@@ -159,6 +180,23 @@ function foo() {
 foo();
 ```
 
+You can use this type of *block-scoping* to make it clear when I variable is only used/needed in a certain section of your code. This of course can help avoid issues where you're using the same variable names like `i` or `n` for short calculations. Block scoping is also useful for *garbage collection*. If you happen to have a large chunk of data, you can reclaim the memory by declaring it in a block.
+
+```javascript
+function process(data) {
+  // some processing happens
+  console.log(data);
+}
+
+{
+  // here's my block level scope
+  let reallyBigData = {data: 'big'};
+  process(reallyBigData);  // { data: 'big' }
+}
+
+process(reallyBigData); // ReferenceError: reallyBigData is not defined
+```
+
 
 ## Scope (*lexical scope*)
 
@@ -178,6 +216,28 @@ function two() {
 console.log(one());  // 1
 console.log(two());  // 2
 ```
+
+First we should note that there are two types of scope, *dynamic scope* and *lexical scope*. Most languages like JavaScript and Python use *lexical scope*, but there are some that use dynamic. Consider:
+
+```javascript
+function foo() {
+    console.log(a);
+}
+
+function bar() {
+    var a = 1;
+    foo();
+}
+
+var a = 2;
+bar(); // 2
+```
+
+Lexical scope rules say that the reference to `a` inside `foo()` will will be resolved to the global variable `a`. If, theoretically speaking, JavaScript were a dynamically scoped language, the above call to `bar()` would output `1`. This is because dynamic scope doesn't care how and where functions and scopes are declared, but rather where they are called from. To be clear, JavaScript does not have dynamic scope but it's `this` mechanism works in a similar way.
+
+Another key contrast: lexical scope is write-time, whereas dynamic scope (and `this`) are runtime. Lexical scope cares where a function was declared, dynamic scope cares where a function was called. (`this` also cares where a function was called).
+
+Ok, back to lexical scope...  
 
 Lexical scope rules say that the code in a scope can access variables in the same scope **or any other outer scope**. Variables from inner scopes however, can not be accessed. Note that if you try to access a variables value in a scope where it's not available you'll get a `ReferenceError`. For example:
 
@@ -309,7 +369,7 @@ const MyAwesomeLibrary = {
 
 ## Closure
 
-Like in Python, closures mean that inner functions will remember the variables that were passed to them, even when the function has finished running, For example:
+Like in Python, closures mean that inner functions will remember the variables that were passed to them, even when the function has long finished running. Or you could say: Closure is when a function is able to remember and access its lexical scope even when that function is executing outside its lexical scope. Variables that you might think are garbage collected by the engine once a function is no longer in use, are remembered by inner functions. For example:
 
 ```javascript
 function multiplier(x) {
@@ -323,11 +383,37 @@ function multiplier(x) {
 let x10 = multiplier(10);
 let x100 = multiplier(100);
 
-console.log( x10(5) );
-console.log( x100(5) );
+console.log(x10(5));   // 50
+console.log(x100(5));  // 500
 ```
 
+Another convoluted example:
+
+```javascript
+var func;
+
+function foo() {
+  var a = 2;
+
+  function bar() {
+    console.log(a);
+  }
+  func = bar;
+}
+
+function baz() {
+  func();
+}
+
+foo();
+baz(); // 2
+```
+
+Whatever method we use to transport an inner function outside of its lexical scope, it will maintain a scope reference to where it was originally declared, and wherever we execute it, that closure will be exercised. Note however, without the execution of the outer function `foo`, the creation of the inner scope and the closures would not occur.
+
 Since Python was the first language I learned, this makes perfect sense to me but if you're coming from another language like `C`, apparently this is a bit of a head f*. Whatever.
+
+For more closure see [closure.md](closure.md)
 
 
 ## Properties and Methods
@@ -549,7 +635,7 @@ introduction2(['jessica', 'developer', 'vancouver']);
 ```
 
 
-## Modules
+## Module Pattern
 
 The most common usage of closure in JavaScript is in the *module pattern*. This pattern lets you define private variables and functions that are hidden from the outside, as well as a public API this is accessible from the outside. For example:
 
@@ -576,6 +662,39 @@ rick.login('rick', 'password');
 ```
 
 Executing `user()` creates an instance of the `user` module. A whole new scope is created. The inner `doLogin()` function has closure over username and password, meaning it will retain access to them even after the `user()` function finishes running.
+
+The *module pattern* leverages the power of closure even though it doesn't appear to be all about callbacks:
+
+```javascript
+function myModule() {
+  let something = 'hello';
+  let another = [1, 2, 3];
+
+  function doSomething() {
+    console.log(something);
+  }
+
+  function doAnother() {
+    console.log(another.join('-'));
+  }
+
+  return {
+    doSomething: doSomething,
+    doAnother: doAnother
+  };
+}
+
+let foo = myModule();
+
+foo.doSomething();
+foo.doAnother();
+// hello
+// 1-2-3
+```
+
+Note that `myModule`, which is just a function, has to be invoked for there to be a module instance created. Without the execution of the outer function, the creation of the inner scope and the closures would not occur.
+
+Keep in mind we return an object that has references to our inner functions but not to our inner data variables. It's appropriate to think of this returned object as a public API for our module. `doSomething` and `doAnother` have closure over the inner scope of the module instance.
 
 
 ## Arrow Function Syntax

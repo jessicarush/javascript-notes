@@ -15,7 +15,7 @@ console.log(a);  // 12
 
 You can declare more than one variable using the same `var` (or `const`,`let`) keyword:
 
-```javascript 
+```javascript
 var a = 5, b = 10, c = 100;
 ```
 
@@ -90,6 +90,7 @@ console.log(this.y); // undefined
 
 Going forward the intention is that the `var` keyword is used in pre-ES6 versions of JS. `let` is the preferred way to declare a variable when it can be reassigned, and `const` is the preferred way to declare a variable with a constant value.
 
+
 ## global variables
 
 As a side note: global variables are automatically also properties of the global object (`window` in browsers, etc). It's therefor possible to reference a global variable indirectly as a property reference: `window.a` instead of directly by it's *lexical* name `a`. This technique gives access to values that that might otherwise be *shadowed* an inner scope.
@@ -105,6 +106,7 @@ function foo() {
 }
 foo();
 ```
+
 
 ## naming
 

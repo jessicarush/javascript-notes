@@ -1,5 +1,6 @@
 # Prototypes
 
+
 When you reference a property on an object, if the property doesn't exist, JavaScript can use that objects *internal prototype reference* to find the property on another (linked) object. This *internal prototype reference linking* to another object is done at the time the object is created. Here's an example using a built-in utility `Object.create()`:
 
 ```JavaScript
