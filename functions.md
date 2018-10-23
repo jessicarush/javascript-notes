@@ -49,6 +49,23 @@ let amount = 9.9888;
 console.log(formatAmount(amount * 2));  // $19.98
 ```
 
+If you want to return more than one value from a function, you can return an array:
+
+```javascript
+function areaVolume(width, height, depth) {
+    let area = width * height;
+    let volume = width * height * depth;
+    let sizes = [area, volume];
+    return sizes;
+}
+
+const test = areaVolume(5, 5, 12);
+const testArea = areaVolume(5, 5, 12)[0];
+
+console.log(test[0]);   // 25
+console.log(testArea);  // 25
+```
+
 Note that the default returned value of any function is `undefined`.
 
 One of the many weird things about JavaScript is that it is very forgiving. If, for example, you pass too many arguments to a function, it will accept the first and ignore the rest. If you don't pass enough, the value of the missing arg will be `undefined` but the function will still run.

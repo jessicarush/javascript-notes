@@ -4,42 +4,45 @@
 Arrays are JavaScript's lists. Arrays can store any data types (including strings, numbers, booleans, and other arrays). Like lists in Python, arrays are ordered and mutable, meaning each item has a numbered position and can be assigned a new value.
 
 ```javascript
-// an array literal:
-const exampleArray = ['example', 10, true, ['nested', 'array']];
+// an array literal (preferred):
+let array1 = ['example', 10, true, ['nested', 'array']];
+
+// an array constructor
+let array2 = new Array('example', 10, true, new Array('nested', 'array'));
 ```
 
 Array elements/items can be accessed with bracket notation:
 
 ```javascript
 // Array indexing starts at 0
-console.log(exampleArray[0]);  
+console.log(array1[0]);  
 // example
 
 // Access items within nested arrays:
-console.log(exampleArray[3][0]);  
+console.log(array1[3][0]);  
 // nested
 
 // FYI bracket notation works on strings too:
-console.log(exampleArray[0][1]);  
+console.log(array1[0][1]);  
 // x
 
 //If you try to access an index out of range, you'll get `undefined`
-console.log(exampleArray[4]);  
+console.log(array1[4]);  
 // undefined
 ```
 
 You can use bracket notation to assign a new value to an array index:
 
 ```javascript
-exampleArray[2] = false;
+array1[2] = false;
 
-console.log(exampleArray);  
+console.log(array1);  
 // [ 'example', 10, false ]
 ```
 
 Arrays have a built-in `length` *property* which can be accessed with dot notation:
 ```javascript
-console.log(exampleArray.length);  
+console.log(array1.length);  
 // 3
 ```
 

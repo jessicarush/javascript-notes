@@ -158,3 +158,11 @@ let name = JSON.parse(str).name;
 console.log(name);
 // jessica
 ```
+
+
+## Miscellaneous
+
+- JavaScript runs where it is found in the HTML (when the browser encounters the `<script>` element.)
+- an *expression* evaluates to a single value and relies operators to calculate a value.
+- a *statement* is a line of code (instructions) composed of values, operators, keywords, etc., and ends with a semicolon `;`.
+- a *code block* is one or more statements contained within curly braces `{}`.

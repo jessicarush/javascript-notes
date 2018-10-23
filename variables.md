@@ -113,6 +113,7 @@ foo();
 Variable names (including function names) must be *valid identifiers*:
 - an identifier must start with `a-z`, `A-Z`, `$` or `_`.
 - It can then contain any of those characters plus `0-9`
+- NO dashes `-`
 
 JavaScript has some reserved words and keywords that should not be used for variable names. In theory they can be used for property names but I'd stay away from them for clarity.
 
