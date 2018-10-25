@@ -5,7 +5,7 @@ In a function definition, `this` refers to the “owner” of the function. Anot
 
 When used alone, this refers to the global object (in strict mode, `this` will be `undefined`, because strict mode does not allow default binding).
 
-We use `this` similar to the way we use pronouns in natural languages. We write, “John is running fast because *he* is trying to catch the train.” Consider the example:
+We use `this` in JavaScript similar to the way we use `self` in Python classes. Consider the example:
 
 ```javascript
 let plant = {
@@ -73,8 +73,47 @@ var obj2 = {
   bar: 'obj2 bar'
 };
 
-foo();           // global bar (or in strict mode: TypeError: Cannot read property 'bar' of undefined at foo)
+foo();           // undefined (global bar)
 obj1.foo();      // obj1 bar
 foo.call(obj2);  // obj2 bar
 new foo();       // undefined
+
+// In strict mode foo(); will throw a TypeError: Cannot read property 'bar'
+// of undefined at foo - because strict mode does not allow default binding.
+```
+
+In the browser, the default object in the global context is the window object. In the example below, the values returned will be from the window itself:
+
+```javascript
+function windowSize() {
+  var width = this.innerWidth;
+  var height = this.innerHeight;
+  console.log(width, height);
+  return [width, height];
+}
+
+windowSize();
+// 863 673
+```
+
+## Common Usage
+
+Generally speaking, `this` is used most commonly in *objects* that contain methods (as seen in the very first example above), *object constructor functions*, and *classes*.
+
+```javascript
+// constructor function
+function Person(first, age, admin) {
+  this.firstname = first;
+  this.age = age;
+  this.admin = admin;
+}
+
+// class
+class Human {
+  constructor(first, age, admin) {
+    this.firstname = first;
+    this.age = age;
+    this.admin = admin;
+  }
+}
 ```

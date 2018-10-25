@@ -1,15 +1,88 @@
 # Objects
 
 
-In JavaScript, objects are like a Python dictionary. They are compound values where you can set properties (named locations, keys) that each hold their own values of any type. For example:
+In JavaScript, objects are compound values where you can set properties (named locations, keys) that each hold their own values of any type (including functions which become methods). There are (too) many ways to create an object. For example:
 
+**create an object: literal notation**
 ```javascript
-const obj = {
+const obj1 = {
   firstname: 'Jessica',
   age: 43,
   admin: true
 };
+```
 
+**create an object: constructor notation - using built-in Object()**
+```javascript
+const obj2 = new Object();
+
+obj2.firstname = 'Jessica';
+obj2.age = 43;
+obj2.admin = true;
+
+// Constructing an object from the built-in Object() function
+// is a little silly since using literal notation does the same thing.
+// If you wanted to start with an empty object: const obj2 = {};
+```
+
+**create an object: object constructor function**
+```javascript
+function Person(first, age, admin) {
+  this.firstname = first;
+  this.age = age;
+  this.admin = admin;
+}
+
+const obj3 = new Person('Jessica', 43, true);
+```
+
+**create an object: from a class**
+```javascript
+class Human {
+  constructor(first, age, admin) {
+    this.firstname = first;
+    this.age = age;
+    this.admin = admin;
+  }
+}
+
+const obj4 = new Human('Jessica', 43, true);
+```
+
+**create an object: from a factory function**
+```javascript
+const personFactory = (first, age, admin) => {
+  return {
+    firstname: first,
+    age: age,
+    admin: admin
+  };
+};
+
+const obj5 = personFactory('Jessica', 43, true);
+```
+
+All the the methods above produce the same results:
+
+```javascript
+console.log(typeof obj1, typeof obj2, typeof obj3, typeof obj4, typeof obj5);
+// object object object object object
+
+console.log(obj1.age, obj2.age, obj3.age, obj4.age, obj5.age);
+// 43 43 43 43 43
+```
+
+While the first two don't pose too much of a question, I'm not sure why we have the constructor, class, and factory function. From what I can tell so far, classes are very similar to the constructor functions, they're just newer (ES6) while constructor functions have been around for a long time. You will likely see classes being used more in the future but they mostly do the same thing. Beyond that here's some thoughts:
+
+- function declarations are hoisted, classes are not.
+- classes allow you to use keywords like `super` for extending other classes and `static` for creating static methods.
+- class definitions can not be redefined whereas function constructors can.
+
+
+## Accessing Properties
+
+
+```javascript
 // access properties using dot notation
 
 console.log(obj.firstname);  // Jessica
@@ -21,7 +94,6 @@ console.log(obj.admin);      // true
 console.log(obj['firstname']);  // Jessica
 console.log(obj['age']);        // 43
 console.log(obj['admin']);      // true
-
 ```
 
 Though dot notation is preferred, bracket notation is useful for when the property name is stored in another variable. In contrast, **dot notation expects the property name to be the objects actual, literal property name** at the time the program was evaluated.
@@ -103,7 +175,7 @@ user.message();
 
 ## Built-in Object Methods
 
-In addition to creating your own object methods, there are a number of built-in methods ([see a full list here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)). Note: this example uses a *factory function* (see [functions.md](functions.md)).
+In addition to creating your own object methods, there are a number of built-in methods ([see a full list here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)). Note: this example uses a *factory function* and *destructuring* (see [functions.md](functions.md)) .
 
 ```javascript
 const plantFactory = (name, age, waterFrequency, sunlight) => {
