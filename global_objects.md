@@ -1,9 +1,11 @@
-# Libraries
+# Global Objects
 
 
-Libraries are collections of methods that can be called without an instance.
+These are built-in objects, with collections of methods that can be called without an instance.
 
-The [Math library](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math) contains mathematical methods. The `.random()` method generates a random decimal number between 0 and 1.
+## Math object
+
+The [Math Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math) contains mathematical methods. For example, the `.random()` method generates a random decimal number between 0 and 1.
 
 ```javascript
 console.log(Math.random());  // 0.6897758230441343
@@ -15,10 +17,17 @@ To generate a random number between 0 and 10, we could multiply the result by 10
 Math.random() * 10;  // 3.069255352584533
 ```
 
-Some Math built-in methods:  
-`Math.floor()` - takes a decimal number, and rounds down to the nearest integer.  
+To round it to an integer
+
+```javascript
+console.log(Math.floor(Math.random() * 10)); // 9
+```
+
+Other Math methods include:
+
+`Math.floor()` - rounds down to the nearest integer.  
 `Math.round()` - returns the nearest integer.  
-`Math.ceil()` - takes a decimal number, and rounds up to the nearest integer.    
+`Math.ceil()` - rounds up to the nearest integer.    
 `Math.abs()` - returns the absolute value of a number.  
 `Math.min()` - returns the smallest value of a group.  
 `Math.max()` - returns the largest value of a group.  
@@ -40,7 +49,17 @@ Math.ceil(-4.9);  // -4
 Math.abs(-4.9);  // 4.9
 ```
 
-The [Number library](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) has methods that check if an instance in an integer or a finite number, or parses a string into a float:
+The number π (pi), or at least the closest approximation that fits in a JavaScript number, is available as a *property* of the Math object `Math.PI`:
+
+```javascript
+console.log(Math.PI);
+// 3.141592653589793
+```
+
+
+## Number object
+
+The [Number object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) has methods that check if an instance in an integer or a finite number, or parses a string into a float:
 
 ```javascript
 Number.parseFloat('5.20');  // 5.2
@@ -60,3 +79,7 @@ Number.isNaN(c);  // true
 let a = '42';
 let b = Number(a);
 ```
+
+## Date object
+
+By default when you create a Date object, it will hold today's date and time. If you want to store another date, you must explicitly state it.
