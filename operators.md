@@ -120,7 +120,7 @@ Note that the following values will evaluate to false when checked as a conditio
 - **Empty strings** like `""` or `''`
 - **null** which represent when there is no value at all
 - **undefined** which represent when a declared variable lacks a value
-- **NaN** short for *Not a Number*, it is teh result of an operation that cannot produce normal result. `Nan` is nit equal to any other value, including itself.
+- **NaN** short for *Not a Number*, it is the result of an operation that cannot produce normal result. `Nan` is nit equal to any other value, including itself.
 
 
 ## Shorthand using Operators
@@ -135,8 +135,9 @@ if (username) {
 else {
   nom = 'Stranger';
 }
+
 // could be shortened to:
 let nom = username || 'Stranger';
 ```
 
-This concept is also referred to as short-circuit evaluation.
+This concept is also referred to as short-circuit evaluation. Remember that logical operators are processed from left to right and processing will stop as soon as there is a result. Since we know that with the `||` operator, if the first condition is `true` then it doesn't need to check the rest, programmers will often put the code *most likely to return true first*. Similarly with the `&&` operator, to place anything likely to be `false` first.

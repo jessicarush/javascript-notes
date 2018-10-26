@@ -96,7 +96,7 @@ for (let i = 0; i < choices.length; i++) {
 By using the `break` keyword, you can actually omit the the conditional clause in some cases. For example, the following loop will stop when it reaches the first number that is greater than 100 and divisible by 7:
 
 ```Javascript
-for (let num = 100; ; num = num++) {
+for (let num = 100; ; num++) {
   if (num % 7 === 0) {
     console.log(num);
     break;
@@ -243,3 +243,44 @@ for (let i = 1; i <= 5; i++) {
 In the first example, the terminating condition of the for loop is when `i = 6`. The output is reflecting the final value of `i` after the loop terminates. The timeout function callbacks are all running well after the completion of the for loop.
 
 In the second example, the `let` keyword specifically declares a new variable for each iteration and that is scoped to that block. It essentially turns a block into a scope that we can have closure over. At each iteration it will be initialized with the value from the previous iteration.
+
+
+## Getting creative with the loop condition
+
+This will probably take some time to absorb, but the typical loop condition (which is usually a counter) *doesn't need to just be a counter*. For example:
+
+```javascript
+for (let line = "#"; line.length < 6; line += "#")
+  console.log(line);
+// #
+// ##
+// ###
+// ####
+// #####
+
+
+function arrayToList(array) {
+  let list = null;
+  for (let i = array.length - 1; i >= 0; i--) {
+    list = {value: array[i], rest: list};
+  }
+  return list;
+}
+
+let test1 = arrayToList([1, 2, 3]);
+console.log(test1);
+//{ value: 1, rest: { value: 2, rest: { value: 3, rest: null } } }
+
+
+function listToArray(list) {
+  let array = [];
+  for (let node = list; node; node = node.rest) {
+    array.push(node.value);
+  }
+  return array;
+}
+
+let test2 = listToArray(test1);
+console.log(test2);
+// [ 1, 2, 3 ]
+```

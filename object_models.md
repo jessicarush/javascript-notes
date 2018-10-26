@@ -38,6 +38,22 @@ window.open();          // opens a new browser window
 window.print();         // open the browser's print dialogue box
 ```
 
+For example:
+
+```javascript
+function windowSize() {
+  var width = this.innerWidth;  // this refers to the global object (window)
+  var height = this.innerHeight;
+  console.log(width, height);
+  return [width, height];
+}
+
+windowSize();
+// 863 673
+console.log(window.screen.width, window.screen.height);
+// 1280 800
+```
+
 
 ## Document Object Model
 
@@ -76,12 +92,12 @@ For more see [document_object_model.md]( document_object_model.md).
 
 The names of the global objects in JavaScript usually start with a capital letter, for example:
 
-**String** - for working with string values
-**Number** - for working with numeric values
-**Boolean** - for working with true/false values
-**Date** - to represent and handle dates
-**Math** - for working with numbers and calculations
-**Regex** - for matching patterns within strings of text
+**String** - for working with string values  
+**Number** - for working with numeric values  
+**Boolean** - for working with true/false values  
+**Date** - to represent and handle dates  
+**Math** - for working with numbers and calculations  
+**Regex** - for matching patterns within strings of text  
 
 Examples:
 ```javascript

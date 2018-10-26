@@ -65,10 +65,11 @@ switch (day) {
     break;
   default:
     console.log('Get back to work!');
+    break;
 }
 ```
 
-The `switch` block usually includes the `break` and `default` keywords. These are both optional. The `break` keyword breaks out of the switch block. This will stop the execution of code and/or case testing inside the block and continue on to the rest of the code. If `break` is omitted, the next code block in the switch statement is executed. The `default` keyword specifies some code to run if there is no case match. There can only be one `default` keyword in a switch. Although this is optional, it is recommended that you use it, as it takes care of unexpected cases.
+The `switch` block usually includes the `break` and `default` keywords. These are both optional bur very much recommended. The `break` keyword breaks out of the switch block. This will stop the execution of code and/or case testing inside the block and continue on to the rest of the code. If `break` is omitted, the next code block in the switch statement is executed. The `default` keyword specifies some code to run if there is no case match. There can only be one `default` keyword in a switch. Although this is optional, it is recommended that you use it, as it takes care of unexpected cases. In this last `default` section, you technically don't need to `break` but many programmers add it anyways for consistency and because other languages require it.
 
 ### Returning values in switch statements
 
@@ -112,6 +113,7 @@ function goodSwitch() {
       break;
     default:
       item = 'scissors';
+      break;
   }
   console.log('Item is assigned, time to return it.');
   return item;
