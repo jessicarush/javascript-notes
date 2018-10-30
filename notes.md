@@ -92,6 +92,8 @@ This function will write to an alert pop-up:
 alert('Hello.');
 ```
 
+Note that you would likely never use these in production code.
+
 
 ## Input
 
