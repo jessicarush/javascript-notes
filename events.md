@@ -104,7 +104,15 @@ function checkUsername() {
 let el = document.getElementById('username-field');
 el.addEventListener('blur', checkUsername, false);
 ```
-Note that the other two methods prefix all the events with `on`, as in `onclick` or `onblur`. This method does not.it uses event names as they are. The last boolean arg there is optional and has to do with how events flow. This is usually set to false. More to come...
+Note that the other two methods prefix all the events with `on`, as in `onclick` or `onblur`. This method does not. It uses event names as they are.
+
+The last boolean argument passed there is optional and has to do with event flow. Event flow is related to idea that you have elements nested within other elements. For example with something like this: `<li><a id="link">text</a></li>` you could, in theory, have a click event that corresponds to each element: `<a>`, `<li>`, `<ul>`. Event flow dictates which direction the events are triggered. It will be one of the following:
+
+**Event Bubbling** - The event starts at the most specific node and flows outwards (i.e. `a` -> `li` -> `ul` -> `body` -> `html` -> `document` ). Bubbling is the default (false) and probably what you will almost always use.  
+
+**Event Capturing** - The event starts at the least specific node and flows inwards (i.e. `document` -> `html` -> `body` -> `ul` -> `li` -> `a` ).  
+
+
 
 If you need to pass parameters to your function, wrap it with an anonymous function like so:
 
