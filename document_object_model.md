@@ -76,7 +76,10 @@ for (let el of Array.from(elNavs)) {
 }
 ```
 
-You can also **traverse** from one element node to another related node using the following properties. There is a weirdness with this in that whitespace is considered a node. So in order for the first five to work as expected, you have to remove all whitespace in your HTML, including line breaks. No Thanks. The last five were added later (probably ES6) but are definitely more useful.
+
+### Traverse the DOM
+
+You can also *traverse* from one element node to another related node using the following properties. There is a weirdness with this in that whitespace is considered a node. So in order for the first five to work as expected, you have to remove all whitespace in your HTML, including line breaks. No Thanks. The last five were added later (probably ES6) but are definitely useful.
 
 ```javascript
 let startNode = document.getElementById('main-nav');
