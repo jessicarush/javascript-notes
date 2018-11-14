@@ -6,11 +6,11 @@ References:
 [W3Schools HTML Dom Events](https://www.w3schools.com/jsref/dom_obj_event.asp)  
 
 **UI Events**  
-load - page has finished loading  
-unload - page is unloading (usually because a new page is requested)  
+load - page has finished loading - fires on the window and document object  
+unload - page is unloading (usually because a new page is requested) - fires on the body element node  
 error - browser encounters a JavaScript error or missing asset  
 resize - window has been resized  
-scroll - user has scrolled up or down  
+scroll - user has scrolled up or down - this can relate to the entire page or a specific element on the page  
 
 **Keyboard Events**  
 keydown - user presses a key (repeats while key is pressed)  
@@ -18,11 +18,11 @@ keyup - user releases a key
 keypress - user presses a key that inserts an actual character (repeats...)  
 
 **Mouse / Touch Events**  
-click - user presses & releases on an element   
-dblclick - double click and releases  
+click - user presses & releases or taps on an element   
+dblclick - double click and releases or double-tap  
 contextmenu - user right-clicks
-mousedown - presses mouse  
-mouseup - releases mouse  
+mousedown - presses mouse, similar to touchstart  
+mouseup - releases mouse, similar to touchend  
 mousemove - moves the mouse (not applicable to touchscreen)  
 mouseover - moves mouse over (not applicable to touchscreen)  
 mouseout - moves mouse off (not applicable to touchscreen)  
@@ -30,10 +30,11 @@ touchstart - finger is placed on touchscreen
 touchend - finger is removed from touchscreen  
 touchmove - finger dragged on touchscreen  
 touchcancel - touch is interrupted   
+orientationchange - device is rotated  
 
 **Focus Events**  
-focus / focusin - element gains focus  
-blur / focusout - element looses focus  
+focus / focusin - fires when an element gains focus  
+blur / focusout - fires when an element looses focus  
 
 **Form Events**  
 input - value in any `<input>`, `<select>` or `<textarea>` has changed  
@@ -56,7 +57,6 @@ transitionrun - a CSS transition has begun running
 
 
 ## Event Handling
-
 
 When a user interacts with the HTML on a page, there are three steps used to trigger JavaScript code. Together these steps are known as event handling.
 
@@ -157,6 +157,7 @@ See also:
 [W3Schools DOM Event Objects](https://www.w3schools.com/jsref/obj_events.asp)  
 [MDN Event Objects](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Events#Event_objects)  
 
+
 ### Event object properties & methods
 
 Some of the properties and methods available on *event objects*:
@@ -171,9 +172,16 @@ Some of the properties and methods available on *event objects*:
 
 `stopPropagation()` - Stops the event from *bubbling* or *capturing* any further along the DOM.  
 
+`screenX`, `screenY` - The screenX and screenY properties indicate the position of the cursor within the entire screen on your monitor (measuring from the top left corner).  
+
+`pageX`, `pageY` - The pageX and pageY properties indicate the position of the cursor within the entire page. The top of the page may outside the viewport, so even if the cursor is in the same position, client and page coordinates can be different.
+
+`clientX`, `clientY` - The clientX and clientY properties indicate the position within the browsers viewport. If the user has scrolled down, and the top of the page is no longer visible, this will have no affect on the coordinates.
+
 [See MDN for full list of event objects, properties & methods.](https://developer.mozilla.org/en-US/docs/Web/API/Event)  
 
-### Event object and other parameters
+
+### Using the event object with other parameters
 
 As we saw above, if you want to pass parameters to an event listener function, you wrap that function in an anonymous function. The event object in this case is automatically passed to the anonymous function. If you want to use it's properties and methods in the inner named function, then you will have to label the parameter and pass it in. For example:
 
@@ -223,4 +231,118 @@ deleteListItems();
 
 Keep in mind in the above example, if we had any other nested elements (like links, for example) we'd have to isolate the parent `li` as well as the grandparent `ul`. In the CSS we would need to ensure that the links were `display: block` so that we would be sure that they would be doing the triggering.
 
-Obviously this system won't work for every situation but is worth considering. 
+Obviously this system won't work for every situation but is worth considering.
+
+
+## Examples
+
+
+### Load
+
+Apparently the DOM Level 2 specification says that `load` fires on the document object. Prior to this, if fired on the window object. Browsers support both and most developers still use the window object (unconfirmed).
+
+Here's an example that uses the load event to put focus on a given form input element so the user can immediately start typing:
+
+```javascript
+function setup() {
+  let firstInput = document.getElementById('user_or_email');
+  firstInput.focus();
+}
+
+window.addEventListener('load', setup, false);
+```
+
+This alternate solution gives focus to the first input element (and assumes it has a label first) once the page is loaded.
+
+```javascript
+function setup() {
+  let formElement = document.querySelector('form.js-form');
+  let firstInput = formElement.firstElementChild.nextElementSibling;
+  firstInput.focus();
+}
+
+window.addEventListener('load', setup, false);
+```
+
+Keep in mind that the load event only fires once **everything** else on the page has loaded. So if, for example, you had a bunch of video and images, the user could (in theory) already be partway through the form by the time it forces focus to the first field.. super annoying!
+
+
+### Focus & Blur
+
+These can be useful in working with forms. For example if you want to provide tips or feedback to users as they interact with an element in a form. They can also be used to trigger form validation as a user moves from one field to the next rather that waiting for the submit button. For example:
+
+```javascript
+// these functions provide tips and validate a field
+
+function infoUsername() {
+  elMsg.className = 'auth-form__info';
+  elMsg.innerHTML = 'Username should be at least five characters';
+}
+
+function checkUsername() {
+  let username = elUsername.value;
+  if (username.length < 5) {
+    elMsg.className = 'auth-form__error';
+    elMsg.textContent = 'Not long enough!'
+  } else if (existingUsers.includes(username)) {
+    elMsg.className = 'auth-form__error';
+    elMsg.textContent = 'Sorry, that username is taken!';
+  } else {
+    elMsg.textContent = '';
+  }
+}
+
+let existingUsers = ['robert', 'timothy', 'susan'];
+let elMsg = document.getElementsByClassName('js-messages')[0];
+let elUsername = document.getElementById('user_or_email');
+
+elUsername.addEventListener('focus', infoUsername, false);
+elUsername.addEventListener('blur', checkUsername, false);
+```
+
+
+### Click
+
+This example demonstrates adding HTML content and using the click event:
+
+```javascript
+let msg = '<div class="announcement__header">';
+msg += '<a href="#" class="announcement__close-btn js-close">x close</a></div>';
+msg += '<div class="announcement__msg">';
+msg += '<h2 class="announcement__heading">System Maintenance</h2>';
+msg += '<p>Our servers will be updated between 3 and 5 am PST. ';
+msg += 'During this time, you may experience minor disruptions. ';
+msg += 'We do this periodically to ensure everything runs smooth.</p></div>';
+
+let elAnnouncement = document.createElement('div');
+elAnnouncement.setAttribute('class', 'announcement');
+elAnnouncement.innerHTML = msg;
+document.body.appendChild(elAnnouncement);
+
+function dismissAnnouncement() {
+  document.body.removeChild(elAnnouncement);
+}
+
+let elClose = document.getElementsByClassName('js-close')[0];
+elClose.addEventListener('click', dismissAnnouncement, false);
+```
+
+
+### keydown, keypress, keyup
+
+Note that they `key...` events fire in that order. `keydown` and `keypress` events have a `keyCode` property which reports what key was pressed as an ASCII code. To convert it to the character, you can use the `String` objects built in method `fromCharCode()`. See the example below:
+
+```javascript
+function charCount(e) {
+  let textEntered = document.getElementsByClassName('js-textbox')[0].value;
+  let charDisplay = document.getElementsByClassName('js-counter')[0];
+  let counter = (180 - textEntered.length);
+  let lastKey = document.getElementsByClassName('js-lastkey')[0];
+
+  charDisplay.textContent = counter;
+  lastKey.textContent = String.fromCharCode(e.keyCode);
+}
+
+let el = document.getElementsByClassName('js-textbox')[0];
+el.addEventListener('keyup', charCount, false);
+```

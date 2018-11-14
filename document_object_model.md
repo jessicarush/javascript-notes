@@ -103,7 +103,7 @@ startNode.firstElementChild.nextElementSibling.className = 'blue';
 ## Working With Elements
 
 See [MDN Node](https://developer.mozilla.org/en-US/docs/Web/API/Node) and [MDN Elements](https://developer.mozilla.org/en-US/docs/Web/API/Element)  
-See [W3schools DOM Element](https://www.w3schools.com/jsref/dom_obj_all.asp)  
+See [W3schools DOM Element](https://www.w3schools.com/jsref/dom_obj_all.asp) - lists all the properties & methods for elements.  
 See [here a full list of node types](https://developer.mozilla.org/en-US/docs/Web/API/Node).  
 
 ```javascript
@@ -276,3 +276,23 @@ if (el.hasAttribute('class')) {
     el.className = 'test';
 }
 ```
+
+
+## Other Element Object Properties & Methods
+
+For a full list see the links listed under [Working With Elements](#Working-With-Elements)
+
+`chileElementCount` - returns the number of child elements an element has  
+`classList` - returns the class name(s) of an element  
+`className` -  sets or returns the value of the class attribute of an element  
+`clientHeight` -  returns the height of an element, including padding  
+`clientWidth` -  returns the width of an element, including padding  
+`compareDocumentPosition()` - compares the document position of two elements  
+`contains()` - returns true if a node is a descendant of a node  
+`focus()` - gives focus to an element  
+`getBoundingClientRect()` - returns the size of an element and its position relative to the viewport.  
+`scrollHeight` - returns the entire height of an element including overflow and padding  
+`scrollWidth` - returns the entire width of an element including overflow and padding  
+`style` - sets or returns the value of a style attribute of an element. This gives you access to all CSS properties, for example: `style.backgroundColor` or `style.flexBasis`. [See here for a complete list of Style Object Properties](https://www.w3schools.com/jsref/dom_obj_style.asp).  
+`tagName` - returns the tag name of an element  
+`title` - sets or returns the value of the title attribute of an element  
