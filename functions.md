@@ -3,6 +3,37 @@
 
 Functions are the fundamental modular modular unit of JavaScript. They are used for code reuse, information hiding, and composition. Functions are used to specify the behaviour of objects. They're also good for simply organizing related bits of code into named groups (even if you plan to only call it once). In JavaScript, Functions are objects are are linked to `Function.prototype` which is in turn linked to `Object.prototype`.
 
+## Table of Contents
+
+<!-- toc -->
+
+- [Syntax](#syntax)
+- [Hoisting](#hoisting)
+- [Return](#return)
+- [...Rest Parameters](#rest-parameters)
+- [Scope (*lexical scope*)](#scope-lexical-scope)
+- [Let in Functions](#let-in-functions)
+- [Scope Pollution](#scope-pollution)
+- [Hiding with Scope](#hiding-with-scope)
+- [Collision Avoidance](#collision-avoidance)
+- [Closure](#closure)
+- [Properties and Methods](#properties-and-methods)
+- [Arguments](#arguments)
+- [Function Expressions *(functions as values)*](#function-expressions-functions-as-values)
+- [Immediately Invoked Function Expressions *(IIFE)*](#immediately-invoked-function-expressions-iife)
+- [Helper Functions](#helper-functions)
+- [Abstractions](#abstractions)
+- [Pure Functions](#pure-functions)
+- [Higher-order Functions](#higher-order-functions)
+- [Callback Functions](#callback-functions)
+- [Factory Functions](#factory-functions)
+- [Destructuring](#destructuring)
+- [Module Pattern](#module-pattern)
+- [Arrow Function Syntax](#arrow-function-syntax)
+
+<!-- tocstop -->
+
+## Syntax
 
 In JavaScript, there are many ways to create a function. One way to create a function is by using a *function declaration* (another way is via a *function expression*, described below). A *function declaration* is a function that is bound to an identifier, or name.
 
@@ -41,7 +72,7 @@ logAmount(9.9888, 2);  // 19.98
 logAmount(5);          // 5.00
 ```
 
-Functions are often declared in an assignment to a variable. When assigning to a variable, the function can be named or anonymous. The main difference with these approaches is related to *hoisting*, described in more detail below. Basically, function decalarations get defined at parse-time but variables get defined at run-time. As a result, you can call a function before it's declaration, but not if it's assigned to a variable. In terms of anonymous vs named functions, this is just a preference thing. Named functions are more helpful when it comes to debugging. Here's a comparison:
+Functions are often declared in an assignment to a variable. When assigning to a variable, the function can be named or anonymous. The main difference with these approaches is related to *hoisting*, described in more detail below. Basically, function declarations get defined at parse-time but variables get defined at run-time. As a result, you can call a function before it's declaration, but not if it's assigned to a variable. In terms of anonymous vs named functions, this is just a preference thing. Named functions are more helpful when it comes to debugging. Here's a comparison:
 
 ```javascript
 // Function decalaration:
