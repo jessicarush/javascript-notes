@@ -3,7 +3,7 @@
 
 ## description
 
-In the same spirit as [my python notes](https://github.com/jessicarush/python-notes), I'll be using this repo to collect my notes and example code as I learn JavaScript. Filenames reflect the topic as much as possible. The data directory contains resources for some of the examples. My training is self-guided through the use of text books and online resources listed below.
+In the same spirit as [my python notes](https://github.com/jessicarush/python-notes), I'll be using this repo to collect my notes and examples as I learn JavaScript. Filenames reflect the topic as much as possible. The data directory contains resources for some of the examples. My training is self-guided through the use of text books and online resources listed below.
 
 
 ## credits
