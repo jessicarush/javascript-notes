@@ -1,7 +1,30 @@
 # Objects
 
 
-In JavaScript, objects are compound values where you can set properties (named locations, keys) that each hold their own values of any type (including functions which become methods). There are (too) many ways to create an object. For example:
+In JavaScript, objects are compound values where you can set properties (named locations, keys) that each hold their own values of any type (including functions which become methods).
+
+## Table of Contents
+
+<!-- toc -->
+
+- [Syntax](#syntax)
+- [Accessing Properties](#accessing-properties)
+- [Delete and Add Properties](#delete-and-add-properties)
+- [Check if a property exists](#check-if-a-property-exists)
+- [Objects with Methods](#objects-with-methods)
+- [Built-in Object Methods](#built-in-object-methods)
+- [Nested Objects](#nested-objects)
+- [Passed by Reference](#passed-by-reference)
+- [Privacy](#privacy)
+- [Getters & Setters](#getters--setters)
+- [Arrays](#arrays)
+- [Functions](#functions)
+
+<!-- tocstop -->
+
+## Syntax
+
+There are many, many ways to create an object. For example:
 
 **literal notation**
 ```javascript

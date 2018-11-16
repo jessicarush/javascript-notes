@@ -1,5 +1,22 @@
 # Misc JavaScript Notes
 
+This document contains small bits of information that don't really fit anywhere else, or aren't big enough (yet) for their own file.
+
+## Table of Contents
+
+<!-- toc -->
+
+- [About the Language](#about-the-language)
+- [Comments](#comments)
+- [Semicolons](#semicolons)
+- [Output](#output)
+- [Input](#input)
+- [Strict mode](#strict-mode)
+- [JSHint](#jshint)
+- [JSON](#json)
+- [Miscellaneous](#miscellaneous)
+
+<!-- tocstop -->
 
 ## About the Language
 

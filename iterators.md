@@ -3,6 +3,22 @@
 
 Iterators are methods called on arrays to manipulate elements and return values.
 
+## Table of Contents
+
+<!-- toc -->
+
+- [forEach()](#foreach)
+- [filter()](#filter)
+- [map()](#map)
+- [reduce() & reduceRight()](#reduce--reduceright)
+- [findIndex()](#findindex)
+- [some()](#some)
+- [every()](#every)
+- [keys()](#keys)
+- [values()](#values)
+
+<!-- tocstop -->
+
 ## forEach()
 
 The `forEach()` method calls a provided function once for each element in an array, in order. `forEach()` loops through the array and executes the callback function for each element. During each execution, the current element is passed as an argument to the callback function.

@@ -4,6 +4,18 @@
 Any series of statements in JavaScript can be grouped together into a *block* using the curly braces `{...}`. When working with conditionals or loops, we'll have to move our statements into blocks. Note that you don't need a semicolon after a block `{...}`
 
 
+## Table of Contents
+
+<!-- toc -->
+
+- [if](#if)
+- [if...else statements](#ifelse-statements)
+- [switch statements](#switch-statements)
+  * [Returning values in switch statements](#returning-values-in-switch-statements)
+- [conditional operator](#conditional-operator)
+
+<!-- tocstop -->
+
 ## if
 
 The simplest form of an `if` conditional statement:
@@ -35,7 +47,7 @@ else {
 }
 ```
 
-Technically speaking, if your condition hold only a single statement, you can omit the `{}` braces. That being said, most programmers use them anyways to avoid having to think about whether they are needed.
+Technically speaking, if your condition holds only a single statement, you can omit the `{}` braces. That being said, most programmers use them anyways to avoid having to think about whether they are needed.
 
 ```javascript
 const legal_age = 19;

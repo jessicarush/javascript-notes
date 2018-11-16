@@ -3,6 +3,27 @@
 
 In a function definition, `this` refers to the “owner” of the function. Another way to say it would be: the `this` keyword references the *calling object* which provides access to the *calling object's properties*. When there isn't a calling object, this refers to the global object (in strict mode, referencing the global object with `this` will throw an error, because strict mode does not allow *default binding*).
 
+## Table of Contents
+
+<!-- toc -->
+
+- [Example](#example)
+- [The Calling Object](#the-calling-object)
+- [Common Usage](#common-usage)
+- [Function Invocation Patterns](#function-invocation-patterns)
+  * [Method Invocation Pattern](#method-invocation-pattern)
+  * [Function Invocation Pattern](#function-invocation-pattern)
+  * [Constructor Invocation Pattern](#constructor-invocation-pattern)
+  * [Apply Invocation Pattern](#apply-invocation-pattern)
+- [this Context vs Explicit Context](#this-context-vs-explicit-context)
+- [Comparisons](#comparisons)
+- [Avoid using *Arrow Function Syntax*](#avoid-using-arrow-function-syntax)
+- [this Summary](#this-summary)
+
+<!-- tocstop -->
+
+## Example
+
 Consider the example:
 
 ```javascript

@@ -10,6 +10,26 @@ The DOM is neither part of the HTML nor part of JavaScript it is a separate set 
 see also: [object_models.md](object_models.md)
 
 
+## Table of Contents
+
+<!-- toc -->
+
+- [The DOM Tree](#the-dom-tree)
+- [Accessing Elements](#accessing-elements)
+  * [Traverse the DOM](#traverse-the-dom)
+- [Working With Elements](#working-with-elements)
+  * [nodeValue example](#nodevalue-example)
+  * [textContent example](#textcontent-example)
+  * [innerHTML example](#innerhtml-example)
+  * [DOM manipulation](#dom-manipulation)
+    + [Adding elements](#adding-elements)
+    + [Removing elements](#removing-elements)
+- [Working With Attributes](#working-with-attributes)
+- [More Element Object Properties & Methods](#more-element-object-properties--methods)
+- [CSS Object Model](#css-object-model)
+
+<!-- tocstop -->
+
 ## The DOM Tree
 
 The DOM Tree, made up of the object that represent everything in the HTML page, consists of four types of *nodes*.

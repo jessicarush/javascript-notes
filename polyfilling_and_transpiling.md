@@ -1,7 +1,26 @@
-# Polyfilling
+# Polyfilling & Transpiling
 
 
 In working with a language that has many new features but having to also consider outdated browsers, there are a couple of options for addressing the gap between new JavaScript syntax and the JavaScript syntax that a given web browser recognizes: *polyfilling* and *transpiling*.
+
+## Table of Contents
+
+<!-- toc -->
+
+- [Polyfilling](#polyfilling)
+- [Transpiling](#transpiling)
+- [Babel](#babel)
+  * [Step 1: create a *src* directory](#step-1-create-a-src-directory)
+  * [Step 2. create a package.json](#step-2-create-a-packagejson)
+  * [Step 3. Install Babel CLI package](#step-3-install-babel-cli-package)
+  * [Step 4. Install the Babel ES6+ to ES5 preset](#step-4-install-the-babel-es6-to-es5-preset)
+  * [Step 5. babelrc](#step-5-babelrc)
+  * [Step 6. Babel scripts](#step-6-babel-scripts)
+  * [Step 7. Run the script](#step-7-run-the-script)
+
+<!-- tocstop -->
+
+## Polyfilling
 
 *Polyfilling* means to produce a piece of code that's equivalent in behavior to the new feature, but will run in older JavaScript environments. Here's an example of polyfilling... ES6 defines a utility called `Number.isNaN()` to check for `NaN` values. This replaces the deprecated `isNaN()` utility:
 
@@ -22,7 +41,7 @@ if (!Number.isNaN) {
 In JavaScript, `NaN` is the only value in the language that is not equal to itself, therefor our polyfill code will only return true if `x` is `NaN`. Not all new features are *polyfillable* and it can be very difficult to properly implement one yourself. A vetted set of trusted polyfills can be found at [ES5-Shim](https://github.com/es-shims/es5-shim) and [ES6-Shim](https://github.com/es-shims/es6-shim).
 
 
-# Transpiling
+## Transpiling
 
 There is no way to polyfill new syntax. New syntax will just throw an invalid/unrecognized error in older JS engines. The only option is to use a tool that converts newer code into older code equivalents. This process is called transpiling for transforming and compiling. To do this, you would typically insert a transpiler into your build process, similar to a code linter or minifier.
 
@@ -59,7 +78,7 @@ Also, a [good article here about transpilers](https://scotch.io/tutorials/javasc
 Finally, [caniuse.com](https://caniuse.com/) is a website that provides data on web browser compatibility for HTML, CSS, and JavaScript features.
 
 
-### Babel
+## Babel
 
 We pass JavaScript ES6 to Babel, which will transpile it to ES5 and write it to a file in the lib directory. The [Babel installation page](https://babeljs.io/setup#installation) says:
 
@@ -68,19 +87,19 @@ We pass JavaScript ES6 to Babel, which will transpile it to ES5 and write it to 
 > 2. It means you do not have an implicit dependency on the environment you are working in. Making your project far more portable and easier to setup.
 
 
-#### Step 1: create a *src* directory
+### Step 1: create a *src* directory
 
 The first step is to place your ES6 JavaScript file(s) in a directory called `src`. From your root directory, the path to an ES6 file is `./src/main.js`
 
 
-#### Step 2. create a package.json
+### Step 2. create a package.json
 
 Before installing Babel with `npm`, we should have a `package.json`. This file holds information about the current JavaScript project. This includes *Metadata* (project title, description, authors, license information), *Dependencies* (a list of node packages required for the project), key-value pairs for command line scripts and more.
 
 To create a package file, use the `npm init` command from the root folder of your project.
 
 
-#### Step 3. Install Babel CLI package
+### Step 3. Install Babel CLI package
 
 Once you've created the `package.json` file in your project root folder with `npm init`, You can install the Babel CLI. The install command creates a folder called `node_modules` and copies the package files to it.
 
@@ -91,7 +110,7 @@ npm install babel-cli -D
 Note the `-D` or `--save-dev` flag tells npm that this package is for development only. It gets recorded in your `package.json` under `devDependencies`.
 
 
-#### Step 4. Install the Babel ES6+ to ES5 preset
+### Step 4. Install the Babel ES6+ to ES5 preset
 
 This package contains all the ES6+ to ES5 syntax mapping information.
 
@@ -99,7 +118,7 @@ This package contains all the ES6+ to ES5 syntax mapping information.
 npm install babel-preset-env -D
 ```
 
-#### Step 5. babelrc
+### Step 5. babelrc
 
 Next, we need to create a `.babelrc` config file in the project root folder. This is where we tell Babel the version of the source JavaScript code (called a *preset*).
 
@@ -112,7 +131,7 @@ To specify that we are transpiling code from an ES6+ source, we have to add the 
 ```
 
 
-#### Step 6. Babel scripts
+### Step 6. Babel scripts
 
 Instead of running Babel directly from the command line we're going to put our commands in npm scripts which will use our local version. Simply add to "scripts" in to your `package.json` and put the babel command inside there as build.
 
@@ -131,7 +150,7 @@ A breakdown:
 `lib` – Babel writes the transpiled code to a directory called lib.
 
 
-#### Step 7. Run the script
+### Step 7. Run the script
 
 ```sh
 npm run build

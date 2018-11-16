@@ -10,6 +10,19 @@ Modules are particularly useful for separating code with similar logic into file
 - keep information private and protected from other modules
 - prevent pollution of the global namespace and potential naming collisions, by cautiously selecting the variables and behavior we load into a program
 
+## Table of Contents
+
+<!-- toc -->
+
+- [Exporting Modules with module.exports](#exporting-modules-with-moduleexports)
+- [Importing Modules with require()](#importing-modules-with-require)
+- [ES6 Export syntax](#es6-export-syntax)
+  * [default export](#default-export)
+  * [named export](#named-export)
+  * [summary](#summary)
+- [ES6 Import Syntax](#es6-import-syntax)
+
+<!-- tocstop -->
 
 ## Exporting Modules with module.exports
 

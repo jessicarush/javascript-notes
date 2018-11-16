@@ -3,6 +3,24 @@
 
 JavaScript is an asynchronous language. It uses an [event loop](https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop) to handle asynchronous function calls. When a program is run, function calls are made and added to a stack. The functions that make requests that need to wait for servers to respond get sent to a separate queue. Once the stack has cleared, then the functions in the queue are executed one at a time.
 
+## Table of Contents
+
+<!-- toc -->
+
+- [Example](#example)
+- [XMLHttpRequest GET](#xmlhttprequest-get)
+- [XMLHttpRequest POST](#xmlhttprequest-post)
+- [ES6 Requests (Promises)](#es6-requests-promises)
+  * [GET with fetch()](#get-with-fetch)
+  * [POST with fetch()](#post-with-fetch)
+- [ES8 async/await GET requests](#es8-asyncawait-get-requests)
+- [ES8 async/await POST requests](#es8-asyncawait-post-requests)
+- [Summary](#summary)
+
+<!-- tocstop -->
+
+## Example
+
 To get a glimpse of how the event loop works the following example uses the setTimeout(), which will pass a function call to the queue. The first argument is a callback and the second argument is the number of milliseconds the program must wait before the callback can be run. The other console.log() calls are run from the stack.
 
 ```javascript

@@ -1,7 +1,6 @@
 # Understanding the call-stack and call-site
 
-Finding the call-site of a function can be helpful when determining things like
-`this` bindings. The call-stack is the current stack of functions that have been called to get to the current moment in execution. The following is a very basic demonstration of this:
+Finding the call-site of a function can be helpful when determining things like `this` bindings. The call-stack is the current stack of functions that have been called to get to the current moment in execution. The following is a very basic demonstration of this:
 
 ```javascript
 function baz() {

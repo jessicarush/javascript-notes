@@ -5,6 +5,31 @@ References:
 [MDN Event reference](https://developer.mozilla.org/en-US/docs/Web/Events)  
 [W3Schools HTML Dom Events](https://www.w3schools.com/jsref/dom_obj_event.asp)  
 
+## Table of Contents
+
+<!-- toc -->
+
+- [Types of Events](#types-of-events)
+- [Event Handling](#event-handling)
+  * [Binding an event to an element](#binding-an-event-to-an-element)
+  * [Passing arguments to event listener functions](#passing-arguments-to-event-listener-functions)
+- [Event Objects](#event-objects)
+  * [Event object properties & methods](#event-object-properties--methods)
+  * [Using the event object with other parameters](#using-the-event-object-with-other-parameters)
+- [Event Delegation](#event-delegation)
+- [Mutation Observers](#mutation-observers)
+- [HTML5 Events](#html5-events)
+- [Examples](#examples)
+  * [load, DOMContentLoaded](#load-domcontentloaded)
+  * [focus & blur](#focus--blur)
+  * [click](#click)
+  * [keydown, keypress, keyup](#keydown-keypress-keyup)
+  * [submit, change](#submit-change)
+
+<!-- tocstop -->
+
+## Types of Events
+
 **UI Events**  
 load - page has finished loading - fires on the window and document object  
 unload - page is unloading (usually because a new page is requested) - fires on the body element node  

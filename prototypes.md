@@ -3,6 +3,17 @@
 
 JavaScript includes a *prototype linkage feature* that allows one object to inherit the properties of another. In fact, all objects created from object literals are linked to `Object.prototype`, an object that comes standard with JavaScript. Function objects are linked to `Function.prototype` (which is in turn linked to `Object.prototype`). Strings are linked to `String.prototype`, arrays to `Array.prototype`, numbers to `Number.prototype` and so on. For a full list of these objects see [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects). For each global object if you look at the sidebar here you'll see a subheading **Inheritance:**. This tells you the next global object in the prototype chain. For example: `String` inherits from `Function` inherits from `Object`.
 
+## Table of Contents
+
+<!-- toc -->
+
+- [Choosing the prototype](#choosing-the-prototype)
+- [Augmenting Types](#augmenting-types)
+
+<!-- tocstop -->
+
+## Choosing the prototype
+
 When you make a new object, you can choose the object that should be its prototype.
 
 When you reference a property on an object, if the property doesn't exist, JavaScript can use that objects *internal prototype reference* to find the property on the other (linked) object. And if that object is lacking the property then it goes to *its* prototype and so on until the process finally bottoms out with `Object.prototype`. If the desired property exists nowhere in the prototype chain, then the result is the undefined value. This *internal prototype reference linking* to another object is done at the time the object is created.

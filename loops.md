@@ -4,6 +4,20 @@
 A loop includes a test condition as well as a block `{...}`. Each time a loop block executes it's called an iteration. The block will repeat until the condition no longer evaluates as true. There are different forms of loops: `for` lops, `while` loops and `do...while` loops.
 
 
+## Table of Contents
+
+<!-- toc -->
+
+- [while](#while)
+- [do...while](#dowhile)
+- [for](#for)
+- [for...of](#forof)
+- [for...in](#forin)
+- [Loops and closure](#loops-and-closure)
+- [Getting creative with the loop condition](#getting-creative-with-the-loop-condition)
+
+<!-- tocstop -->
+
 ## while
 
 while (condition) { code }

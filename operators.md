@@ -3,6 +3,21 @@
 
 Operators that use two values are called *binary operators*, while those that take one are called *unary operators*. There in also a *ternary operator* `?:` that takes three.
 
+## Table of Contents
+
+<!-- toc -->
+
+- [Syntax](#syntax)
+- [Examples](#examples)
+- [Comparing Objects](#comparing-objects)
+- [Conditional operator](#conditional-operator)
+- [False and Falsy](#false-and-falsy)
+- [Shorthand using Operators](#shorthand-using-operators)
+
+<!-- tocstop -->
+
+## Syntax
+
 Add: `+`  
 Subtract: `-`  
 Multiply: `*`  
@@ -24,6 +39,9 @@ Conditional (ternary) operator: `?`
 
 There are other, more complex ones (ie Bitwise operators). See: [MDN Expressions and Operators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_Operators).
 
+## Examples
+
+Basic operators:
 
 ```javascript
 console.log(3 + 4);   // 7
@@ -88,6 +106,9 @@ Some general advice for working with strict `=== !==` vs loose `== !=`:
 - If either value in a comparison could be a `0`, '""', or `[]`(empty array), avoid `==` and use `===`.
 - In all other cases, its safe to use `==`.
 
+
+## Comparing Objects
+
 Note that when comparing two objects (arrays, functions), the comparison is checking to see if they are the same object... not that their contents are the same. However, if you compare an array object to a string, the array gets coerced to a comma separated string and therefor the comparison could potentially evaluate true, For example:
 
 ```javascript
@@ -101,7 +122,10 @@ console.log(a == b);  // false (because they are different objects)
 console.log(a == c);  // true (because they are the same object)
 console.log(a == d);  // true (because the array gets coerced to a string)
 console.log(a == e);  // false (because the coerced array has no spaces)
+
 ```
+
+## Conditional operator
 
 The conditional (ternary) operator `?` is the only one that takes 3 operands. It says if a condition is true, the operator is assigned the first value, otherwise it's assigned the second value. For example:
 

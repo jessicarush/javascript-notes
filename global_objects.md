@@ -3,6 +3,16 @@
 
 These are built-in objects, with collections of methods that can be called without an instance.
 
+## Table of Contents
+
+<!-- toc -->
+
+- [Math object](#math-object)
+- [Number object](#number-object)
+- [Date object](#date-object)
+
+<!-- tocstop -->
+
 ## Math object
 
 The [Math Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math) contains mathematical methods. For example, the `.random()` method generates a random decimal number between 0 and 1.

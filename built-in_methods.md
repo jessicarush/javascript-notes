@@ -1,9 +1,16 @@
 # Built-in Methods
 
 
-JavaScript has built-in methods for different data types.
+JavaScript has built-in methods for different data types. Like properties, built-in methods are called by appending an instance with a period, the name of the method followed by parentheses`()`. While properties are calculated when an instance is created, built-in methods perform actions that generate output when they are called on an instance.
 
-Like properties, built-in methods are called by appending an instance with a period, the name of the method followed by parentheses`()`. While properties are calculated when an instance is created, built-in methods perform actions that generate output when they are called on an instance.
+## Table of Contents
+
+<!-- toc -->
+
+- [String methods](#string-methods)
+- [Number methods](#number-methods)
+
+<!-- tocstop -->
 
 ## String methods
 

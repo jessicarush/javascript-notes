@@ -11,6 +11,21 @@ JavaScript uses six *primitive data types*, along with one complex type:
 **Symbols** — (new to ES6) Used as the key for an object property when the property is intended to be private, for the internal use of a class or an object.  
 **Objects** — Refers to a compound value where you can set properties that each hold their own values of any type. Functions and arrays are considered subtypes of the object type.
 
+
+## Table of Contents
+
+<!-- toc -->
+
+- [Syntax](#syntax)
+- [Determine a value's type with `typeof`](#determine-a-values-type-with-typeof)
+- [Converting between data types (coercion)](#converting-between-data-types-coercion)
+- [Properties](#properties)
+- [Escape Character](#escape-character)
+
+<!-- tocstop -->
+
+## Syntax
+
 ```javascript
 console.log('Hello');    // string
 console.log(40.7);       // number

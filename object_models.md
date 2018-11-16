@@ -6,6 +6,16 @@ An object model is a group of objects, each of which represents something in the
 2. [Document Object Model](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Introduction) - creates a model of the current web page. See the [Mozilla DOM reference](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model).
 3. [Global JavaScript Objects](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects) - A group of individual objects that relate to different parts of the JavaScript language.
 
+## Table of Contents
+
+<!-- toc -->
+
+- [Browser Object Model](#browser-object-model)
+- [Document Object Model](#document-object-model)
+- [Global JavaScript Objects](#global-javascript-objects)
+
+<!-- tocstop -->
+
 ## Browser Object Model
 
 The topmost object is the window object, which represents the current browser window or tab. Its child objects represent other browser features.

@@ -3,6 +3,28 @@
 
 Arrays are JavaScript's lists. Arrays can store any data types (including strings, numbers, booleans, and other arrays). Like lists in Python, arrays are ordered and mutable, meaning each item has a numbered position and can be assigned a new value.
 
+
+## Table of Contents
+
+<!-- toc -->
+
+- [Syntax](#syntax)
+- [Array Methods](#array-methods)
+  * [Add items with *push()* or *unshift()*](#add-items-with-push-or-unshift)
+  * [Remove and use items with *pop()* and *shift()*](#remove-and-use-items-with-pop-and-shift)
+  * [Get a section of an array with *slice()*](#get-a-section-of-an-array-with-slice)
+  * [Replace a section with *splice()*](#replace-a-section-with-splice)
+  * [Merge two arrays into a new one with *.concat()*](#merge-two-arrays-into-a-new-one-with-concat)
+  * [Find if an item is present with *includes()*](#find-if-an-item-is-present-with-includes)
+  * [Find the index of an item with *indexOf(), lastIndexOf()*](#find-the-index-of-an-item-with-indexof-lastindexof)
+  * [Reverse an array with *reverse()*](#reverse-an-array-with-reverse)
+  * [Convert an array to a string with *join()*](#convert-an-array-to-a-string-with-join)
+  * [Convert a string to an array with *split()*](#convert-a-string-to-an-array-with-split)
+
+<!-- tocstop -->
+
+## Syntax
+
 ```javascript
 // an array literal (preferred):
 let array1 = ['example', 10, true, ['nested', 'array']];

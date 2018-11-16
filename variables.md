@@ -1,7 +1,20 @@
 # Variables
 
+As with many other languages, JavaScript variables are containers for storing data values.
 
-## declaring
+## Table of Contents
+
+<!-- toc -->
+
+- [declaring variables](#declaring-variables)
+- [constants](#constants)
+- [let](#let)
+- [global variables](#global-variables)
+- [naming](#naming)
+
+<!-- tocstop -->
+
+## declaring variables
 
 In JavaScript you need to *declare* your variables by name before you use them. This is done with the `var` keyword. You only need to declare your variables once for each *scope*.
 
@@ -127,7 +140,7 @@ function foo() {
 foo();
 ```
 
-Speaking of windows, using the developer tools in the console you can type `Object.keys(window)` to get a list of all the global variables. Yours will be at the end `[200...]`. 
+Speaking of windows, using the developer tools in the console you can type `Object.keys(window)` to get a list of all the global variables. Yours will be at the end `[200...]`.
 
 ## naming
 

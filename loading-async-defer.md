@@ -2,6 +2,19 @@
 
 [This article](https://flaviocopes.com/javascript-async-defer/) provides a great explanation. To summarize, there are a number of ways to load JavasScript into the browser. The method you choose will depend on what your script does and what, if any, DOM elements it needs access to.
 
+## Table of Contents
+
+<!-- toc -->
+
+- [background](#background)
+- [default behaviour (no async or defer attribute)](#default-behaviour-no-async-or-defer-attribute)
+- [async attribute](#async-attribute)
+- [defer attribute](#defer-attribute)
+
+<!-- tocstop -->
+
+## background
+
 In the past, web developers would typically include their JavaScript document in one of two places in the HTML, either up in the `<head>` section or right before the closing `</body>` tag. The reasoning for this is while it's more organizationally appropriate to include a JavaScript file in the `</head>`, this simply doesn't work if your script needs to access DOM elements that haven't been created yet. In addition, the fetching and execution of the script before the HTML would make the page feel like it was loading slower to the user. As a result people moved their script to the bottom of the HTML document so that it is the last to load and therefor has access to the completed DOM tree. This method is old school.
 
 The `async` and `defer` attributes can be added to the `<script>` element to allow us to keep it in the `<head>` where it belongs, but choose when we want it to parse and execute. In short, async blocks the parsing of the page while defer does not.
