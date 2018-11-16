@@ -34,3 +34,20 @@ Similarly, there's a `-P` or `--save-prod` flag which saves the package as regul
 There's also a `-O` or `--save-optional` where the package will appear as `optionalDependencies` and a `--no-save` which prevents saving to dependencies at all.
 
 For more information see the [npm install page](https://docs.npmjs.com/cli/install).
+
+## Misc commands
+
+To update npm:
+```
+npm install -g npm
+```
+
+To list all the globally installed packages:
+```
+npm list -g
+```
+
+To list the directory of the globally installed packages:
+```
+npm root -g
+```
