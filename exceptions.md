@@ -1,5 +1,15 @@
 # Exceptions
 
+Otherwise known as error handling, problems (unexpected or expected) will happen in the running of our code. Exceptions provides us a way of gracefully handling those errors.
+
+<!-- toc -->
+
+- [try, throw, catch](#try-throw-catch)
+- [Error()](#error)
+
+<!-- tocstop -->
+
+## try, throw, catch
 
 The `throw` statement raises a user-defined exception. Execution of the current function will stop (the statements after throw won't be executed), and control will be passed to the first catch block in the call stack. If no catch block exists among caller functions, the program will terminate. In other words, if the `throw` statement is in a `try` block, then control goes to the `catch` clause.
 
@@ -29,8 +39,10 @@ throwTest('thirteen');
 // HEY! Error: thirteen is not a number!
 ```
 
-`Error()` is a built-in object that you can use. The error object provides two useful properties: `name` and `message`.
-You can also create your own error object  using this pattern.
+
+## Error()
+
+`Error()` is a built-in object that you can use. The error object provides two useful properties: `name` and `message`. You can also create your own error object  using this pattern.
 
 ```javascript
 function numberError(message) {
