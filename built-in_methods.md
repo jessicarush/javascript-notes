@@ -91,4 +91,21 @@ console.log(total.toExponential());
 // 1.11888e+1
 ```
 
+Another method is `toString()`. The interesting thing about this method is that you can use the optional base parameter to convert the number to binary(2), octal(8) or hex(16). This parameter must be an integer between 2 and 36.
+
+```javascript
+var num = 15;
+
+console.log(num.toString());
+console.log(num.toString(2));
+console.log(num.toString(8));
+console.log(num.toString(16));
+// 15
+// 1111
+// 17
+// f
+```
+
+
+
 See all the [built-in methods for numbers here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number).

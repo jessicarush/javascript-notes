@@ -41,6 +41,87 @@ logAmount(9.9888, 2);  // 19.98
 logAmount(5);          // 5.00
 ```
 
+Functions are often declared in an assignment to a variable. When assigning to a variable, the function can be named or anonymous. The main difference with these approaches is related to *hoisting*, described in more detail below. Basically, function decalarations get defined at parse-time but variables get defined at run-time. As a result, you can call a function before it's declaration, but not if it's assigned to a variable. In terms of anonymous vs named functions, this is just a preference thing. Named functions are more helpful when it comes to debugging. Here's a comparison:
+
+```javascript
+// Function decalaration:
+function one () {
+  console.log(one.name);
+}
+
+// Anonymous function assigned to a variable:
+var two = function () {
+  console.log(two.name);
+};
+
+// Named function assigned to a variable:
+var three = function three() {
+  console.log(three.name);
+};
+
+one();    // one
+two();    // two
+three();  // three
+```
+
+
+## Hoisting
+
+As noted above, any **function declarations** in a given scope will get *"hoisted"* to the top of the scope which means you can start calling it before it's declaration. For example:
+
+```javascript
+foo();
+
+function foo() {
+  console.log('Foo');
+}
+// Foo
+```
+
+This kind of hoisting only works for named function declarations, not function expressions assigned to a variable:
+
+```javascript
+foo(); // TypeError: foo is not a function
+
+var foo = function() {
+  console.log('Foo');
+};
+```
+
+*Hoisting* works a bit differently for variables. Only the *declaration* (not the assignment) is hoisted... and this only happens with the `var` keyword; `let` and `const` declarations don't get hoisted. In the example below, the first `console.log(a);` returns `undefined` because the value isn't *assigned* until the next line. That being said it doesn't throw a `ReferenceError` which you might think would be the case since it isn't *declared* until the next line either. The `console.log(a);` in the `inner` function returns `1` because `inner` isn't called until after the `a` declaration/assignment:
+
+```javascript
+function outer() {
+
+  function inner() {
+    console.log(a);  // 1
+  }
+
+  console.log(a);  // undefined
+  var a = 1;
+  inner();
+}
+outer();
+```
+
+One last thing to note about hoisting is that function declarations always get hoisted before variable declarations for example:
+
+```javascript
+foo();
+
+var foo;
+
+foo = function() {
+    console.log('foo the variable');
+};
+
+function foo() {
+    console.log('foo the function declaration');
+}
+// foo the function declaration
+```
+
+
 ## Return
 
 When a function is invoked it begins executing the first statement after `{` and ends when it hits the `}` that closes the function body.This causes the function to return control to the part of the program that invoked the function. The `return` statement can be used to cause a function to return early. Any statements following `return` inside the function body will not be executed.
@@ -143,102 +224,9 @@ introduction(...b);
 ```
 
 
-## Hoisting
-
-Note that in JavaScript, any **function declarations** in a given scope will get *"hoisted"* to the top of the scope which means you can start calling it before it's declaration. For example:
-
-```javascript
-foo();
-
-function foo() {
-  console.log('Foo');
-}
-// Foo
-```
-
-This kind of hoisting only works for function declarations, not function Expressions:
-
-```javascript
-foo(); // TypeError: foo is not a function
-
-var foo = function() {
-  console.log('Foo');
-};
-```
-
-*Hoisting* works a bit differently for variables. In short, only the *declaration* (not the assignment) is hoisted... and this only happens with the `var` keyword; `let` and `const` declarations don't get hoisted. In the example below, the first `console.log(a);` returns `undefined` because the value isn't *assigned* until the next line. That being said it doesn't throw a `ReferenceError` which you might think would be the case since it isn't *declared* until the next line either. The `console.log(a);` in the `inner` function returns `1` because `inner` isn't called until after the `a` declaration/assignment:
-
-```javascript
-function outer() {
-
-  function inner() {
-    console.log(a);  // 1
-  }
-
-  console.log(a);  // undefined
-  var a = 1;
-  inner();
-}
-outer();
-```
-
-One last thing to note about hoisting is that function declarations always get hoisted before variable declarations for example:
-
-```javascript
-foo();
-
-var foo;
-
-foo = function() {
-    console.log('foo the variable');
-};
-
-function foo() {
-    console.log('foo the function declaration');
-}
-// foo the function declaration
-```
-
-
-## Let in Functions
-
-In addition to declaring variables at the function level, ES6 lets you declare variables that belong to a specific block `{...}` by using the `let` keyword. By using `let` instead of `var`, `c` will belong only to the `if` statement and not to the whole `foo()` scope:
-
-```javascript
-function foo() {
-  var a = 1;                 // accessible to the whole foo() scope
-  if (a >= 1) {
-    var b = 2;               // accessible to the whole foo() scope
-    let c = 3;               // only accessible inside the if {...} block
-    console.log(a + b + c);  // 6
-  }
-  console.log(a);            // 1
-  console.log(b);            // 2
-  // console.log(c);         // ReferenceError
-}
-
-foo();
-```
-
-You can use this type of *block-scoping* to make it clear when I variable is only used/needed in a certain section of your code. This of course can help avoid issues where you're using the same variable names like `i` or `n` for short calculations. Block scoping is also useful for *garbage collection*. If you happen to have a large chunk of data, you can reclaim the memory by declaring it in a block.
-
-```javascript
-function process(data) {
-  // some processing happens
-  console.log(data);
-}
-
-{
-  // here's my block level scope
-  let reallyBigData = {data: 'big'};
-  process(reallyBigData);  // { data: 'big' }
-}
-
-process(reallyBigData); // ReferenceError: reallyBigData is not defined
-```
-
-
 ## Scope (*lexical scope*)
+
+Scope exists as a way to control the visibilty and lifetime of variables and paramters. This is important in programming as it reduces naming collisions and provides automatic memory management.
 
 Each function has its own scope. Only code inside the function can access the function's *scoped variables* (variables declared within the function). Variable names must be unique within the same scope, but *can* be the same in different scopes. For example:
 
@@ -284,10 +272,10 @@ Lexical scope rules say that the code in a scope can access variables in the sam
 ```javascript
 
 function outer() {
-  let a = 1;
+  var a = 1;
 
   function inner() {
-    let b = 2;
+    var b = 2;
     console.log(a + b);  // inner() has access to both 'a' and 'b'
   }
 
@@ -305,8 +293,8 @@ Note that *scope-related assignments* can occur in two ways: by using the `=` op
 
 ```javascript
 function outer(a) {
-  let b = a * 2;  // assignment of 'b'
-  let c = 100;    // assignment of 'c', but this value is NOT used
+  var b = a * 2;  // assignment of 'b'
+  var c = 100;    // assignment of 'c', but this value is NOT used
 
   function inner(c) {
     console.log(a, b, c);  // 2 4 8
@@ -316,6 +304,44 @@ function outer(a) {
 outer(2);         // assignment of 'a' happens here
 ```
 Note that the lexical scope look-up process only applies to *first-class identifiers* such as `a`, `b`, and `c` above. If you were referencing something through dot notation like `foo.bar.x`, lexical scope look-up would only apply for finding `foo`, but beyond that, *object property-access rules* take over to resolve `bar` and `x`.
+
+
+## Let in Functions
+
+In addition to declaring variables at the function level, ES6 lets you declare variables that belong to a specific block `{...}` by using the `let` keyword. By using `let` instead of `var`, `c` will belong only to the `if` statement and not to the whole `foo()` scope:
+
+```javascript
+function foo() {
+  var a = 1;                 // accessible to the whole foo() scope
+  if (a >= 1) {
+    var b = 2;               // accessible to the whole foo() scope
+    let c = 3;               // only accessible inside the if {...} block
+    console.log(a + b + c);  // 6
+  }
+  console.log(a);            // 1
+  console.log(b);            // 2
+  // console.log(c);         // ReferenceError
+}
+
+foo();
+```
+
+You can use this type of *block-scoping* to make it clear when I variable is only used/needed in a certain section of your code. This of course can help avoid issues where you're using the same variable names like `i` or `n` for short calculations. Block scoping is also useful for *garbage collection*. If you happen to have a large chunk of data, you can reclaim the memory by declaring it in a block.
+
+```javascript
+function process(data) {
+  // some processing happens
+  console.log(data);
+}
+
+{
+  // here's my block level scope
+  let reallyBigData = {data: 'big'};
+  process(reallyBigData);  // { data: 'big' }
+}
+
+process(reallyBigData); // ReferenceError: reallyBigData is not defined
+```
 
 
 ## Scope Pollution
