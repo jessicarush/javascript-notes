@@ -282,8 +282,8 @@ if (el.hasAttribute('class')) {
 
 For a full list see the links listed under [Working With Elements](#Working-With-Elements)
 
-`chileElementCount` - returns the number of child elements an element has  
-`classList` - returns the class name(s) of an element  
+`childElementCount` - returns the number of child elements an element has  
+`classList` - returns the class name(s) of an element. This can then be chained with it's own methods for example: `element.classList.add('mystyle')` or `element.classList.remove('mystyle')`  
 `className` -  sets or returns the value of the class attribute of an element  
 `clientHeight` -  returns the height of an element, including padding  
 `clientWidth` -  returns the width of an element, including padding  
