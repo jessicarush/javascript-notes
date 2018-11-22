@@ -34,6 +34,28 @@ console.log('The weather is nice.'.replace('nice', 'gross'));
 // The weather is gross.
 ```
 
+Not that JavaScript doesn't have a capitalize method for strings. Instead, you have to monkey one together like so:
+
+```javascript
+function capitalFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+function capitalize(string) {
+  let words = [];
+  string.split(' ').forEach(word => {
+    words.push(capitalFirstLetter(word));
+  });
+  return words.join(' ');
+}
+
+let s = 'the great escape';
+console.log(capitalFirst(s));
+// The great escape
+console.log(capitalize(s));
+// The Great Escape
+```
+
 See all the [built-in methods for strings here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String).
 
 

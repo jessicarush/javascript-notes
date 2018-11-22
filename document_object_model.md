@@ -278,21 +278,30 @@ if (el.hasAttribute('class')) {
 ```
 
 
-## Other Element Object Properties & Methods
+## More Element Object Properties & Methods
 
-For a full list see the links listed under [Working With Elements](#Working-With-Elements)
+For a full list see the links listed under [Working With Elements](#Working-With-Elements).
+Note that the `style` property gives you access to all CSS properties.
+[See here for a complete list of Style Object Properties](https://www.w3schools.com/jsref/dom_obj_style.asp).
 
-`childElementCount` - returns the number of child elements an element has  
-`classList` - returns the class name(s) of an element. This can then be chained with it's own methods for example: `element.classList.add('mystyle')` or `element.classList.remove('mystyle')`  
-`className` -  sets or returns the value of the class attribute of an element  
-`clientHeight` -  returns the height of an element, including padding  
-`clientWidth` -  returns the width of an element, including padding  
-`compareDocumentPosition()` - compares the document position of two elements  
-`contains()` - returns true if a node is a descendant of a node  
-`focus()` - gives focus to an element  
-`getBoundingClientRect()` - returns the size of an element and its position relative to the viewport.  
-`scrollHeight` - returns the entire height of an element including overflow and padding  
-`scrollWidth` - returns the entire width of an element including overflow and padding  
-`style` - sets or returns the value of a style attribute of an element. This gives you access to all CSS properties, for example: `style.backgroundColor` or `style.flexBasis`. [See here for a complete list of Style Object Properties](https://www.w3schools.com/jsref/dom_obj_style.asp).  
-`tagName` - returns the tag name of an element  
-`title` - sets or returns the value of the title attribute of an element  
+```javascript
+el.childElementCount  // returns the number of child elements
+el.classList          // returns the class name(s) of an element.  
+el.classList.add('mystyle')
+el.classList.remove('mystyle')
+el.classList.toggle('mystyle')
+el.className          // sets or returns the value of the class attribute
+el.clientHeight       // returns the height of an element, including padding  
+el.clientWidth        // returns the width of an element, including padding  
+el.compareDocumentPosition()  // compares the document position of two elements  
+el.contains()         // returns true if a node is a descendant of a node  
+el.focus()            // gives focus to an element  
+el.getBoundingClientRect()  // returns size and position relative to the viewport.  
+el.scrollHeight       // entire height of an element including overflow and padding  
+el.scrollWidth        // entire width of an element including overflow and padding  
+el.style              // sets or returns the value of the style attribute.  
+el.style.backgroundColor
+el.style.flexBasis  
+el.tagName             // returns the tag name of an element  
+el.title               // sets or returns the value of the title attribute
+```

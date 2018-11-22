@@ -117,3 +117,180 @@ class Human {
   }
 }
 ```
+
+## this Context vs Explicit Context
+
+This example uses `this` to allow functions to be used against multiple context objects:
+```javascript
+function identify() {
+    return this.name.toUpperCase();
+}
+
+function greet() {
+    let greeting = 'Hello ' + identify.call(this);
+    console.log(greeting);
+}
+
+let bob = {
+    name: 'bob'
+};
+
+let jane = {
+    name: 'jane'
+};
+
+greet.call(bob);
+greet.call(jane);
+```
+
+In the example above, the `call()` method calls a function with a given `this` value and arguments provided individually. Instead of using `this`, you could *explicitly pass in a context object*, like so:
+```javascript
+function identify(object) {
+    return object.name.toUpperCase();
+}
+
+function greet(object) {
+    let greeting = 'Hello ' + identify(object);
+    console.log(greeting);
+}
+
+let bob = {
+    name: 'bob'
+};
+
+let jane = {
+    name: 'jane'
+};
+
+greet(bob);
+greet(jane);
+```
+
+This method seems way simpler to me coming from Python, but apparently the `this` mechanism provides a more elegant way of implicitly passing along an object reference which can make a cleaner API design that's easier to reuse. The more complex the pattern, the messier it is to pass context around as an explicit parameter. **More to come to validate this point.**
+
+
+## More comparisons
+
+Here are some examples of different ways to approach creating a function that tracks how many times is was called:
+
+Using a global variable:
+```javascript
+function foo(num) {
+  console.log('foo: ' + num);
+
+  // keep track of how many times foo is called in a GLOBAL variable
+  count++;
+}
+
+let count = 0;
+
+for (let i=0; i<3; i++) {
+  foo(i);
+}
+
+console.log(count);
+// foo: 0
+// foo: 1
+// foo: 2
+// 3
+```
+
+Using the lexical scope of an object:
+```javascript
+function foo(num) {
+  console.log('foo: ' + num);
+
+  // keep track of how many times foo is called in an OBJECT
+  data.count++;
+}
+
+let data = {
+  count: 0
+};
+
+for (let i=0; i<3; i++) {
+  foo(i);
+}
+
+console.log(data.count);
+// foo: 0
+// foo: 1
+// foo: 2
+// 3
+```
+
+Using the lexical scope of the function itself:
+```javascript
+function foo(num) {
+  console.log('foo: ' + num);
+
+  // keep track of how many times foo is called as a PROPERTY
+  foo.count++;
+}
+
+foo.count = 0;
+
+for (let i=0; i<3; i++) {
+  foo(i);
+}
+
+console.log(foo.count);
+// foo: 0
+// foo: 1
+// foo: 2
+// 3
+```
+
+First attempt to use this:
+```javascript
+function foo(num) {
+  console.log('foo: ' + num);
+
+  this.count++;
+}
+
+foo.count = 0;
+
+for (let i=0; i<3; i++) {
+  foo(i);
+}
+
+console.log(foo.count);
+// strict mode = TypeError: Cannot read property 'count' of undefined
+// foo: 0
+// foo: 1
+// foo: 2
+// 0
+```
+
+This first (incorrect) attempt to use `this`, fails because `this.count` is not the same as `foo.count` because once again, `this.count` refers to the global (calling) object (and in strict mode, will be undefined). A correct solution for using this would be:
+
+```javascript
+function foo(num) {
+  console.log('foo: ' + num);
+
+  // keep track of how many times foo is called with THIS
+  this.count++;
+}
+
+foo.count = 0;
+
+for (let i=0; i<3; i++) {
+  // we use call() to make foo the calling function of itself
+  foo.call(foo, i);
+}
+
+console.log(foo.count);
+// foo: 0
+// foo: 1
+// foo: 2
+// 3
+```
+
+In this example, we use `.call()` to make `foo()` the calling function, so `this.count` now refers to `foo.count`. I'm still not sure why we'd do it this way but... moving on for now.
+
+## this Summary
+
+To clarify, `this` is not an *author-time binding* but a *runtime binding*. It is contextual based on the conditions of the functions invocation. It has nothing to do with where a function is declared, but everything to do with teh manner in which the function is called.
+
+When a function is invoked, an *activation record*, otherwise known as an execution context, is created. This record contains information about where the function was called from (the call-stack), how it was invoked, what parameters were passed an so on. One of the properties of this record is the `this` reference, which will be used for the duration of that function's execution. 
