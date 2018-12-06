@@ -1,7 +1,10 @@
 # Functions
 
 
-Functions are often used for code that you plan to call repeatedly, but they're also good for simply organizing related bits of code into named groups (even if you plan to only call it once). In JavaScript, there are many ways to create a function. One way to create a function is by using a *function declaration* (another way is via a *function expression*, described below). A *function declaration* is a function that is bound to an identifier, or name.
+Functions are the fundamental modular modular unit of JavaScript. They are used for code reuse, information hiding, and composition. Functions are used to specify the behaviour of objects. They're also good for simply organizing related bits of code into named groups (even if you plan to only call it once). In JavaScript, Functions are objects are are linked to `Function.prototype` which is in turn linked to `Object.prototype`.
+
+
+In JavaScript, there are many ways to create a function. One way to create a function is by using a *function declaration* (another way is via a *function expression*, described below). A *function declaration* is a function that is bound to an identifier, or name.
 
 A barebones example of a **function declaration** and **function call**:
 
@@ -35,6 +38,7 @@ function logAmount(amt, quantity=1) {
 }
 
 logAmount(9.9888, 2);  // 19.98
+logAmount(5);          // 5.00
 ```
 
 Functions can **return values**:
@@ -75,14 +79,14 @@ function square(num) {
   return num * num;
 }
 
-console.log(square(4, 'fart', 100));
+console.log(square(4, 'squirrel', 100));
 // 16
 console.log(square());
 // NaN
 ```
 
 
-## Rest Parameters
+## ...Rest Parameters
 
 It can be useful for a function to accept any number of arguments. For example, `Math.max()` computes the maximum of all the arguments it is given. To write such a function, you put three dots `...` before the function’s last parameter, for example:
 
@@ -103,7 +107,24 @@ formatList('introduction', 'data', 'objects', 'functions', 'classes');
 
 When such a function is called, the rest parameter is bound to an array containing all further arguments. If there are other parameters before it, their values aren’t part of that array.
 
-You can also use this `...` notation to pass an array of arguments when calling a function.
+```javascript
+function formatList(title, ...items) {
+  console.log(title.toUpperCase());
+  for (let item of items) {
+    console.log(item.padStart(20, '_'));
+  }
+}
+
+formatList('contents', 'introduction', 'data', 'objects', 'functions', 'classes');
+// CONTENTS
+// ________introduction
+// ________________data
+// _____________objects
+// ___________functions
+// _____________classes
+```
+
+You can also use rest `...` notation to pass an array of arguments when calling a function.
 
 ```javascript
 function introduction(name, occupation, city) {
@@ -138,12 +159,12 @@ This kind of hoisting only works for function declarations, not function Express
 ```javascript
 foo(); // TypeError: foo is not a function
 
-var foo = function () {
+var foo = function() {
   console.log('Foo');
 };
 ```
 
-*Hoisting* works a bit differently for variables. In short, only the *declaration* (not the assignment) is hoisted... (and this only happens with the `var` keyword. `let` and `const` declarations don't get hoisted). In the example below, the first `console.log(a);` returns `undefined` because the value isn't assigned until the next line. That being said it doesn't throw a `ReferenceError` which you might think would be the case since it isn't declared until the next line either. The `console.log(a);` in the `inner` function returns `1` because `inner` isn't called until after the `a` declaration/assignment:
+*Hoisting* works a bit differently for variables. In short, only the *declaration* (not the assignment) is hoisted... and this only happens with the `var` keyword; `let` and `const` declarations don't get hoisted. In the example below, the first `console.log(a);` returns `undefined` because the value isn't *assigned* until the next line. That being said it doesn't throw a `ReferenceError` which you might think would be the case since it isn't *declared* until the next line either. The `console.log(a);` in the `inner` function returns `1` because `inner` isn't called until after the `a` declaration/assignment:
 
 ```javascript
 function outer() {
@@ -177,7 +198,7 @@ function foo() {
 ```
 
 
-## Let
+## Let in Functions
 
 In addition to declaring variables at the function level, ES6 lets you declare variables that belong to a specific block `{...}` by using the `let` keyword. By using `let` instead of `var`, `c` will belong only to the `if` statement and not to the whole `foo()` scope:
 
@@ -221,12 +242,12 @@ Each function has its own scope. Only code inside the function can access the fu
 
 ```javascript
 function one() {
-  let a = 1;  // this 'a' only belongs to function one()
+  var a = 1;  // this 'a' only belongs to function one
   return a;
 }
 
 function two() {
-  let a = 2;  // this 'a' only belongs to function two()
+  var a = 2;  // this 'a' only belongs to function two
   return a;
 }
 
@@ -268,7 +289,7 @@ function outer() {
     console.log(a + b);  // inner() has access to both 'a' and 'b'
   }
 
-  console.log(a);  // outer() only has direct access to 'a'
+  console.log(a);  // outer() has direct access to 'a'
   console.log(b);  // ReferenceError: b is not defined
   inner();
 }
@@ -302,7 +323,7 @@ When working with global variables, it's really easy to accidentally overwrite a
 ```javascript
 let num = 50;
 
-const logNum = () => {
+const logNum = () => {  // arrow syntax (described below)
   num = 100;
   console.log(num);
 };
@@ -324,7 +345,7 @@ logNum(); // 100
 console.log(num); // 50
 ```
 
-As a result, the general advice is it's best to **not** define variables in the global scope. It's also important to not that by limiting your variables to the local scopes in which they're used, it will save memory because the variable will cease to exist after the block finishes running.
+As a result, the general advice is it's best to **not** define variables in the global scope. It's also important to note that by limiting your variables to the local scopes in which they're used, it will save memory because the variable will cease to exist after the block finishes running.
 
 
 ## Hiding with Scope
@@ -348,9 +369,11 @@ function myTotal(a) {
 }
 
 myTotal(5);
+```
 
-// versus more private:
+versus more private:
 
+```javascript
 function myTotal(a) {
 
   function mySubtotal(a) {
@@ -386,7 +409,7 @@ const MyAwesomeLibrary = {
 
 ## Closure
 
-Like in Python, closures mean that inner functions will remember the variables that were passed to them, even when the function has long finished running. Or you could say: Closure is when a function is able to remember and access its lexical scope even when that function is executing outside its lexical scope. Variables that you might think are garbage collected by the engine once a function is no longer in use, are remembered by inner functions. For example:
+*Closure* is the concept that inner functions will remember the variables that were passed to them, even when the function has long finished running. Or you could say: Closure is when a function is able to remember and access its lexical scope even when that function is executing outside its lexical scope. Variables that you might think are garbage collected by the engine once a function is no longer in use, are remembered by inner functions. For example:
 
 ```javascript
 function multiplier(x) {
@@ -469,14 +492,14 @@ function foo() {
 
 const x = function () {
   // called an anonymous function expression (similar to lambda in Python)
-  // semicolon is required after the assignment
+  // note: semicolon is required after the assignment
 };
 
 const x = function foo() {
   // called a named function declaration/expression.
   // It's equivalent to first declaring the function foo,
   // then assigning it to the variable x.
-  // semicolon is required after the assignment
+  // note: semicolon is required after the assignment
 };
 ```
 Since the release of ES6, it is common practice to use `const` as the keyword to declare the variable containing a function expression.
@@ -553,9 +576,9 @@ A pure function is a specific kind of value-producing function (it returns somet
 
 Functions that get passed in as parameters and invoked are called *callback functions* because they get called during the execution of the higher-order function. When we pass a function in as an argument to another function, we don't invoke it. Invoking the function would evaluate to the return value of that function call. With callbacks, we pass in the function itself by typing the function name without the parentheses.
 
-```javascript
-// Functions can create new functions:
+Functions can create new functions:
 
+```javascript
 // function greaterThan(n) {
 //   return function(m) {
 //     return m > n;
@@ -563,18 +586,18 @@ Functions that get passed in as parameters and invoked are called *callback func
 // }
 
 function greaterThan(n) {
-  return m => m > n;
+  return m => m > n;  // arrow syntax (described below)
 }
 
 let gt10 = greaterThan(10);
 
 console.log(gt10(11));
-//true
+// true
 ```
 
-```javascript
-// Functions can add to other functions:
+Functions can add to other functions:
 
+```javascript
 function logFunction(func) {
   return (...args) => {
     console.log('calling with: ', args);
@@ -785,6 +808,6 @@ const plantNeedsWater = function(day) {
 const plantNeedsWater = day => day === 'Wednesday' ? true : false;
 ```
 
-Be careful when trading off readability for condensed code.
+Use caution when trading-off readability for condensed code.
 
 There’s no deep reason to have both arrow functions and function expressions in the language. Arrow functions were added mainly to make it possible to write small function expressions in a less verbose way.

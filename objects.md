@@ -3,7 +3,7 @@
 
 In JavaScript, objects are compound values where you can set properties (named locations, keys) that each hold their own values of any type (including functions which become methods). There are (too) many ways to create an object. For example:
 
-**create an object: literal notation**
+**literal notation**
 ```javascript
 const obj1 = {
   firstname: 'Jessica',
@@ -12,7 +12,7 @@ const obj1 = {
 };
 ```
 
-**create an object: constructor notation - using built-in Object()**
+**constructor notation - using built-in Object()**
 ```javascript
 const obj2 = new Object();
 
@@ -23,20 +23,27 @@ obj2.admin = true;
 // Constructing an object from the built-in Object() function
 // is a little silly since using literal notation does the same thing.
 // If you wanted to start with an empty object: const obj2 = {};
+// But, this leads us to the next example...
 ```
 
-**create an object: object constructor function**
+**constructor function**
 ```javascript
 function Person(first, age, admin) {
   this.firstname = first;
   this.age = age;
   this.admin = admin;
+  };
 }
 
 const obj3 = new Person('Jessica', 43, true);
+
+// By convention, constructor functions are named with a capital first letter.
+// If a constructor function is called without the new keyword, bad things can
+// happen with no runtime error. The capitalization helps as a reminder that
+// the new keyword is needed.
 ```
 
-**create an object: from a class**
+**class**
 ```javascript
 class Human {
   constructor(first, age, admin) {
@@ -49,7 +56,7 @@ class Human {
 const obj4 = new Human('Jessica', 43, true);
 ```
 
-**create an object: from a factory function**
+**factory function**
 ```javascript
 const personFactory = (first, age, admin) => {
   return {
@@ -77,6 +84,22 @@ While the first two don't pose too much of a question, I'm not sure why we have 
 - function declarations are hoisted, classes are not.
 - classes allow you to use keywords like `super` for extending other classes and `static` for creating static methods.
 - class definitions can not be redefined whereas function constructors can.
+
+As a side note, all of the examples above could include methods on the same way. For example, here's the constructor function with a method as well:
+
+```javascript
+function Person(first, age, admin) {
+  this.firstname = first;
+  this.age = age;
+  this.admin = admin;
+  this.logAge = function() {
+    console.log(this.age);
+  };
+}
+
+const obj3 = new Person('Jessica', 43, true);
+obj3.logAge(); // 43
+```
 
 
 ## Accessing Properties
@@ -244,7 +267,7 @@ console.log(ship.passengers[0].name);  // jessica
 
 ## Passed by Reference
 
-Objects are passed by reference. This means when we pass a variableretire_ageed to an object into a function as an argument, the computer interprets the parameter name as pointing to the space in memory holding that object. As a result, functions which change object properties actually mutate the object permanently.
+Objects are passed by reference. This means when we pass a reference to an object into a function as an argument, the computer interprets the parameter name as pointing to the space in memory holding that object. As a result, functions which change object properties actually mutate the object permanently.
 
 ```javascript
 const ship = {
@@ -277,7 +300,7 @@ const remakeIt = obj => {
 };
 
 remakeIt(ship);
-console.log(ship.color);  // red
+console.log(ship.color);  // silver
 ```
 
 The reason for this is that the when we pass `ship` into the function, `obj` becomes a reference to the memory location of the `ship` object, but not to the `ship` variable. This is because the `obj` parameter of the `remakeIt()` function is a variable in its own right. When we did the reassignment in the body of `remakeIt()`, the obj variable came to refer to the memory location of the object `{color: 'green', port: 'seattle'}`, while the ship variable was completely unchanged.

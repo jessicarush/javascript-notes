@@ -93,7 +93,27 @@ Going forward the intention is that the `var` keyword is used in pre-ES6 version
 
 ## global variables
 
-As a side note: global variables are automatically also properties of the global object (`window` in browsers, etc). It's therefor possible to reference a global variable indirectly as a property reference: `window.a` instead of directly by it's *lexical* name `a`. This technique gives access to values that that might otherwise be *shadowed* an inner scope.
+JavaScript makes it easy to define global variables that can hold all of the assets of your application. Unfortunately, global variables weaken the resiliency of programs and should be avoided. There are are number of ways to do this. One way, is to create a single global variable for your application. By reducing your global footprint to a single name, you significantly reduce the chance of bad interactions with other applications, widgets or libraries.
+
+```javascript
+const myapp = {};
+
+myapp.something = {
+    // code
+};
+
+myapp.other = function() {
+    //code
+};
+```
+
+Another method would be to use closure.
+
+```javascript
+
+```
+
+As a side note: global variables are automatically also properties of the global object (`window` in browsers). It is therefor possible to reference a global variable indirectly as a property reference: `window.a` instead of directly by it's *lexical* name `a`. This technique gives access to values that that might otherwise be *shadowed* an inner scope.
 
 ```javascript
 var a = 'global a';
@@ -107,6 +127,7 @@ function foo() {
 foo();
 ```
 
+Speaking of windows, using the developer tools in the console you can type `Object.keys(window)` to get a list of all the global variables. Yours will be at the end `[200...]`. 
 
 ## naming
 
