@@ -12,7 +12,7 @@ const obj1 = {
 };
 ```
 
-**constructor notation - using built-in Object()**
+**constructor notation (using built-in Object)**
 ```javascript
 const obj2 = new Object();
 
@@ -79,31 +79,16 @@ console.log(obj1.age, obj2.age, obj3.age, obj4.age, obj5.age);
 // 43 43 43 43 43
 ```
 
-While the first two don't pose too much of a question, I'm not sure why we have the constructor, class, and factory function. From what I can tell so far, classes are very similar to the constructor functions, they're just newer (ES6) while constructor functions have been around for a long time. You will likely see classes being used more in the future but they mostly do the same thing. Beyond that here's some thoughts:
+While the first two don't pose too much of a question, We should be clear on the differences between the constructor, class, and factory function. The main difference with a factory function is that, unlike constructor functions, there is no *prototype linkage* between it and the objects created from it. With a constructor function, I could add a new method to the constructor, and that method would be available to all the objects that were created from it using the `new` keyword.
+
+From what I can tell so far, classes are very similar to the constructor functions.  They're newer (ES6) and were added to the language because of how common they are in other languages. Constructor functions (and prototype inheritance) however have been in JavaScript for a long time. You will likely see classes being used more in the future but they mostly do the same thing. Beyond that here are the main differences:
 
 - function declarations are hoisted, classes are not.
 - classes allow you to use keywords like `super` for extending other classes and `static` for creating static methods.
 - class definitions can not be redefined whereas function constructors can.
 
-As a side note, all of the examples above could include methods on the same way. For example, here's the constructor function with a method as well:
-
-```javascript
-function Person(first, age, admin) {
-  this.firstname = first;
-  this.age = age;
-  this.admin = admin;
-  this.logAge = function() {
-    console.log(this.age);
-  };
-}
-
-const obj3 = new Person('Jessica', 43, true);
-obj3.logAge(); // 43
-```
-
 
 ## Accessing Properties
-
 
 ```javascript
 // access properties using dot notation
@@ -160,8 +145,7 @@ const obj = {
   admin: true
 };
 
-console.log('age' in obj);
-// true
+console.log('age' in obj);  // true
 ```
 
 
@@ -178,7 +162,7 @@ const user = {
     }
 };
 
-user.message();
+user.message();  // Hello
 ```
 
 With the new ES6 *concise* syntax, we can omit the colon and the function keyword:
@@ -192,7 +176,99 @@ const user = {
     }
 };
 
-user.message();
+user.message();  // Hello
+```
+
+If we wanted to add a new method to the object we just assign it:
+
+```javascript
+user.greeting = function() {
+  let capitalized = this.name[0].toUpperCase() + this.name.slice(1);
+  console.log('Hello ' + capitalized);
+};
+
+user.greeting();  // Hello Jessica
+```
+
+We should also demonstrate what this looks like for constructor functions, classes, and factory functions. Keep in mind that you can't add a new method to a factory function after the fact, unless you reassign the whole function.
+
+```javascript
+// CONSTRUCTOR FUNCTION
+
+function Person(first, age, admin) {
+  this.firstname = first;
+  this.age = age;
+  this.logAge = function() {
+    console.log(this.age);
+  };
+}
+
+const constObj = new Person('Jessica', 43, true);
+
+// Add a method to this object instance only
+constObj.special = function() {
+  console.log('special');
+};
+
+// Add a method to the Constructor (affects all instances)
+Person.prototype.greeting = function() {
+  let capitalized = this.firstname[0].toUpperCase() + this.firstname.slice(1);
+  console.log('Hello ' + capitalized);
+};
+
+constObj.special();  // special
+constObj.greeting()  // Hello Jessica
+
+
+// CLASS
+
+class Human {
+  constructor(first, age, admin) {
+    this.firstname = first;
+    this.age = age;
+    this.logAge = function() {
+      console.log(this.age);
+    };
+  }
+}
+
+const classObj = new Human('Jessica', 43, true);
+
+// Add a method to this object instance only
+classObj.special = function() {
+  console.log('special');
+};
+
+// Add a method to the Class (affects all instances)
+Human.prototype.greeting = function() {
+  let capitalized = this.firstname[0].toUpperCase() + this.firstname.slice(1);
+  console.log('Hello ' + capitalized);
+};
+
+classObj.special();  // special
+classObj.greeting()  // Hello Jessica
+
+
+// FACTORY FUNCTION
+
+const personFactory = (first, age, admin) => {
+  return {
+    firstname: first,
+    age: age,
+    logAge: function() {
+      console.log(this.age);
+    }
+  };
+};
+
+const factoryObj = personFactory('Jessica', 43, true);
+
+// Add a method to the object
+factoryObj.special = function() {
+  console.log('special');
+};
+
+factoryObj.special();  // special
 ```
 
 
@@ -267,7 +343,7 @@ console.log(ship.passengers[0].name);  // jessica
 
 ## Passed by Reference
 
-Objects are passed by reference. This means when we pass a reference to an object into a function as an argument, the computer interprets the parameter name as pointing to the space in memory holding that object. As a result, functions which change object properties actually mutate the object permanently.
+Objects are passed by reference. This means when we pass an object into a function as an argument, the computer interprets the parameter name as pointing to the space in memory holding that object. As a result, functions which change object properties actually mutate the object permanently.
 
 ```javascript
 const ship = {

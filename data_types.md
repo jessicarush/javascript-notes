@@ -84,7 +84,7 @@ console.log(a);  // "42" (text is black in firefox console)
 console.log(b);  // 42 (numbers are green in firefox console)
 ```
 
-Using the `Number()` function like this is considered *explicit* coercion. But, there is also something called *implicit* coercion. Implicit coercion happens when you do loose comparisons. For example if I make the comparison `"100" == 100`, JavaScript will first convert the left side to it's number equivalent and then do the comparison (keep this in mind: there is strict comparison `===` for a reason). Similarly, if you print or log a number, JavaScript is actually *implicitly coercing* that number to a string in order to print it out.
+Using the `Number()` function like this is considered *explicit* coercion. But, there is also something called *implicit* coercion. Implicit coercion happens when you do loose comparisons. For example, if I make the comparison: `"100" == 100`, JavaScript will first convert the left side to it's number equivalent and then do the comparison. Keep this in mind: there is strict comparison `===` for a reason. Similarly, if you print or log a number, JavaScript is actually *implicitly coercing* that number to a string in order to print it out.
 
 You can *explicitly coerce* to a string with `String()`:
 

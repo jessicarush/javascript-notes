@@ -41,7 +41,11 @@ logAmount(9.9888, 2);  // 19.98
 logAmount(5);          // 5.00
 ```
 
-Functions can **return values**:
+## Return
+
+When a function is invoked it begins executing the first statement after `{` and ends when it hits the `}` that closes the function body.This causes the function to return control to the part of the program that invoked the function. The `return` statement can be used to cause a function to return early. Any statements following `return` inside the function body will not be executed.
+
+A function always returns a value. If a value is not specified, the default value is `undefined`. If the function is called with the `new` prefix and the `return` value is not an object, then `this` is returned instead. **More investigation required on this**.
 
 ```javascript
 function formatAmount(amt) {
@@ -69,8 +73,6 @@ const testArea = areaVolume(5, 5, 12)[0];
 console.log(test[0]);   // 25
 console.log(testArea);  // 25
 ```
-
-Note that the default returned value of any function is `undefined`.
 
 One of the many weird things about JavaScript is that it is very forgiving. If, for example, you pass too many arguments to a function, it will accept the first and ignore the rest. If you don't pass enough, the value of the missing arg will be `undefined` but the function will still run.
 
@@ -478,6 +480,31 @@ console.log(foo.a);  // hello
 console.log(foo.b);  // true
 console.log(foo.name);  // veryLongFunctionName
 ```
+
+## Arguments
+
+A bonus property/parameter that is available to all functions when they are invoked is the `arguments` array (not actually an array but an array-like object). This gives the function access to all of the arguments that were passed in, whether they're used in the function or not.
+
+```javascript
+var test = function() {
+  console.log('Number of arguments: ' + arguments.length);
+
+  for (let i = 0; i < arguments.length; i++) {
+    console.log('Argument ' + i + ': ' + arguments[i]);
+  }
+};
+
+test('a', 'b', 'c', 'd');
+// Number of arguments: 4
+// Argument 0: a
+// Argument 1: b
+// Argument 2: c
+// Argument 3: d
+```
+
+
+
+
 
 
 ## Function Expressions *(functions as values)*
