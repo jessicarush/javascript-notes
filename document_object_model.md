@@ -277,6 +277,8 @@ if (el.hasAttribute('class')) {
 }
 ```
 
+In case it's not alreday clear, the intention with `setAttribute()` is that your using it to add/change an attribute on an element, for example: class, id, src, href, etc. If you want to change a particular CSS property, use `el.style.property` syntax.
+
 
 ## More Element Object Properties & Methods
 
@@ -305,3 +307,74 @@ el.style.flexBasis
 el.tagName             // returns the tag name of an element  
 el.title               // sets or returns the value of the title attribute
 ```
+
+## CSS Object Model
+
+In addition to setting CSS properties with the syntax `el.style.propertName = value` (which is a standard HTML DOM thing), there is also a [CSS Object Model](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model) method called [setProperty](https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleDeclaration/setProperty) that looks like: `el.style.setProperty('border-radius', '10px')`. I'm still sorting out the differences between these two approaches and haven't looked deeply at this [CSSStyleDeclaration](https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleDeclaration) thing but will add information here as I figure it out.
+
+I'm guessing that the key insight is that while the `el.style.propertyName` assignment method is modifying the style attribute in the DOM, the `el.style.setProperty()` method *"sets or modifies a CSS property in a CSS declaration block"*. In other words, being a CSS Object Model method, the property is being set in the the actual CSS document. This allows us to do weird stuff like modify custom CSS properties (--my-variable). There's an example of this below.
+
+Some things discovered so far:
+
+The *CSS Object Model* syntax allows us to write CSS property names as they are in CSS (hyphen-case) rather than their camelCase version. Actually, you can use the hyphen-case property name if you use bracket syntax, but most people don't seem to like bracket syntax. For example:
+
+```javascript
+// using the DOM
+el.style.backgroundColor = '#000';
+el.style['background-color'] = '#000';
+
+// using the CSSOM
+el.style.setProperty('background-color', '#000');
+```
+
+Beyond that, here are some other differences:
+
+1. `setProperty()` takes an optional third *priority* parameter which lets you set the `!important` priority. For example:
+
+```javascript
+el.style.setProperty('background-color', '#000', 'important');
+```
+
+2. Since `setProperty()` is modifying the actual CSS Object, we can use it to modify custom properties (variables). This allows us to target a property that's part of a transition (not to be confused with animations), `:hover` or `:focus` selector. For example...
+
+HTML
+```html
+<div class="flex-centered color-box">
+  <div>Hover</div>
+</div>
+```
+CSS
+```css
+.color-box {
+  background: #fff;
+  transition: background 0.5s;
+}
+
+.color-box:hover {
+  background: var(--random-bg);
+}
+```
+JavaScript
+```javascript
+function randomBg() {
+  // Generate a random number between 0 and given number (inclusive)
+  function random(n) {
+    return Math.floor(Math.random() * (n + 1));
+  }
+  // Generate a random rgb color
+  function randomRGB() {
+    let rgbColor = 'rgb(' + random(255) + ',' + random(255) + ',' + random(255) + ')';
+    return rgbColor;
+  }
+  // Set an elements --random-bg property to a random color
+  function changeBg() {
+    let el = document.querySelector('.color-box');
+    el.style.setProperty('--random-bg', randomRGB());
+  }
+  changeBg();
+}
+
+randomBg();
+```
+
+Note: The [CSS Object Model](https://drafts.csswg.org/cssom/#the-cssstyledeclaration-interface) is classified as a Working Draft.

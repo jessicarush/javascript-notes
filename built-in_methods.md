@@ -50,7 +50,8 @@ function capitalize(string) {
 }
 
 let s = 'the great escape';
-console.log(capitalFirst(s));
+
+console.log(capitalFirstLetter(s));
 // The great escape
 console.log(capitalize(s));
 // The Great Escape

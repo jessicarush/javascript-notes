@@ -503,10 +503,6 @@ test('a', 'b', 'c', 'd');
 ```
 
 
-
-
-
-
 ## Function Expressions *(functions as values)*
 
 Note that in the example above, `foo` is basically just a variable that's given a reference to the function being declared. That is, the function itself is a value. Just like in Python, functions can be passed to, or returned from other functions.
