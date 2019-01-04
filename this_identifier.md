@@ -9,6 +9,7 @@ In a function definition, `this` refers to the “owner” of the function. Anot
 
 - [Example](#example)
 - [The Calling Object](#the-calling-object)
+- [Explicit and Hard Binding](#explicit-and-hard-binding)
 - [Common Usage](#common-usage)
 - [Function Invocation Patterns](#function-invocation-patterns)
   * [Method Invocation Pattern](#method-invocation-pattern)
@@ -79,7 +80,29 @@ foo.call(obj2);  // obj2 bar
 new foo();       // undefined
 ```
 
-In the browser, the default object in the global context is the window object. In the example below, the values returned will be from the window itself:
+In the example above, `call()` is a special method that most functions have access to via their prototype. The purpose of this function is to allow you to *explicitly* state which object you want to be bound to `this`. The functions first parameter is the object to use for `this`.
+
+**Note:** When chained, only the top/last level of the object property reference chain matters. For example:
+
+```javascript
+function foo() {
+  console.log(this.a);
+}
+
+var obj1 = {
+    a: 2,
+    obj2: obj2
+};
+
+var obj2 = {
+    a: 50,
+    foo: foo
+};
+
+obj1.obj2.foo() // 50
+```
+
+**Note:** In the browser, the default object in the global context is the window object. In the example below, the values returned will be from the window itself:
 
 ```javascript
 function windowSize() {
@@ -91,6 +114,108 @@ function windowSize() {
 
 windowSize();
 // 863 673
+```
+
+
+## Explicit and Hard Binding
+
+In the examples above, we are seeing the `this` value resulting from an *implicit binding* (with the exception of the `call()` example). When you start passing functions around as parameters (callbacks), the implicit `this` binding can become a problem. For example, let's start with something fairly straightforward:
+
+```javascript
+function foo() {
+    console.log(this.a);
+}
+
+var obj = {
+  a: 2,
+  foo: foo
+};
+
+obj.foo();  // 2
+```
+
+The result is what we expect. But what happens if we want to pass `obj.foo` as a parameter?
+
+```javascript
+function foo() {
+    console.log(this.a);
+}
+
+var obj = {
+  a: 2,
+  foo: foo
+};
+
+setTimeout(obj.foo, 100); // undefined
+```
+
+The reason for the loss of the `this` binding is that the *call-site* has changed (see also [call-stack.md](call-stack.md)) and therefor the *calling object* has changed. To see this more clearly, We can pass `obj.foo` to our own function:
+
+```javascript
+function foo() {
+    console.log(this.a);
+}
+
+function doFoo(func) {
+  func();  // <-- call-site
+}
+
+var obj = {
+  a: 2,
+  foo: foo
+};
+
+doFoo(obj.foo); // TypeError: Cannot read property 'a' of undefined
+```
+
+Instead of relying on this *implicit binding* through the use of `obj.foo`, we can use `call()` to create an *explicit binding*.
+
+```javascript
+function foo() {
+    console.log(this.a);
+}
+
+var obj = {
+  a: 2,
+};
+
+foo.call(obj);  //2
+```
+
+If we want to pass that *explicit binding* as a parameter, we can assign it to another function expression and pass that around instead. Now, no matter where we pass `bar` it will always invoke `foo` with `obj`. This binding is both explicit and strong so we call it *hard binding*.
+
+```javascript
+function foo() {
+    console.log(this.a);
+}
+
+var obj = {
+  a: 2,
+};
+
+var bar = function () {
+  foo.call(obj);
+};
+
+bar();  // 2
+setTimeout(bar, 100);  // 2
+```
+
+Since *hard binding* is such a common pattern, it's provided as a built-in utility (as of ES5) `Function.prototype.bind()`. Basically, `bind()` returns a new function that is hardcoded to call the original function with the specified `this` context.
+
+```javascript
+function foo() {
+    console.log(this.a);
+}
+
+var obj = {
+  a: 2,
+};
+
+var bar = foo.bind(obj);
+
+bar();  // 2
+setTimeout(bar, 100);  // 2
 ```
 
 
@@ -133,7 +258,7 @@ When a function is stored as a property of an object (or in a class), it's a met
 const myObject = {
   value: 0,
   increment: function(num) {
-    this.value += typeof num === 'number' ? num : 1;
+    this.value += (typeof num === 'number' ? num : 1);
   }
 };
 
@@ -151,7 +276,7 @@ When a function is not a direct property of an object, then it is invoked as a f
 ```javascript
 myObject.double = function() {
 
-  let helper = function() {
+  const helper = function() {
     this.value *= 2;  // TypeError: Cannot read property 'value' of undefined
   };
   helper();
@@ -167,7 +292,7 @@ There's a simple workaround for this situation though: assign the value of this 
 myObject.double = function() {
   const that = this;
 
-  let helper = function() {
+  const helper = function() {
     that.value *= 2;
   };
   helper();
@@ -179,7 +304,7 @@ console.log(myObject.value);  // 6
 
 ### Constructor Invocation Pattern
 
-Constructor functions are one of the many ways to create an object. See [objects.md](objects.md). Constructor functions are invoked with the `new` prefix. The new object that's created has a hidden link to value of the functions prototype and `this` will be bound to that new object.
+Constructor functions are one of the many ways to create an object. See [objects.md](objects.md). Constructor functions are invoked with the `new` prefix. The new object that's created has a hidden link to the functions prototype and `this` will be bound to that new object.
 
 ```javascript
 var Thing = function (string) {
@@ -216,7 +341,9 @@ thingTwo.logStringUpper();  // CLEAR
 
 ### Apply Invocation Pattern
 
-The `apply` method lets us call a function with a given `this` value and an array of other arguments. The syntax is `function.apply(thisArg, [argsArray])` For example:
+The `apply()` is very similar to the `call()` method described briefly above in *The Calling Object*. The syntax is almost identical. The fundamental difference is that following the first parameter, call() accepts an argument list, while apply() accepts a single array of arguments.
+
+The `apply()` method lets us call a function with a given object to be used for the `this` value along with an array of other arguments. The syntax is `function.apply(thisArg, [additionalArgs])` For example:
 
 ```javascript
 console.log(Math.max(1, 10, 12, 5));  // 12
