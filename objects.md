@@ -11,12 +11,13 @@ In JavaScript, objects are compound values where you can set properties (named l
 - [Accessing Properties](#accessing-properties)
 - [Delete and Add Properties](#delete-and-add-properties)
 - [Check if a property exists](#check-if-a-property-exists)
+- [Nested Objects](#nested-objects)
 - [Objects with Methods](#objects-with-methods)
 - [Built-in Object Methods](#built-in-object-methods)
-- [Nested Objects](#nested-objects)
 - [Passed by Reference](#passed-by-reference)
 - [Privacy](#privacy)
 - [Getters & Setters](#getters--setters)
+- [Cascade (chaining methods)](#cascade-chaining-methods)
 - [Arrays](#arrays)
 - [Functions](#functions)
 
@@ -92,17 +93,34 @@ const personFactory = (first, age, admin) => {
 const obj5 = personFactory('Jessica', 43, true);
 ```
 
+**create a new instance of an existing object with Object.create()**
+```javascript
+const personPrototype = {
+    firstname: '',
+    age: undefined,
+    admin: undefined
+};
+
+const obj6 = Object.create(personPrototype);
+
+obj6.firstname = 'Jessica';
+obj6.age = 43;
+obj6.admin = true;
+```
+
 All the the methods above produce the same results:
 
 ```javascript
-console.log(typeof obj1, typeof obj2, typeof obj3, typeof obj4, typeof obj5);
-// object object object object object
+console.log(typeof obj1, typeof obj2, typeof obj3, typeof obj4, typeof obj5, typeof obj6);
+// object object object object object object
 
-console.log(obj1.age, obj2.age, obj3.age, obj4.age, obj5.age);
-// 43 43 43 43 43
+console.log(obj1.age, obj2.age, obj3.age, obj4.age, obj5.age, obj6.age);
+// 43 43 43 43 43 43
 ```
 
-While the first two don't pose too much of a question, We should be clear on the differences between the constructor, class, and factory function. The main difference with a factory function is that, unlike constructor functions, there is no *prototype linkage* between it and the objects created from it. With a constructor function, I could add a new method to the constructor, and that method would be available to all the objects that were created from it using the `new` keyword.
+While the first two don't pose too much of a question, We should be clear on the differences between the constructor, class, factory function and the `Object.create()` method. The main difference with a factory function is that, unlike constructor functions, there is no *prototype linkage* between it and the objects created from it. With a constructor function or `Object.create()`, I could add a new method to the constructor or prototype object, and that method would be available to all the objects that were created from it using the `new` keyword or `Object.create()` respectively.
+
+In terms of the difference between constructor functions and `Object.create()`... `Object.create()` builds an object that inherits directly from the one passed as its first argument. With constructor functions, the newly created object inherits from the constructor's prototype.
 
 From what I can tell so far, classes are very similar to the constructor functions.  They're newer (ES6) and were added to the language because of how common they are in other languages. Constructor functions (and prototype inheritance) however have been in JavaScript for a long time. You will likely see classes being used more in the future but they mostly do the same thing. Beyond that here are the main differences:
 
@@ -172,6 +190,30 @@ console.log('age' in obj);  // true
 ```
 
 
+## Nested Objects
+
+Objects can be nested inside objects just like anything else.
+
+```javascript
+const ship = {
+    passengers: [
+        {name: 'jessica', ticket: 100},
+        {name: 'scott', ticket: 101},
+    ],
+    crew : {
+        captain: {
+            name: 'Bob',
+            greeting() {
+                console.log('Welcome aboard.');
+            }},
+    },
+};
+
+ship.crew.captain.greeting();  // Welcome aboard
+console.log(ship.passengers[0].name);  // jessica
+```
+
+
 ## Objects with Methods
 
 When the data stored on an object is a function we call that a method. A property is what an object has, while a method is what an object does. We can include methods in our object literals by creating ordinary, comma-separated key-value pairs. The key serves as our method's name, while the value is an anonymous function expression.
@@ -215,9 +257,8 @@ user.greeting();  // Hello Jessica
 
 We should also demonstrate what this looks like for constructor functions, classes, and factory functions. Keep in mind that you can't add a new method to a factory function after the fact, unless you reassign the whole function.
 
+CONSTRUCTOR FUNCTION:
 ```javascript
-// CONSTRUCTOR FUNCTION
-
 function Person(first, age, admin) {
   this.firstname = first;
   this.age = age;
@@ -241,10 +282,10 @@ Person.prototype.greeting = function() {
 
 constObj.special();  // special
 constObj.greeting()  // Hello Jessica
+```
 
-
-// CLASS
-
+CLASS:
+```javascript
 class Human {
   constructor(first, age, admin) {
     this.firstname = first;
@@ -270,10 +311,10 @@ Human.prototype.greeting = function() {
 
 classObj.special();  // special
 classObj.greeting()  // Hello Jessica
+```
 
-
-// FACTORY FUNCTION
-
+FACTORY FUNCTION:
+```javascript
 const personFactory = (first, age, admin) => {
   return {
     firstname: first,
@@ -337,30 +378,6 @@ console.log(Object.values(garlic));
 // [ 'spider plant', 'full' ]
 // [ 'spider plant', true, 'full' ]
 
-```
-
-
-## Nested Objects
-
-Objects can be nested inside objects just like anything else.
-
-```javascript
-const ship = {
-    passengers: [
-        {name: 'jessica', ticket: 100},
-        {name: 'scott', ticket: 101},
-    ],
-    crew : {
-        captain: {
-            name: 'Bob',
-            greeting() {
-                console.log('Welcome aboard.');
-            }},
-    },
-};
-
-ship.crew.captain.greeting();  // Welcome aboard
-console.log(ship.passengers[0].name);  // jessica
 ```
 
 
@@ -473,6 +490,54 @@ console.log(plant.age);  // 18
 ```
 
 
+## Cascade (chaining methods)
+
+Some methods return nothing (i.e. undefined). If we instead return `this`, we enable **cascades** where you  call many methods on the same object in sequence using dot notation. The cascade works because the object is passed from one method to the next.
+
+For example:
+
+```javascript
+var textProcesor = {
+  text: '',
+
+  reverseString: function () {
+    this.text = this.text.split('').reverse().join('');
+    return this;  // allows us to chain methods together
+  },
+
+  camelCase: function () {
+    let ccText = [];
+    this.text = this.text.toLowerCase().split(' ');
+    ccText.push(this.text.shift());
+    while (this.text.length > 0) {
+      let word = this.text.shift();
+      ccText.push(word.charAt(0).toUpperCase() + word.slice(1));
+    }
+    this.text = ccText.join('');
+    return this;  // allows us to chain methods together
+  }
+};
+
+
+textProcesor.text = 'Top hats and bees';
+
+// textProcesor.reverseString();
+// console.log(textProcesor.text);
+// seeb dna stah poT
+
+// textProcesor.camelCase();
+// console.log(textProcesor.text);
+// topHatsAndBees
+
+textProcesor.reverseString().camelCase();
+console.log(textProcesor.text);
+// seebDnaStahPot
+```
+
+Note that in if you remove the two return statements, you can still use the methods individually. A beneficial side effect of using cascades is that it discourages you from trying to do too much in one method and in turn makes your code more descriptive.
+
+
+
 ## Arrays
 
 Arrays are objects that hold values of any type which are numerically indexed. For example:
@@ -490,6 +555,8 @@ console.log(arr[2]);      // true
 console.log(arr.length);  // 3
 ```
 
+see [arrays.md](arrays.md)
+
 ## Functions
 
 Functions (like Arrays) are a subtype of JavaScript `objects`.
@@ -502,3 +569,5 @@ function foo() {
 console.log(typeof foo);    // function
 console.log(typeof foo());  // number
 ```
+
+see [functions.md](functions.md)
