@@ -29,6 +29,7 @@ Functions are the fundamental modular modular unit of JavaScript. They are used 
 - [Factory Functions](#factory-functions)
 - [Destructuring](#destructuring)
 - [Module Pattern](#module-pattern)
+- [Memoization](#memoization)
 - [Arrow Function Syntax](#arrow-function-syntax)
 
 <!-- tocstop -->
@@ -815,6 +816,121 @@ foo.doAnother();
 Note that `myModule`, which is just a function, has to be invoked for there to be a module instance created. Without the execution of the outer function, the creation of the inner scope and the closures would not occur.
 
 Keep in mind we return an object that has references to our inner functions but not to our inner data variables. It's appropriate to think of this returned object as a public API for our module. `doSomething` and `doAnother` have closure over the inner scope of the module instance.
+
+Here's another example:
+
+```javascript
+var serial_generator = function () {
+
+  // An object that produces a unique serial number (string)
+  // A unique string is made up of two parts: a prefix and
+  // a sequence number. The object comes with methods for setting
+  // the prefix and sequence as well as the method that produces
+  // the final unique string.
+
+  var prefix = '';
+  var sequence = 0;
+
+  return {
+    set_prefix: function (p) {
+      prefix = String(p);
+    },
+    set_sequence: function (s) {
+      sequence = s;
+    },
+    generate_serial: function () {
+      var result = prefix + sequence;
+      sequence += 1;
+      return result;
+    }
+  };
+};
+
+var test = serial_generator();
+test.set_prefix('J');
+test.set_sequence(10000);
+
+var unique1 = test.generate_serial();
+var unique2 = test.generate_serial();
+var unique3 = test.generate_serial();
+
+console.log(unique1);
+console.log(unique2);
+console.log(unique3);
+// J10000
+// J10001
+// J10002
+```
+
+
+## Memoization
+
+Functions can use objects or arrays to store the results of previous operations. This allows those results to be reused without having to recalculate the value. This optimization is called memoization. This is particularly useful in recursive functions. For example:
+
+```javascript
+var fibonacci = function (n) {
+  return n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2);
+};
+
+for (let i = 0; i <= 10; i += 1) {
+  console.log(fibonacci(i));
+}
+// 0
+// 1
+// 1
+// 2
+// 3
+// 5
+// 8
+// 13
+// 21
+// 34
+// 55
+```
+
+This works but it's doing a lot of unnecessary work. The fibonacci function ends up being called 453 times. If we memoize the function, we can significantly reduce its workload.
+
+```javascript
+var fibonacci = (function () {
+  var memo = [0,1];
+  var fib = function (n) {
+    var result = memo[n];
+    if (typeof result !== 'number') {
+      result = fib(n - 1) + fib(n - 2);
+      memo[n] = result;
+    }
+    return result;
+  };
+  return fib;
+})();
+
+
+for (let i = 0; i <= 10; i += 1) {
+  console.log(fibonacci(i));
+}
+```
+
+I'm still wrapping my head around how the IIFE works here for the fibonacci variable. If I wanted to write it without the IFEE I'd have to do this:
+
+```javascript
+var fibonacci = function () {
+  var memo = [0,1];
+  var fib = function (n) {
+    var result = memo[n];
+    if (typeof result !== 'number') {
+      result = fib(n - 1) + fib(n - 2);
+      memo[n] = result;
+    }
+    return result;
+  };
+  return fib;
+};
+
+
+for (let i = 0; i <= 10; i += 1) {
+  console.log(fibonacci()(i));  // since fibonacci() returns fib,
+}                               // fibonacci()(i) translates to fib(i)
+```
 
 
 ## Arrow Function Syntax
