@@ -1,16 +1,23 @@
 # Prototypes
 
 
-JavaScript includes a *prototype linkage feature* that allows one object to inherit the properties of another. In fact, all objects created from object literals are linked to `Object.prototype`, an object that comes standard with JavaScript. Function objects are linked to `Function.prototype` (which is in turn linked to `Object.prototype`). Strings are linked to `String.prototype`, arrays to `Array.prototype`, numbers to `Number.prototype` and so on. For a full list of these objects see [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects). For each global object if you look at the sidebar here you'll see a subheading **Inheritance:**. This tells you the next global object in the prototype chain. For example: `String` inherits from `Function` inherits from `Object`.
+In classical languages, objects are instances of classes, and a class can inherit from another class. JavaScript is a prototypal language, which means that the objects inherit directly from other objects.
 
 ## Table of Contents
 
 <!-- toc -->
 
+- [Overview](#overview)
 - [Choosing the prototype](#choosing-the-prototype)
-- [Augmenting Types](#augmenting-types)
+- [Differential Inheritance](#differential-inheritance)
+- [Augmenting Built-in Types](#augmenting-built-in-types)
 
 <!-- tocstop -->
+
+## Overview
+
+JavaScript includes a *prototype linkage feature* that allows one object to inherit the properties of another. In fact, all objects created from object literals are linked to `Object.prototype`, an object that comes standard with JavaScript. Function objects are linked to `Function.prototype` (which is in turn linked to `Object.prototype`). Strings are linked to `String.prototype`, arrays to `Array.prototype`, numbers to `Number.prototype` and so on. For a full list of these objects see [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects). For each global object if you look at the sidebar here you'll see a subheading **Inheritance:**. This tells you the next global object in the prototype chain. For example: `String` inherits from `Function` inherits from `Object`.
+
 
 ## Choosing the prototype
 
@@ -60,7 +67,35 @@ console.log(bar.c);
 // cheese
 ```
 
-## Augmenting Types
+## Differential Inheritance
+
+When customizing a new object, we specify the differences from the object on which it is based.
+
+```javascript
+const mammal = {
+  name: 'A Mammal',
+  get_name: function () {
+    return this.name;
+  },
+  says: function () {
+    return this.saying || '';
+  }
+};
+
+const myCat = Object.create(mammal);
+
+myCat.name = 'Oscar';
+myCat.saying = 'meow';
+myCat.get_name = function () {
+  return this.says() + ' ' + this.name + ' ' + this.says();
+};
+
+console.log(myCat.get_name());
+// meow Oscar meow
+```
+
+
+## Augmenting Built-in Types
 
 Javascript allows the basic types (Number, String, Object, etc) to be augmented. For example, we can, if we want, add a method to the `String.prototype` so that it is available to all strings. Let's look at two regular functions: one that capitalizes the first letter and one that capitalizes every word in a string.
 
