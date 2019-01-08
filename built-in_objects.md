@@ -1,19 +1,47 @@
-# Global Objects
+# Built-in (Global) Objects
 
-
-These are built-in objects, with collections of methods that can be called without an instance.
+Javascript has many built-in objects. Some of their names imply they're directly related to their primitive counterparts (see [data_types.md](data_types.md)) but, the relationship is slightly more complicated. These are built-in objects (functions actually), with collections of static methods that can be called **without an instance**. Some of these built-in objects also contain methods that can be applied to instances or primitive data types (e.g. `String.prototype.toLowerCase`). See [MDN for a complete list of built-in objects](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects).
 
 ## Table of Contents
 
 <!-- toc -->
 
-- [Math object](#math-object)
-- [Number object](#number-object)
-- [Date object](#date-object)
+- [instanceof](#instanceof)
+- [Math](#math)
+- [Number](#number)
+- [Date](#date)
+- [String](#string)
+- [Boolean](#boolean)
+- [Object](#object)
+- [Function](#function)
+- [Array](#array)
+- [RegExp](#regexp)
+- [Error](#error)
 
 <!-- tocstop -->
 
-## Math object
+## instanceof
+
+Before going further, it might be helpful to review this operator to clarify the relationship between primitive types and built-in types:
+
+```javascript
+let strPrimitve = 'lalala';
+let strString = new String('lalalaaa');
+
+console.log(strPrimitve instanceof String);  // false
+console.log(strPrimitve instanceof Object);  // false
+
+console.log(strString instanceof String);  // true
+console.log(strString instanceof Object);  // true
+
+console.log(typeof strPrimitve); // string
+console.log(typeof strString);  // object
+```
+
+**Note:** This is just for demonstration purposes. You should never actually use String as a constructor. The point here is that primitive data types are not objects. They are primitive, literal, immutable values. When we call a property or method on a primitive (e.g. `strPrimitve.length` or `strPrimitve.charAt(3)`), JavaScript automatically coerces the primitive into an object.
+
+
+## Math
 
 The [Math Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math) contains mathematical methods. For example, the `.random()` method generates a random decimal number between 0 and 1.
 
@@ -67,7 +95,7 @@ console.log(Math.PI);
 ```
 
 
-## Number object
+## Number
 
 The [Number object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) has methods that check if an instance in an integer or a finite number, or parses a string into a float:
 
@@ -90,9 +118,12 @@ let a = '42';
 let b = Number(a);
 ```
 
-## Date object
+## Date
 
-By default when you create a Date object, it will hold today's date and time. If you want to store another date, you must explicitly state it with the format `YYYY, MM, DD, HH, MM, SS` or `MMM DD, YYYY HH:MM:SS`. Note that the current date/time is determined by the computers clock.
+The Date object has a few static methods but mainly contains instance methods to be applied to objects constructed with `new Date()`.
+
+By default when you construct a Date object, it will hold today's date and time. If you want to store another date, you must explicitly state it with the format `YYYY, MM, DD, HH, MM, SS` or `MMM DD, YYYY HH:MM:SS`. Note that the current date/time is determined by the computers clock.
+
 
 ```javascript
 let today = new Date();
@@ -107,10 +138,9 @@ console.log(newyears);
 
 console.log(halloween);
 // 2018-10-31T07:00:00.000Z
-
 ```
 
-Once you've created a Date object, the following methods can be used to get and set the time and date it represents:
+Once you've created a Date object, the following methods (these are just a few) can be used to get and set the time and date it represents:
 
 `getDate()`, `setDate()` - returns/sets day of the month (0-31)  
 `getDay()` - returns day of the week (0-6)  
@@ -136,3 +166,31 @@ console.log(today.toTimeString());
 console.log(today.toString());
 // Wed Oct 24 2018 19:04:18 GMT-0700 (Pacific Daylight Time)
 ```
+
+Instead of creating a Date object, the static methods `Date.UTC()` and `Date.now()` return a time value as a number (milliseconds since epoch 1/1/1970).
+
+```javascript
+
+const utc = Date.UTC(2018, 1, 7);
+const now = Date.now();
+
+console.log(utc);  // 1517961600000
+console.log(now);  // 1546902662234
+
+console.log(typeof utc);  // number
+console.log(typeof now);  // number
+```
+
+## String
+
+## Boolean  
+
+## Object
+
+## Function
+
+## Array
+
+## RegExp
+
+## Error
