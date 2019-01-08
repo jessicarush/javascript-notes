@@ -13,6 +13,7 @@ Operators that use two values are called *binary operators*, while those that ta
 - [Conditional operator](#conditional-operator)
 - [False and Falsy](#false-and-falsy)
 - [Shorthand using Operators](#shorthand-using-operators)
+- [Keyword operators](#keyword-operators)
 
 <!-- tocstop -->
 
@@ -104,7 +105,7 @@ Some general advice for working with strict `=== !==` vs loose `== !=`:
 
 - If either value in a comparison could be a true or false, avoid `==` and use `===`.
 - If either value in a comparison could be a `0`, '""', or `[]`(empty array), avoid `==` and use `===`.
-- In all other cases, its safe to use `==`.
+- In all other cases, it's safe to use `==`.
 
 
 ## Comparing Objects
@@ -127,7 +128,7 @@ console.log(a == e);  // false (because the coerced array has no spaces)
 
 ## Conditional operator
 
-The conditional (ternary) operator `?` is the only one that takes 3 operands. It says if a condition is true, the operator is assigned the first value, otherwise it's assigned the second value. For example:
+The conditional (ternary) operator `?` is the only one that takes 3 operands. It says; if a condition is true, the operator is assigned the first value, otherwise it's assigned the second value. For example:
 
 ```javascript
 // condition ? value1 : value2
@@ -165,3 +166,14 @@ let nom = username || 'Stranger';
 ```
 
 This concept is also referred to as short-circuit evaluation. Remember that logical operators are processed from left to right and processing will stop as soon as there is a result. Since we know that with the `||` operator, if the first condition is `true` then it doesn't need to check the rest, programmers will often put the code *most likely to return true first*. Similarly with the `&&` operator, to place anything likely to be `false` first.
+
+## Keyword operators
+
+There are a number of keyword operators in javascript which test various things for example:
+
+`new` - The new operator turns a function call into a constructor call and creates an instance of a the constructor.  
+`instanceof` -  The instanceof operator determines whether an object is an instance of another object. It tests whether the prototype property of a constructor appears anywhere in the prototype chain of an object.  
+`typeof` - The typeof operator determines the type of a given object.  
+`delete` - The delete operator deletes a property from an object.  
+`in` - The in operator determines whether an object has a given property.  
+`void` - The void operator discards an expression's return value.
