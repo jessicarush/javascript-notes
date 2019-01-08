@@ -7,12 +7,32 @@ JavaScript has built-in methods for different data types. Like properties, built
 
 <!-- toc -->
 
-- [String methods](#string-methods)
-- [Number methods](#number-methods)
+- [Instance Methods & Object methods](#instance-methods--object-methods)
+- [String instance methods](#string-instance-methods)
+- [Number instance methods](#number-instance-methods)
 
 <!-- tocstop -->
 
-## String methods
+## Instance Methods & Object methods
+
+All built-in methods belong to built-in objects. Some methods are meant to be applied to an instance (or primitive data-type) while others are applied to the built-in object itself. For example, if you take a look at the built-in object [`Number`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number), you'll see that some of its methods are listed like: `Number.methodName` while others are listed as 'Number.prototype.methodName'. This first group of methods are applied directly to the number object, for example:
+
+```javascript
+Number.isInteger(5);        // true
+```
+
+For more on these types of methods see [built-in_objects.md](built-in_objects.md).
+
+The second group of methods include the `prototype` property. This indicates that the method is available (via the prototype link) to all the instances of that type and can be applied directly to an instance. For example:
+
+```javascript
+let num = 5;
+let num_str = num.toString();
+```
+
+Here we're focusing on these instance methods.
+
+## String instance methods
 
 ```javascript
 console.log('Hello'.toUpperCase());
@@ -41,7 +61,7 @@ console.log('The weather is nice.'.replace('nice', 'gross'));
 // The weather is gross.
 ```
 
-Not that JavaScript doesn't have a capitalize method for strings. Instead, you have to monkey one together like so:
+Note that JavaScript doesn't have a capitalize method for strings. Instead, you have to monkey one together like so:
 
 ```javascript
 function capitalFirstLetter(string) {
@@ -67,7 +87,7 @@ console.log(capitalize(s));
 See all the [built-in methods for strings here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String).
 
 
-## Number methods
+## Number instance methods
 
 An example of a built-in method for numbers is `toFixed()`:
 
