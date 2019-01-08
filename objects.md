@@ -8,6 +8,7 @@ In JavaScript, objects are compound values where you can set properties (named l
 <!-- toc -->
 
 - [Syntax](#syntax)
+- [new... a constructor call](#new-a-constructor-call)
 - [Accessing Properties](#accessing-properties)
 - [Delete and Add Properties](#delete-and-add-properties)
 - [Check if a property exists](#check-if-a-property-exists)
@@ -128,6 +129,17 @@ From what I can tell so far, classes are very similar to the constructor functio
 - classes allow you to use keywords like `super` for extending other classes and `static` for creating static methods.
 - class definitions can not be redefined whereas function constructors can.
 
+
+## new... a constructor call
+
+Since we've used this keyword in two of the examples above, we should probably take a closer look at what `new` actually does. Pretty much any function (including built-in object functions like `Number()`) can be called with `new` in from of it. This makes the function call a *constructor call*.
+
+When a function is invoked with new (a constructor call), the following things are done automatically:
+
+1. A brand new object is created (constructed)
+2. The newly constructed object is prototype-linked
+3. The newly constructed object is set as the `this` binding for that function call
+4. Unless the function returns its own alternate object, the `new`-invoked function call will automatically return the newly constructed object.
 
 ## Accessing Properties
 
