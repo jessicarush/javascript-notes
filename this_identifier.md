@@ -10,13 +10,13 @@ In a function definition, `this` refers to the “owner” of the function. Anot
 - [Example](#example)
 - [The Calling Object](#the-calling-object)
 - [Explicit and Hard Binding](#explicit-and-hard-binding)
+- [this Context vs Explicit Context](#this-context-vs-explicit-context)
 - [Common Usage](#common-usage)
 - [Function Invocation Patterns](#function-invocation-patterns)
   * [Method Invocation Pattern](#method-invocation-pattern)
   * [Function Invocation Pattern](#function-invocation-pattern)
   * [Constructor Invocation Pattern](#constructor-invocation-pattern)
   * [Apply Invocation Pattern](#apply-invocation-pattern)
-- [this Context vs Explicit Context](#this-context-vs-explicit-context)
 - [Comparisons](#comparisons)
 - [Avoid using *Arrow Function Syntax*](#avoid-using-arrow-function-syntax)
 - [this Summary](#this-summary)
@@ -149,15 +149,15 @@ var obj = {
 setTimeout(obj.foo, 100); // undefined
 ```
 
-The reason for the loss of the `this` binding is that the *call-site* has changed (see also [call-stack.md](call-stack.md)) and therefor the *calling object* has changed. To see this more clearly, We can pass `obj.foo` to our own function:
+The reason for the loss of the `this` binding is that the *call-site* has changed (see: [call-stack.md](call-stack.md)) and therefor the *calling object* has changed. To see this more clearly, We can pass `obj.foo` to our own function:
 
 ```javascript
 function foo() {
     console.log(this.a);
 }
 
-function doFoo(func) {
-  func();  // <-- call-site
+function doFoo(func) {  // <-- calling object
+  func();               // <-- call-site
 }
 
 var obj = {
@@ -182,7 +182,7 @@ var obj = {
 foo.call(obj);  //2
 ```
 
-If we want to pass that *explicit binding* as a parameter, we can assign it to another function expression and pass that around instead. Now, no matter where we pass `bar` it will always invoke `foo` with `obj`. This binding is both explicit and strong so we call it *hard binding*.
+If we want to pass that *explicit binding* as a parameter, we can assign it to another function expression and pass that around instead. In the example below, no matter where we pass `bar` it will always invoke `foo` with `obj`. This binding is both explicit and strong so we call it *hard binding*.
 
 ```javascript
 function foo() {
@@ -217,6 +217,57 @@ var bar = foo.bind(obj);
 bar();  // 2
 setTimeout(bar, 100);  // 2
 ```
+
+
+## this Context vs Explicit Context
+
+This example uses `this` to allow functions to be used against multiple objects:
+```javascript
+function format() {
+    return this.name.toUpperCase();
+}
+
+function greet() {
+    let greeting = 'Hello ' + format.call(this);
+    console.log(greeting);
+}
+
+let bob = {
+    name: 'bob'
+};
+
+let jane = {
+    name: 'jane'
+};
+
+greet.call(bob);
+greet.call(jane);
+```
+
+In the example above, the `call()` method calls a function with a given `this` value and arguments provided individually. Instead of using `this`, you could *explicitly pass in a context object*, like so:
+```javascript
+function format(object) {
+    return object.name.toUpperCase();
+}
+
+function greet(object) {
+    let greeting = 'Hello ' + format(object);
+    console.log(greeting);
+}
+
+let bob = {
+    name: 'bob'
+};
+
+let jane = {
+    name: 'jane'
+};
+
+greet(bob);
+greet(jane);
+```
+
+This method seems way simpler to me coming from Python, but apparently the `this` mechanism provides a more elegant way of implicitly passing along an object reference which can make a cleaner API design that's easier to reuse. The more complex the pattern, the messier it is to pass context around as an explicit parameter. **More to come to validate this point.**
 
 
 ## Common Usage
@@ -375,57 +426,6 @@ Thing.prototype.logStringUpper.apply(notThing);  // BUMBLEBEE
 ```
 
 
-## this Context vs Explicit Context
-
-This example uses `this` to allow functions to be used against multiple objects:
-```javascript
-function format() {
-    return this.name.toUpperCase();
-}
-
-function greet() {
-    let greeting = 'Hello ' + format.call(this);
-    console.log(greeting);
-}
-
-let bob = {
-    name: 'bob'
-};
-
-let jane = {
-    name: 'jane'
-};
-
-greet.call(bob);
-greet.call(jane);
-```
-
-In the example above, the `call()` method calls a function with a given `this` value and arguments provided individually. Instead of using `this`, you could *explicitly pass in a context object*, like so:
-```javascript
-function format(object) {
-    return object.name.toUpperCase();
-}
-
-function greet(object) {
-    let greeting = 'Hello ' + format(object);
-    console.log(greeting);
-}
-
-let bob = {
-    name: 'bob'
-};
-
-let jane = {
-    name: 'jane'
-};
-
-greet(bob);
-greet(jane);
-```
-
-This method seems way simpler to me coming from Python, but apparently the `this` mechanism provides a more elegant way of implicitly passing along an object reference which can make a cleaner API design that's easier to reuse. The more complex the pattern, the messier it is to pass context around as an explicit parameter. **More to come to validate this point.**
-
-
 ## Comparisons
 
 Here are some examples of different ways to approach creating a function that tracks how many times is was called:
@@ -571,3 +571,29 @@ The key takeaway from the example above is to avoid using arrow functions when u
 To clarify, `this` is not an *author-time binding* but a *runtime binding*. It is contextual based on the conditions of the functions invocation. It has nothing to do with where a function is declared, but everything to do with the manner in which the function is called.
 
 When a function is invoked, an *activation record*, otherwise known as an execution context, is created. This record contains information about where the function was called from (the call-stack), how it was invoked, what parameters were passed an so on. One of the properties of this record is the `this` reference, which will be used for the duration of that function's execution.
+
+To summarize, we can ask these questions in order of precedence to determine a `this` binding:
+
+1. Is the function called with the `new` keyword? If so, `this` is the newly constructed object. (see: [objects.md](objects.md))
+
+```javascript
+var bar = new foo();
+```
+
+2. Is the function called with `call()` or `apply()` (explicit binding)? If so, `this` is the explicitly specified object.
+
+```javascript
+var bar = foo.call(obj);
+```
+
+3. Is the function called with a context (implicit binding)? If so, `this` is that context object.
+
+```javascript
+var bar = obj1.foo();
+```
+
+4. Otherwise, `this` is a default binding (in strict mode undefined, otherwise the global object).
+
+```javascript
+var bar = foo();
+```
