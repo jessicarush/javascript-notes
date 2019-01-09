@@ -56,16 +56,25 @@ console.log(array1[4]);
 You can use bracket notation to assign a new value to an array index:
 
 ```javascript
-array1[2] = false;
+array1[3] = false;
 
-console.log(array1);  
-// [ 'example', 10, false ]
+console.log(array1);
+// [ 'example', 10, true, false ]
+```
+
+If you assign a new value to an index position that is beyond the current length of the array, all the empty indexes will be filled in with values: `<# empty item>`
+
+```javascript
+array1[6] = 'six';
+
+console.log(array1);
+// [ 'example', 10, true, false, <2 empty items>, 'six' ]
 ```
 
 Arrays have a built-in `length` *property* which can be accessed with dot notation:
 ```javascript
 console.log(array1.length);  
-// 3
+// 7
 ```
 
 
