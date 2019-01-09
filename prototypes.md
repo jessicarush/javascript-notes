@@ -67,6 +67,17 @@ console.log(bar.c);
 // cheese
 ```
 
+You can also check which properties come from the prototype with `Object.getPrototypeOf()` and which ones belong to the object alone with `Object.getOwnPropertyNames()`.
+
+```javascript
+console.log(Object.getPrototypeOf(bar));
+// { a: 40, b: 'world', c: 'cheese' }
+
+console.log(Object.getOwnPropertyNames(bar));
+// [ 'b' ]
+```
+
+
 ## Differential Inheritance
 
 When customizing a new object, we specify the differences from the object on which it is based.
