@@ -15,10 +15,19 @@ In JavaScript, objects are compound values where you can set properties (named l
 - [Nested Objects](#nested-objects)
 - [Objects with Methods](#objects-with-methods)
 - [Built-in Object Methods](#built-in-object-methods)
-- [Passed by Reference](#passed-by-reference)
+- [Property Descriptors](#property-descriptors)
+  * [writeable](#writeable)
+  * [configurable](#configurable)
+  * [enumerable](#enumerable)
+- [Immutability](#immutability)
+  * [constant property](#constant-property)
+  * [prevent extension](#prevent-extension)
+  * [seal](#seal)
+  * [freeze](#freeze)
 - [Privacy](#privacy)
 - [Getters & Setters](#getters--setters)
 - [Cascade (chaining methods)](#cascade-chaining-methods)
+- [Passed by Reference](#passed-by-reference)
 - [Arrays](#arrays)
 - [Functions](#functions)
 
@@ -189,7 +198,7 @@ console.log(obj);  // { firstname: 'Jessica', age: 100, lastname: 'Rush' }
 
 ## Check if a property exists
 
-The binary `in` operator, when applied to a string and an object, tells you whether that object has a property with that name:
+The binary `in` operator, when applied to a string and an object, tells you whether that object or an object in its prototype chain has a property with that name. By contrast, the built-in method `hasOwnProperty()` lets you check if the object itself (not a prototype) has the property.
 
 ```javascript
 const obj = {
@@ -198,7 +207,17 @@ const obj = {
   admin: true
 };
 
-console.log('age' in obj);  // true
+console.log('firstname' in obj);
+// true
+
+console.log('constructor' in obj);
+// true (because 'constructor' is a property of obj's prototype: Object)
+
+console.log(obj.hasOwnProperty('firstname'));
+// true
+
+console.log(obj.hasOwnProperty('property'));
+// false
 ```
 
 
@@ -364,10 +383,12 @@ const plantFactory = (name, age, waterFrequency, sunlight) => {
 
 const spider = plantFactory('spider plant', 10, 7, 'full');
 
-console.log(Object.keys(spider));  
+console.log(Object.keys(spider));
 // [ 'age', 'name', 'waterFrequency', 'sunlight' ]
-console.log(Object.values(spider));  
+
+console.log(Object.values(spider));
 // [ 10, 'spider plant', 7, 'full' ]
+
 console.log(Object.entries(spider));
 // [ [ 'age', 10 ],
 //   [ 'name', 'spider plant' ],
@@ -375,63 +396,183 @@ console.log(Object.entries(spider));
 //   [ 'sunlight', 'full' ] ]
 ```
 
-The `.assign()` method copies all properties from one or more source objects to a new target object. You can pass two arguments: `Object.assign(target_object, source_object)`. The method copies properties from the source object to the target object. Properties in the target object will be overwritten by properties in the source(s) if they have the same key.
+The `.assign()` method copies all properties from one or more source objects to a new target object. You pass two or more arguments: `Object.assign(target_object, source_object)`. The method copies properties from the source object(s) to the target object. Properties in the target object will be overwritten by properties in the source(s) if they have the same key. If the sources have the same keys, the last one in the argument list will be applied to teh target.
 
 ```javascript
-const spider ={name: 'spider plant', sunlight: 'full'};
+const plant = {name: 'plant', sunlight: 'full'}
+const spider = {name: 'spider', water: 'moist'};
 
-const coffee = Object.assign(spider);
-const garlic = Object.assign({name: `garlic`, edible: true}, spider);
+const coffee = Object.assign({}, plant);
+const garlic = Object.assign({name: `garlic`, edible: true}, spider, plant);
 
+coffee.name = 'coffee';
+
+console.log(Object.values(plant));
 console.log(Object.values(spider));
 console.log(Object.values(coffee));
 console.log(Object.values(garlic));
-// [ 'spider plant', 'full' ]
-// [ 'spider plant', 'full' ]
-// [ 'spider plant', true, 'full' ]
-
+// [ 'plant', 'full' ]
+// [ 'spider', 'moist' ]
+// [ 'coffee', 'full' ]
+// [ 'plant', true, 'moist', 'full' ]
 ```
 
 
-## Passed by Reference
+## Property Descriptors
 
-Objects are passed by reference. This means when we pass an object into a function as an argument, the computer interprets the parameter name as pointing to the space in memory holding that object. As a result, functions which change object properties actually mutate the object permanently.
+As of ES5 all object properties can be described in terms of a *property descriptor*. This data descriptor can be accessed using a built-in method that comes with `Object`, for example:
 
 ```javascript
-const ship = {
-    color: 'silver',
-    port: 'vancouver'
-};
+const plant = {name: 'plant', sunlight: 'full'}
+let desc = Object.getOwnPropertyDescriptor(plant, 'name');
 
-const paintIt = obj => {
-    obj.color = 'red';
-};
-
-paintIt(ship);
-console.log(ship.color);  // red
+console.log(desc);
+// { value: 'plant',
+//   writable: true,
+//   enumerable: true,
+//   configurable: true }
 ```
 
-That being said, this does not work for reassigning an entire object:
+As we can see, there are three characteristics that describe each property. The default is for all of these to be true. If we wanted to change these characteristics, we can use  `Object.defineProperty()`. With this method we can add a new property or modify an existing one.
+
+### writeable
+
+`writeable` controls whether you can change the properties value.
 
 ```javascript
-let ship = {
-    color: 'silver',
-    port: 'vancouver'
-};
+const plant = {name: 'plant', sunlight: 'full'};
 
-const remakeIt = obj => {
-    obj = {
-        color: 'green',
-        port: 'seattle'
-    };
-    console.log(obj.color);  // green
-};
+Object.defineProperty(plant, 'special', {
+  value: 'something',
+  writeable: false,  // not writeable!
+  configurable: true,
+  enumerable: true
+});
 
-remakeIt(ship);
-console.log(ship.color);  // silver
+console.log(plant.special);
+// something
+
+plant.special = 'other';
+// TypeError: Cannot assign to read only property 'special' of object
 ```
 
-The reason for this is that the when we pass `ship` into the function, `obj` becomes a reference to the memory location of the `ship` object, but not to the `ship` variable. This is because the `obj` parameter of the `remakeIt()` function is a variable in its own right. When we did the reassignment in the body of `remakeIt()`, the obj variable came to refer to the memory location of the object `{color: 'green', port: 'seattle'}`, while the ship variable was completely unchanged.
+### configurable
+
+`configurable` controls whether you can modify any these characteristics. Once you change this characteristic to false, you can't change it back. An interesting side-effect of making a value *unconfigurable* is that it can't be deleted with `delete`:
+
+```javascript
+const plant = {name: 'plant', sunlight: 'full'};
+
+Object.defineProperty(plant, 'special', {
+  value: 'something',
+  writeable: true,
+  configurable: false,  // not configurable!
+  enumerable: true
+});
+
+console.log(plant.special);
+// something
+
+delete plant.special
+// TypeError: Cannot delete property 'special' of #<Object>
+```
+
+### enumerable
+
+`enumerable` controls whether the property will be included in enumerations such as the `for..in` loop. Interestingly, this means that the property will be hidden from some methods like `Object.keys()` but not `Object.getOwnPropertyNames()`.
+
+```javascript
+const plant = {name: 'plant', sunlight: 'full'};
+
+Object.defineProperty(plant, 'special', {
+  value: 'something',
+  writeable: true,
+  configurable: true,
+  enumerable: false  // not enumerable!
+});
+
+console.log(plant.special);
+// something
+
+for (let property in plant) {
+  console.log('property: ' + property + ', value: ' + plant[property]);
+};
+// property: name, value: plant
+// property: sunlight, value: full
+
+console.log(Object.keys(plant));
+// [ 'name', 'sunlight' ]
+
+console.log(Object.getOwnPropertyNames(plant));
+// [ 'name', 'sunlight', 'special' ]
+```
+
+
+## Immutability
+
+As of ES5, there are tools (which include the *property descriptor* stuff above), that allow you to set objects and properties so that they cannot be changed. There are a variety of ways to do this, however, it goes without saying that you should have a good reason for doing so.
+
+### constant property
+
+By combining `writeable: false` with `configurable: false` as described above, you can make a *constant* property that cannot be changed, redefined or deleted.
+
+```javascript
+const myObj = {};
+
+Object.defineProperty(myObj, 'ID', {
+  value: '12345',
+  writeable: false,
+  configurable: false,
+});
+```
+
+### prevent extension
+
+`Object.preventExtensions()` prevents an object from having new properties added to it, but leave the rest of the objects properties alone:
+
+```javascript
+const myObj = {name: 'arthur', year: 1899};
+
+Object.preventExtensions(myObj);
+
+myObj.new = 'something';
+// TypeError: Cannot add property new, object is not extensible
+```
+
+
+### seal
+
+`Object.seal()` creates a "sealed" object in that it takes an existing object, calls `Object.preventExtensions()` on it and marks all its existing properties as `configurable: false`. As a result, you can can't add any new properties or delete existing ones, but you can still modify the values.
+
+```javascript
+const myObj = {name: 'arthur', year: 1899};
+
+Object.seal(myObj);
+
+myObj.year = 1901;
+
+myObj.new = 'something';
+// TypeError: Cannot add property new, object is not extensible
+```
+
+
+### freeze
+
+`Object.freeze()` creates a "frozen" object. It calls `Object.seal()` on an existing object and also marks all the properties as `writeable: false`, so that their values cannot be changed. This is the highest level of immutability that you can attain for an object. Note though that any referenced objects within the object are unaffected.
+
+```javascript
+const myObj = {name: 'arthur', year: 1899};
+
+Object.freeze(myObj);
+
+myObj.year = 1901;
+// TypeError: Cannot assign to read only property 'year' of object
+
+myObj.new = 'something';
+// TypeError: Cannot add property new, object is not extensible
+```
+
+**Note** you can check if an object is frozen, sealed or extensible with: `Object.isFrozen()`, `Object.isSealed()` and `Object.isExtensible()`.
 
 
 ## Privacy
@@ -549,22 +690,88 @@ console.log(textProcesor.text);
 Note that in if you remove the two return statements, you can still use the methods individually. A beneficial side effect of using cascades is that it discourages you from trying to do too much in one method and in turn makes your code more descriptive.
 
 
+## Passed by Reference
+
+Objects are passed by reference. This means when we pass an object into a function as an argument, the computer interprets the parameter name as pointing to the space in memory holding that object. As a result, functions which change object properties actually mutate the object permanently.
+
+```javascript
+const ship = {
+    color: 'silver',
+    port: 'vancouver'
+};
+
+const paintIt = obj => {
+    obj.color = 'red';
+};
+
+paintIt(ship);
+console.log(ship.color);  // red
+```
+
+That being said, this does not work for reassigning an entire object:
+
+```javascript
+let ship = {
+    color: 'silver',
+    port: 'vancouver'
+};
+
+const remakeIt = obj => {
+    obj = {
+        color: 'green',
+        port: 'seattle'
+    };
+    console.log(obj.color);  // green
+};
+
+remakeIt(ship);
+console.log(ship.color);  // silver
+```
+
+The reason for this is that the when we pass `ship` into the function, `obj` becomes a reference to the memory location of the `ship` object, but not to the `ship` variable. This is because the `obj` parameter of the `remakeIt()` function is a variable in its own right. When we did the reassignment in the body of `remakeIt()`, the obj variable came to refer to the memory location of the object `{color: 'green', port: 'seattle'}`, while the ship variable was completely unchanged.
+
 
 ## Arrays
 
 Arrays are objects that hold values of any type which are numerically indexed. For example:
 
 ```javascript
-var arr = [
-  'Jessica',
-  43,
-  true,
-]
+var arr = ['Jessica', 43, true,]
 
 console.log(arr[0]);      // 'Jessica'
 console.log(arr[1]);      // 43
 console.log(arr[2]);      // true
 console.log(arr.length);  // 3
+```
+Since arrays are objects too, you can do weird stuff like add properties to arrays. Note that any added properties aren't included in `.length`. Note as well that if you assign a new value to an array by index (i.e `myArray[5] = 'value'`), any indexes that don't yet exist up to that one will be created with the value `<empty item>`.
+
+```javascript
+var arr = ['Jessica', 43, true,];
+
+arr.name = 'Jessica Array';
+
+console.log(arr);
+// [ 'Jessica', 43, true, name: 'Jessica Array' ]
+
+console.log(arr.name);
+// Jessica Array
+
+console.log(arr.length);
+// 3
+
+arr[4] = 'testing';
+
+console.log(arr.length);
+// 5
+
+console.log(arr);
+//[ 'Jessica',
+//  43,
+//  true,
+//  <1 empty item>,
+//  'testing',
+//  name: 'Jessica Array' ]
+
 ```
 
 see [arrays.md](arrays.md)
@@ -580,6 +787,19 @@ function foo() {
 
 console.log(typeof foo);    // function
 console.log(typeof foo());  // number
+```
+
+Like arrays, they can have properties assigned:
+
+```javascript
+function foo() {
+  return 43
+}
+
+foo.bar = 'baz';
+
+console.log(foo.bar);
+// baz
 ```
 
 see [functions.md](functions.md)
