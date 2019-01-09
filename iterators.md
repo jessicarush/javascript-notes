@@ -1,7 +1,7 @@
 # Iterators (iteration methods)
 
 
-Iterators are methods called on arrays to manipulate elements and return values.
+Iterators are methods called on arrays to manipulate elements and return values. See also [loops.md](loops.md) which covers `for`, `for...in`, `for...of`, `while` and `do...while`.
 
 ## Table of Contents
 
@@ -192,7 +192,7 @@ let array = [1, 3, 8, 9];
 let arrayKeys = array.keys();
 
 console.log(arrayKeys);
-//Object [Array Iterator] {}
+// Object [Array Iterator] {}
 
 for (let key of arrayKeys) {
   console.log(key);
@@ -211,7 +211,7 @@ let array = [1, 3, 8, 9];
 let arrayVals = array.values();
 
 console.log(arrayVals);
-//Object [Array Iterator] {}
+// Object [Array Iterator] {}
 
 for (let val of arrayVals) {
   console.log(val);
@@ -219,7 +219,6 @@ for (let val of arrayVals) {
 // 1, 3, 8, 9
 ```
 
+_____
 
-______
-
-More [array iteration methods here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array#Iteration_methods).
+[See MDN for more array iteration methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array#Iteration_methods).
