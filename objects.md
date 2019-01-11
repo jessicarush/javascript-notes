@@ -66,7 +66,6 @@ function Person(first, age, admin) {
   this.firstname = first;
   this.age = age;
   this.admin = admin;
-  };
 }
 
 const obj3 = new Person('Jessica', 43, true);
@@ -130,7 +129,7 @@ console.log(obj1.age, obj2.age, obj3.age, obj4.age, obj5.age, obj6.age);
 
 While the first two don't pose too much of a question, We should be clear on the differences between the constructor, class, factory function and the `Object.create()` method. The main difference with a factory function is that, unlike constructor functions, there is no *prototype linkage* between it and the objects created from it. With a constructor function or `Object.create()`, I could add a new method to the constructor or prototype object, and that method would be available to all the objects that were created from it using the `new` keyword or `Object.create()` respectively.
 
-In terms of the difference between constructor functions and `Object.create()`... `Object.create()` builds an object that inherits directly from the one passed as its first argument. With constructor functions, the newly created object inherits from the constructor's prototype.
+In terms of the difference between constructor functions and `Object.create()`... `Object.create()` builds an object that inherits directly from the one passed as its first argument. With constructor functions, the newly created object is linked to the constructor function's *prototype* property. For more see [prototypes.md](prototypes.md).
 
 From what I can tell so far, classes are very similar to the constructor functions.  They're newer (ES6) and were added to the language because of how common they are in other languages. Constructor functions (and prototype inheritance) however have been in JavaScript for a long time. You will likely see classes being used more in the future but they mostly do the same thing. Beyond that here are the main differences:
 
@@ -146,9 +145,30 @@ Since we've used this keyword in two of the examples above, we should probably t
 When a function is invoked with new (a constructor call), the following things are done automatically:
 
 1. A brand new object is created (constructed)
-2. The newly constructed object is prototype-linked
+2. The newly constructed object is prototype-linked to the functions prototype property
 3. The newly constructed object is set as the `this` binding for that function call
 4. Unless the function returns its own alternate object, the `new`-invoked function call will automatically return the newly constructed object.
+
+```javascript
+function foo() {
+    console.log('Plain old function');
+}
+
+let a = new foo();
+// Plain old function
+
+console.log(typeof a);
+// object
+
+console.log(foo.prototype);
+// foo {}
+
+console.log(foo.prototype.isPrototypeOf(a));
+//true
+```
+
+Bottom line is functions aren't constructors, but rather function calls are *constructor calls* if and only if `new is used.`
+
 
 ## Accessing Properties
 
