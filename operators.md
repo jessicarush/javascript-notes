@@ -169,7 +169,7 @@ This concept is also referred to as short-circuit evaluation. Remember that logi
 
 ## Keyword operators
 
-There are a number of keyword operators in javascript which test various things for example:
+There are a number of keyword operators in javascript which test/do various things for example:
 
 `new` - The new operator turns a function call into a constructor call and creates an instance of a the constructor.  
 `instanceof` -  The instanceof operator determines whether an object is an instance of another object. It tests whether the prototype property of a constructor appears anywhere in the prototype chain of an object.  
