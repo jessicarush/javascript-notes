@@ -1,14 +1,16 @@
 # Prototypes
 
 
-In classical languages, objects are instances of classes, and a class can inherit from another class. JavaScript is a prototypal language, which means that the objects inherit directly from other objects.
+In classical languages, objects are instances of classes, and a class can inherit from another class. The term inheritance traditionally implies a copy operation from class to instance. While JavaScript pretends it has classes with its `class` keyword, it is a prototypal language, which means that objects are *linked* directly to other objects. The distinction here is that JavaScript, by default, doesn't copy object properties at all. Instead, it creates a link between two objects where one can *delegate* property/function access to another. Often you'll hear the term *prototypal inheritance*. This term is misleading. Delegation is a much more accurate term for JavaScripts prototypal, object-linking mechanism.
 
 ## Table of Contents
 
 <!-- toc -->
 
 - [Overview](#overview)
-- [Choosing the prototype](#choosing-the-prototype)
+- [Assigning the prototype](#assigning-the-prototype)
+- [Modifying prototype objects](#modifying-prototype-objects)
+- [Reflection](#reflection)
 - [Differential Inheritance](#differential-inheritance)
 - [Augmenting Built-in Types](#augmenting-built-in-types)
 
@@ -16,10 +18,10 @@ In classical languages, objects are instances of classes, and a class can inheri
 
 ## Overview
 
-JavaScript includes a *prototype linkage feature* that allows one object to inherit the properties of another. In fact, all objects created from object literals are linked to `Object.prototype`, an object that comes standard with JavaScript. Function objects are linked to `Function.prototype` (which is in turn linked to `Object.prototype`). Strings are linked to `String.prototype`, arrays to `Array.prototype`, numbers to `Number.prototype` and so on. For a full list of these objects see [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects). For each global object if you look at the sidebar here you'll see a subheading **Inheritance:**. This tells you the next global object in the prototype chain. For example: `String` inherits from `Function` inherits from `Object`.
+JavaScript includes a *prototype linkage feature* that allows one object to reach the properties of another. In fact, all objects created from object literals are linked to `Object.prototype`, an object that comes standard with JavaScript. Function objects are linked to `Function.prototype` (which is in turn linked to `Object.prototype`). Strings are linked to `String.prototype`, arrays to `Array.prototype`, numbers to `Number.prototype` and so on. For a full list of these objects see [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects). **Note:** For each global object here, if you look at the sidebar you'll see a subheading **Inheritance:**. This tells you the next global object in the prototype chain. For example: `String` inherits from `Function` inherits from `Object`.
 
 
-## Choosing the prototype
+## Assigning the prototype
 
 When you make a new object, you can choose the object that should be its prototype.
 
@@ -44,7 +46,22 @@ console.log(foo.b);  // undefined (doesn't go both ways)
 
 This concept is similar to inheritance in Python (but shouldn't be used to try to emulate a class). In this case `bar` is *prototype linked* to `foo` so it has access to foo's properties. A natural way of applying prototypes is through a pattern called *behaviour delegation* where you design your linked objects to delegate from one to the other.
 
-When we make changes on an object, the object's prototype is not touched.
+## Modifying prototype objects
+
+The prototype relationship is dynamic. If we add properties to a prototype, those will become immediately available to the objects that are based off it.
+
+```javascript
+let foo = {
+    a: 40
+};
+
+let bar = Object.create(foo);
+
+foo.c = 'cheese';
+console.log(bar.c);  // cheese
+```
+
+That being said, when we make changes on an object, the object's prototype is not touched.
 
 ```javascript
 let foo = {
@@ -53,21 +70,14 @@ let foo = {
 };
 
 let bar = Object.create(foo);
+
 bar.b = 'hello';
-
-console.log(bar.b, foo.b);
-// hello world
+console.log(bar.b, foo.b);  // hello world
 ```
 
-The prototype relationship is dynamic. If we add properties to a prototype, those will become immediately available to the objects that are based off it.
+## Reflection
 
-```javascript
-foo.c = 'cheese';
-console.log(bar.c);
-// cheese
-```
-
-You can also check which properties come from the prototype with `Object.getPrototypeOf()` and which ones belong to the object alone with `Object.getOwnPropertyNames()`.
+You can check which properties come from the prototype with `Object.getPrototypeOf()` and which ones belong to the object itself with `Object.getOwnPropertyNames()`.
 
 ```javascript
 console.log(Object.getPrototypeOf(bar));
@@ -77,10 +87,35 @@ console.log(Object.getOwnPropertyNames(bar));
 // [ 'b' ]
 ```
 
+The `isPrototypeOf()` method checks if an object exists in another object's prototype chain.
+
+```javascript
+const obj1 = {};
+
+const obj2 = Object.create(obj1);
+
+console.log(obj1.isPrototypeOf(obj2));  // true
+```
+
+**Note:** if the object was constructed from a function (or class) using `new`, you must call this method on the functions prototype property instead. When functions are created, they automatically get this public *prototype* property which points to a somewhat arbitrary object. It's this arbitrary object that get's prototype-linked to any objects constructed from the function with `new`.
+
+```javascript
+function obj3() {}
+
+const obj4 = new obj3();
+
+console.log(obj3.isPrototypeOf(obj4));            // false
+console.log(obj3.prototype.isPrototypeOf(obj4));  // true
+console.log(obj3.prototype);                      // obj3 {}
+console.log(obj4 instanceof obj3);                // true
+```
+
+In general, the use of the keyword `new` is just a long roundabout way of linking two objects. A more direct approach is to use `Object.create()`.
+
 
 ## Differential Inheritance
 
-When customizing a new object, we specify the differences from the object on which it is based.
+Though the use of the word *Inheritance* is misleading here, the idea is: when customizing a new object, we specify the differences from the object on which it is based (linked).
 
 ```javascript
 const mammal = {
@@ -101,8 +136,7 @@ myCat.get_name = function () {
   return this.says() + ' ' + this.name + ' ' + this.says();
 };
 
-console.log(myCat.get_name());
-// meow Oscar meow
+console.log(myCat.get_name());  // meow Oscar meow
 ```
 
 
@@ -125,11 +159,9 @@ function capitalize(string) {
 
 let s = 'the great escape';
 
-console.log(capitalFirstLetter(s));
-// The great escape
+console.log(capitalFirstLetter(s));  // The great escape
 
-console.log(capitalize(s));
-// The Great Escape
+console.log(capitalize(s));  // The Great Escape
 ```
 
 Now let's rewrite them to become methods of the prototype object `String`:
@@ -149,9 +181,7 @@ String.prototype.capitalize = function () {
 
 let s = 'the great escape';
 
-console.log(s.capitalFirstLetter());
-// The great escape
+console.log(s.capitalFirstLetter());  // The great escape
 
-console.log(s.capitalize());
-// The Great Escape
+console.log(s.capitalize());  // The Great Escape
 ```
