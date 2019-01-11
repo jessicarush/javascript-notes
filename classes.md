@@ -1,7 +1,9 @@
 # Classes
 
 
-Classes are a tool for creating templates to quickly produce similar objects.
+ES6 added the `class` keyword which gives us the ability to create *class-like* functions. Classes are a tool for creating templates to quickly produce similar objects. They work similar to constructor functions but have a few key differences mainly `super` and `static` (described below).
+
+It should be noted JavaScript has tried to satisfy the desire to design with classes by providing class-like syntax, but classes in JS are *not* like classes in other languages. Under the hood, it's still just objects and prototypes. Basically, they're just faking it as best they can. For example, JavaScript doesn't provide a native mechanism for multiple inheritance the way say, Python does. What it boils down to is that classes in JavaScript are an optional design pattern that some developers prefer.
 
 ## Table of Contents
 
@@ -26,6 +28,12 @@ class Contact {
 }
 
 const scott = new Contact('Scott', 'scott@email.com');
+
+console.log(typeof Contact);
+// function
+
+console.log(typeof scott);
+// object
 ```
 
 Methods are also passed down to instances:
@@ -73,6 +81,7 @@ class Contact {
 const scott = new Contact('Scott', 'scott@email.com');
 
 console.log(scott.email);
+// scott@email.com
 ```
 
 ## Inheritance
@@ -114,7 +123,7 @@ class Family extends Contact {
   }
 }
 
-const scott = new Family('Scott', 'scott@email.com', 'Partner');
+const scott = new Family('Scott', 'scott@email.com', 'BF');
 ```
 
 ## Static Methods
@@ -151,7 +160,9 @@ class Contact {
 
 const scott = new Contact('Scott', 'scott@email.com');
 
+console.log(Contact.randomColor());
+// Yellow
+
 // console.log(scott.randomColor());
 // TypeError: scott.randomColor is not a function
-console.log(Contact.randomColor());
 ```
