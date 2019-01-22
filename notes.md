@@ -95,7 +95,10 @@ function identifier (arg) {...}
 This function is used to print (or log), text to the developer console. In this case, `console` is the object and `.log()` is the function call.
 
 ```javascript
-console.log('Hello!');
+console.info('info');
+console.error('error');
+console.warn('warn');
+console.log('log');
 ```
 
 This function will print to the HTML page:
