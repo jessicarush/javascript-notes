@@ -171,8 +171,8 @@ This concept is also referred to as short-circuit evaluation. Remember that logi
 
 There are a number of keyword operators in javascript which test/do various things for example:
 
-`new` - The new operator turns a function call into a constructor call and creates an instance of a the constructor.  
-`instanceof` -  The instanceof operator determines whether an object is an instance of another object. It tests whether the prototype property of a constructor appears anywhere in the prototype chain of an object.  
+`new` - The new operator turns a function call into a constructor call and creates an instance of the constructor.  
+`instanceof` -  The instanceof operator determines whether an object is an instance of another function. It tests whether the prototype property of a constructor appears anywhere in the prototype chain of an object.  
 `typeof` - The typeof operator determines the type of a given object.  
 `delete` - The delete operator deletes a property from an object.  
 `in` - The in operator determines whether an object has a given property.  
