@@ -1,7 +1,7 @@
 # Prototypes
 
 
-In classical languages, objects are instances of classes, and a class can inherit from another class. The term inheritance traditionally implies a copy operation from class to instance. While JavaScript pretends it has classes with its `class` keyword, it is a prototypal language, which means that objects are *linked* directly to other objects. The distinction here is that JavaScript, by default, doesn't copy object properties at all. Instead, it creates a link between two objects where one can *delegate* property/function access to another. Often you'll hear the term *prototypal inheritance*. This term is misleading. Delegation is a much more accurate term for JavaScripts prototypal, object-linking mechanism.
+In classical languages, objects are instances of classes, and a class can inherit from another class. The term inheritance traditionally implies a copy operation from class to instance. While JavaScript pretends it has classes with its `class` keyword, it is a *prototypal* language, which means that objects are *linked* directly to other objects. The distinction here is that JavaScript, by default, doesn't copy object properties at all. Instead, it creates a link between two objects where one can *delegate* property/function access to another. Often you'll hear the term *prototypal inheritance*. This term is misleading. Delegation is a much more accurate term for JavaScripts prototypal, object-linking mechanism.
 
 ## Table of Contents
 
@@ -10,9 +10,10 @@ In classical languages, objects are instances of classes, and a class can inheri
 - [Overview](#overview)
 - [Assigning the prototype](#assigning-the-prototype)
 - [Modifying prototype objects](#modifying-prototype-objects)
-- [Reflection](#reflection)
 - [Differential Inheritance](#differential-inheritance)
+- [Reflection](#reflection)
 - [Augmenting Built-in Types](#augmenting-built-in-types)
+- [Prototype linked functions](#prototype-linked-functions)
 
 <!-- tocstop -->
 
@@ -44,7 +45,10 @@ console.log(bar.a);  // 40
 console.log(foo.b);  // undefined (doesn't go both ways)
 ```
 
-This concept is similar to inheritance in Python (but shouldn't be used to try to emulate a class). In this case `bar` is *prototype linked* to `foo` so it has access to foo's properties. A natural way of applying prototypes is through a pattern called *behaviour delegation* where you design your linked objects to delegate from one to the other.
+This concept is similar to inheritance (but shouldn't be used to try to emulate a class). In this case `bar` is *prototype linked* to `foo` so it has access to foo's properties. A natural way of applying prototypes is through a pattern called *behaviour delegation* where you design your linked objects to delegate from one to the other.
+
+**Note:** you can also prototype-link functions using `Object.create()`. This is used to achieve something close to classical inheritance as well. See [Prototype linked functions](#prototype-linked-functions) below.
+
 
 ## Modifying prototype objects
 
@@ -75,11 +79,56 @@ bar.b = 'hello';
 console.log(bar.b, foo.b);  // hello world
 ```
 
+
+## Differential Inheritance
+
+Though the use of the word *Inheritance* is misleading here, the idea is: when customizing a new object, we specify the differences from the object on which it is based (linked).
+
+```javascript
+const mammal = {
+  name: 'A Mammal',
+  get_name: function () {
+    return this.name;
+  },
+  says: function () {
+    return this.saying || '';
+  }
+};
+
+const myCat = Object.create(mammal);
+
+myCat.name = 'Oscar';
+myCat.saying = 'meow';
+myCat.get_name = function () {
+  return this.says() + ' ' + this.name + ' ' + this.says();
+};
+
+console.log(myCat.get_name());  // meow Oscar meow
+```
+
+
+## Delegation-Oriented Design
+
+In the example above, we are still trying to emulate a class design pattern by overriding certain properties and behaviours (polymorphism). In JavaScript this is called shadowing. In behaviour delegation we try to avoid naming things the same at different levels of the prototype chain, because having those name collisions can create awkward/brittle syntax.
+
+Behaviour delegation means to let an object delegate certain properties or behaviours (that don't exist in itself) to another object. This pattern is distinct from the idea of parent and child classes, inheritance, polymorphism etc. Rather than organizing objects in our mind vertically (parents on top, children below), we think of objects side by side.
+
+
 ## Reflection
 
 You can check which properties come from the prototype with `Object.getPrototypeOf()` and which ones belong to the object itself with `Object.getOwnPropertyNames()`.
 
 ```javascript
+let foo = {
+  a: 40,
+  b: 'world'
+};
+
+let bar = Object.create(foo);
+
+foo.c = 'cheese';
+bar.b = 'hello';
+
 console.log(Object.getPrototypeOf(bar));
 // { a: 40, b: 'world', c: 'cheese' }
 
@@ -111,33 +160,6 @@ console.log(obj4 instanceof obj3);                // true
 ```
 
 In general, the use of the keyword `new` is just a long roundabout way of linking two objects. A more direct approach is to use `Object.create()`.
-
-
-## Differential Inheritance
-
-Though the use of the word *Inheritance* is misleading here, the idea is: when customizing a new object, we specify the differences from the object on which it is based (linked).
-
-```javascript
-const mammal = {
-  name: 'A Mammal',
-  get_name: function () {
-    return this.name;
-  },
-  says: function () {
-    return this.saying || '';
-  }
-};
-
-const myCat = Object.create(mammal);
-
-myCat.name = 'Oscar';
-myCat.saying = 'meow';
-myCat.get_name = function () {
-  return this.says() + ' ' + this.name + ' ' + this.says();
-};
-
-console.log(myCat.get_name());  // meow Oscar meow
-```
 
 
 ## Augmenting Built-in Types
@@ -184,4 +206,148 @@ let s = 'the great escape';
 console.log(s.capitalFirstLetter());  // The great escape
 
 console.log(s.capitalize());  // The Great Escape
+```
+
+
+## Prototype linked functions
+
+This is an example of how to use `Object.create()` with functions to achieve classical inheritance. This can be used for single inheritance, which is all that JavaScript supports.
+
+```javascript
+// Superclass
+function Shape() {
+  this.x = 0;
+  this.y = 0;
+}
+
+// Superclass method
+Shape.prototype.move = function(x, y) {
+  this.x += x;
+  this.y += y;
+  console.info(`${this.name} moved: ${x}, ${y}`);
+  console.info(`start point: ${this.x - x}, ${this.y - y}`);
+  console.info(`end point: ${this.x}, ${this.y}`);
+};
+
+// Subclasses
+function Rectangle() {
+  this.name = 'Rectangle';
+  Shape.call(this); // call super constructor.
+}
+
+function Circle() {
+  this.name = 'Circle';
+  Shape.call(this);
+}
+
+// pre-ES6 prototype link subclass to superclass
+Rectangle.prototype = Object.create(Shape.prototype);
+Circle.prototype = Object.create(Shape.prototype);
+
+// ES6+ prototype link subclass to superclass
+// Object.setPrototypeOf(Rectangle.prototype, Shape.prototype);
+// Object.setPrototypeOf(Circle.prototype, Shape.prototype);
+
+// Create some shapes
+let rect = new Rectangle();
+let circ = new Circle();
+
+// Reflection
+console.log(rect instanceof Rectangle);                // true
+console.log(rect instanceof Shape);                    // true
+console.log(Rectangle.prototype.isPrototypeOf(rect));  // true
+console.log(Shape.prototype.isPrototypeOf(rect));      // true
+console.log(Rectangle.prototype);                      // Shape {}
+console.log(rect.prototype);                           // undefined
+
+rect.move(2, 1);
+// Rectangle moved: 2, 1
+// start point: 0, 0
+// end point: 2, 1
+
+circ.move(10, 5);
+// Circle moved: 10, 5
+// start point: 0, 0
+// end point: 10, 5
+
+circ.move(5, 10);
+// Circle moved: 5, 10
+// start point: 10, 5
+// end point: 15, 15
+
+rect.move(3, 4);
+// Rectangle moved: 3, 4
+// start point: 2, 1
+// end point: 5, 5
+```
+
+For some reason it feels strange to me that we would want/need to use functions here. For the sake of comparison, here's what the above would look like using objects instead. The output is pretty similar and to me the code is simpler. I'll have to look further into the benefit (if any at all) of using functions over objects.
+
+``` javascript
+// Base prototype (superclass)
+const shape = {
+  x: 0,
+  y: 0
+};
+
+// Base prototype method
+shape.move = function(x, y) {
+  this.x += x;
+  this.y += y;
+  console.info(`${this.name} moved: ${x}, ${y}`);
+  console.info(`start point: ${this.x - x}, ${this.y - y}`);
+  console.info(`end point: ${this.x}, ${this.y}`);
+};
+
+// Prototype chain: rectangle > shape > Object
+const rectangle = Object.create(shape);
+rectangle.name = 'Rectangle';
+
+// Prototype chain: circle > shape > Object
+const circle = Object.create(shape);
+circle.name = 'Circle';
+
+// Prototype chain: rect > rectangle > shape > Object
+let rect = Object.create(rectangle);
+
+// Prototype chain: circ1 > circle > shape > Object
+let circ1 = Object.create(circle);
+circ1.name = 'Circle 1';
+
+// Prototype chain: circ2 > circle > shape > Object
+let circ2 = Object.create(circle);
+circ2.name = 'Circle 2';
+
+// Reflection
+console.log(Object.prototype.isPrototypeOf(rect));  // true
+console.log(shape.isPrototypeOf(rect));             // true
+console.log(rectangle.isPrototypeOf(rect));         // true
+console.log(rectangle.isPrototypeOf(circ1));        // false
+console.log(circle.isPrototypeOf(circ1));           // true
+console.log(shape.isPrototypeOf(circ1));            // true
+
+rect.move(2, 1);
+// Rectangle moved: 2, 1
+// start point: 0, 0
+// end point: 2, 1
+
+circ1.move(10, 5);
+// Circle 1 moved: 10, 5
+// start point: 0, 0
+// end point: 10, 5
+
+circ1.move(5, 10);
+// Circle 1 moved: 5, 10
+// start point: 10, 5
+// end point: 15, 15
+
+circ2.move(8, 8);
+// Circle 2 moved: 10, 5
+// start point: 0, 0
+// end point: 10, 5
+
+rect.move(3, 4);
+// Rectangle moved: 3, 4
+// start point: 2, 1
+// end point: 5, 5
 ```
