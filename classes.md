@@ -3,7 +3,8 @@
 
 ES6 added the `class` keyword which gives us the ability to create *class-like* functions. Classes are a tool for creating templates to quickly produce similar objects. They work similar to constructor functions but have a few key differences mainly `super` and `static` (described below).
 
-It should be noted JavaScript has tried to satisfy the desire to design with classes by providing class-like syntax, but classes in JS are *not* like classes in other languages. Under the hood, it's still just objects and prototypes. Basically, they're just faking it as best they can. For example, JavaScript doesn't provide a native mechanism for multiple inheritance the way say, Python does. What it boils down to is that classes in JavaScript are an optional design pattern that some developers prefer.
+It should be noted JavaScript has tried to satisfy the desire to design with classes by providing class-like syntax, but classes in JS are *not* like classes in other languages. Under the hood, it's still just objects and prototypes. Basically, they're just faking it as best they can. For example, JavaScript doesn't provide a native mechanism for multiple inheritance the way say, Python does. What it boils down to is that classes in JavaScript are an optional design pattern that some developers prefer but they are not *real* classes and therefore will come with unexpected hiccups and behaviour. A better approach is *behaviour delegation* as demonstrated in [prototypes.md](prototypes.md).
+
 
 ## Table of Contents
 
