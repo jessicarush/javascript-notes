@@ -14,6 +14,10 @@ In JavaScript, objects are compound values where you can set properties (named l
 - [Check if a property exists](#check-if-a-property-exists)
 - [Nested Objects](#nested-objects)
 - [Objects with Methods](#objects-with-methods)
+  * [Adding a method to an object](#adding-a-method-to-an-object)
+  * [Adding a method to a constructor function](#adding-a-method-to-a-constructor-function)
+  * [Adding a method to a class](#adding-a-method-to-a-class)
+  * [Adding a method to factory function](#adding-a-method-to-factory-function)
 - [Built-in Object Methods](#built-in-object-methods)
 - [Property Descriptors](#property-descriptors)
   * [writeable](#writeable)
@@ -295,6 +299,8 @@ const user = {
 user.message();  // Hello
 ```
 
+### Adding a method to an object
+
 If we wanted to add a new method to the object we just assign it:
 
 ```javascript
@@ -306,9 +312,10 @@ user.greeting = function() {
 user.greeting();  // Hello Jessica
 ```
 
-We should also demonstrate what this looks like for constructor functions, classes, and factory functions. Keep in mind that you can't add a new method to a factory function after the fact, unless you reassign the whole function.
+We should also demonstrate what this looks like for constructor functions, classes, and factory functions. Keep in mind that you can't add a new method to a factory function after the fact, unless you reassign the whole function...
 
-CONSTRUCTOR FUNCTION:
+### Adding a method to a constructor function
+
 ```javascript
 function Person(first, age, admin) {
   this.firstname = first;
@@ -335,7 +342,8 @@ constObj.special();  // special
 constObj.greeting()  // Hello Jessica
 ```
 
-CLASS:
+### Adding a method to a class
+
 ```javascript
 class Human {
   constructor(first, age, admin) {
@@ -364,7 +372,8 @@ classObj.special();  // special
 classObj.greeting()  // Hello Jessica
 ```
 
-FACTORY FUNCTION:
+### Adding a method to factory function
+
 ```javascript
 const personFactory = (first, age, admin) => {
   return {
