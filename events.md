@@ -187,7 +187,18 @@ See also:
 
 Some of the properties and methods available on *event objects*:
 
-`target` - The target property of the event object is always a reference to the element that the event has just occurred upon. When calling a function, the event object's target property is the best way to determine which element the event occurred on. You can use this for *event delegation* described below.
+`target` - The target property of the event object is always a reference to the element that the event has just occurred upon. When calling a function, the event object's target property is the best way to determine which element the event occurred on. You can use this for *event delegation* described below. Note that you can *traverse the DOM* (see [document_object_model.md](document_object_model.md)) using `event.target`. For example, I could say `event.target.parentNode` or `event.target.nextElementSibling`. Here's a demo:
+
+```javascript
+function hideDropdown(e) {
+  // This hides the dropdown menu when we click elsewhere
+  let menuEl = document.querySelector('.js-dropdown-menu');
+  if (e.target !== menuEl && e.target.parentElement !== menuEl) {
+    menuEl.style.display = 'none';
+    console.log(e.target);
+  }
+}
+```
 
 `type` - The name of the event that was fired.  
 
