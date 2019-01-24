@@ -86,7 +86,7 @@ elNavs[elNavs.length - 1].className = 'newclass';
 elNavs.item(1).className = 'newclass';
 
 // modify all using a traditional for loop
-for (let i = 0, i < elNavs.length, i++) {
+for (let i = 0; i < elNavs.length; i++) {
     elNavs[i].className = 'newclass';
 }
 
@@ -297,7 +297,7 @@ if (el.hasAttribute('class')) {
 }
 ```
 
-In case it's not alreday clear, the intention with `setAttribute()` is that your using it to add/change an attribute on an element, for example: class, id, src, href, etc. If you want to change a particular CSS property, use `el.style.property` syntax.
+In case it's not already clear, the intention with `setAttribute()` is that you're using it to add/change an attribute on an element, for example: class, id, src, href, etc. If you want to change a particular CSS property, use `el.style.property` syntax.
 
 
 ## More Element Object Properties & Methods
@@ -330,7 +330,7 @@ el.title               // sets or returns the value of the title attribute
 
 ## CSS Object Model
 
-In addition to setting CSS properties with the syntax `el.style.propertName = value` (which is a standard HTML DOM thing), there is also a [CSS Object Model](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model) method called [setProperty](https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleDeclaration/setProperty) that looks like: `el.style.setProperty('border-radius', '10px')`. I'm still sorting out the differences between these two approaches and haven't looked deeply at this [CSSStyleDeclaration](https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleDeclaration) thing but will add information here as I figure it out.
+In addition to setting CSS properties with the syntax `el.style.propertyName = value` (which is a standard HTML DOM thing), there is also a [CSS Object Model](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model) method called [setProperty](https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleDeclaration/setProperty) that looks like: `el.style.setProperty('border-radius', '10px')`. I'm still sorting out the differences between these two approaches and haven't looked deeply at this [CSSStyleDeclaration](https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleDeclaration) thing but will add information here as I figure it out.
 
 I'm guessing that the key insight is that while the `el.style.propertyName` assignment method is modifying the style attribute in the DOM, the `el.style.setProperty()` method *"sets or modifies a CSS property in a CSS declaration block"*. In other words, being a CSS Object Model method, the property is being set in the the actual CSS document. This allows us to do weird stuff like modify custom CSS properties (--my-variable). There's an example of this below.
 
