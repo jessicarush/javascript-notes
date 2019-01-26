@@ -9,17 +9,21 @@ Arrays are JavaScript's lists. Arrays can store any data types (including string
 <!-- toc -->
 
 - [Syntax](#syntax)
+- [Properties](#properties)
+- [Empty Items](#empty-items)
 - [Array Methods](#array-methods)
   * [Add items with *push()* or *unshift()*](#add-items-with-push-or-unshift)
   * [Remove and use items with *pop()* and *shift()*](#remove-and-use-items-with-pop-and-shift)
   * [Get a section of an array with *slice()*](#get-a-section-of-an-array-with-slice)
   * [Replace a section with *splice()*](#replace-a-section-with-splice)
-  * [Merge two arrays into a new one with *.concat()*](#merge-two-arrays-into-a-new-one-with-concat)
+  * [Merge two arrays into a new one with *concat()*](#merge-two-arrays-into-a-new-one-with-concat)
   * [Find if an item is present with *includes()*](#find-if-an-item-is-present-with-includes)
   * [Find the index of an item with *indexOf(), lastIndexOf()*](#find-the-index-of-an-item-with-indexof-lastindexof)
   * [Reverse an array with *reverse()*](#reverse-an-array-with-reverse)
   * [Convert an array to a string with *join()*](#convert-an-array-to-a-string-with-join)
   * [Convert a string to an array with *split()*](#convert-a-string-to-an-array-with-split)
+- [Iteration Methods](#iteration-methods)
+- [Array.from()](#arrayfrom)
 
 <!-- tocstop -->
 
@@ -62,20 +66,61 @@ console.log(array1);
 // [ 'example', 10, true, false ]
 ```
 
-If you assign a new value to an index position that is beyond the current length of the array, all the empty indexes will be filled in with values: `<# empty item>`
 
-```javascript
-array1[6] = 'six';
-
-console.log(array1);
-// [ 'example', 10, true, false, <2 empty items>, 'six' ]
-```
+## Properties
 
 Arrays have a built-in `length` *property* which can be accessed with dot notation:
 ```javascript
-console.log(array1.length);  
-// 7
+console.log(array1.length);  // 4
 ```
+
+Beyond that, arrays are objects so we can add properties to them (with dot or bracket notation), just like any other object. These properties will not impact the length reported by the `length` property.
+
+```javascript
+let array = [ 'one', 'two', 'three' ];
+
+console.log(array.length);     // 3
+
+array['first'] = 'foo';
+array.second = 'bar';
+
+console.log(array.length);     // 3
+
+console.log(array.first);      // foo
+console.log(array['second']);  // bar
+```
+
+That being said, just because we can, doesn't mean we should. If you need to include key/value pairs, you should probably use an object and leave arrays as simply indexed lists.
+
+
+## Empty Items
+
+If you assign a new value to an index position that is beyond the current length of the array, all the empty indexes will be filled in with values: `<# empty item>`
+
+```javascript
+let array = ['one']
+array[6] = 'six';
+
+console.log(array.length);  // 7
+console.log(array[2]);      // undefined
+console.log(array);         // [ 'one', <5 empty items>, 'six' ]
+```
+
+The `delete` keyword lets you remove array items, but the same thing will happen... the list will stay the same length and the value at the deleted index will be appear to be `undefined`:
+
+```javascript
+let array = [ 'one', 'two', 'three' ];
+
+console.log(array.length);  // 3
+
+delete array[2];
+
+console.log(array.length);  // 3
+console.log(array[2]);      // undefined
+console.log(array);         // [ 'one', 'two', <1 empty item> ]
+```
+
+While the values at these empty positions appear to be `undefined`, they will not behave the same as an index explicitly set to `undefined` as in `array[0] = undefined;`. In general, be careful about creating these kinds of *sparse* arrays (leaving or creating empty/missing spots).  
 
 
 ## Array Methods
@@ -157,7 +202,7 @@ console.log(myArray);
 ```
 
 
-### Merge two arrays into a new one with *.concat()*
+### Merge two arrays into a new one with *concat()*
 
 ```javascript
 const arrayA = ['one', 'two', 'three'];
@@ -232,4 +277,22 @@ let myArray = myString.split(' ');
 
 console.log(myArray);  
 // [ 'one', 'two', 'three', 'four', 'five' ]
+```
+
+
+## Iteration Methods
+
+Arrays include a number of methods iterate over each item, performing some action/function each time. See: [iterators.md](iterators.md)
+
+
+## Array.from()
+
+As of ES6 we have this method which will convert array-like objects into actual array so that we can perform all the array methods. The most common example of this is working with DOM NodeLists (see [document_object_model.md](document_object_model.md)). While NodeLists look like arrays, they are not. If we try to use a `for...of` loop, it won't work. Here's were `Array.from()` is useful:
+
+```javascript
+let els = document.querySelectorAll('li.nav');
+
+for (let el of Array.from(els)) {
+    // pass
+}
 ```
