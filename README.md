@@ -19,4 +19,4 @@ Some examples and notes come from the following:
 - [Introduction to JavaScript](https://www.codecademy.com/learn/introduction-to-javascript) - *codecademy*
 
 
-A very special thanks to [aleph2c](https://github.com/aleph2c) for so, so, much support. Check out his epic [statechart library; Miros here](https://aleph2c.github.io/miros/index.html).
+A very special thanks to [aleph2c](https://github.com/aleph2c) for so, so, much support. Check out his epic [python statechart library; Miros here](https://aleph2c.github.io/miros/index.html).
