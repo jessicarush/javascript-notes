@@ -128,7 +128,7 @@ console.log(a == e);  // false (because the coerced array has no spaces)
 
 ## Conditional operator
 
-The conditional (ternary) operator `?` is the only one that takes 3 operands. It says; if a condition is true, the operator is assigned the first value, otherwise it's assigned the second value. For example:
+The conditional (ternary) operator `?` is the only one that takes 3 operands. It says; if a condition is true, the operator is assigned the first value, otherwise the second value. For example:
 
 ```javascript
 // condition ? value1 : value2
@@ -173,7 +173,7 @@ There are a number of keyword operators in javascript which test/do various thin
 
 `new` - The new operator turns a function call into a constructor call and creates an instance of the constructor.  
 `instanceof` -  The instanceof operator determines whether an object is an instance of another function. It tests whether the prototype property of a constructor appears anywhere in the prototype chain of an object.  
-`typeof` - The typeof operator determines the type of a given object.  
+`typeof` - The typeof operator determines the type of a given object. FYI there is a good example of the usefulness of this operator in the *undeclared vs undefined* section of [variables.md](variables.md#undeclared-vs-undefined).  
 `delete` - The delete operator deletes a property from an object.  
 `in` - The in operator determines whether an object has a given property.  
 `void` - The void operator discards an expression's return value.
