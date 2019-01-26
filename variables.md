@@ -7,6 +7,7 @@ As with many other languages, JavaScript variables are containers for storing da
 <!-- toc -->
 
 - [declaring variables](#declaring-variables)
+- [undeclared vs undefined](#undeclared-vs-undefined)
 - [constants](#constants)
 - [let](#let)
 - [global variables](#global-variables)
@@ -16,7 +17,7 @@ As with many other languages, JavaScript variables are containers for storing da
 
 ## declaring variables
 
-In JavaScript you need to *declare* your variables by name before you use them. This is done with the `var` keyword. You only need to declare your variables once for each *scope*.
+In JavaScript you need to *declare* your variables by name before you use them. This is done with the `var`, `const`, or `let` keywords. You only need to declare your variables once for each *scope*.
 
 ```javascript
 var a = 5;
@@ -32,16 +33,67 @@ You can declare more than one variable using the same `var` (or `const`,`let`) k
 var a = 5, b = 10, c = 100;
 ```
 
-Some programming languages use *Static typing* or *type enforcement* which means you declare what type of data a variable will be. This method benefits program correctness by preventing unintended value conversions. Other languages (including JavaScript) use *weak typing* or *dynamic typing* which allows a variable to hold any type of value at any given time. The benefit of this is program flexibility.
+Some programming languages use *Static typing* or *type enforcement* which means you declare what type of data a variable will hold. This method benefits program correctness by preventing unintended value conversions. Other languages, JavaScript included, use *weak* or *dynamic typing* which allows a variable to hold any type of value at any given time. The benefit of this is program flexibility.
 
-Note that you *can* declare a variable without making an assignment. Until the assignment is made, the variable will hold the `undefined` primitive data type.
+
+## undeclared vs undefined
+
+Note that you can declare a variable without making an assignment. Until the assignment is made, the variable will hold the `undefined` primitive data type.
 
 ```javascript
 var a;
-console.log(a); // undefined
+console.log(a);         // undefined
+console.log(typeof a);  // undefined
 
 a = 10;
-console.log(a);  // 10
+console.log(a);         // 10
+console.log(typeof a);  // number
+```
+
+But, if you forget to declare a variable, you'll raise
+an error:
+
+```javascript
+b = 10; // ReferenceError: b is not defined
+```
+
+Even if you want to check if a variables exists:
+
+```javascript
+if (b) {  // ReferenceError: b is not defined
+  console.log('test');  
+}
+```
+
+That being said, you *can* use the `typeof` operator on undeclared variables:
+
+```javascript
+console.log(typeof b);  // undefined
+```
+
+This behaviour makes the `typeof` operator useful when checking for a flag variable in multiple files. If we just check for the variable with `if`, then we need to make sure that variable is defined in every single file. If we don't want to do that you could use typeof instead.
+
+This won't work:
+```javascript
+if (FLAG) {
+  console.log('test');
+}
+```
+
+This works:
+```javascript
+const FLAG = false;
+
+if (FLAG) {
+  console.log('test');
+}
+```
+
+And this works:
+```javascript
+if (typeof FLAG !== 'undefined') {
+  console.log('test');
+}
 ```
 
 
