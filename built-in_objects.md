@@ -118,6 +118,19 @@ let a = '42';
 let b = Number(a);
 ```
 
+As of ES6, you can also use `Number` to access *machine epsilon* which is the commonly accepted tolerance value for comparing numbers where their binary floating point representations aren't exact in [IEEE 754](https://en.wikipedia.org/wiki/IEEE_754). For example:
+
+```javascript
+console.log(0.1 + 0.2 === 0.3);  // false
+console.log(Number.EPSILON);     // 2.220446049250313e-16
+
+function closeEnough(n1, n2) {
+  return (n1 - n2) < Number.EPSILON;
+}
+
+console.log(closeEnough((0.1 + 0.2), 0.3));  // true
+```
+
 ## Date
 
 The Date object has a few static methods but mainly contains instance methods to be applied to objects constructed with `new Date()`.
