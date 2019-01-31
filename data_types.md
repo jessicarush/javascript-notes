@@ -36,6 +36,23 @@ console.log(Symbol());   // symbol
 console.log({a: 'b'});   // object
 ```
 
+Exponential numbers van be written like `1e10`, for example:
+```javascript
+let num_exponent = 3e6;
+console.log(num_exponent);  // 3000000
+```
+
+Hex, octal, and binary numbers can be written using `0x...`, `0o...`, `0b...`:
+```javascript
+let num_hex = 0x1c6;
+let num_octal = 0o706;
+let num_binary = 0b111000110;
+
+console.log(num_hex === 454);     // true
+console.log(num_octal === 454);   // true
+console.log(num_binary === 454);  // true
+```
+
 Note that `null` and `undefined` are equal in value but different in type:
 
 ```javascript
