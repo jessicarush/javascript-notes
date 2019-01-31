@@ -84,12 +84,22 @@ console.log(capitalize(s));
 // The Great Escape
 ```
 
+You can reverse a string by chaining methods together. Note, this will not work for strings with complex (unicode) characters.
+
+```javascript
+let string = 'hello';
+
+let reversed = string.split('').reverse().join('');
+
+console.log(reversed);  // olleh
+```
+
 See all the [built-in methods for strings here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String).
 
 
 ## Number instance methods
 
-An example of a built-in method for numbers is `toFixed()`:
+Examples of a built-in methods for numbers are `toFixed()`, `toPrecision()` and `toExponential()`:
 
 ```javascript
 const tax_rate = 0.12;
@@ -132,7 +142,6 @@ console.log(num.toString(16));
 // 17
 // f
 ```
-
 
 
 See all the [built-in methods for numbers here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number).
