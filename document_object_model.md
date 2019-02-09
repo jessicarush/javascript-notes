@@ -326,6 +326,7 @@ el.style.backgroundColor
 el.style.flexBasis  
 el.tagName             // returns the tag name of an element  
 el.title               // sets or returns the value of the title attribute
+el.selectedIndex       // returns or sets the index (selected option) in a select menu
 ```
 
 ## CSS Object Model
