@@ -755,6 +755,19 @@ introduction2(['jessica', 'developer', 'vancouver']);
 // My name is jessica, I'm a developer from vancouver.
 ```
 
+### simulating named parameters
+
+An aspect of the new destructuring feature allows use to (sort of) use named parameters.
+
+```javascript
+function introduction2({name, occupation, city}) {
+  console.log(`My name is ${name}, I'm a ${occupation} from ${city}.`);
+}
+
+introduction2({name: 'rick', occupation: 'scientist', city: 'earth'});
+introduction2({city: 'vancouver', name: 'jessica', occupation: 'developer'});
+```
+
 
 ## Module Pattern
 
