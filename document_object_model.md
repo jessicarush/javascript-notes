@@ -122,14 +122,15 @@ startNode.firstElementChild.nextElementSibling.className = 'blue';
 
 ## Working With Elements
 
-See [MDN Node](https://developer.mozilla.org/en-US/docs/Web/API/Node) and [MDN Elements](https://developer.mozilla.org/en-US/docs/Web/API/Element)  
-See [W3schools DOM Element](https://www.w3schools.com/jsref/dom_obj_all.asp) - lists all the properties & methods for elements.  
+See [MDN Nodes](https://developer.mozilla.org/en-US/docs/Web/API/Node)
+and [MDN Elements](https://developer.mozilla.org/en-US/docs/Web/API/Element)  
+See also: [W3schools DOM Element](https://www.w3schools.com/jsref/dom_obj_all.asp)  
 See [here a full list of node types](https://developer.mozilla.org/en-US/docs/Web/API/Node).  
 
 ```javascript
 let node = document.getElementById('main-nav');
 
-// properties for working with nodes:
+// some properties for working with nodes:
 
 node.nodeName;      // return name of the node (e.g. DIV, LI, #text)
 node.nodeType;      // return node type (1=element, 2=attribute, 3=text, ...)
@@ -138,7 +139,7 @@ node.textContent;   // return or set all the text content of a node
 node.innerText      // return or set the text content of a node
 element.innerHTML;  // return or set the text and markup content of an element
 
-// methods that let you create new nodes, add & remove
+// some methods that let you create new nodes, add & remove
 
 createElement()     // creates a new html element
 createTextNode()    // creates a new text node
@@ -302,32 +303,42 @@ In case it's not already clear, the intention with `setAttribute()` is that you'
 
 ## More Element Object Properties & Methods
 
-For a full list see the links listed under [Working With Elements](#Working-With-Elements).
+For a full list see the links listed under [Working With Elements](#working-with-elements).
 Note that the `style` property gives you access to all CSS properties.
 [See here for a complete list of Style Object Properties](https://www.w3schools.com/jsref/dom_obj_style.asp).
 
 ```javascript
-el.childElementCount  // returns the number of child elements
+el.childElementCount  // returns the number of child elements  
+el.children           // returns a live 'HTMLCollection' of all the child elements  
 el.classList          // returns the class name(s) of an element.  
 el.classList.add('mystyle')
 el.classList.remove('mystyle')
 el.classList.toggle('mystyle')
-el.className          // sets or returns the value of the class attribute
+el.className          // sets or returns the value of the class attribute  
 el.clientHeight       // returns the height of an element, including padding  
 el.clientWidth        // returns the width of an element, including padding  
-el.compareDocumentPosition()  // compares the document position of two elements  
-el.contains()         // returns true if a node is a descendant of a node  
-el.focus()            // gives focus to an element  
-el.getBoundingClientRect()  // returns size and position relative to the viewport.  
+el.innerHTML  
+el.id  
+el.name   
 el.scrollHeight       // entire height of an element including overflow and padding  
 el.scrollWidth        // entire width of an element including overflow and padding  
 el.style              // sets or returns the value of the style attribute.  
 el.style.backgroundColor
 el.style.flexBasis  
 el.tagName             // returns the tag name of an element  
-el.title               // sets or returns the value of the title attribute
-el.selectedIndex       // returns or sets the index (selected option) in a select menu
+el.title               // sets or returns the value of the title attribute  
+el.selectedIndex       // returns or sets the index (selected option) in a select menu  
+
+el.compareDocumentPosition()  // compares the document position of two elements  
+el.contains()                 // returns true if a node is a descendant of a node  
+el.focus()                    // gives focus to an element  
+el.getBoundingClientRect()    // returns size and position relative to the viewport.
+el.matches('.mystyle')        // returns true if the element matches the selector string.
+el.scroll()                   // scrolls the element to a particular set of coordinates
+el.scrollBy()                 // scrolls the element by a given amount
+el.toggleAttribute()          // toggles a Boolean attribute
 ```
+
 
 ## CSS Object Model
 
