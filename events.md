@@ -13,12 +13,16 @@ References:
 - [Event Handling](#event-handling)
   * [Binding an event to an element](#binding-an-event-to-an-element)
   * [Passing arguments to event listener functions](#passing-arguments-to-event-listener-functions)
+  * [Adding event listeners via a for loop](#adding-event-listeners-via-a-for-loop)
+  * [Multiple identical event listeners](#multiple-identical-event-listeners)
+  * [Removing event listeners](#removing-event-listeners)
 - [Event Objects](#event-objects)
   * [Event object properties & methods](#event-object-properties--methods)
   * [Using the event object with other parameters](#using-the-event-object-with-other-parameters)
 - [Event Delegation](#event-delegation)
 - [Mutation Observers](#mutation-observers)
 - [HTML5 Events](#html5-events)
+- [Debugging Event Listeners](#debugging-event-listeners)
 - [Examples](#examples)
   * [load, DOMContentLoaded](#load-domcontentloaded)
   * [focus & blur](#focus--blur)
@@ -86,19 +90,19 @@ transitionrun - a CSS transition has begun running
 When a user interacts with the HTML on a page, there are three steps used to trigger JavaScript code. Together these steps are known as event handling.
 
 1. State the function to run when the event occurs  
-2. Select the element nodes you want to script to respond to (except for UI events that relate to the browser window)
+2. Select the event target: the element nodes you want to script to respond to (except for UI events that relate to the browser window)
 3. Indicate which event will trigger the response (called *binding an event* to a DOM node)  
 
 
 ### Binding an event to an element  
 
-As it turns out, there are also three types of event handlers (ways to bind an event to an element).
+As it turns out, there are three types of event handlers (ways to bind an event to an element).
 
 **HTML Event Handlers** (old school).  
 This outdated method of event handling is considered bad practice because it mixes JavaScript in with HTML code. It uses attributes and values to set events and functions on elements directly in the HTML. As with CSS, it's better to keep these things separated. For reference, here's what it looks like:
 
 ```html
-<a onclick="myfunction()">Not good</a>
+<a onclick="myfunction()">not good</a>
 ```
 
 **Traditional DOM Event Handlers** (meh)  
@@ -106,7 +110,7 @@ Though much better than HTML event handlers (it does separate JS from HTML), thi
 
 ```javascript
 function checkUsername() {
-    // code that checks if username is long enough
+    // code that checks something
 }
 
 let el = document.getElementById('username-field');
@@ -118,7 +122,6 @@ Event Listeners allow for one event to trigger multiple functions. This is by fa
 
 ```javascript
 function checkUsername() {
-    // code that checks if username is long enough
     let errorMsg = document.getElementById('username-error');
     if (this.value.length < 5) {
         errorMsg.textContent = 'Username must be at least 5 characters';
@@ -141,7 +144,7 @@ The last boolean argument passed there is optional and has to do with event flow
 
 ### Passing arguments to event listener functions
 
-If you need to pass parameters to your function, wrap it with an anonymous function like so:
+If you need to pass parameters to your function, you cannot wrap it with an anonymous function like so:
 
 ```javascript
 function myFunction(p1, p2) {
@@ -155,7 +158,120 @@ el.addEventListener('blur', function() {
 }, false);
 ```
 
-Note that there is also a `removeEventListener()` method. Not yet sure of the common practical applications of this but will add notes when I discover.
+
+### Adding event listeners via a for loop
+
+Many javascript developers recommend against adding event listeners to elements via a for loop. Their reasoning is problems can emerge when you try to use your `i` counter variable within the event callback (this however only appears to be a problem if you declare the variable with `var` instead of `let`). It's also apparently worse for performance. A better approach they say is through *event delegation* (described below). That being understood, the following example does work just fine:
+
+```javascript
+function processEvent() {
+    console.log('doing something');
+ }
+
+const els = document.querySelectorAll('.js-test');
+for (let i = 0; i < els.length; i++) {
+    els[i].addEventListener('click', processEvent, false);
+}
+```
+
+To illustrate the problem when you try to use your `var i` counter variable within the event callback:
+
+```javascript
+const els = document.querySelectorAll('.js-test');
+for (var i = 0; i < els.length; i++) {
+    console.log('1', els[i]);
+    els[i].addEventListener('click', function() {
+        console.log('2', els[i]); // will log undefined
+    }, false);
+}
+```
+However, if you use `let`, everything works fine:
+
+```javascript
+const els = document.querySelectorAll('.js-test');
+for (let i = 0; i < els.length; i++) {
+    console.log('1', els[i]);
+    els[i].addEventListener('click', function() {
+        console.log('2', els[i]); // will log the element as expected
+    }, false);
+}
+```
+
+In terms of the second issue (performance), it feels like listening to every click in the document would be bad for performance, but it’s actually more performant than having a bunch of event listeners on individual items. Here's how we might turn the first for loop example above into an *event delegation* example:
+
+```javascript
+function processEvent() {
+    console.log('doing something');
+}
+
+document.addEventListener('click', function(e) {
+    if (e.target.matches('.js-test')) {
+        processEvent()
+    }
+}, false);
+```
+
+`e.target` is a reference to the *element* that triggered the event and is described in its own section below.   
+
+`matches()` is a method available to all *element objects* and is described in [document_object_model.md](document_object_model.md).
+
+
+### Multiple identical event listeners
+
+Note that there is an important difference between passing named functions and anonymous functions to event listeners and it has to do with duplicates. Normally, with a named function, if multiple identical EventListeners are registered on the same EventTarget with the same parameters, the duplicate instances are discarded. They do not cause the EventListener to be called twice, and they do not need to be removed manually with the `removeEventListener()` method (described below). When using an anonymous function however, such listeners will **not** be identical since anonymous functions are not identical even if defined using the same unchanging source-code. As a result you can end up with multiple event listeners on the same target if the function that contains the listener is being called repeatedly. This could in turn result in unexpected bugs and memory issues.
+
+```javascript
+/**
+ * Example 1 (good)
+ *
+ * If initializeSomething() gets called more than once, NO duplicate
+ * event listeners will be registered on the js-menu element.
+ */
+function processEvent() {
+    // do something
+ }
+
+function initializeSomething() {
+    const el = document.querySelector('.js-menu');
+    el.addEventListener('change', inputFromSelect, false);
+}
+```
+
+```javascript
+/**
+ * Example 2 (problematic)
+ *
+ * If initializeSomething() gets called more than once, duplicate
+ * event listeners WILL be registered on the js-menu element.
+ */
+function initializeSomething() {
+    const el = document.querySelector('.js-menu');
+    el.addEventListener('change', function() {
+        // do something
+    }, false);
+}
+```
+
+So what do you do if you need to pass arguments to your event handler function, but also prevent duplicates because the outer function may be called more than once? One solution could be through *event delegation* as described above in the for loop section and below. Another untested theory is to simply name the anonymous function.
+
+As it's actually really hard to test this stuff (see [Debugging Event Listeners](#debugging-event-listeners) below), I'll have to test this at a later date and report back. **TODO**
+
+
+### Removing event listeners
+
+There is a `removeEventListener()` method that removes an event listener from a target previously registered with `addEventListener()`. You need to specify the same type and listener parameters to removeEventListener() as on the original `addEventListener`. Calling `removeEventListener()` with arguments that do not match any currently registered event listeners on the event target has no effect.
+
+```javascript
+function doOnce(e) {
+    // do something
+    console.log('Doing something once.');
+    e.target.removeEventListener('click', doOnce, false);
+}
+
+let el = document.getElementById('username-field');
+
+el.addEventListener('click', doOnce, false);
+```
 
 
 ## Event Objects
@@ -187,7 +303,9 @@ See also:
 
 Some of the properties and methods available on *event objects*:
 
-`target` - The target property of the event object is always a reference to the element that the event has just occurred upon. When calling a function, the event object's target property is the best way to determine which element the event occurred on. You can use this for *event delegation* described below. Note that you can *traverse the DOM* (see [document_object_model.md](document_object_model.md)) using `event.target`. For example, I could say `event.target.parentNode` or `event.target.nextElementSibling`. Here's a demo:
+`event.target` - The target property of the event object is always a reference to the *element* that the event has just occurred upon. You can use use this property to access any *element properties & methods* (see [document_object_model.md](document_object_model.md#working-with-elements)).
+
+When calling a function, the event object's target property is the best way to determine which element the event occurred on. You can use this for *event delegation* described below. Note that you can *traverse the DOM* (see [document_object_model.md](document_object_model.md)) using `event.target`. For example, I could say `event.target.parentNode` or `event.target.nextElementSibling`. Here's a demo:
 
 ```javascript
 function hideDropdown(e) {
@@ -199,27 +317,30 @@ function hideDropdown(e) {
   }
 }
 ```
+`event.currentTarget` -  Refers to the element to which the event handler has been attached, as opposed to `event.target`, which identifies the element on which the event occurred.  
 
-`type` - The name of the event that was fired.  
+`event.type` - The name of the event that was fired.  
 
-`timeStamp` - the time (in milliseconds since epoch) that the event was created.  
+`event.timeStamp` - the time (in milliseconds since epoch) that the event was created.  
 
-`preventDefault()` - Cancels the default behaviour (if cancelable)... more to come.  
+`event.preventDefault()` - Cancels the default behaviour (if cancelable)... more to come.  
 
-`stopPropagation()` - Stops the event from *bubbling* or *capturing* any further along the DOM.  
+`event.stopPropagation()` - Stops the event from *bubbling* or *capturing* any further along the DOM.  
 
-`screenX`, `screenY` - The screenX and screenY properties indicate the position of the cursor within the entire screen on your monitor (measuring from the top left corner).  
+Note that some event properties & methods are special to certain types of events, for example, the following properties are available to MouseEvents but not KeyboardEvents:
 
-`pageX`, `pageY` - The pageX and pageY properties indicate the position of the cursor within the entire page. The top of the page may outside the viewport, so even if the cursor is in the same position, client and page coordinates can be different.
+`event.screenX`, `event.screenY` - The screenX and screenY properties indicate the position of the cursor within the entire screen on your monitor (measuring from the top left corner).  
 
-`clientX`, `clientY` - The clientX and clientY properties indicate the position within the browsers viewport. If the user has scrolled down, and the top of the page is no longer visible, this will have no affect on the coordinates.
+`event.pageX`, `event.pageY` - The pageX and pageY properties indicate the position of the cursor within the entire page. The top of the page may outside the viewport, so even if the cursor is in the same position, client and page coordinates can be different.
+
+`event.clientX`, `event.clientY` - The clientX and clientY properties indicate the position within the browsers viewport. If the user has scrolled down, and the top of the page is no longer visible, this will have no affect on the coordinates.
 
 [See MDN for full list of event objects, properties & methods.](https://developer.mozilla.org/en-US/docs/Web/API/Event)  
 
 
 ### Using the event object with other parameters
 
-As we saw above, if you want to pass parameters to an event listener function, you wrap that function in an anonymous function. The event object in this case is automatically passed to the anonymous function. If you want to use it's properties and methods in the inner named function, then you will have to label the parameter and pass it in. For example:
+As we saw above, if you want to pass parameters to an event listener function, you wrap that function in an anonymous function. The event object in this case is automatically passed to the anonymous function. If you want to use its properties and methods in the inner named function, then you will have to label the parameter and pass it in. For example:
 
 ```javascript
 function logEventInfo(e, p1, p2) {
@@ -265,9 +386,46 @@ function deleteListItems() {
 deleteListItems();
 ```
 
-Keep in mind in the above example, if we had any other nested elements (like links, for example) we'd have to isolate the parent `li` as well as the grandparent `ul`. In the CSS we would need to ensure that the links were `display: block` so that we would be sure that they would be doing the triggering.
+Keep in mind in the above example, if we had any other nested elements (like links, for example) we'd have to isolate the parent `li` as well as the grandparent `ul`. In the CSS we would need to ensure that the links were `display: block` so that we would be sure that they would be doing the triggering. Obviously this system won't work for every situation but is worth considering.
 
-Obviously this system won't work for every situation but is worth considering.
+A better example is with *dynamically rendered elements*. Imagine a form where users can click to add additional fields, and click to remove them. With a traditional approach (attaching listeners to specific elements), you would need to add a new listener every time you added a field. With event delegation, you could setup your listener once and not have to think about when new elements are added, since it checks selectors at time of click rather than when the DOM is initially rendered. For example:
+
+**TODO** test this:
+```javascript
+/**
+ * Adds a new div and html content to a container.
+ *
+ * This function adds a div to the parentEl arg, with the html content
+ * provided by the html_content arg. The html_content should contain a button  - this * to be used for the delete functionality.
+ */
+function addContent(parentEl, html_content) {
+  const newEl = document.createElement('div');
+  newEl.innerHTML = html_content;
+  // Event listener added to the button:
+  // newEl.lastElementChild.addEventListener('click', deleteContent, false);
+  parentEl.appendChild(newEl);
+}
+
+function deleteContent(e) {
+  const groupEl = e.target.parentElement;
+  groupEl.parentElement.removeChild(groupEl);
+}
+
+
+let parentEl = document.querySelector('.js-form');
+let html_content = '<input type="text"> <button class="js-delete">×</button>';
+
+document.addEventListener('click', function(e) {
+    if (e.target.matches('.js-add')) {
+        addContent(parentEl, html_content)
+    }
+    if (e.target.matches('.js-delete')) {
+        deleteContent(e);
+    }
+}, false);
+```
+
+Again, this won't work for every situation. For example, some events only work with certain types of elements. If I wanted to add an event listener for a `change` event, that event only fires on an <input>, <select>, or <textarea> element. As a reminder, there's [a full list of events here](https://developer.mozilla.org/en-US/docs/Web/Events#Standard_events).
 
 
 ## Mutation Observers
@@ -329,6 +487,44 @@ observer.observe(targetNode, config);
 `hashchange` - this event fires when the url hash changes (named anchors). The hashchange event works on the window object. After firing, the event object will have `oldURL` and `newURL` properties that hold the URL before and after the hashchange.
 
 `beforeunload` - this event fires on the window object before the page is unloaded. It should only be used to help the user (not to encourage them to stay on the website). For example, it can be helpful to notify that changes on a form won't be saved.
+
+
+## Debugging Event Listeners
+
+In firefox, you can view which elements have event listeners applied to them right in the html panel. See [MDN web docs for instructions](https://developer.mozilla.org/en-US/docs/Tools/Page_Inspector/How_to/Examine_event_listeners).
+
+That being said, chrome arguably has some better tools. It also lets you see events on elements by going to the *Elements* panel, then looking for the *Event Listeners* sub-panel. In addition, it has [browser methods](https://developers.google.com/web/tools/chrome-devtools/console/events) like `getEventListeners()` that can help monitor events. This code can by pasted into the console to list all events:
+
+```javascript
+function listListeners() {
+    const items = Array.from(document.querySelectorAll('*')).map(element => {
+      const listeners = getEventListeners(element);
+      return {
+        element: element,
+        listeners: Object.keys(listeners).map(key => {
+          return {
+            event: key,
+            listeners: listeners[key]
+          };
+        })
+      };
+    }).filter(item => item.listeners.length);
+
+    // log them to the console
+    console.log(items);
+
+    // put a border around the elements
+    items.forEach(function(item) {
+      item.element.style.outline = '1px solid red';
+    });
+}
+
+listListeners();
+```
+
+To make things super frustrating though, both Firefox and Chrome show all duplicate instances of event listeners on a target element even though MDN says [duplicate identical EventListeners registered on the same EventTarget are discarded](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener#Multiple_identical_event_listeners).
+
+**TODO** will have to look into this further.
 
 
 ## Examples
