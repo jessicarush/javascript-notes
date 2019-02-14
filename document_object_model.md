@@ -25,7 +25,8 @@ see also: [object_models.md](object_models.md)
     + [Adding elements](#adding-elements)
     + [Removing elements](#removing-elements)
 - [Working With Attributes](#working-with-attributes)
-- [More Element Object Properties & Methods](#more-element-object-properties--methods)
+- [More Element Properties & Methods](#more-element-properties--methods)
+  * [Special properties for special elements](#special-properties-for-special-elements)
 - [CSS Object Model](#css-object-model)
 
 <!-- tocstop -->
@@ -61,12 +62,12 @@ Note you don't have to search the whole document. You can use these methods to s
 
 ```javascript
 const section = document.getElementById('section-one');
-section.querySelector('.js-whatever');
+section.querySelector('.js-whatever');  
 ```
 
 A **NodeList** is a special collection of nodes. They look like arrays, but they're not (they're a type of object called a collection). That being said, you can access individual items from this list by using the name index notation as with arrays. Items will be indexed by the order that they appear in the HTML document. NodeLists also have a `.length` property.
 
-Note that NodeLists can be live or static. In a **live NodeList**, when your script updates the page, the NodeList is updated as well. All the methods beginning with `.getElementBy` are live. In a **static NodeList** when your script updates the page, those changes are not reflected in the list. Methods beginning with `.querySelector` are static... they reflect the document when the original query was made.
+Note that NodeLists can be *live* or *static*. In a *live NodeList*, when your script updates the page, the NodeList is updated as well. All the methods beginning with `.getElementBy` are live. In a *static NodeList* when your script updates the page, those changes are *not* reflected in the list. Methods beginning with `.querySelector` are static... they reflect the document when the original query was made.
 
 ```javascript
 // NodeList methods
@@ -126,6 +127,8 @@ startNode.lastElementChild;        // returns the last child element node
 startNode.firstElementChild.className = 'green';
 startNode.firstElementChild.nextElementSibling.className = 'blue';
 ```
+
+Another useful method for traversing the DOM is by using `closest()` demonstrated below in [More Element Properties & Methods](#more-element-properties--methods).
 
 ## Working With Elements
 
@@ -308,7 +311,7 @@ if (el.hasAttribute('class')) {
 In case it's not already clear, the intention with `setAttribute()` is that you're using it to add/change an attribute on an element, for example: class, id, src, href, etc. If you want to change a particular CSS property, use `el.style.property` syntax.
 
 
-## More Element Object Properties & Methods
+## More Element Properties & Methods
 
 For a full list see the links listed under [Working With Elements](#working-with-elements).
 Note that the `style` property gives you access to all CSS properties.
@@ -379,6 +382,22 @@ const a5 = el.closest('section > div');
 // returns the closest ancestor that is a div whose parent is section - (div 1)
 ```
 
+### Special properties for special elements
+
+Note that some types of elements have their own unique properties. For example, a checkbox or radio button can be set to checked or unchecked using its property:
+
+```javascript
+document.getElementById('mycheckbox').checked = true;
+```
+
+So far I can't seem to find an MDN reference for these particular objects and their properties, but you could see what properties are available by logging an element as an event target to the console:
+
+```javascript
+const checkbox = document.getElementById('mycheckbox');
+checkbox.addEventListener('click', function(e) {
+  console.log(e.target);
+},false);
+```
 
 ## CSS Object Model
 
