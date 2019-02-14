@@ -10,6 +10,7 @@ References:
 <!-- toc -->
 
 - [Types of Events](#types-of-events)
+  * [HTML5 Events](#html5-events)
 - [Event Handling](#event-handling)
   * [Binding an event to an element](#binding-an-event-to-an-element)
   * [Passing arguments to event listener functions](#passing-arguments-to-event-listener-functions)
@@ -20,9 +21,9 @@ References:
   * [Event object properties & methods](#event-object-properties--methods)
   * [Using the event object with other parameters](#using-the-event-object-with-other-parameters)
 - [Event Delegation](#event-delegation)
-- [Mutation Observers](#mutation-observers)
-- [HTML5 Events](#html5-events)
+  * [When unwanted child elements are the target](#when-unwanted-child-elements-are-the-target)
 - [Debugging Event Listeners](#debugging-event-listeners)
+- [Mutation Observers](#mutation-observers)
 - [Examples](#examples)
   * [load, DOMContentLoaded](#load-domcontentloaded)
   * [focus & blur](#focus--blur)
