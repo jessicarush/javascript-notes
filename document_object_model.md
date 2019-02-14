@@ -50,11 +50,18 @@ Once you have accessed an element, you can reach the text within that element. T
 ## Accessing Elements
 
 ```javascript
-document.getElementById('name');        // returns the element
-document.getElementsByTagName('p');     // returns a NodeList
-document.getElementsByClassName('nav')  // returns a NodeList
-document.querySelector('li.nav');       // returns the first match only
-document.querySelectorAll('li.nav');    // returns a NodeList
+document.getElementById('name');           // returns the element
+document.getElementsByTagName('p');        // returns a NodeList
+document.getElementsByClassName('js-nav')  // returns a NodeList
+document.querySelector('li.js-nav');       // returns the first match only
+document.querySelectorAll('.js-nav');      // returns a NodeList
+```
+
+Note you don't have to search the whole document. You can use these methods to search within a specific element too.
+
+```javascript
+const section = document.getElementById('section-one');
+section.querySelector('.js-whatever');
 ```
 
 A **NodeList** is a special collection of nodes. They look like arrays, but they're not (they're a type of object called a collection). That being said, you can access individual items from this list by using the name index notation as with arrays. Items will be indexed by the order that they appear in the HTML document. NodeLists also have a `.length` property.
@@ -329,6 +336,7 @@ el.tagName             // returns the tag name of an element
 el.title               // sets or returns the value of the title attribute  
 el.selectedIndex       // returns or sets the index (selected option) in a select menu  
 
+el.closest('.mystyle')        // returns the closest ancestor of the current element
 el.compareDocumentPosition()  // compares the document position of two elements  
 el.contains()                 // returns true if a node is a descendant of a node  
 el.focus()                    // gives focus to an element  
@@ -337,6 +345,38 @@ el.matches('.mystyle')        // returns true if the element matches the selecto
 el.scroll()                   // scrolls the element to a particular set of coordinates
 el.scrollBy()                 // scrolls the element by a given amount
 el.toggleAttribute()          // toggles a Boolean attribute
+```
+
+The `.matches()` method is particularly helpful for using [event delegation](events.md#event-delegation).
+
+The `.closest()` method is also really helpful in many situations. You can pass any selector you want, e.g. class, id, tag, compound, pseudo, etc. It will return the closest element (or the current element itself) as it goes up through its ancestors. For example:
+
+```html
+<section>
+    <div id="one" class="box"> div 1
+        <div id="two" class="box"> div 2
+            <div id="three"> div 3 </div>
+        </div>
+    </div>
+</section>
+```
+```javascript
+const el = document.getElementById('three');
+
+const a1 = el.closest('.box');
+// returns the closest ancestor with the class 'box'- (div 2)
+
+const a2 = el.closest('div');
+// returns the closest ancestor that is a div - (itself)
+
+const a3 = el.closest('section');
+// returns the closest ancestor that is a section - (section)
+
+const a4 = el.closest(':not(div)');
+// returns the closest ancestor that is not a div - (section)
+
+const a5 = el.closest('section > div');
+// returns the closest ancestor that is a div whose parent is section - (div 1)
 ```
 
 
