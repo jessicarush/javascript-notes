@@ -388,6 +388,8 @@ Note that some types of elements have their own unique properties. For example, 
 
 ```javascript
 document.getElementById('mycheckbox').checked = true;
+document.getElementById('myfield').required = true;
+document.getElementById('myfield').disabled = true;
 ```
 
 So far I can't seem to find an MDN reference for these particular objects and their properties, but you could see what properties are available by logging an element as an event target to the console:
