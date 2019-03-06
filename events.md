@@ -467,6 +467,26 @@ button > * {
 }
 ```
 
+Another way to prevent this is by using the `.closest()` method. basically, we need to not just check if the event's target matches, but also walk up the DOM tree in a simple simulation of bubbling. Here's an example:
+
+```javascript
+// Function to show/hide an element
+function showHide(e) {
+    const el = e.target.matches('.js-showhide') ? e.target : e.target.closest('.js-showhide');
+    const detailsEl = el.parentElement.querySelector('.js-details');
+    detailsEl.classList.toggle('is-hidden');
+}
+
+// Event listener
+window.addEventListener('click', function(e) {
+
+    if (e.target.matches('.js-showhide') || e.target.closest('.js-showhide')) {
+    showHide(e);
+    }
+
+}, false);
+```
+
 
 ## Debugging Event Listeners
 
