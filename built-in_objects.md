@@ -278,18 +278,24 @@ Symbols are special *unique* values that can be used as properties on objects wi
 ```javascript
 let secret = Symbol('custom symbol');
 
-console.log(secret);             // Symbol(custom symbol)
-console.log(secret.toString());  // Symbol(custom symbol)
-console.log(typeof secret);      // symbol
+console.log(secret);                             // Symbol(custom symbol)
+console.log(secret.toString());                  // Symbol(custom symbol)
+console.log(typeof secret);                      // symbol
 
-let obj1 = {};
-obj1[secret] = 'secret property';
+let obj = {};
+obj[secret] = 'secret property';
 
-let obj2 = {};
-obj2[secret] = 'secret property';
+console.log(Object.getOwnPropertyNames(obj));    // []
+console.log(Object.getOwnPropertySymbols(obj));  // [ Symbol(custom symbol) ]
+console.log(obj.secret);                         // undefined
+console.log(obj['secret']);                      // undefined
+console.log(obj[secret]);                        // secret property
 
-console.log(Object.getOwnPropertySymbols(obj1));  // [ Symbol(custom symbol) ]
-console.log(obj1.secret);                         // undefined
-console.log(obj1.secret == 'secret property');    // false
-console.log(obj1.secret == obj2.secret);          // true
+let toStringSymbol = Symbol('toString');
+
+obj[toStringSymbol] = function() {
+  return `I am ${this.name}.`;
+};
+
+console.log(obj[toStringSymbol]());              // I am test
 ```
