@@ -15,10 +15,12 @@ In JavaScript, objects are compound values where you can set properties (named l
 - [Nested Objects](#nested-objects)
 - [Objects with Methods](#objects-with-methods)
   * [Adding a method to an object](#adding-a-method-to-an-object)
+  * [Adding a method that points to an outside function](#adding-a-method-that-points-to-an-outside-function)
   * [Adding a method to a constructor function](#adding-a-method-to-a-constructor-function)
   * [Adding a method to a class](#adding-a-method-to-a-class)
   * [Adding a method to factory function](#adding-a-method-to-factory-function)
 - [Built-in Object Methods](#built-in-object-methods)
+- [Polymorphism](#polymorphism)
 - [Property Descriptors](#property-descriptors)
   * [writeable](#writeable)
   * [configurable](#configurable)
@@ -312,6 +314,41 @@ user.greeting = function() {
 user.greeting();  // Hello Jessica
 ```
 
+### Adding a method that points to an outside function
+
+If we wanted to add a new method to an object, that method doesn't need to be assigned directly to the one object, for example:
+
+```javascript
+function greeting(message) {
+  let formatName = this.name[0].toUpperCase() + this.name.slice(1);
+  console.log(`${message} ${formatName}.`);
+}
+
+const user = {
+  name: 'jessica'
+};
+
+const other = {
+  name: 'other',
+  greeting
+};
+
+const another = {
+  name: 'another'
+};
+
+user.greeting = greeting;
+
+user.greeting('Hello');
+// Hello Jessica.
+
+other.greeting('Something');
+// Something Other.
+
+greeting.call(another, 'And');
+// And Another.
+```
+
 We should also demonstrate what this looks like for constructor functions, classes, and factory functions. Keep in mind that you can't add a new method to a factory function after the fact, unless you reassign the whole function...
 
 ### Adding a method to a constructor function
@@ -444,6 +481,30 @@ console.log(Object.values(garlic));
 // [ 'spider', 'moist' ]
 // [ 'coffee', 'full' ]
 // [ 'plant', true, 'moist', 'full' ]
+```
+
+
+## Polymorphism
+
+Polymorphism is a technique where you can define a common interface for many other different abstract types, provided they support the interface it expects. A simple example of this is:
+
+```javascript
+function User(name, type) {
+  this.name = name,
+  this.type = type
+}
+
+const j = new User('jessica', 'admin');
+
+console.log(j.toString());
+// [object Object]
+
+User.prototype.toString = function() {
+  return `${this.type} user: ${this.name}`;
+};
+
+console.log(j.toString());
+// admin user: jessica
 ```
 
 
