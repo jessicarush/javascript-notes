@@ -425,7 +425,7 @@ console.log(Object.entries(spider));
 //   [ 'sunlight', 'full' ] ]
 ```
 
-The `.assign()` method copies all properties from one or more source objects to a new target object. You pass two or more arguments: `Object.assign(target_object, source_object)`. The method copies properties from the source object(s) to the target object. Properties in the target object will be overwritten by properties in the source(s) if they have the same key. If the sources have the same keys, the last one in the argument list will be applied to teh target.
+The `.assign()` method copies all properties from one or more source objects to a new target object. You pass two or more arguments: `Object.assign(target_object, source_object)`. The method copies properties from the source object(s) to the target object. Properties in the target object will be overwritten by properties in the source(s) if they have the same key. If the sources have the same keys, the last one in the argument list will be applied to the target.
 
 ```javascript
 const plant = {name: 'plant', sunlight: 'full'}
