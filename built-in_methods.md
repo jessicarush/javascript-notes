@@ -143,5 +143,4 @@ console.log(num.toString(16));
 // f
 ```
 
-
 See all the [built-in methods for numbers here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number).
