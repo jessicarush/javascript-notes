@@ -6,8 +6,8 @@ JavaScript uses six *primitive data types*, along with one complex type:
 **Strings** — Any grouping of characters surrounded by single or double quotes.  
 **Numbers** — Any number, including numbers with decimals. Internally, they're represented as 64-bit floating point.  
 **Booleans** — Either true or false, with no quotations.  
-**Null** — Can only be null. It represents the absence of value.  
-**Undefined** — Automatically assigned to variables that have just been declared or to formal arguments for which there are no actual arguments.  
+**Null** — Represents an empty value.  
+**Undefined** — Represents a missing value. Automatically assigned to variables that have just been declared or to formal arguments for which there are no actual arguments.  
 **Symbols** — (new to ES6) Used as the key for an object property when the property is intended to be private, for the internal use of a class or an object.  
 **Objects** — Refers to a compound value where you can set properties that each hold their own values of any type. Functions and arrays are considered subtypes of the object type. In fact, functions are simply considered *callable objects*.
 
@@ -103,6 +103,18 @@ console.log(typeof a);  // function
 
 Notice that `typeof` is not asking for the *type of 'a'* but rather for the *type of the value currently in 'a'*. Only values have types in JavaScript, variables are just containers.
 
+The are other ways to check what a value is. For example:
+
+```javascript
+let a = 2 / 'string';
+let b = -3 * 0;
+
+console.log(Object.is(a, NaN));  // true
+console.log(Object.is(b, -0));   // true
+console.log(Object.is(b, 0));    // false
+```
+
+See [reflection.md](reflection.md).
 
 ## Converting between data types (coercion)
 
