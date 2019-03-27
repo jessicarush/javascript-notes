@@ -4,6 +4,12 @@
 
 <!-- toc -->
 
+- [typeof operator](#typeof-operator)
+- [Object methods, instanceof operator](#object-methods-instanceof-operator)
+- [Number methods](#number-methods)
+
+<!-- tocstop -->
+
 ## typeof operator
 
 ```javascript

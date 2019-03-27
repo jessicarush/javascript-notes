@@ -28,4 +28,4 @@ function foo() {
 baz(); // <-- call-site for baz
 ```
 
-The developer tools debugger can confirm the call-stack for us. If we were to drop a breakpoint at the first line in `foo()`, the debugger will show us the current call-stack when is pauses on this line. When looking at the stack, the second from the top will be the call-site.   
+The developer tools debugger can confirm the call-stack for us. If we were to drop a breakpoint at the first line in `foo()`, the debugger will show us the current call-stack when is pauses on this line. When looking at the stack, the second from the top will be the call-site.

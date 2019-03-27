@@ -11,6 +11,7 @@ In classical languages, objects are instances of classes, and a class can inheri
 - [Assigning the prototype](#assigning-the-prototype)
 - [Modifying prototype objects](#modifying-prototype-objects)
 - [Differential Inheritance](#differential-inheritance)
+- [Delegation-Oriented Design](#delegation-oriented-design)
 - [Reflection](#reflection)
 - [Augmenting Built-in Types](#augmenting-built-in-types)
 - [Prototype linked functions](#prototype-linked-functions)

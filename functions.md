@@ -28,6 +28,7 @@ Functions are the fundamental modular modular unit of JavaScript. They are used 
 - [Callback Functions](#callback-functions)
 - [Factory Functions](#factory-functions)
 - [Destructuring](#destructuring)
+  * [simulating named parameters](#simulating-named-parameters)
 - [Module Pattern](#module-pattern)
 - [Memoization](#memoization)
 - [Arrow Function Syntax](#arrow-function-syntax)
