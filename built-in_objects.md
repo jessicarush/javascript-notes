@@ -1,4 +1,4 @@
-# Built-in (Global) Objects
+# Built-in (Global) Objects/Functions
 
 Javascript has many built-in objects. Some of their names imply they're directly related to their primitive counterparts (see [data_types.md](data_types.md)) but, the relationship is slightly more complicated. These are built-in objects (functions actually), with collections of static methods that can be called **without an instance**. Some of these built-in objects also contain methods that can be applied to instances or primitive data types (e.g. `String.prototype.toLowerCase`). See [MDN for a complete list of built-in objects](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects).
 
@@ -17,6 +17,7 @@ Javascript has many built-in objects. Some of their names imply they're directly
 - [Array](#array)
 - [RegExp](#regexp)
 - [Error](#error)
+- [Symbol](#symbol)
 
 <!-- tocstop -->
 
@@ -38,8 +39,9 @@ console.log(typeof strPrimitve); // string
 console.log(typeof strString);  // object
 ```
 
-**Note:** This is just for demonstration purposes. You should never actually use String as a constructor. The point here is that primitive data types are not objects. They are primitive, literal, immutable values. When we call a property or method on a primitive (e.g. `strPrimitve.length` or `strPrimitve.charAt(3)`), JavaScript automatically coerces the primitive into an object.
+**Note:** This is just for demonstration purposes. You would never actually use String as a constructor. In fact, `String()`, `Number()`, `Boolean()`, `Array()`, `Object()` and `Function()` aren't generally used as constrictors but written as literals. `RegExp()` used as a constructor can be useful sometimes. `Date()`, `Error()` and `Symbol()` are used as constructors because there is no literal method of writing them.
 
+The point here is that primitive data types are not objects. They are primitive, literal, immutable values. When we call a property or method on a primitive (e.g. `strPrimitve.length` or `strPrimitve.charAt(3)`), JavaScript automatically coerces the primitive into an object.
 
 ## Math
 
@@ -131,6 +133,24 @@ function closeEnough(n1, n2) {
 console.log(closeEnough((0.1 + 0.2), 0.3));  // true
 ```
 
+Some other `Number` constants:
+
+```javascript
+console.log(Number.MAX_VALUE);
+// 1.7976931348623157e+308
+
+console.log(Number.MIN_VALUE);
+// 5e-324
+
+console.log(Number.MAX_SAFE_INTEGER);
+// 9007199254740991
+
+console.log(Number.MIN_SAFE_INTEGER);
+// -9007199254740991
+```
+
+The most common scenario in which JavaScript programs are dealing with such large number, is when working with 64-bit IDs from databases. These numbers cannot be represented accurately with the number type so the must be stored as a string.
+
 ## Date
 
 The Date object has a few static methods but mainly contains instance methods to be applied to objects constructed with `new Date()`.
@@ -170,6 +190,9 @@ Once you've created a Date object, the following methods (these are just a few) 
 `toString()` - returns human-readable date + time string  
 
 ```javascript
+console.log(today.getTime());  
+// 1553618191631
+
 console.log(today.toDateString());
 // Wed Oct 24 2018
 
@@ -206,4 +229,67 @@ console.log(typeof now);  // number
 
 ## RegExp
 
+`RegExp()` as a constructor has a reasonable utility in terms of dynamically defining a pattern for a regular expression.
+
+```javascript
+let word = 'ping';
+let someText = 'blah blah ping blah';
+
+// RegExp('pattern', 'flags')
+let pattern = new RegExp('\\b(?:' + word + ')+\\b', 'ig' );
+
+let matches = someText.match(pattern);
+console.log(matches);  // ['ping']
+```
+
 ## Error
+
+Using an error object can make debugging much easier as the call-stack and line number will be included in the error. In the example below, a missing arg normally simply results in `undefined` but throwing an error may be more helpful:
+
+```javascript
+function foo(x) {
+  console.log('x is', x);
+}
+
+function bar(x) {
+  if (!x) {
+    throw new Error('x argument is missing!');
+  } else {
+    console.log('x is', x);
+  }
+}
+
+foo();
+// x is undefined
+
+bar();
+// [stdin]:24
+//     throw new Error('x argument is missing!');
+//     ^
+//
+// Error: x argument is missing!
+// ...
+```
+
+## Symbol
+
+Symbols are special *unique* values that can be used as properties on objects with little fear of *collision*. Symbols can be used as property names but you can't see or access the actual value of a symbol from your program or the developer console. Their primary use case is likely for private or special properties where we traditionally name with a leading `_` underscore to signal a private/special/leave-it-alone property. Symbols are not objects, they are simple, scalar primitives.
+
+```javascript
+let secret = Symbol('custom symbol');
+
+console.log(secret);             // Symbol(custom symbol)
+console.log(secret.toString());  // Symbol(custom symbol)
+console.log(typeof secret);      // symbol
+
+let obj1 = {};
+obj1[secret] = 'secret property';
+
+let obj2 = {};
+obj2[secret] = 'secret property';
+
+console.log(Object.getOwnPropertySymbols(obj1));  // [ Symbol(custom symbol) ]
+console.log(obj1.secret);                         // undefined
+console.log(obj1.secret == 'secret property');    // false
+console.log(obj1.secret == obj2.secret);          // true
+```
