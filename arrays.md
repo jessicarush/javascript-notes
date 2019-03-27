@@ -16,6 +16,7 @@ Arrays are JavaScript's lists. Arrays can store any data types (including string
   * [Remove and use items with *pop()* and *shift()*](#remove-and-use-items-with-pop-and-shift)
   * [Get a section of an array with *slice()*](#get-a-section-of-an-array-with-slice)
   * [Replace a section with *splice()*](#replace-a-section-with-splice)
+  * [Create a copy of an array](#create-a-copy-of-an-array)
   * [Merge two arrays into a new one with *concat()*](#merge-two-arrays-into-a-new-one-with-concat)
   * [Find if an item is present with *includes()*](#find-if-an-item-is-present-with-includes)
   * [Find the index of an item with *indexOf(), lastIndexOf()*](#find-the-index-of-an-item-with-indexof-lastindexof)
@@ -24,6 +25,7 @@ Arrays are JavaScript's lists. Arrays can store any data types (including string
   * [Convert a string to an array with *split()*](#convert-a-string-to-an-array-with-split)
 - [Iteration Methods](#iteration-methods)
 - [Array.from()](#arrayfrom)
+- [Sneaky "reassignment" of an array](#sneaky-reassignment-of-an-array)
 
 <!-- tocstop -->
 
@@ -201,6 +203,22 @@ console.log(myArray);
 // [ 'one', 'bye', 'farewell', 'five' ]
 ```
 
+### Create a copy of an array
+
+```javascript
+const array1 = ['a', 'b', 'c'];
+const array2 = array1;          // not a copy!
+const array3 = array1.slice();  // old method to copy
+const array4 = [...array1];     // ES6+ method to copy
+
+array2.push('d');
+
+console.log(array1);  // [ 'a', 'b', 'c', 'd' ]
+console.log(array2);  // [ 'a', 'b', 'c', 'd' ]
+console.log(array3);  // [ 'a', 'b', 'c' ]
+console.log(array4);  // [ 'a', 'b', 'c' ]
+```
+
 
 ### Merge two arrays into a new one with *concat()*
 
@@ -296,3 +314,38 @@ for (let el of Array.from(els)) {
     // pass
 }
 ```
+
+## Sneaky "reassignment" of an array
+
+This situation is kind of interesting. We know that because of scope, if you try to reassign a variable passed to a function, it won't work because they are pointing to different values. But we can modify the arg as much as we want, for example:
+
+```javascript
+function foo(arg) {
+  arg.push(4);
+  console.log(arg);  // [1, 2, 3, 4]
+
+  arg = [5, 6, 7];   // new arg variable created!
+  console.log(arg);  // [5, 6, 7]
+}
+
+const a = [1, 2, 3];
+foo(a);
+console.log(a); // [1, 2, 3, 4]
+```
+
+```javascript
+function foo(arg) {
+  arg.push(4);
+  console.log(arg);  // [1, 2, 3, 4]
+
+  arg.length = 0;    // trick to clear out an array!
+  arg.push(5, 6, 7);
+  console.log(arg);  // [5, 6, 7]
+}
+
+const a = [1, 2, 3];
+foo(a);
+console.log(a); // [5, 6, 7]
+```
+
+Woah!
