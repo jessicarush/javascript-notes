@@ -1,27 +1,67 @@
-# Built-in (Global) Objects/Functions
+# Standard Built-in Objects
 
-Javascript has many built-in objects. Some of their names imply they're directly related to their primitive counterparts (see [data_types.md](data_types.md)) but, the relationship is slightly more complicated. These are built-in objects (functions actually), with collections of static methods that can be called **without an instance**. Some of these built-in objects also contain methods that can be applied to instances or primitive data types (e.g. `String.prototype.toLowerCase`). See [MDN for a complete list of built-in objects](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects).
+Javascript has many built-in objects. Some of the names imply they're directly related to their primitive counterparts (see [data_types.md](data_types.md)) but, the relationship is slightly more complicated. These built-in objects have collections of static methods (that can be called **without an instance**), prototype methods (that can be called directly on an instance or primitive type) and properties. See [MDN for a complete list of built-in objects](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects).
 
 ## Table of Contents
 
 <!-- toc -->
 
-- [instanceof](#instanceof)
-- [Math](#math)
+- [Methods & Properties](#methods--properties)
+  * [Properties](#properties)
+  * [Prototype (instance) methods](#prototype-instance-methods)
+  * [Static methods](#static-methods)
+- [Reflection](#reflection)
+- [String](#string)
 - [Number](#number)
 - [Date](#date)
-- [String](#string)
 - [Boolean](#boolean)
 - [Object](#object)
 - [Function](#function)
 - [Array](#array)
+- [Math](#math)
 - [RegExp](#regexp)
 - [Error](#error)
 - [Symbol](#symbol)
+- [Map](#map)
+- [Set](#set)
+- [Global Functions](#global-functions)
 
 <!-- tocstop -->
 
-## instanceof
+## Methods & Properties
+
+All built-in methods belong to built-in objects. Some methods are meant to be applied to an instance or primitive data-type, while others are applied to the built-in object itself (static methods). Some built-in properties are accessed from the object (constants) while others are available to an instance.
+
+For example, if you take a look at the built-in object [`Number`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number), you'll see that some of its methods are listed like: `Number.methodName` while others are listed as `Number.prototype.methodName`. This first group are *static* methods and are applied directly to the `Number` object. The value (if there is one) is passed to the method as an argument.
+
+The second group of methods include the `prototype` property. This indicates that the method is available via the *prototype link* to all instances of that type and can be applied directly to an instance or primitive data type.
+
+### Properties
+
+The `String` object has the built-in `length` property that can be used on any instance or primitive, whereas the `Number` object mainly only has CONSTANT properties which are accessed from the object itself:
+
+```javascript
+Number.EPSILON;  // 2.220446049250313e-16
+'hello'.length;  // 5
+```
+
+### Prototype (instance) methods
+
+Like properties, prototype methods are called by appending an instance with a period, the name of the method followed by parentheses`()`. While properties are calculated when an instance is created, built-in methods perform actions that generate output when they are called on an instance.
+
+```javascript
+let num = 5.89609;
+num.toPrecision(3);  // 5.90
+```
+
+### Static methods
+
+```javascript
+Number.isInteger(5);  // true
+```
+
+
+## Reflection
 
 Before going further, it might be helpful to review this operator to clarify the relationship between primitive types and built-in types:
 
@@ -39,13 +79,281 @@ console.log(typeof strPrimitve); // string
 console.log(typeof strString);  // object
 ```
 
-**Note:** This is just for demonstration purposes. You would never actually use String as a constructor. In fact, `String()`, `Number()`, `Boolean()`, `Array()`, `Object()` and `Function()` aren't generally used as constrictors but written as literals. `RegExp()` used as a constructor can be useful sometimes. `Date()`, `Error()` and `Symbol()` are used as constructors because there is no literal method of writing them.
+**Note:** This is just for demonstration purposes. You would never actually use String as a constructor. In fact, `String()`, `Number()`, `Boolean()`, `Array()`, `Object()` and `Function()` aren't generally used as constructors but written as literals. `RegExp()` used as a constructor can be useful sometimes. `Date()`, `Error()` and `Symbol()` are used as constructors always because there is no literal method of writing them.
 
 The point here is that primitive data types are not objects. They are primitive, literal, immutable values. When we call a property or method on a primitive (e.g. `strPrimitve.length` or `strPrimitve.charAt(3)`), JavaScript automatically coerces the primitive into an object.
 
+
+## String
+
+The [String object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) mostly consists of instance methods:
+
+```javascript
+console.log('Hello'.toUpperCase());
+// 'HELLO'
+console.log('Hello'.toLowerCase());
+// 'hello'
+console.log('Hello'.startsWith('H'));
+// true
+console.log('Hello'.charAt(0));
+// H
+console.log('coconuts'.slice(4, 7));
+// nut
+console.log('lime in the coconut'.indexOf('the'));
+// 8
+console.log('coconut'.lastIndexOf('c'));
+// 2
+console.log(' \t  okay  \n '.trim());
+// okay
+console.log('Title'.padStart(10, '_'));
+// _____Title
+console.log('one two three'.split(' '));
+// [ 'one', 'two', 'three' ]
+console.log('ha'.repeat(3));
+// hahaha
+console.log('The weather is nice.'.replace('nice', 'gross'));
+// The weather is gross.
+```
+
+Note that JavaScript doesn't have a capitalize method for strings. Instead, you have to monkey one together like so:
+
+```javascript
+function capitalFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+function capitalize(string) {
+  let words = [];
+  string.split(' ').forEach(word => {
+    words.push(capitalFirstLetter(word));
+  });
+  return words.join(' ');
+}
+
+let s = 'the great escape';
+
+console.log(capitalFirstLetter(s));
+// The great escape
+console.log(capitalize(s));
+// The Great Escape
+```
+
+You can reverse a string by chaining methods together. Note, this will not work for strings with complex (unicode) characters.
+
+```javascript
+let string = 'hello';
+
+let reversed = string.split('').reverse().join('');
+
+console.log(reversed);  // olleh
+```
+
+`String()` itself is a built-in function. Using it alone will explicitly convert a value into a string. You can also use the `toString()` method to do the same thing:
+
+```javascript
+let num = 100;
+console.log(typeof String(num));     // string
+console.log(typeof num.toString());  // string
+```
+
+## Number
+
+The [Number object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) has quite a few *static* methods and *instance* methods. Some examples of a *instance* methods for numbers are `toFixed()`, `toPrecision()` and `toExponential()`:
+
+```javascript
+const tax_rate = 0.12;
+let amount = 9.99;
+let total = amount + (amount * tax_rate);
+
+console.log(total);
+// 11.1888
+
+console.log(total.toFixed(2));
+// 11.19
+
+// You could call it like this
+total = (amount + (amount * tax_rate)).toFixed(2);
+console.log(typeof total);
+// string
+
+// rounds to total number of places (returns a string)
+total = Number(total);
+console.log(total.toPrecision(3));   
+// 11.2
+
+// returns a string in exponential notation
+total = Number(total);
+console.log(total.toExponential());
+// 1.11888e+1
+```
+
+Another *instance* method is `toString()`. The interesting thing about this method is that you can use the optional base parameter to convert the number to binary(2), octal(8) or hex(16). This parameter must be an integer between 2 and 36.
+
+```javascript
+var num = 15;
+
+console.log(num.toString());
+console.log(num.toString(2));
+console.log(num.toString(8));
+console.log(num.toString(16));
+// 15
+// 1111
+// 17
+// f
+```
+
+The [Number object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) has *static* methods that check if an instance in an integer or finite number, or *parse* a string into a float or integer. The two *parsing* methods are interesting because they tolerate and drop any non-numeric characters they encounter as they parses from left to right. Note that the string must start with a numeric character for it to be parsed. As soon as it reads a non-numeric character, it simply stops parsing.
+
+```javascript
+Number.parseFloat('5.25 laps');  // 5.25
+Number.parseInt('250px');        // 250
+Number.isInteger(5);             // true
+Number.isFinite(5.2345);         // true
+
+let a = 5 * 'string';
+
+Number.isNaN(a);                 // true
+```
+
+`Number()` itself is a built-in function. Using it alone will explicitly convert a string to a number. If you try to convert a string that doesn't translate to a number you'll get `NaN`. Another widely accepted way to convert to a number is by using the *unary operator* `+`. This is common when converting dates to an epoch timestamp number. Keep in mind though, there may be times where it looks confusing and weird. In general, it's best to avoid this if it's being used next to another operator.
+
+```javascript
+let a = '42';
+let b = +a;
+let c = 8+ +a;
+let d = new Date();
+
+console.log(a, typeof Number(a));  // 42 number
+console.log(b, typeof b);          // 42 number
+console.log(c, typeof c);          // 40 number
+console.log(d, typeof d);          // 2019-03-29T18:09:28.164Z object
+console.log(+d, typeof +d);        // 1553883034866 number
+```
+
+As of ES6, you can also use `Number` to access *machine epsilon* which is the commonly accepted tolerance value for comparing numbers where their binary floating point representations aren't exact in [IEEE 754](https://en.wikipedia.org/wiki/IEEE_754). For example:
+
+```javascript
+console.log(0.1 + 0.2 === 0.3);  // false
+console.log(Number.EPSILON);     // 2.220446049250313e-16
+
+function closeEnough(n1, n2) {
+  return (n1 - n2) < Number.EPSILON;
+}
+
+console.log(closeEnough((0.1 + 0.2), 0.3));  // true
+```
+
+Some other `Number` constants:
+
+```javascript
+console.log(Number.MAX_VALUE);
+// 1.7976931348623157e+308
+
+console.log(Number.MIN_VALUE);
+// 5e-324
+
+console.log(Number.MAX_SAFE_INTEGER);
+// 9007199254740991
+
+console.log(Number.MIN_SAFE_INTEGER);
+// -9007199254740991
+```
+
+The most common scenario in which JavaScript programs are dealing with such large number, is when working with 64-bit IDs from databases. These numbers cannot be represented accurately with the number type so the must be stored as a string.
+
+
+## Date
+
+The [Date object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) has a few static methods but mainly contains instance methods to be applied to objects constructed with `new Date()`.
+
+By default when you construct a Date object, it will hold today's date and time. If you want to store another date, you must explicitly state it with the format `YYYY, MM, DD, HH, MM, SS` or `MMM DD, YYYY HH:MM:SS`. Note that the current date/time is determined by the computers clock.
+
+
+```javascript
+let today = new Date();
+let newyears = new Date(1974, 11, 31, 15, 45, 55);
+let halloween = new Date(2018, 9, 31);
+
+console.log(today);
+// 2018-10-25T01:45:35.905Z
+
+console.log(newyears);
+// 1974-12-31T23:45:55.000Z
+
+console.log(halloween);
+// 2018-10-31T07:00:00.000Z
+```
+
+Once you've created a Date object, the following methods (these are just a few) can be used to get and set the time and date it represents:
+
+`getDate()`, `setDate()` - returns/sets day of the month (0-31)  
+`getDay()` - returns day of the week (0-6)  
+`getFullYear()`, `setFullYear()` - returns/sets year (4-digits)  
+`getHours()`, `setHours()` - returns/sets the hour (0-23)  
+`getMilliseconds()`, `setMilliseconds()` - returns/sets milliseconds (0-999)  
+`getMinutes()`, `setMinutes()` - returns/sets minutes (0-59)  
+`getMonth()`, `setMonth()` - returns/sets month (0-11)  
+`getSeconds()`, `setSeconds()` - returns/sets seconds (0-59)  
+`getTime()`, `setTime()` - milliseconds since epoch (Jan 1, 1970) UTC  
+`getTimezoneOffset()` - returns timezone offset in mins for locale  
+`toDateString()` - returns human-readable date string  
+`toTimeString()` - returns human-readable time string  
+`toString()` - returns human-readable date + time string  
+
+```javascript
+console.log(today.getTime());  
+// 1553618191631
+
+console.log(today.toDateString());
+// Wed Oct 24 2018
+
+console.log(today.toTimeString());
+// 19:03:49 GMT-0700 (Pacific Daylight Time)
+
+console.log(today.toString());
+// Wed Oct 24 2018 19:04:18 GMT-0700 (Pacific Daylight Time)
+```
+
+Instead of creating a Date object, the static methods `Date.UTC()` and `Date.now()` return a time value as a number (milliseconds since epoch 1/1/1970). This is available as of ES5.
+
+```javascript
+
+const utc = Date.UTC(2018, 1, 7);
+const now = Date.now();
+
+console.log(utc);  // 1517961600000
+console.log(now);  // 1546902662234
+
+console.log(typeof utc);  // number
+console.log(typeof now);  // number
+```
+
+To summarize, to get the current timestamp in epoch, both of the following methods are valid:
+
+```javascript
+const timestamp2 = new Date().getTime();
+const timestamp3 = Date.now();
+```
+
+## Boolean   
+
+The [Boolean object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)
+
+## Object
+
+The base [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)
+
+## Function
+
+The [Function object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function)
+
+## Array
+
+The [Array object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)
+
 ## Math
 
-The [Math Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math) contains mathematical methods. For example, the `.random()` method generates a random decimal number between 0 and 1.
+The [Math object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math) contains mathematical methods. For example, the `.random()` method generates a random decimal number between 0 and 1.
 
 ```javascript
 console.log(Math.random());  // 0.6897758230441343
@@ -97,154 +405,27 @@ console.log(Math.PI);
 ```
 
 
-## Number
-
-The [Number object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) has methods that check if an instance in an integer or a finite number, or parses a string into a float:
-
-```javascript
-Number.parseFloat('5.20');  // 5.2
-Number.isInteger(5);        // true
-Number.isFinite(5.2345);    // true
-
-let a = 5;
-let b = 'string';
-let c = a * b;
-
-Number.isNaN(c);  // true
-```
-
-`Number()` itself is a built-in function. Using it alone will convert a string to a number. If you try to convert a string that doesn't translate to a number you'll get `NaN`:
-
-```javascript
-let a = '42';
-let b = Number(a);
-```
-
-As of ES6, you can also use `Number` to access *machine epsilon* which is the commonly accepted tolerance value for comparing numbers where their binary floating point representations aren't exact in [IEEE 754](https://en.wikipedia.org/wiki/IEEE_754). For example:
-
-```javascript
-console.log(0.1 + 0.2 === 0.3);  // false
-console.log(Number.EPSILON);     // 2.220446049250313e-16
-
-function closeEnough(n1, n2) {
-  return (n1 - n2) < Number.EPSILON;
-}
-
-console.log(closeEnough((0.1 + 0.2), 0.3));  // true
-```
-
-Some other `Number` constants:
-
-```javascript
-console.log(Number.MAX_VALUE);
-// 1.7976931348623157e+308
-
-console.log(Number.MIN_VALUE);
-// 5e-324
-
-console.log(Number.MAX_SAFE_INTEGER);
-// 9007199254740991
-
-console.log(Number.MIN_SAFE_INTEGER);
-// -9007199254740991
-```
-
-The most common scenario in which JavaScript programs are dealing with such large number, is when working with 64-bit IDs from databases. These numbers cannot be represented accurately with the number type so the must be stored as a string.
-
-## Date
-
-The Date object has a few static methods but mainly contains instance methods to be applied to objects constructed with `new Date()`.
-
-By default when you construct a Date object, it will hold today's date and time. If you want to store another date, you must explicitly state it with the format `YYYY, MM, DD, HH, MM, SS` or `MMM DD, YYYY HH:MM:SS`. Note that the current date/time is determined by the computers clock.
-
-
-```javascript
-let today = new Date();
-let newyears = new Date(1974, 11, 31, 15, 45, 55);
-let halloween = new Date(2018, 9, 31);
-
-console.log(today);
-// 2018-10-25T01:45:35.905Z
-
-console.log(newyears);
-// 1974-12-31T23:45:55.000Z
-
-console.log(halloween);
-// 2018-10-31T07:00:00.000Z
-```
-
-Once you've created a Date object, the following methods (these are just a few) can be used to get and set the time and date it represents:
-
-`getDate()`, `setDate()` - returns/sets day of the month (0-31)  
-`getDay()` - returns day of the week (0-6)  
-`getFullYear()`, `setFullYear()` - returns/sets year (4-digits)  
-`getHours()`, `setHours()` - returns/sets the hour (0-23)  
-`getMilliseconds()`, `setMilliseconds()` - returns/sets milliseconds (0-999)  
-`getMinutes()`, `setMinutes()` - returns/sets minutes (0-59)  
-`getMonth()`, `setMonth()` - returns/sets month (0-11)  
-`getSeconds()`, `setSeconds()` - returns/sets seconds (0-59)  
-`getTime()`, `setTime()` - milliseconds since epoch (Jan 1, 1970) UTC  
-`getTimezoneOffset()` - returns timezone offset in mins for locale  
-`toDateString()` - returns human-readable date string  
-`toTimeString()` - returns human-readable time string  
-`toString()` - returns human-readable date + time string  
-
-```javascript
-console.log(today.getTime());  
-// 1553618191631
-
-console.log(today.toDateString());
-// Wed Oct 24 2018
-
-console.log(today.toTimeString());
-// 19:03:49 GMT-0700 (Pacific Daylight Time)
-
-console.log(today.toString());
-// Wed Oct 24 2018 19:04:18 GMT-0700 (Pacific Daylight Time)
-```
-
-Instead of creating a Date object, the static methods `Date.UTC()` and `Date.now()` return a time value as a number (milliseconds since epoch 1/1/1970).
-
-```javascript
-
-const utc = Date.UTC(2018, 1, 7);
-const now = Date.now();
-
-console.log(utc);  // 1517961600000
-console.log(now);  // 1546902662234
-
-console.log(typeof utc);  // number
-console.log(typeof now);  // number
-```
-
-## String
-
-## Boolean  
-
-## Object
-
-## Function
-
-## Array
-
 ## RegExp
 
-`RegExp()` as a constructor has a reasonable utility in terms of dynamically defining a pattern for a regular expression.
+The [RegExp object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp) as a constructor has a reasonable utility in terms of dynamically defining a pattern for a regular expression.
 
 ```javascript
 let word = 'ping';
 let someText = 'blah blah ping blah';
 
-// RegExp('pattern', 'flags')
-let pattern = new RegExp('\\b(?:' + word + ')+\\b', 'ig' );
+// literal notation: /pattern/flags
+let pattern1 = /\bblah\b/ig;
 
-let matches = someText.match(pattern);
-console.log(matches);  // ['ping']
+// constructor notation: RegExp('pattern', 'flags')
+let pattern2 = new RegExp('\\b(?:' + word + ')+\\b', 'ig' );
+
+console.log(someText.match(pattern1));  // [ 'blah', 'blah', 'blah' ]
+console.log(someText.match(pattern2));  // ['ping']
 ```
 
 ## Error
 
-Using an error object can make debugging much easier as the call-stack and line number will be included in the error. In the example below, a missing arg normally simply results in `undefined` but throwing an error may be more helpful:
+Using an [Error object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error) can make debugging much easier as the call-stack and line number will be included in the error. In the example below, a missing arg normally simply results in `undefined` but throwing an error may be more helpful:
 
 ```javascript
 function foo(x) {
@@ -271,9 +452,10 @@ bar();
 // ...
 ```
 
+
 ## Symbol
 
-Symbols are special *unique* values that can be used as properties on objects with little fear of *collision*. Symbols can be used as property names but you can't see or access the actual value of a symbol from your program or the developer console. Their primary use case is likely for private or special properties where we traditionally name with a leading `_` underscore to signal a private/special/leave-it-alone property. Symbols are not objects, they are simple, scalar primitives.
+[Symbols](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol) are special *unique* values that can be used as properties on objects with little fear of *collision*. Symbols can be used as property names but you can't see or access the actual value of a symbol from your program or the developer console. Their primary use case is likely for private or special properties where we traditionally name with a leading `_` underscore to signal a private/special/leave-it-alone property. Symbols are not objects, they are simple, scalar primitives.
 
 ```javascript
 let secret = Symbol('custom symbol');
@@ -299,3 +481,27 @@ obj[toStringSymbol] = function() {
 
 console.log(obj[toStringSymbol]());              // I am test
 ```
+
+
+## Map
+
+The [Map object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map)
+
+## Set
+
+The [Set object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set)
+
+
+## Global Functions
+
+Note that some functions such as `parseFloat()` and `parseInt()` as of ES6 are available as *global functions* and can be used without a global object:
+
+```javascript
+parseFloat('5.25 laps');  // 5.25
+parseInt('250px');        // 250
+isNaN(5 * 'string');      // true
+isFinite(5.2345);         // true
+
+```
+
+See [MDN - Standard built-in objects](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects#Function_properties).
