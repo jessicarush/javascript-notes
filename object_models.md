@@ -117,3 +117,5 @@ mystring.toUpperCase();
 // return the value of pi
 Math.PI;
 ```
+
+For more see [built-in_objects.md](built-in_objects.md).
