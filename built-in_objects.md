@@ -268,6 +268,7 @@ The [Date object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refere
 
 By default when you construct a Date object, it will hold today's date and time. If you want to store another date, you must explicitly state it with the format `YYYY, MM, DD, HH, MM, SS` or `MMM DD, YYYY HH:MM:SS`. Note that the current date/time is determined by the computers clock.
 
+**NOTE: The argument monthIndex is 0-based. This means that January=0 and December=11**
 
 ```javascript
 let today = new Date();
@@ -328,12 +329,26 @@ console.log(typeof utc);  // number
 console.log(typeof now);  // number
 ```
 
-To summarize, to get the current timestamp in epoch, both of the following methods are valid:
+To summarize, to get the current timestamp from epoch, both of the following methods are valid:
 
 ```javascript
 const timestamp2 = new Date().getTime();
 const timestamp3 = Date.now();
 ```
+
+Keep in mind though, many other things require the timestamp to be in seconds (Python's `datetime.timestamp()` is in seconds). If you need to convert Javascript's millisecond timestamp into seconds, be sure to use `Math.floor()`:
+
+```javascript
+const timestamp_now = Math.floor(Date.now() / 1000);
+const timestamp_then = Math.floor(new Date(2019, 1, 31).getTime() / 1000);
+
+console.log(timestamp_now);
+// 1554947480
+
+console.log(timestamp_then);
+// 1551600000
+```
+
 
 ## Boolean   
 
