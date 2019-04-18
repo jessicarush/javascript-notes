@@ -434,7 +434,7 @@ document.addEventListener('click', function(e) {
 }, false);
 ```
 
-Again, this won't work for every situation. For example, some events only work with certain types of elements. If I wanted to add an event listener for a `change` event, that event only fires on an <input>, <select>, or <textarea> element. As a reminder, there's [a full list of events here](https://developer.mozilla.org/en-US/docs/Web/Events#Standard_events).
+Again, this won't work for every situation. For example, some events only work with certain types of elements. If I wanted to add an event listener for a `change` event, that event only fires on an `<input>`, `<select>`, or `<textarea>` element. As a reminder, there's [a full list of events here](https://developer.mozilla.org/en-US/docs/Web/Events#Standard_events).
 
 
 ### When unwanted child elements are the target
