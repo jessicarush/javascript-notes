@@ -65,6 +65,12 @@ const section = document.getElementById('section-one');
 section.querySelector('.js-whatever');  
 ```
 
+Note that the `querySelector` method lets you select pretty much anything, including attributes, for example this selects an element with the attribute `type="submit"`:
+
+```javascript
+const submitBtn = document.querySelector('[type="submit"]');
+```
+
 A **NodeList** is a special collection of nodes. They look like arrays, but they're not (they're a type of object called a collection). That being said, you can access individual items from this list by using the name index notation as with arrays. Items will be indexed by the order that they appear in the HTML document. NodeLists also have a `.length` property.
 
 Note that NodeLists can be *live* or *static*. In a *live NodeList*, when your script updates the page, the NodeList is updated as well. All the methods beginning with `.getElementBy` are live. In a *static NodeList* when your script updates the page, those changes are *not* reflected in the list. Methods beginning with `.querySelector` are static... they reflect the document when the original query was made.
