@@ -1,23 +1,7 @@
 # Operators
 
 
-Operators that use two values are called *binary operators*, while those that take one are called *unary operators*. There in also a *ternary operator* `?:` that takes three.
-
-## Table of Contents
-
-<!-- toc -->
-
-- [Syntax](#syntax)
-- [Examples](#examples)
-- [Comparing Objects](#comparing-objects)
-- [Conditional operator](#conditional-operator)
-- [False and Falsy](#false-and-falsy)
-- [Shorthand using Operators](#shorthand-using-operators)
-- [Keyword operators](#keyword-operators)
-
-<!-- tocstop -->
-
-## Syntax
+Operators that use two values are called *binary operators*, while those that take one are called *unary operators*. There is also a *ternary operator* `? :` that takes three values.
 
 Add: `+`  
 Subtract: `-`  
@@ -40,17 +24,42 @@ Conditional (ternary) operator: `?`
 
 There are other, more complex ones (ie Bitwise operators). See: [MDN Expressions and Operators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_Operators).
 
-## Examples
 
-Basic operators:
+## Table of Contents
+
+<!-- toc -->
+
+- [Basic math](#basic-math)
+- [Compound assignment](#compound-assignment)
+- [Increment and decrement](#increment-and-decrement)
+- [Equality and non-equality](#equality-and-non-equality)
+  * [Equality with booleans](#equality-with-booleans)
+  * [Equality edge cases](#equality-edge-cases)
+  * [Equality with null and undefined](#equality-with-null-and-undefined)
+  * [Some loose/strict advice](#some-loosestrict-advice)
+- [Comparison](#comparison)
+- [Logical](#logical)
+- [Conditional](#conditional)
+- [False and Falsy](#false-and-falsy)
+- [Shorthand (short-circuiting) with logical operators](#shorthand-short-circuiting-with-logical-operators)
+- [Keyword operators](#keyword-operators)
+
+<!-- tocstop -->
+
+## Basic math
 
 ```javascript
-console.log(3 + 4);   // 7
+console.log(3 + 4);   // 7 (+ is also used for string concatenation)
 console.log(5 - 1);   // 4
 console.log(4 * 2);   // 8
 console.log(5 / 2);   // 2.5
 console.log(12 % 5);  // 2
+```
 
+
+## Compound assignment
+
+```javascript
 let a = 5;
 
 console.log(a += 1);  // 6
@@ -60,73 +69,192 @@ console.log(a /= 2);  // 12.5
 console.log(a %= 5);  // 2.5
 ```
 
-Increments and decrements can be used in two ways. If x is 3, then ++x sets x to 4 and returns 4, whereas x++ returns 3 and, only then, sets x to 4.
+
+## Increment and decrement
+
+Increments and decrements can be used in two ways. If x is 3, then `++x` sets x to 4 and returns 4, whereas `x++` returns 3 and, only then, sets x to 4.
 
 ```javascript
+let a = 2.5;
+
 console.log(++a);  // 3.5
 console.log(a++);  // 3.5
 console.log(a);    // 4.5
 ```
 
-For strict equality/non-equality the data type must be the same. Another way to put it is in the case of loose comparisons, JavaScript is allowed to perform *[type coercion](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Equality_comparisons_and_sameness)* on the values before the comparison takes place whereas it does no coercing in a strict comparison.
+
+## Equality and non-equality
+
+For strict equality/non-equality the data types must be the same. Another way to put it is in the case of loose comparisons, JavaScript is allowed to perform *[type coercion](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Equality_comparisons_and_sameness)* on the values before the comparison takes place whereas it does no coercing in a strict comparison.
 
 ```javascript
+let a = 4.5;
+
 console.log(a == '4.5');     // true
 console.log(a === '4.5');    // false
 console.log(a === 4.5);      // true
 console.log(a != '4.5');     // false
 console.log(a !== '4.5');    // true
+```
+
+Note that when comparing two objects (arrays, functions), the comparison is checking to see if they are the same object... not that their contents are the same. As a result, when comparing two objects (or functions or arrays) there is no difference between `==` and `===` because both are essentially strict. However, if you compare an array object to a string, the array gets coerced to a comma separated string and therefor the comparison could potentially evaluate true, For example:
+
+```javascript
+let a = {};
+let b = {};
+let c = a;
+let d = [1, 2, 3];
+let e = '1,2,3';
+let f = '1, 2, 3';
+
+console.log(a === b);  // false (because they are different objects)
+console.log(a == b);   // false (because they are still different objects)
+console.log(a == c);   // true (because they are the same object)
+console.log(d == e);   // true (because the array gets coerced to a string)
+console.log(d == f);   // false (because the coerced array has no spaces)
+```
+
+### Equality with booleans
+
+Note that if you try to compare a value to a boolean, you are not actually testing if the value is equal to true or false. What will actually happen is that the boolean is coerced into a number before the comparison is made.
+
+```javascript
+let a = 5;
+let b = true;
+let c = 1;
+let d = '';
+
+console.log(a == b);  // false (because true coerces to the number 1)
+console.log(c == b);  // true
+console.log(a > b);   // true
+```
+
+As a general rule, never use `==` to to test if a value is true or false, instead use `if` and `!`:
+
+```javascript
+if (a) {
+  console.log('a is true');  // a is true
+}
+
+if (!d) {
+  console.log('d is false');  // d is false
+}
+```
+
+### Equality edge cases
+
+In the same way that booleans coerce to numbers when used with equality operators, empty strings also coerce to numbers: `0`. As we've seen above, arrays will have their `toString` method called. As a result, an empty array becomes an empty string which becomes also coerces to number `0`.
+
+```javascript
+// since false coerces to 0:
+console.log(false == 0);    // true
+console.log(false == '0');  // true
+console.log(false === 0);   // false
+
+// less obvious:
+console.log(false == '');   // true (because empty strings are coerced to number 0)
+console.log(false == []);   // true (because empty array > to empty string > to 0)
+console.log([] == 0);       // true (because empty array > to empty string > to 0)
+console.log([] == '');      // true (because empty arrays are coerced to empty strings)
+console.log('' == 0);       // true (because empty strings are coerced to numbers 0)
+
+// but not surprising:
+console.log('' == '0');     // false (because no coercion happens, both are strings)
+console.log([] == '0');     // false (because empty arrays are coerced to empty strings)
+```
+
+### Equality with null and undefined
+
+Another example of implicit coercion is seen with `null` and `undefined`. According to the spec, when compared with `==` the are considered equal to each other and themselves, but no other value in the language.
+
+```javascript
+let a = null;
+let b;
+
+console.log(a == null);       // true
+console.log(a == undefined);  // true
+console.log(a == false);      // false
+console.log(a == b);          // true
+console.log(a === b);         // false
+```
+
+This behaviour is actually quite helpful for testing where something could be `null` or `undefined`.
+
+```javascript
+let a = doSomething();
+
+if (a == null) {
+    // same as if (a === undefined || a === null)
+}
+```
+
+### Some loose/strict advice
+
+In short, when testing for equality, remember that arrays coerce to strings and `true`, `false`, and empty strings coerce to numbers. In terms of choosing between strict `===` `!==` and loose `==` `!=` comparisons, consider this:
+
+- If either value in a comparison could be a `true` or `false`, avoid `==` and use `===`.  
+- Likewise, if either value in a comparison could be a `0`, `""`, or `[]`(empty array), avoid `==` and use `===`.  
+- When comparing two objects `==` behaves the same as `===`
+- When comparing with the result of the `typeof` operator, remember `typeof` will always return one of seven strings. As a result `===` is completely unnecessary here, just use `==`.  
+- In all other cases, it's safe to use `==`.
+
+
+## Comparison
+
+```javascript
+let a = 4.5;
+
 console.log(a > 4.4);        // true
 console.log(a < '4.6');      // true
 console.log(a >= '4.5');     // true
 console.log(a <= 4.5);       // true
-console.log(1 && true);      // true
-console.log(1 && false);     // false
-console.log(true || 0);      // true
-console.log(false || 0);     // 0
-console.log(true || false);  // true
-console.log(!true);          // false
+console.log('4.5' < '4.6');  // true
 ```
 
-Note the `< <= > >=` comparison operators are not strict. If you try to compare two strings, the comparison is made alphabetically. If one of the values is a number, then both values are coerced to numbers and a typical numeric comparison occurs. If one of the values cannot be made into a valid number it becomes `NaN` and all comparisons will fail because `NaN` is neither greater than or less than any other value.
+Note the `< <= > >=` comparison operators are not strict. If you try to compare two strings, and they cannot be coerced to numbers, the comparison is made alphabetically. If one of the values is a number, then both values are coerced to numbers and a typical numeric comparison occurs. If one of the values cannot be made into a valid number it becomes `NaN` and all comparisons will be false because `NaN` is neither greater than or less than any other value.
 
 ```javascript
 let a = 10;
 let b = '15';
 let c = 'apple';
-let b = 'apples';
+let d = 'apples';
 
 console.log(a < b);  // true
 console.log(a < c);  // false
+console.log(a > c);  // false
 console.log(c < d);  // true
 ```
 
-Some general advice for working with strict `=== !==` vs loose `== !=`:
 
-- If either value in a comparison could be a true or false, avoid `==` and use `===`.
-- If either value in a comparison could be a `0`, '""', or `[]`(empty array), avoid `==` and use `===`.
-- In all other cases, it's safe to use `==`.
-
-
-## Comparing Objects
-
-Note that when comparing two objects (arrays, functions), the comparison is checking to see if they are the same object... not that their contents are the same. However, if you compare an array object to a string, the array gets coerced to a comma separated string and therefor the comparison could potentially evaluate true, For example:
+## Logical
 
 ```javascript
-let a = [1, 2, 3];
-let b = [1, 2, 3];
-let c = a;
-let d = '1,2,3';
-let e = '1, 2, 3';
-
-console.log(a == b);  // false (because they are different objects)
-console.log(a == c);  // true (because they are the same object)
-console.log(a == d);  // true (because the array gets coerced to a string)
-console.log(a == e);  // false (because the coerced array has no spaces)
-
+console.log(true && 1);      // 1
+console.log(1 && false);     // false
+console.log(true || 0);      // true
+console.log(false || 0);     // 0
+console.log(!true);          // false
 ```
 
-## Conditional operator
+Note that the `&&` and `||` operators aren't actually returning a boolean, they're returning either the first or second value. With `||`, if the first value is truthy, it will be returned otherwise the 2nd value will be returned whether it's true or not. With `&&` if the expression evaluates as `true`, the second value will be returned, otherwise the first false value is returned. This can be used to write some *short-circuiting* code demonstrated further down.
+
+```javascript
+let a = 0;
+let b = null;
+let c = 'hello';
+let d = 'world';
+
+console.log(c || d);  // 'hello' (first value returned because it's true)
+console.log(a || d);  // 'world' (second value returned because the first is false)
+console.log(a || b);  // null (second value returned because the first is false)
+
+console.log(c && d);  // 'world' (second value returned because the expression is true)
+console.log(c && a);  // 0 (first false value returned because the expression is false)
+console.log(b && a);  // null (first false value returned because the expression is false)
+```
+
+
+## Conditional
 
 The conditional (ternary) operator `?` is the only one that takes 3 operands. It says; if a condition is true, the operator is assigned the first value, otherwise the second value. For example:
 
@@ -148,9 +276,9 @@ Note that the following values will evaluate to false when checked as a conditio
 - **NaN** short for *Not a Number*, it is the result of an operation that cannot produce normal result. `Nan` is nit equal to any other value, including itself.
 
 
-## Shorthand using Operators
+## Shorthand (short-circuiting) with logical operators
 
-The nature of Booleans and operators allow us to write some shorter code. For example:
+The nature of these operators allow us to write some shorter code. For example:
 
 ```javascript
 let nom;
@@ -165,15 +293,33 @@ else {
 let nom = username || 'Stranger';
 ```
 
+Similarly we can use `&&` to test for a values existence before running a function:
+
+```javascript
+function foo() {
+  console.log(a);
+}
+
+let a = 45;
+
+a && foo(); // 45
+
+// The same as saying:
+if (a) {
+    foo();
+}
+```
+
 This concept is also referred to as short-circuit evaluation. Remember that logical operators are processed from left to right and processing will stop as soon as there is a result. Since we know that with the `||` operator, if the first condition is `true` then it doesn't need to check the rest, programmers will often put the code *most likely to return true first*. Similarly with the `&&` operator, to place anything likely to be `false` first.
+
 
 ## Keyword operators
 
-There are a number of keyword operators in javascript which test/do various things for example:
-
-`new` - The new operator turns a function call into a constructor call and creates an instance of the constructor.  
-`instanceof` -  The instanceof operator determines whether an object is an instance of another function. It tests whether the prototype property of a constructor appears anywhere in the prototype chain of an object.  
-`typeof` - The typeof operator determines the type of a given object. FYI there is a good example of the usefulness of this operator in the *undeclared vs undefined* section of [variables.md](variables.md#undeclared-vs-undefined).  
-`delete` - The delete operator deletes a property from an object.  
-`in` - The in operator determines whether an object has a given property.  
-`void` - The void operator discards an expression's return value.
+There are a number of keyword operators in javascript which test/do various things for example:  
+`if` - test whether the given expression is truthy  
+`new` - turns a function call into a constructor call and creates an instance of the constructor.  
+`instanceof` -  determines whether an object is an instance of another function (i.e. it tests whether the prototype property of a constructor appears anywhere in the prototype chain of an object).  
+`typeof` - determines the type of a given object. FYI there is a good example of the usefulness of this operator in the *undeclared vs undefined* section of [variables.md](variables.md#undeclared-vs-undefined).  
+`delete` - deletes a property from an object.  
+`in` - determines whether an object has a given property.  
+`void` -discards an expression's return value.
