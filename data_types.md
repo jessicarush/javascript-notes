@@ -20,7 +20,6 @@ JavaScript uses six *primitive data types*, along with one complex type:
 - [Determine a value's type with `typeof`](#determine-a-values-type-with-typeof)
 - [Converting between data types (coercion)](#converting-between-data-types-coercion)
 - [Properties](#properties)
-- [Escape Character](#escape-character)
 
 <!-- tocstop -->
 
@@ -116,6 +115,7 @@ console.log(Object.is(b, 0));    // false
 
 See [reflection.md](reflection.md).
 
+
 ## Converting between data types (coercion)
 
 If you have a number and need to print it to the screen, you'll need to convert it to a string. Similarly, if you're working with numbers entered into a form on screen, they'll be strings by default and will need to be converted to numbers if we want to calculate something. In Javascript this conversion of one data type to another is called coercion.
@@ -124,8 +124,8 @@ If you have a number and need to print it to the screen, you'll need to convert 
 let a = '42';
 let b = Number(a);
 
-console.log(a);  // "42" (text is black in firefox console)
-console.log(b);  // 42 (numbers are green in firefox console)
+console.log(a);  // "42"
+console.log(b);  // 42
 ```
 
 Using the `Number()` function like this is considered *explicit* coercion. But, there is also something called *implicit* coercion. Implicit coercion happens when you do loose comparisons. For example, if I make the comparison: `"100" == 100`, JavaScript will first convert the left side to its number equivalent and then do the comparison. Keep this in mind. There is strict comparison `===` for a reason. Similarly, if you print or log a number, JavaScript is actually *implicitly coercing* that number to a string in order to print it out.
@@ -140,12 +140,14 @@ const total = '$' + String(amount * quantity);
 console.log(total);  // $29.97
 ```
 
-When it comes to *implicit* coercion, JavaScript doesn't always do what you expect, for example:
+When it comes to *implicit* coercion, JavaScript doesn't always do what you expect, for example, with the `+` operator, if at least one of the operands is a string, it will assume string concatenation and implicit coerce any non string values to strings. With the `-` operator, it will assume subtraction and try to coerce non-number values to numbers.
 
 ```javascript
 console.log(5 * null);  // 0
 console.log(5 - '1');   // 4
 console.log(5 + '1');   // 51
+console.log('1' - 5);   // -4
+console.log('1' + 5);   // 15
 ```
 
 
@@ -170,21 +172,4 @@ let func = function(a, b) {
 
 console.log(arr.length);   // 3
 console.log(func.length);  // 2
-```
-
-
-## Escape Character
-
-The backslash `\` can be used in strings to escape characters or insert control characters, such as:
-
-```javascript
-const doublequote = "\"";
-const singlequote = '\'';
-const backslash = '\\';
-const backspace = '\b';
-const formfeed = '\f';
-const newline = '\n';
-const hardreturn = '\r';
-const tab = '\t';
-const unicode = '\u25b6';
 ```
