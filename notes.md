@@ -9,6 +9,7 @@ This document contains small bits of information that don't really fit anywhere 
 - [About the Language](#about-the-language)
 - [Comments](#comments)
 - [Semicolons](#semicolons)
+- [Escape Characters](#escape-characters)
 - [Output](#output)
 - [Input](#input)
 - [Strict mode](#strict-mode)
@@ -86,6 +87,23 @@ while (...) {...}
 
 // function declarations
 function identifier (arg) {...}
+```
+
+
+## Escape Characters
+
+The backslash `\` can be used in strings to escape characters or insert control characters, such as:
+
+```javascript
+const doublequote = "\"";
+const singlequote = '\'';
+const backslash = '\\';
+const backspace = '\b';
+const formfeed = '\f';
+const newline = '\n';
+const hardreturn = '\r';
+const tab = '\t';
+const unicode = '\u25b6';
 ```
 
 
