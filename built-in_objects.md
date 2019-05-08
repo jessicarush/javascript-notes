@@ -2,6 +2,7 @@
 
 Javascript has many built-in objects. Some of the names imply they're directly related to their primitive counterparts (see [data_types.md](data_types.md)) but, the relationship is slightly more complicated. These built-in objects have collections of static methods (that can be called **without an instance**), prototype methods (that can be called directly on an instance or primitive type) and properties. See [MDN for a complete list of built-in objects](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects).
 
+
 ## Table of Contents
 
 <!-- toc -->
@@ -156,6 +157,7 @@ console.log(typeof String(num));     // string
 console.log(typeof num.toString());  // string
 ```
 
+
 ## Number
 
 The [Number object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) has quite a few *static* methods and *instance* methods. Some examples of a *instance* methods for numbers are `toFixed()`, `toPrecision()` and `toExponential()`:
@@ -202,7 +204,7 @@ console.log(num.toString(16));
 // f
 ```
 
-The [Number object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) has *static* methods that check if an instance in an integer or finite number, or *parse* a string into a float or integer. The two *parsing* methods are interesting because they tolerate and drop any non-numeric characters they encounter as they parses from left to right. Note that the string must start with a numeric character for it to be parsed. As soon as it reads a non-numeric character, it simply stops parsing.
+The [Number object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) has *static* methods that check if an instance in an integer or finite number, or *parse* a string into a float or integer. The two *parsing* methods are interesting because they tolerate and drop any non-numeric characters they encounter as they parse from left to right. Note that the string must start with a numeric character for it to be parsed. As soon as it reads a non-numeric character, it simply stops parsing.
 
 ```javascript
 Number.parseFloat('5.25 laps');  // 5.25
@@ -213,6 +215,27 @@ Number.isFinite(5.2345);         // true
 let a = 5 * 'string';
 
 Number.isNaN(a);                 // true
+```
+
+The parse methods are interesting in that you can pass a second optional argument that is the base. For example:
+
+```javascript
+let x = Number.parseInt('ff', 16);  // 255
+```
+
+Though they are intended to be passed strings, parse methods will try to do type-coercion where it can to return a value. Sometimes this works well, for example:
+
+```javascript
+let obj = {
+  quantity: 15,
+  cost: 3.25,
+  toString: function() {
+    return String(this.quantity * this.cost);
+  }
+};
+
+console.log(Number.parseInt(obj));    // 48
+console.log(Number.parseFloat(obj));  // 48.75
 ```
 
 `Number()` itself is a built-in function. Using it alone will explicitly convert a string to a number. If you try to convert a string that doesn't translate to a number you'll get `NaN`. Another widely accepted way to convert to a number is by using the *unary operator* `+`. This is common when converting dates to an epoch timestamp number. Keep in mind though, there may be times where it looks confusing and weird. In general, it's best to avoid this if it's being used next to another operator.
@@ -353,6 +376,26 @@ console.log(timestamp_then);
 ## Boolean   
 
 The [Boolean object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)
+
+The `Boolean(...)` method can be used as an explicit way of coercing to a boolean value.
+
+```javascript
+let a = '0';
+let b = {};
+let c = [];
+let d = '';
+let e = 0;
+let f = null;
+let g = undefined;
+
+console.log(Boolean(a));  // true
+console.log(Boolean(b));  // true
+console.log(Boolean(c));  // true
+console.log(Boolean(d));  // false
+console.log(Boolean(e));  // false
+console.log(Boolean(f));  // false
+console.log(Boolean(g));  // false
+```
 
 ## Object
 
