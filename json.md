@@ -66,11 +66,16 @@ console.log(test1);
 // {"a":42}
 
 let test2 = JSON.stringify(two, function(k, v) {
-  if (k != 'b') return v;
+  if (k != 'b') {
+    if (typeof v == 'function') {
+      v = 'function';
+    }
+    return v;
+  }
 });
 
 console.log(test2);
-// {"a":42}
+// {"a":42,"c":"function"}
 ```
 
 
