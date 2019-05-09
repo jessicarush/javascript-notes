@@ -5,6 +5,7 @@ Otherwise known as error handling, problems (unexpected or expected) will happen
 <!-- toc -->
 
 - [try, throw, catch](#try-throw-catch)
+- [finally](#finally)
 - [Error()](#error)
 
 <!-- tocstop -->
@@ -37,6 +38,55 @@ throwTest('thirteen');
 // 13 is a number
 // HEY! Error: 13 is not a number!
 // HEY! Error: thirteen is not a number!
+```
+
+
+## finally
+
+The `finally` clause can be added to any try block to run code no matter what happens.
+
+```javascript
+const throwTest = (arg) => {
+  try {
+    if (typeof arg !== 'number') {
+      // throw `${arg} is not a number.`;
+      throw new Error(arg + ' is not a number!');
+    }
+    else {
+      console.log(arg + ' is a number');
+    }
+  }
+  catch(error) {
+    console.log('HEY! ' + error);
+  }
+  finally {
+    console.log('This happens no matter what.');
+  }
+};
+
+throwTest(13);
+throwTest('thirteen');
+// 13 is a number
+// This happens no matter what.
+// HEY! Error: thirteen is not a number!
+// This happens no matter what.
+```
+
+You can use it alone with `try`:
+
+```javascript
+const finallyTest = (arg) => {
+  try {
+    return arg * 2;
+  }
+  finally {
+    console.log('Done.');
+  }
+};
+
+console.log(finallyTest(13));
+// Done.
+// 26
 ```
 
 
