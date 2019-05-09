@@ -36,10 +36,11 @@ There are other, more complex ones (ie Bitwise operators). See: [MDN Expressions
   * [Equality with booleans](#equality-with-booleans)
   * [Equality edge cases](#equality-edge-cases)
   * [Equality with null and undefined](#equality-with-null-and-undefined)
-  * [Some loose/strict advice](#some-loosestrict-advice)
+  * [Loose/strict advice](#loosestrict-advice)
 - [Comparison](#comparison)
 - [Logical](#logical)
 - [Conditional](#conditional)
+- [Operator Precedence](#operator-precedence)
 - [False and Falsy](#false-and-falsy)
 - [Shorthand (short-circuiting) with logical operators](#shorthand-short-circuiting-with-logical-operators)
 - [Keyword operators](#keyword-operators)
@@ -80,6 +81,23 @@ let a = 2.5;
 console.log(++a);  // 3.5
 console.log(a++);  // 3.5
 console.log(a);    // 4.5
+```
+
+In other words, consider the `++` or `--` as an operation. When you see `a++` it's saying *"give me the value of a, then add one to a"* whereas `++a` says *"add one to a, then give the the value"*. For example:
+
+```javascript
+let a = 10;
+let b = a++;  // a is assigned to b, then one is added to a
+
+console.log(a, b);  // 11 10
+```
+versus:
+
+```javascript
+let a = 10;
+let b = ++a; // one is added to a, then a is assigned to b
+
+console.log(a, b);  // 11 11
 ```
 
 
@@ -188,7 +206,7 @@ if (a == null) {
 }
 ```
 
-### Some loose/strict advice
+### Loose/strict advice
 
 In short, when testing for equality, remember that arrays coerce to strings and `true`, `false`, and empty strings coerce to numbers. In terms of choosing between strict `===` `!==` and loose `==` `!=` comparisons, consider this:
 
@@ -262,6 +280,26 @@ The conditional (ternary) operator `?` is the only one that takes 3 operands. It
 // condition ? value1 : value2
 
 let status = (age >= 18) ? 'adult' : 'minor';
+```
+
+## Operator Precedence
+
+See the [JavaScript Reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_Precedence) for a full list of opeator precedences.
+
+Some takeaways:
+ 
+- `&&` is evaluated before `||`
+- `||` is evaluated before `? :`
+
+```javascript
+let a = 1;
+let b = 2;
+let c = 0;
+
+let d = a && b || c;  // same as: let d = (a && b) || c
+let e = c || a && b;  // same as: let d = c || (a && b)
+
+console.log(d, e);    // 2 2
 ```
 
 
