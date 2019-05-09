@@ -42,7 +42,7 @@ let countdown = 5;
 do {
   console.log('Count...' + countdown);
   countdown -= 1;
-} while (countdown > 0);
+} while (countdown > 0);  // note you need a semicolon here
 ```
 
 The only practical difference between these two is whether the conditional is tested before or after the first iteration. In the example above, if the countdown started at 0, the `while` loop would print nothing but the `do...while` loop would print once.
