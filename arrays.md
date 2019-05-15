@@ -183,9 +183,9 @@ console.log(myArray);
 ```
 
 
-### Replace a section with *splice()*
+### Replace or remove a section with *splice()*
 
-This method takes 3 arguments: the starting index number, the total number of elements to remove from that position, and the items to insert. For example:
+This method takes 3 arguments: the starting index number, the total number of elements to remove from that position, and the (optional) items to insert. For example:
 
 ```javascript
 const myArray = ['one', 'two', 'three', 'four', 'five'];
@@ -201,6 +201,10 @@ console.log(myArray);
 myArray.splice(1, 4, 'bye', 'farewell');
 console.log(myArray);  
 // [ 'one', 'bye', 'farewell', 'five' ]
+
+myArray.splice(1, 2);
+console.log(myArray);
+// [ 'one', 'five' ]
 ```
 
 ### Create a copy of an array
