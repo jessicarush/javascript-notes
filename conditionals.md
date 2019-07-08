@@ -152,7 +152,7 @@ else {
   b = 'world';
 }
 
-// same as conditional operator:
+// conditional operator:
 let b = (a > 25) ? 'hello' :  'world';
 ```
 
