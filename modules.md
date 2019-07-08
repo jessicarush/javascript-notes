@@ -1,9 +1,8 @@
 # Modules
 
+In the past we've had *the module pattern* which is based on an outer function containing inner functions and variables and that returns a *public API*. See [functions.md](functions.md#module-pattern).
 
-JavaScript modules are reusable pieces of code that can be exported from one program and imported into another program.
-
-Modules are particularly useful for separating code with similar logic into files. The files themselves are called modules. The idea is that we can:
+JavaScript modules are reusable pieces of code that can be exported from one program and imported into another program. Modules are particularly useful for separating code with similar logic into files. The files themselves are called modules. The idea is that we can:
 
 - find and debug code more easily
 - reuse logic in different parts of our application
@@ -14,68 +13,16 @@ Modules are particularly useful for separating code with similar logic into file
 
 <!-- toc -->
 
-- [Exporting Modules with module.exports](#exporting-modules-with-moduleexports)
-- [Importing Modules with require()](#importing-modules-with-require)
 - [ES6 Export syntax](#es6-export-syntax)
   * [default export](#default-export)
   * [named export](#named-export)
   * [summary](#summary)
 - [ES6 Import Syntax](#es6-import-syntax)
+  * [Identify your script as a module with type="module"](#identify-your-script-as-a-module-with-typemodule)
+- [Exporting Modules with module.exports - node only](#exporting-modules-with-moduleexports---node-only)
+- [Importing Modules with require() - node only](#importing-modules-with-require---node-only)
 
 <!-- tocstop -->
-
-## Exporting Modules with module.exports
-
-The pattern we use to export modules is this:
-
-1. Define an object to represent the module.
-2. Add data or behavior to the module.
-3. Export the module.
-
-For example:
-
-```javascript
-let Menu = {};
-
-Menu.specialty = 'Roasted Beet Burger';
-
-module.exports = Menu;
-```
-
-`module.exports = Menu;` exports the `Menu` object as a module. `module` is a variable that represents the module, and `exports` exposes the module as an object. Note that an array is also an object so we could export a `Menu = []` in the same way.
-
-An alternate way would be:
-
-```javascript
-let Menu = {};
-
-module.exports = {
-  specialty: 'Roasted Beet Burger',
-  getSpecialty: function() {
-    return this.specialty;
-  }
-};
-```
-
-The idea here with module.exports is that you are exporting one module per file.
-
-
-## Importing Modules with require()
-
-A common way to import a module is with the require() function. This function does not work in client-side (browser) javascript though. Provided the code above was saved in a file called `menu.js`, in another file we could do the following:
-
-```javascript
-const Menu = require('./menu.js');
-
-console.log(Menu.getSpecialty());  // Roasted Beet Burger
-
-function placeOrder() {
-  console.log('My order is: ' + Menu.specialty);
-}
-
-placeOrder();  // My order is: Roasted Beet Burger
-```
-
 
 ## ES6 Export syntax
 
@@ -172,3 +119,62 @@ Whatever.isVegetarian();
 ```
 
 Note that `import` doesn't work in Node yet.
+
+## ES6 link your script as a module with type="module"
+
+At some point, we'll want to include our main script in our HTML file. In order to have modules work properly in the browser we need to add the type attribute to the `<script>`, for example:
+
+```
+<script src="main.js" type="module" defer></script>
+```
+
+
+## Exporting Modules with module.exports - node only
+
+The pattern we use to export modules is this:
+
+1. Define an object to represent the module.
+2. Add data or behavior to the module.
+3. Export the module.
+
+For example:
+
+```javascript
+let Menu = {};
+
+Menu.specialty = 'Roasted Beet Burger';
+
+module.exports = Menu;
+```
+
+`module.exports = Menu;` exports the `Menu` object as a module. `module` is a variable that represents the module, and `exports` exposes the module as an object. Note that an array is also an object so we could export a `Menu = []` in the same way.
+
+An alternate way would be:
+
+```javascript
+module.exports = {
+  specialty: 'Roasted Beet Burger',
+  getSpecialty: function() {
+    return this.specialty;
+  }
+};
+```
+
+The idea here with module.exports is that you are exporting one module per file.
+
+
+## Importing Modules with require() - node only
+
+A common way to import a module is with the require() function. This function does not work in client-side (browser) javascript though. Provided the code above was saved in a file called `menu.js`, in another file we could do the following:
+
+```javascript
+const Menu = require('./menu.js');
+
+console.log(Menu.getSpecialty());  // Roasted Beet Burger
+
+function placeOrder() {
+  console.log('My order is: ' + Menu.specialty);
+}
+
+placeOrder();  // My order is: Roasted Beet Burger
+```
