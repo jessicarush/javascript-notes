@@ -15,11 +15,11 @@
 
 ## package.json
 
-All node packages have one of these files in the root directory and while you don't to include it in your own project, it's recommended that you do... at the very least, to keep track of your projects dependencies (npm packages). This file, which can be created with the `npm init` command, basically contains:
+All node packages have one of these files in the root directory and while you don't need to include it in your own project, it's recommended that you do... at the very least, to keep track of your projects dependencies (npm packages). This file, which can be created with the `npm init` command, basically contains:
 
 - **Metadata** including things like title, version, description, authors, license, github source url, and more.
 
-- **Dependencies** which lists any packages required for your project. These dependencies could be quickly installed on another environment by using the `npm install` command. By default,` npm install` will install all modules listed as dependencies in a local package.json.
+- **Dependencies** which lists any packages required for your project. These dependencies could be quickly installed on another environment by using the `npm install` command. By default, `npm install` will install all modules listed as dependencies in a local package.json.
 
 - **Scripts** which are basically a bunch of key-value pairs containing command line scripts.
 
