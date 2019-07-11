@@ -116,6 +116,22 @@ console.log('The weather is nice.'.replace('nice', 'gross'));
 // The weather is gross.
 ```
 
+The `substring()` method returns the part of the string between the start and end indexes, or to the end of the string. This can be used as a clever way to pad-tab output:
+
+```javascript
+let heading = ['name', 'date', 'age']
+let data = ['Rick', '11-19-1979', '40'];
+let space = '        ';
+
+for (let i = 0; i < heading.length; i++) {
+  console.log(heading[i] + ':' + space.substring(heading[i].length), data[i]);
+}
+
+// name:     Rick
+// date:     11-19-1979
+// age:      40
+```
+
 Note that JavaScript doesn't have a capitalize method for strings. Instead, you have to monkey one together like so:
 
 ```javascript
@@ -465,11 +481,15 @@ console.log(Math.PI);
 
 ## RegExp
 
+See also: [regular_expressions.md](regular_expressions.md)
+
 The [RegExp object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp) as a constructor has a reasonable utility in terms of dynamically defining a pattern for a regular expression.
 
+Note that when creating a regular expression in javascript the literal notation is that `/` is used to mark the start and end of a regexp. In addition, after the closing `/`, you can add any number of *flags*. For example, in `pattern1`, `i` means ignore case, `g` means global match; find all matches rather than stopping after the first match.
+
 ```javascript
-let word = 'ping';
-let someText = 'blah blah ping blah';
+let word = 'blah';
+let someText = 'blah blah what? blah';
 
 // literal notation: /pattern/flags
 let pattern1 = /\bblah\b/ig;
@@ -478,7 +498,7 @@ let pattern1 = /\bblah\b/ig;
 let pattern2 = new RegExp('\\b(?:' + word + ')+\\b', 'ig' );
 
 console.log(someText.match(pattern1));  // [ 'blah', 'blah', 'blah' ]
-console.log(someText.match(pattern2));  // ['ping']
+console.log(someText.match(pattern2));  // [ 'blah', 'blah', 'blah' ]
 ```
 
 ## Error
