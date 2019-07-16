@@ -10,8 +10,8 @@ In working with a language that has many new features but having to also conside
 - [Polyfilling](#polyfilling)
 - [Transpiling](#transpiling)
 - [Babel](#babel)
-  * [Step 1: create a *src* directory](#step-1-create-a-src-directory)
-  * [Step 2. create a package.json](#step-2-create-a-packagejson)
+  * [Step 1. Create a *src* directory](#step-1-create-a-src-directory)
+  * [Step 2. Create a package.json](#step-2-create-a-packagejson)
   * [Step 3. Install Babel CLI package](#step-3-install-babel-cli-package)
   * [Step 4. Install the Babel ES6+ to ES5 preset](#step-4-install-the-babel-es6-to-es5-preset)
   * [Step 5. babelrc](#step-5-babelrc)
@@ -87,12 +87,12 @@ We pass JavaScript ES6 to Babel, which will transpile it to ES5 and write it to 
 > 2. It means you do not have an implicit dependency on the environment you are working in. Making your project far more portable and easier to setup.
 
 
-### Step 1: create a *src* directory
+### Step 1. Create a *src* directory
 
 The first step is to place your ES6 JavaScript file(s) in a directory called `src`. From your root directory, the path to an ES6 file is `./src/main.js`
 
 
-### Step 2. create a package.json
+### Step 2. Create a package.json
 
 Before installing Babel with `npm`, we should have a `package.json`. This file holds information about the current JavaScript project. This includes *Metadata* (project title, description, authors, license information), *Dependencies* (a list of node packages required for the project), key-value pairs for command line scripts and more.
 
