@@ -10,6 +10,19 @@ See also: [Regular Expressions on MDN](https://developer.mozilla.org/en-US/docs/
 
 <!-- toc -->
 
+- [Example](#example)
+- [Flags](#flags)
+- [Methods that work with regular expressions](#methods-that-work-with-regular-expressions)
+  * [regexp.exec()](#regexpexec)
+  * [regexp.test()](#regexptest)
+  * [string.match()](#stringmatch)
+  * [string.matchAll()](#stringmatchall)
+  * [string.replace()](#stringreplace)
+  * [string.search()](#stringsearch)
+  * [string.split()](#stringsplit)
+- [RegExp constructor](#regexp-constructor)
+
+<!-- tocstop -->
 
 ## Example
 
