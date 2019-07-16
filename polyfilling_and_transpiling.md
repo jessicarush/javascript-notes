@@ -59,14 +59,14 @@ A transpilier would take that code and turn it into something like this:
 
 ```javascript
 function foo() {
-  let a = arguments[0] !== (void 0) ? arguments[0] : 5;
+  var a = arguments[0] !== (void 0) ? arguments[0] : 5;
   console.log(a);
 }
 foo(10);  // 10
 foo();    // 5
 ```
 
-The `let a` statement uses the conditional operator. Provided the first argument isn't undefined `(void 0)`, use it, otherwise use 5.
+The `var a` statement uses the conditional operator. Provided the first argument isn't undefined `(void 0)`, use it, otherwise use 5.
 
 Since JS will continue to evolve, transpilers should be thought of as part of the standard JS development process. Here are some good ones:
 
