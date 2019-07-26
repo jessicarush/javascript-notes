@@ -31,7 +31,7 @@ Consider the example:
 let plant = {
   name: 'spider plant',
   repotted: '09-15-2018',
-  water () {
+  water() {
     console.log(`Time to water ${name}.`);
   }
 };
@@ -45,7 +45,7 @@ The above doesn't work because **methods do not automatically have access to oth
 let plant = {
   name: 'spider plant',
   repotted: '09-15-2018',
-  water () {
+  water() {
     console.log(`Time to water ${this.name}.`);
   }
 };
@@ -149,7 +149,7 @@ var obj = {
 setTimeout(obj.foo, 100); // undefined
 ```
 
-The reason for the loss of the `this` binding is that the *call-site* has changed (see: [call-stack.md](call-stack.md)) and therefor the *calling object* has changed. To see this more clearly, We can pass `obj.foo` to our own function:
+The reason for the loss of the `this` binding is that the *call-site* has changed (see: [call-stack.md](call-stack.md)) and therefor the *calling object* has changed. To see this more clearly, we can pass `obj.foo` to our own function:
 
 ```javascript
 function foo() {
@@ -179,7 +179,7 @@ var obj = {
   a: 2,
 };
 
-foo.call(obj);  //2
+foo.call(obj);  // 2
 ```
 
 If we want to pass that *explicit binding* as a parameter, we can assign it to another function expression and pass that around instead. In the example below, no matter where we pass `bar` it will always invoke `foo` with `obj`. This binding is both explicit and strong so we call it *hard binding*.
@@ -240,8 +240,8 @@ let jane = {
     name: 'jane'
 };
 
-greet.call(bob);
-greet.call(jane);
+greet.call(bob);   // Hello BOB
+greet.call(jane);  // Hello JANE
 ```
 
 In the example above, the `call()` method calls a function with a given `this` value and arguments provided individually. Instead of using `this`, you could *explicitly pass in a context object*, like so:
@@ -275,6 +275,14 @@ This method seems way simpler to me coming from Python, but apparently the `this
 Generally speaking, `this` is used most commonly in *objects* that contain methods (as seen in the very first example above), *object constructor functions*, and *classes*.
 
 ```javascript
+// objects with methods:
+let user = {
+  name: 'bob',
+  greet() {
+    console.log(`Hello ${this.name}`);
+  }
+};
+
 // constructor function
 function Person(first, age, admin) {
   this.firstname = first;
@@ -295,7 +303,7 @@ class Human {
 
 ## Function Invocation Patterns
 
-So we know that in addition to declared parameters, every function receives a `this` parameter. Its value is determined by its *invocation pattern*. There are four invocation patterns in JavaScript and they differ in how the `this` Parameter is initialized.
+So we know that in addition to declared parameters, every function receives a `this` parameter. Its value is determined by its *invocation pattern*. There are four invocation patterns in JavaScript and they differ in how the `this` parameter is initialized.
 
 ### Method Invocation Pattern
 
@@ -308,7 +316,7 @@ When a function is stored as a property of an object (or in a class), it's a met
 
 const myObject = {
   value: 0,
-  increment: function(num) {
+  increment: function (num) {
     this.value += (typeof num === 'number' ? num : 1);
   }
 };
@@ -325,9 +333,13 @@ console.log(myObject.value);  // 3
 When a function is not a direct property of an object, then it is invoked as a function. As noted above, `this` will be bound to the global object and will throw and error in strict mode. A consequence of this behaviour is that a method cannot employ an inner helper function because that inner function doesn't share the method's access to the object because it's own `this` is bound to a different value. For example:
 
 ```javascript
-myObject.double = function() {
+const myObject = {
+  value: 3
+};
 
-  const helper = function() {
+myObject.double = function () {
+
+  const helper = function () {
     this.value *= 2;  // TypeError: Cannot read property 'value' of undefined
   };
   helper();
@@ -340,10 +352,14 @@ console.log(myObject.value);
 There's a simple workaround for this situation though: assign the value of this to a new variable. The common naming convention is to use the word `that`:
 
 ```javascript
-myObject.double = function() {
+const myObject = {
+  value: 3
+};
+
+myObject.double = function () {
   const that = this;
 
-  const helper = function() {
+  const helper = function () {
     that.value *= 2;
   };
   helper();
@@ -375,14 +391,14 @@ thingTwo.logString();  // clear
 As a side note, if I wanted to assign a new method to a constructor function and have it be available to each instance, I have to use the `prototype` property (every function has this property). For example:
 
 ```javascript
-Thing.logStringUpper = function() {
+Thing.logStringUpper = function () {
   console.log(this.string.toUpperCase());
 };
 // TypeError: thingOne.logStringUpper is not a function:
 ```
 
 ```javascript
-Thing.prototype.logStringUpper = function() {
+Thing.prototype.logStringUpper = function () {
   console.log(this.string.toUpperCase());
 };
 
@@ -392,7 +408,7 @@ thingTwo.logStringUpper();  // CLEAR
 
 ### Apply Invocation Pattern
 
-The `apply()` is very similar to the `call()` method described briefly above in *The Calling Object*. The syntax is almost identical. The fundamental difference is that following the first parameter, call() accepts an argument list, while apply() accepts a single array of arguments.
+The `apply()` method is very similar to the `call()` method described briefly above in *The Calling Object*. The syntax is almost identical. The fundamental difference is that following the first parameter, call() accepts an argument list, while apply() accepts a single array of arguments.
 
 The `apply()` method lets us call a function with a given object to be used for the `this` value along with an array of other arguments. The syntax is `function.apply(thisArg, [additionalArgs])` For example:
 
@@ -418,6 +434,14 @@ console.log(myThis);  // [ 0, 1, 2, 'a', 'b' ]
 And for the big finale, we can use `apply()` to invoke a method on an object where there is no existing prototype link.
 
 ```javascript
+var Thing = function (string) {
+  this.string = string;
+};
+
+Thing.prototype.logStringUpper = function () {
+  console.log(this.string.toUpperCase());
+};
+
 var notThing = {
   string: 'bumblebee'
 };
@@ -428,7 +452,7 @@ Thing.prototype.logStringUpper.apply(notThing);  // BUMBLEBEE
 
 ## Comparisons
 
-Here are some examples of different ways to approach creating a function that tracks how many times is was called:
+Here are some examples of different ways to approach creating a function that tracks how many times it was called:
 
 Using a global variable:
 ```javascript
@@ -441,7 +465,7 @@ function foo(num) {
 
 let count = 0;
 
-for (let i=0; i<3; i++) {
+for (let i = 0; i < 3; i++) {
   foo(i);
 }
 
@@ -465,7 +489,7 @@ let data = {
   count: 0
 };
 
-for (let i=0; i<3; i++) {
+for (let i = 0; i < 3; i++) {
   foo(i);
 }
 
@@ -487,7 +511,7 @@ function foo(num) {
 
 foo.count = 0;
 
-for (let i=0; i<3; i++) {
+for (let i = 0; i < 3; i++) {
   foo(i);
 }
 
@@ -509,7 +533,7 @@ function foo(num) {
 
 foo.count = 0;
 
-for (let i=0; i<3; i++) {
+for (let i = 0; i < 3; i++) {
   foo(i);
 }
 
@@ -532,7 +556,7 @@ function foo(num) {
 
 foo.count = 0;
 
-for (let i=0; i<3; i++) {
+for (let i = 0; i < 3; i++) {
   // we use call() to make foo the calling function of itself
   foo.call(foo, i);
 }
@@ -549,7 +573,7 @@ In this example, we use `.call()` to make `foo()` the calling function, so `this
 
 ## Avoid using *Arrow Function Syntax*
 
-In the above examples, we're using *concise* syntax which allows us to omit the colon `:` and the `function` keyword). Note that if you use *[Arrow Functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)*, the `this` keyword will not work in the same way. Arrow functions save the binding of `this` in the closure that's created when the function is created. So it doesn't set `this` to the context of the call.
+In many of the examples above, we're using *concise* syntax which allows us to omit the colon `:` and the `function` keyword). Note that if you use *[Arrow Functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)*, the `this` keyword will not work in the same way. Arrow functions save the binding of `this` in the closure that's created when the function is created. So it doesn't set `this` to the context of the call.
 
 ```javascript
 let plant = {
@@ -577,23 +601,23 @@ To summarize, we can ask these questions in order of precedence to determine a `
 1. Is the function called with the `new` keyword? If so, `this` is the newly constructed object. (see: [objects.md](objects.md))
 
 ```javascript
-var bar = new foo();
+var bar = new foo();  // this is bar
 ```
 
 2. Is the function called with `call()` or `apply()` (explicit binding)? If so, `this` is the explicitly specified object.
 
 ```javascript
-var bar = foo.call(obj);
+var bar = foo.call(obj);  // this is obj
 ```
 
 3. Is the function called with a context (implicit binding)? If so, `this` is that context object.
 
 ```javascript
-var bar = obj1.foo();
+var bar = obj1.foo();  // this is obj1
 ```
 
 4. Otherwise, `this` is a default binding (in strict mode undefined, otherwise the global object).
 
 ```javascript
-var bar = foo();
+var bar = foo();  // this is undefined
 ```
