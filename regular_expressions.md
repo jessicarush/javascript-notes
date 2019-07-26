@@ -16,7 +16,6 @@ See also: [Regular Expressions on MDN](https://developer.mozilla.org/en-US/docs/
   * [regexp.exec()](#regexpexec)
   * [regexp.test()](#regexptest)
   * [string.match()](#stringmatch)
-  * [string.matchAll()](#stringmatchall)
   * [string.replace()](#stringreplace)
   * [string.search()](#stringsearch)
   * [string.split()](#stringsplit)
@@ -40,15 +39,16 @@ Some insights:
 - `(?:)` indicates a *non-capturing group* which basically means, don't include this in the *results array*
 - `()` indicates a *capturing group* which means, do include this in the *results array*
 - `[]` indicates a *character class* or *character set* which matches a single character to whatever is in this list
-- `[A-Z]` indicates a single character that can range from uppercase A to Z
+- `[A-Z]` indicates a single character that can range from uppercase A to Z. The range `-` symbol can only be used in a character class/set `[]`.
 - `[A-Za-z]` indicates a single character that can be uppercase or lowercase a to z
 - `[A-Fa-f0-9]` would match a single hexadecimal digit
 - `+` indicates that the character set can be matched one or more times
 - `?` at the end of a group indicates that that the whole group is optional
 - `\/` indicates that a literal forward slash `/` must be matched. Forward slashes need to be backslash escaped because they usually indicate the start or end of a regexp.
 - `{0,3}` indicates the previous thing can be matched 0 or 1 or 2 or 3 times
+- `{1,}` indicates the previous thing can be matched 1 or more times and would be equivalent to `+`
 - `\-` to match a hyphen, you will need to escape it so that it's not confused as a range signal
-- `[^#?]` indicates any character except `#` and `?`
+- `[^#?]` indicates any character except `#` and `?`. The exclusion `^` symbol can only be used in a character class/set `[]`.
 - `*` is similar to `+`, but means that the character can be matched zero or more times
 - `.` matches any character except a line end `\n` character
 - `|` means or and can often be the same as using `[]` for example, a or b could be written as both `a|b` or `[ab]`
@@ -154,14 +154,6 @@ let result = string.match(hex_color);
 
 console.log(result);
 // [ '#32CD32', '2', index: 0, input: '#32CD32', groups: undefined ]
-```
-
-
-### string.matchAll()
-
-The `matchAll()` string method returns an iterator containing all of the matches, including capturing groups.
-
-```javascript
 ```
 
 
