@@ -15,7 +15,7 @@ Arrays are JavaScript's lists. Arrays can store any data types (including string
   * [Add items with *push()* or *unshift()*](#add-items-with-push-or-unshift)
   * [Remove and use items with *pop()* and *shift()*](#remove-and-use-items-with-pop-and-shift)
   * [Get a section of an array with *slice()*](#get-a-section-of-an-array-with-slice)
-  * [Replace a section with *splice()*](#replace-a-section-with-splice)
+  * [Replace or remove a section with *splice()*](#replace-or-remove-a-section-with-splice)
   * [Create a copy of an array](#create-a-copy-of-an-array)
   * [Merge two arrays into a new one with *concat()*](#merge-two-arrays-into-a-new-one-with-concat)
   * [Find if an item is present with *includes()*](#find-if-an-item-is-present-with-includes)
@@ -23,6 +23,7 @@ Arrays are JavaScript's lists. Arrays can store any data types (including string
   * [Reverse an array with *reverse()*](#reverse-an-array-with-reverse)
   * [Convert an array to a string with *join()*](#convert-an-array-to-a-string-with-join)
   * [Convert a string to an array with *split()*](#convert-a-string-to-an-array-with-split)
+  * [Sort an array in place with *sort()*](#sort-an-array-in-place-with-sort)
 - [Iteration Methods](#iteration-methods)
 - [Array.from()](#arrayfrom)
 - [Sneaky "reassignment" of an array](#sneaky-reassignment-of-an-array)
@@ -279,10 +280,10 @@ console.log(myArray);
 const myArray = ['one', 'two', 'three', 'four', 'five'];
 
 // the argument passed is the separator
-let myString = myArray.join(' ');  
+let myString = myArray.join('_');  
 
 console.log(myString);  
-// one two three four five
+// one_two_three_four_five
 
 console.log(typeof myString);  
 // string
@@ -301,6 +302,42 @@ console.log(myArray);
 // [ 'one', 'two', 'three', 'four', 'five' ]
 ```
 
+
+### Sort an array in place with *sort()*
+
+```javascript
+const myArray = ['dairy', 'apple', 'elderberry', 'corn', 'banana'];
+
+myArray.sort();
+
+console.log(myArray);
+// [ 'apple', 'banana', 'corn', 'dairy', 'elderberry' ]
+```
+
+The sort method uses a comparison function that assumes the values are string and therefor does not work well with numbers:
+
+```javascript
+let numArray = [2, 1001, 239, 25, 1, 12];
+
+console.log(numArray.sort());
+// [ 1, 1001, 12, 2, 239, 25 ]
+```
+
+That being said, you can provide your own comparison function. The function should take two parameters and:
+- return 0 if the two are equal.
+- return a negative number if the first parameter should come first
+- return a positive number if the second parameter should come first
+
+```javascript
+let numArray = [2, 1001, 239, 25, 1, 12];
+
+numArray.sort(function (a, b) {
+  return a - b;
+});
+
+console.log(numArray);
+// [ 1, 2, 12, 25, 239, 1001 ]
+```
 
 ## Iteration Methods
 
