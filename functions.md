@@ -77,8 +77,8 @@ logAmount(5);          // 5.00
 Functions are often declared in an assignment to a variable. When assigning to a variable, the function can be named or anonymous. The main difference with these approaches is related to *hoisting*, described in more detail below. Basically, function declarations get defined at parse-time but variables get defined at run-time. As a result, you can call a function before it's declaration, but not if it's assigned to a variable. In terms of anonymous vs named functions, this is just a preference thing. Named functions are more helpful when it comes to debugging. Here's a comparison:
 
 ```javascript
-// Function decalaration:
-function one () {
+// Function declaration:
+function one() {
   console.log(one.name);
 }
 
@@ -116,7 +116,7 @@ This kind of hoisting only works for named function declarations, not function e
 ```javascript
 foo(); // TypeError: foo is not a function
 
-var foo = function() {
+var foo = function () {
   console.log('Foo');
 };
 ```
@@ -144,7 +144,7 @@ foo();
 
 var foo;
 
-foo = function() {
+foo = function () {
     console.log('foo the variable');
 };
 
@@ -545,7 +545,7 @@ console.log(foo.name);  // veryLongFunctionName
 A bonus property/parameter that is available to all functions when they are invoked is the `arguments` array (not actually an array but an array-like object). This gives the function access to all of the arguments that were passed in, whether they're used in the function or not.
 
 ```javascript
-var test = function() {
+var test = function () {
   console.log('Number of arguments: ' + arguments.length);
 
   for (let i = 0; i < arguments.length; i++) {
@@ -1000,7 +1000,7 @@ timeFuncRuntime(() => { // anonymous function passed to timeFuncRuntime();
 Here's an example of condensing a lengthy function:
 ```javascript
 // long version
-const plantNeedsWater = function(day) {
+const plantNeedsWater = function (day) {
   if (day === 'Wednesday') {
     return true;
   }
@@ -1010,7 +1010,7 @@ const plantNeedsWater = function(day) {
 };
 
 // condensed using the conditional/ternary operator
-const plantNeedsWater = function(day) {
+const plantNeedsWater = function (day) {
   return day === 'Wednesday' ? true : false;
 };
 

@@ -306,7 +306,7 @@ user.message();  // Hello
 If we wanted to add a new method to the object we just assign it:
 
 ```javascript
-user.greeting = function() {
+user.greeting = function () {
   let capitalized = this.name[0].toUpperCase() + this.name.slice(1);
   console.log('Hello ' + capitalized);
 };
@@ -357,7 +357,7 @@ We should also demonstrate what this looks like for constructor functions, class
 function Person(first, age, admin) {
   this.firstname = first;
   this.age = age;
-  this.logAge = function() {
+  this.logAge = function () {
     console.log(this.age);
   };
 }
@@ -365,12 +365,12 @@ function Person(first, age, admin) {
 const constObj = new Person('Jessica', 43, true);
 
 // Add a method to this object instance only
-constObj.special = function() {
+constObj.special = function () {
   console.log('special');
 };
 
 // Add a method to the Constructor (affects all instances)
-Person.prototype.greeting = function() {
+Person.prototype.greeting = function () {
   let capitalized = this.firstname[0].toUpperCase() + this.firstname.slice(1);
   console.log('Hello ' + capitalized);
 };
@@ -386,7 +386,7 @@ class Human {
   constructor(first, age, admin) {
     this.firstname = first;
     this.age = age;
-    this.logAge = function() {
+    this.logAge = function () {
       console.log(this.age);
     };
   }
@@ -395,12 +395,12 @@ class Human {
 const classObj = new Human('Jessica', 43, true);
 
 // Add a method to this object instance only
-classObj.special = function() {
+classObj.special = function () {
   console.log('special');
 };
 
 // Add a method to the Class (affects all instances)
-Human.prototype.greeting = function() {
+Human.prototype.greeting = function () {
   let capitalized = this.firstname[0].toUpperCase() + this.firstname.slice(1);
   console.log('Hello ' + capitalized);
 };
@@ -416,7 +416,7 @@ const personFactory = (first, age, admin) => {
   return {
     firstname: first,
     age: age,
-    logAge: function() {
+    logAge: function () {
       console.log(this.age);
     }
   };
@@ -425,7 +425,7 @@ const personFactory = (first, age, admin) => {
 const factoryObj = personFactory('Jessica', 43, true);
 
 // Add a method to the object
-factoryObj.special = function() {
+factoryObj.special = function () {
   console.log('special');
 };
 
@@ -499,7 +499,7 @@ const j = new User('jessica', 'admin');
 console.log(j.toString());
 // [object Object]
 
-User.prototype.toString = function() {
+User.prototype.toString = function () {
   return `${this.type} user: ${this.name}`;
 };
 

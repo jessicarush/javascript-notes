@@ -167,7 +167,7 @@ myapp.something = {
     // code
 };
 
-myapp.other = function() {
+myapp.other = function () {
     //code
 };
 ```

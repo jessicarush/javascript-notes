@@ -402,7 +402,7 @@ So far I can't seem to find an MDN reference for these particular objects and th
 
 ```javascript
 const checkbox = document.getElementById('mycheckbox');
-checkbox.addEventListener('click', function(e) {
+checkbox.addEventListener('click', function (e) {
   console.log(e.target);
 },false);
 ```

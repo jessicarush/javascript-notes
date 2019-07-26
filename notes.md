@@ -7,8 +7,10 @@ This document contains small bits of information that don't really fit anywhere 
 <!-- toc -->
 
 - [About the Language](#about-the-language)
+- [On Style](#on-style)
 - [Comments](#comments)
 - [Semicolons](#semicolons)
+- [Spaces after function names](#spaces-after-function-names)
 - [Escape Characters](#escape-characters)
 - [Output](#output)
 - [Input](#input)
@@ -23,6 +25,10 @@ This document contains small bits of information that don't really fit anywhere 
 [Ecma International](https://www.ecma-international.org/), is the organization responsible for standardizing JavaScript. It stands for European Computer Manufacturers Association. It released a new version of JavaScript in 2015, called ECMAScript2015, commonly referred to as ES6. Note, the 6 refers to the version of JavaScript and is not related to the year it was released (the previous version was ES5 released in 2009).
 
 Web browsers are not the only platforms on which JavaScript is used. Some databases, such as MongoDB and CouchDB, use JavaScript as their scripting and query language. Several platforms for desktop and server programming, most notably the Node.js project, provide an environment for programming JavaScript outside of the browser.
+
+## On Style
+
+Good programs have a structure that anticipates—but is not overly burdened by—the possible modifications that will be required in the future.
 
 
 ## Comments
@@ -60,10 +66,10 @@ const tax = 12;
 let obj = {name: 'Morty'};
 
 // function expressions
-let foo = function() {...};
+let foo = function () {...};
 
 // immediately invoked function expressions
-let foo = function() {...}();
+let foo = function () {...}();
 
 // function calls
 alert('Hi');
@@ -86,7 +92,26 @@ for (...) {...}
 while (...) {...}
 
 // function declarations
-function identifier (arg) {...}
+function identifier(arg) {...}
+```
+
+
+## Spaces after function names
+
+There is no fixed rule here, just a style preference. That being said, a common pattern is for named functions, DO NOT insert space between the function name and parentheses:
+
+```javascript
+function doStuff() {
+  // code
+}
+```
+
+For anonymous functions, DO insert space between function keyword and parentheses:
+
+```javascript
+function () {
+  // code
+}
 ```
 
 

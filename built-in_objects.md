@@ -245,7 +245,7 @@ Though they are intended to be passed strings, parse methods will try to do type
 let obj = {
   quantity: 15,
   cost: 3.25,
-  toString: function() {
+  toString: function () {
     return String(this.quantity * this.cost);
   }
 };
@@ -415,15 +415,18 @@ console.log(Boolean(g));  // false
 
 ## Object
 
-The base [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)
+The base [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object).   
+See [objects.md](objects.md).
 
 ## Function
 
-The [Function object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function)
+The [Function object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function).  
+See [functions.md](functions.md).
 
 ## Array
 
-The [Array object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)
+The [Array object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array).  
+See [arrays.md](arrays.md).
 
 ## Math
 
@@ -553,7 +556,7 @@ console.log(obj[secret]);                        // secret property
 
 let toStringSymbol = Symbol('toString');
 
-obj[toStringSymbol] = function() {
+obj[toStringSymbol] = function () {
   return `I am ${this.name}.`;
 };
 

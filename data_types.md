@@ -166,7 +166,7 @@ As it turns out, arrays and functions have a length property as well. When appli
 ```javascript
 let arr = ['a', 'b', 'c'];
 
-let func = function(a, b) {
+let func = function (a, b) {
   return a + b;
 };
 

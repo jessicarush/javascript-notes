@@ -222,7 +222,7 @@ function Shape() {
 }
 
 // Superclass method
-Shape.prototype.move = function(x, y) {
+Shape.prototype.move = function (x, y) {
   this.x += x;
   this.y += y;
   console.info(`${this.name} moved: ${x}, ${y}`);
@@ -292,7 +292,7 @@ const shape = {
 };
 
 // Base prototype method
-shape.move = function(x, y) {
+shape.move = function (x, y) {
   this.x += x;
   this.y += y;
   console.info(`${this.name} moved: ${x}, ${y}`);

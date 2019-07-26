@@ -42,7 +42,7 @@ let obj2 = Object.create(obj1);
 
 console.log(obj1.isPrototypeOf(obj2));  // true
 
-let obj3 = function() {};
+let obj3 = function () {};
 let obj4 = new obj3();
 
 console.log(obj4 instanceof obj3);  // true

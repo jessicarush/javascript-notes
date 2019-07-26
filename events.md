@@ -163,7 +163,7 @@ function myFunction(p1, p2) {
 }
 
 let el = document.getElementById('username-field');
-el.addEventListener('blur', function() {
+el.addEventListener('blur', function () {
     myFunction('hello', 'world');
 }, false);
 ```
@@ -190,7 +190,7 @@ To illustrate the problem when you try to use your `var i` counter variable with
 const els = document.querySelectorAll('.js-test');
 for (var i = 0; i < els.length; i++) {
     console.log('1', els[i]);
-    els[i].addEventListener('click', function() {
+    els[i].addEventListener('click', function () {
         console.log('2', els[i]); // will log undefined
     }, false);
 }
@@ -201,7 +201,7 @@ However, if you use `let`, everything works fine:
 const els = document.querySelectorAll('.js-test');
 for (let i = 0; i < els.length; i++) {
     console.log('1', els[i]);
-    els[i].addEventListener('click', function() {
+    els[i].addEventListener('click', function () {
         console.log('2', els[i]); // will log the element as expected
     }, false);
 }
@@ -214,7 +214,7 @@ function processEvent() {
     console.log('doing something');
 }
 
-document.addEventListener('click', function(e) {
+document.addEventListener('click', function (e) {
     if (e.target.matches('.js-test')) {
         processEvent()
     }
@@ -256,7 +256,7 @@ function initializeSomething() {
  */
 function initializeSomething() {
     const el = document.querySelector('.js-menu');
-    el.addEventListener('change', function() {
+    el.addEventListener('change', function () {
         // do something
     }, false);
 }
@@ -359,7 +359,7 @@ function logEventInfo(e, p1, p2) {
 }
 
 let el = document.getElementById('js-box');
-el.addEventListener('click', function(e) {
+el.addEventListener('click', function (e) {
     logEventInfo(e, 'hello', 'world');
 }, false);
 ```
@@ -424,7 +424,7 @@ function deleteContent(e) {
 let parentEl = document.querySelector('.js-form');
 let html_content = '<input type="text"> <button class="js-delete">×</button>';
 
-document.addEventListener('click', function(e) {
+document.addEventListener('click', function (e) {
     if (e.target.matches('.js-add')) {
         addContent(parentEl, html_content)
     }
@@ -450,7 +450,7 @@ When using event delegation, one thing we need to think about is whether any of 
 Using event delegation, my javascript might look something like this:
 
 ```javascript
-window.addEventListener('click', function(e) {
+window.addEventListener('click', function (e) {
 
   if (e.target.matches('.js-popup-btn')) {
     togglePopup();
@@ -478,7 +478,7 @@ function showHide(e) {
 }
 
 // Event listener
-window.addEventListener('click', function(e) {
+window.addEventListener('click', function (e) {
 
     if (e.target.matches('.js-showhide') || e.target.closest('.js-showhide')) {
     showHide(e);
@@ -513,7 +513,7 @@ function listListeners() {
     console.log(items);
 
     // put a border around the elements
-    items.forEach(function(item) {
+    items.forEach(function (item) {
       item.element.style.outline = '1px solid red';
     });
 }
@@ -545,7 +545,7 @@ let addItemNode = document.getElementsByClassName('js-add')[0];
 let config = { attributes: true, childList: true, subtree: true };
 
 // Callback function to execute when mutations are observed
-let updateCount = function(mutationsList, observer) {
+let updateCount = function (mutationsList, observer) {
     for(let mutation of mutationsList) {
         if (mutation.type == 'childList') {
             updateNode.textContent = targetNode.childElementCount;

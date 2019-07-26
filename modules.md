@@ -18,7 +18,7 @@ JavaScript modules are reusable pieces of code that can be exported from one pro
   * [named export](#named-export)
   * [summary](#summary)
 - [ES6 Import Syntax](#es6-import-syntax)
-  * [Identify your script as a module with type="module"](#identify-your-script-as-a-module-with-typemodule)
+- [ES6 link your script as a module with type="module"](#es6-link-your-script-as-a-module-with-typemodule)
 - [Exporting Modules with module.exports - node only](#exporting-modules-with-moduleexports---node-only)
 - [Importing Modules with require() - node only](#importing-modules-with-require---node-only)
 
@@ -154,7 +154,7 @@ An alternate way would be:
 ```javascript
 module.exports = {
   specialty: 'Roasted Beet Burger',
-  getSpecialty: function() {
+  getSpecialty: function () {
     return this.specialty;
   }
 };

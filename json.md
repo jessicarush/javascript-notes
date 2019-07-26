@@ -54,7 +54,7 @@ let one = {};
 let two = {
   a: 42,
   b: one,
-  c: function() {}
+  c: function () {}
 };
 
 // create a circular reference inside one:
@@ -65,7 +65,7 @@ let test1 = JSON.stringify(two, ['a']);
 console.log(test1);
 // {"a":42}
 
-let test2 = JSON.stringify(two, function(k, v) {
+let test2 = JSON.stringify(two, function (k, v) {
   if (k != 'b') {
     if (typeof v == 'function') {
       v = 'function';
@@ -115,7 +115,7 @@ let one = {};
 let two = {
   a: 42,
   b: one,
-  c: function() {}
+  c: function () {}
 };
 
 // create a circular reference inside one:
@@ -126,7 +126,7 @@ one.d = two;
 
 
 // define a custom JSON serialization helper:
-two.toJSON = function() {
+two.toJSON = function () {
   return {a: this.a};
 };
 
