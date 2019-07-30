@@ -34,15 +34,24 @@ Good programs have a structure that anticipatesâ€”but is not overly burdened byâ
 ## Comments
 Code comments can be done in two ways:
 ```javascript
-a = 5;  // single line comment
+// Single line comment
+a = 5;  // inline comment
 
-/*
-Multi-line
-comment
-*/
+/* multi-line
+comment block */
 ```
 
-That being said, this pair `*/` can occur in regular expressions and so are not safe for commenting out blocks of code. It's best to stick with `//` and avoid `/* */` altogether.
+A variation of the comment block, often used to describe more complex code or details about the file, including the script's name, version, and author.
+
+```javascript
+/**
+ * Summary
+ *
+ * Description
+ */
+```
+
+Note that this pair `*/` can occur in regular expressions and so are not safe for commenting out blocks of code. In these cases it's best to stick with `//` and avoid `/* */`.
 
 Comments in your code should explain *why*, not *what*. They can also explain *how* if the code is particularly confusing.
 
@@ -57,7 +66,7 @@ When to use semicolons in JavaScript? In general, you don't need semicolons afte
 let x;
 
 // value assignments
-let x = '';
+x = '';
 
 // variable declaration & assignment
 const tax = 12;
@@ -203,6 +212,6 @@ When using a linter like JSHint, you can avoid ES6 syntax errors by creating a `
 
 ## Glossary
 
-- an *expression* evaluates to a single value and relies operators to calculate a value.
+- an *expression* evaluates to a single value and relies on operators to calculate a value.
 - a *statement* is a line of code (instructions) composed of values, operators, keywords, etc., and ends with a semicolon `;`.
 - a *code block* is one or more statements contained within curly braces `{}`.
