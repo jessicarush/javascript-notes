@@ -2,6 +2,8 @@
 
 Otherwise known as error handling, problems (unexpected or expected) will happen in the running of our code. Exceptions provides us a way of gracefully handling those errors.
 
+## Table of Contents
+
 <!-- toc -->
 
 - [try, throw, catch](#try-throw-catch)
