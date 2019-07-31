@@ -227,10 +227,8 @@ Number.parseFloat('5.25 laps');  // 5.25
 Number.parseInt('250px');        // 250
 Number.isInteger(5);             // true
 Number.isFinite(5.2345);         // true
-
-let a = 5 * 'string';
-
-Number.isNaN(a);                 // true
+Number.isSafeInteger(3.1);       // false
+Number.isNaN(5 * 'string');      // true
 ```
 
 The parse methods are interesting in that you can pass a second optional argument that is the base. For example:
@@ -253,6 +251,7 @@ let obj = {
 console.log(Number.parseInt(obj));    // 48
 console.log(Number.parseFloat(obj));  // 48.75
 ```
+
 
 `Number()` itself is a built-in function. Using it alone will explicitly convert a string to a number. If you try to convert a string that doesn't translate to a number you'll get `NaN`. Another widely accepted way to convert to a number is by using the *unary operator* `+`. This is common when converting dates to an epoch timestamp number. Keep in mind though, there may be times where it looks confusing and weird. In general, it's best to avoid this if it's being used next to another operator.
 
