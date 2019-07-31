@@ -28,7 +28,7 @@ Web browsers are not the only platforms on which JavaScript is used. Some databa
 
 ## On Style
 
-Good programs have a structure that anticipates—but is not overly burdened by—the possible modifications that will be required in the future.
+Good programs have a structure that anticipates—but is not overly burdened by—the possible modifications that will be required in the future. Good programs also have a clear presentation. The long-term value of software to an organization is in direct proportion to the quality and readability of the codebase. If a program is able to clearly communicate its structure and characteristics, it's less likely to break when modified.
 
 
 ## Comments
@@ -41,7 +41,7 @@ a = 5;  // inline comment
 comment block */
 ```
 
-A variation of the comment block, often used to describe more complex code or details about the file, including the script's name, version, and author.
+A variation of the comment block, often used for more formal documentation and may include details about the file, including the script's name, version, and author.
 
 ```javascript
 /**
