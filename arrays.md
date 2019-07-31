@@ -11,7 +11,10 @@ Arrays are JavaScript's lists. Arrays can store any data types (including string
 - [Syntax](#syntax)
 - [Properties](#properties)
 - [Empty Items](#empty-items)
-- [Array Methods](#array-methods)
+- [Array static methods](#array-static-methods)
+  * [Array.isArray()](#arrayisarray)
+  * [Array.from()](#arrayfrom)
+- [Array instance methods](#array-instance-methods)
   * [Add items with *push()* or *unshift()*](#add-items-with-push-or-unshift)
   * [Remove and use items with *pop()* and *shift()*](#remove-and-use-items-with-pop-and-shift)
   * [Get a section of an array with *slice()*](#get-a-section-of-an-array-with-slice)
@@ -24,8 +27,7 @@ Arrays are JavaScript's lists. Arrays can store any data types (including string
   * [Convert an array to a string with *join()*](#convert-an-array-to-a-string-with-join)
   * [Convert a string to an array with *split()*](#convert-a-string-to-an-array-with-split)
   * [Sort an array in place with *sort()*](#sort-an-array-in-place-with-sort)
-- [Iteration Methods](#iteration-methods)
-- [Array.from()](#arrayfrom)
+- [Array iteration methods](#array-iteration-methods)
 - [Sneaky "reassignment" of an array](#sneaky-reassignment-of-an-array)
 
 <!-- tocstop -->
@@ -126,13 +128,37 @@ console.log(array);         // [ 'one', 'two', <1 empty item> ]
 While the values at these empty positions appear to be `undefined`, they will not behave the same as an index explicitly set to `undefined` as in `array[0] = undefined;`. In general, be careful about creating these kinds of *sparse* arrays (leaving or creating empty/missing spots).  
 
 
-## Array Methods
+## Array static methods
+
+### Array.isArray()
+
+One of the most useful Array static methods is `isArray()`:
+
+```javascript
+let a = [];
+
+console.log(Array.isArray(a));  // true
+```
+
+### Array.from()
+
+As of ES6 we have this method which will convert array-like objects into actual array so that we can perform all the array methods. The most common example of this is working with DOM NodeLists (see [document_object_model.md](document_object_model.md)). While NodeLists look like arrays, they are not. If we try to use a `for...of` loop, it won't work. Here's were `Array.from()` is useful:
+
+```javascript
+let els = document.querySelectorAll('li.nav');
+
+for (let el of Array.from(els)) {
+    // pass
+}
+```
+
+
+## Array instance methods
 
 JavaScript also has a number of built-in *methods* which can be applied to arrays. Keep in mind, some methods will modify the original array, while others only return something from it.
 
-You can see a full list of [built-in methods for arrays here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array).
+See the full list of [built-in methods for arrays here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array).
 
-See also: [iterators.md](iterators.md)
 
 ### Add items with *push()* or *unshift()*
 
@@ -208,6 +234,7 @@ console.log(myArray);
 // [ 'one', 'five' ]
 ```
 
+
 ### Create a copy of an array
 
 ```javascript
@@ -237,6 +264,7 @@ console.log(arrayC);
 ```
 
 Note, if you pass concat an argument that is not an array, that value will be added to the new array as if it were a one-element array.
+
 
 ### Find if an item is present with *includes()*
 
@@ -339,22 +367,13 @@ console.log(numArray);
 // [ 1, 2, 12, 25, 239, 1001 ]
 ```
 
-## Iteration Methods
 
-Arrays include a number of methods iterate over each item, performing some action/function each time. See: [iterators.md](iterators.md)
+## Array iteration methods
 
+Arrays include a number of methods iterate over each item, performing some action/function each time.
 
-## Array.from()
+See: [iterators.md](iterators.md)
 
-As of ES6 we have this method which will convert array-like objects into actual array so that we can perform all the array methods. The most common example of this is working with DOM NodeLists (see [document_object_model.md](document_object_model.md)). While NodeLists look like arrays, they are not. If we try to use a `for...of` loop, it won't work. Here's were `Array.from()` is useful:
-
-```javascript
-let els = document.querySelectorAll('li.nav');
-
-for (let el of Array.from(els)) {
-    // pass
-}
-```
 
 ## Sneaky "reassignment" of an array
 
