@@ -11,6 +11,7 @@ As with many other languages, JavaScript variables are containers for storing da
 - [constants](#constants)
 - [let](#let)
 - [global variables](#global-variables)
+- [where to declare](#where-to-declare)
 - [naming](#naming)
 
 <!-- tocstop -->
@@ -82,7 +83,7 @@ if (FLAG) {
 
 This works:
 ```javascript
-const FLAG = false;
+var FLAG = false;
 
 if (FLAG) {
   console.log('test');
@@ -193,6 +194,23 @@ foo();
 ```
 
 Speaking of windows, using the developer tools in the console you can type `Object.keys(window)` to get a list of all the global variables. Yours will be at the end `[200...]`.
+
+
+## where to declare
+
+There are a number of approaches as to where you should declare your variables. One convention is to declare it at its first use. Another convention is, in functions, to declare all the variables at the beginning of each function. The reason for this is because blocks traditionally don't have scope, only functions do. That has changed however with the introduction of the `let` keyword. For example:
+
+```javascript
+var a = 10;
+var b = 15;
+{
+  let b = 1;
+  console.log(a + b);  // 11
+}
+```
+
+So, the convention of declaring most variables at the beginning of a function feels like a good one, but that doesn't mean we can't declare some where they appear when it makes sense to do so.
+
 
 ## naming
 
