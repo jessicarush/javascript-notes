@@ -19,6 +19,7 @@ If you want to save data in a file for later or send it to another computer over
 
 JSON looks similar to JavaScript’s way of writing arrays and objects, with a few restrictions. All property names have to be surrounded by double quotes, and only simple data expressions are allowed—no function calls, bindings, or anything that involves actual computation. Comments are not allowed in JSON.
 
+JSON has six kinds of values: objects, arrays, strings, numbers, booleans (true, false), and the special value null.
 
 ## Encode & Decode
 
@@ -29,24 +30,25 @@ let obj = { name: 'jessica', age: 43, codeword: 'pingpong' };
 
 let str = JSON.stringify(obj);
 
+let name = JSON.parse(str).name;
+
 console.log(typeof str, str);
 // string {"name":"jessica","age":43,"codeword":"pingpong"}
-
-let name = JSON.parse(str).name;
 
 console.log(name);
 // jessica
 ```
 
-Any *JSON-safe* value can be stringified. Some examples of values that cannot be stringified are: `undefined`, `functions`, `symbols`, and objects with circular references. With the exception of circular references, the `JSON.stringify()` utility will automatically omit these when it comes across them. If such a value is found in an array, it will be replaced with `null`.
+Any *JSON-safe* value can be stringified. Some examples of values that cannot be stringified are: `undefined`, `functions`, `symbols`, and objects with circular references. With the exception of circular references, the `JSON.stringify()` utility will automatically omit these when it comes across them. If such a value is found in an array, it will be replaced with `null`. If you try to stringify something with a circular reference, you'll get a TypeError.
+
 
 ### optional arg: replacer
 
-`JSON.stringify()` takes an optional 2nd argument called the *replacer*. This can be an array or a function that provides a filtering mechanism for which properties should be included in the serialization.
+`JSON.stringify()` takes an optional 2nd argument called the *replacer*. This can be an array or a function that provides a filtering mechanism to determine which properties should be included in the serialization.
 
-If the *replacer* is an array, then it should be an array of strings where each string specifies a property name that is included in the serialization. If the property exists and isn't in the list, it will be skipped.
+If the *replacer* is an **array**, then it should be an array of strings where each string specifies a property name that should be included in the serialization. If the property exists and isn't in the list, it will be skipped.
 
-If the *replacer* is a function it will be called once for the object itself, and once for each property in the object. The function is passed two arguments: *key* and *value*. To skip a key in the serialization, return `undefined` otherwise return the value provided.
+If the *replacer* is a **function** it will be called once for the object itself, and once for each property in the object. The function is passed two arguments: *key* and *value*. To skip a key in the serialization, return `undefined` otherwise return the value provided.
 
 ```javascript
 let one = {};
@@ -81,26 +83,30 @@ console.log(test2);
 
 ### optional arg: space
 
-`JSON.stringify()` also takes an optional 3rd argument called the *space*. If passed it it indicates how many spaces should be used at each indentation level.
+`JSON.stringify()` also takes an optional 3rd argument called the *space*. If passed it converts it to a more human readable format by indenting. The number passed in indicates how many spaces should be used at each indentation level.
 
 ```javascript
 let obj = {
   a: 'hello',
-  b: [2, 23, 45],
+  b: ['jessica', 45, 'foo'],
   c: '100'
 }
 
-let test = JSON.stringify(obj, null, 2);
+let test1 = JSON.stringify(obj);
+let test2 = JSON.stringify(obj, null, 4);
 
-console.log(test);
+console.log(test1);
+// {"a":"hello","b":["jessica",45,"foo"],"c":"100"}
+
+console.log(test2);
 // {
-//   "a": "hello",
-//   "b": [
-//     2,
-//     23,
-//     45
-//   ],
-//   "c": "100"
+//     "a": "hello",
+//     "b": [
+//         "jessica",
+//         45,
+//         "foo"
+//     ],
+//     "c": "100"
 // }
 ```
 
