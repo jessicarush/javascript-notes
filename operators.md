@@ -287,7 +287,7 @@ let status = (age >= 18) ? 'adult' : 'minor';
 See the [JavaScript Reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_Precedence) for a full list of opeator precedences.
 
 Some takeaways:
- 
+
 - `&&` is evaluated before `||`
 - `||` is evaluated before `? :`
 
@@ -307,11 +307,12 @@ console.log(d, e);    // 2 2
 
 Note that the following values will evaluate to false when checked as a condition:
 
-- **0** (zero)
-- **Empty strings** like `""` or `''`
-- **null** which represent when there is no value at all
-- **undefined** which represent when a declared variable lacks a value
-- **NaN** short for *Not a Number*, it is the result of an operation that cannot produce normal result. `Nan` is nit equal to any other value, including itself.
+- **false** (Boolean)
+- **0** (Number)
+- **Empty strings** (String) such as `""` or `''`
+- **null** (Object) which represent when there is no value at all
+- **undefined** (Undefined) which represent when a declared variable lacks a value
+- **NaN** (Number) short for *Not a Number*, it is the result of an operation that cannot produce normal result. `Nan` is nit equal to any other value, including itself.
 
 
 ## Shorthand (short-circuiting) with logical operators
