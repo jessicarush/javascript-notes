@@ -7,36 +7,50 @@ A recursive function is a function that calls itself.
 
 <!-- toc -->
 
-- [Examples](#examples)
+- [Factorial example](#factorial-example)
+- [Color fade example](#color-fade-example)
+- [Fibonacci example](#fibonnaci-example)
 
 <!-- tocstop -->
 
-## Examples
+## Factorial example
 
-Here's an example function that determines a numbers factorial using recursion:
+Here's are two example functions that determine a numbers factorial using recursion:
 
 ```javascript
-const factorial = function factorial(n, i) {
-    i = i || 1;
-    if (n < 2) {
-        return i;
-    }
-    return factorial(n - 1, n * i);
-};
+function factorial_a(n, i) {
+  i = i || 1;
+  if (n < 2) {
+    return i;
+  }
+  return factorial_a(n - 1, n * i);
+}
 
-console.log(factorial(5));
-// 120
+
+function factorial_b(n) {
+  if (n === 0) {
+    return 1;
+  }
+  return n * factorial_b(n - 1);
+}
+
+
+console.log(factorial_a(5));  // 120
+console.log(factorial_b(5));  // 120
 ```
+
+
+## Color fade example
 
 Here's another example of recursion. This is also a good demonstration of closure in that the inner function always remembers the value of `level`:
 
 ```javascript
-// A function that sets A DOM node's color to yellow then fades to white.
+// A function that sets A DOM node's background color to yellow then fades to white.
 
-var fade = function (node) {
-  var level = 1;
-  var step = function () {
-    var hex = level.toString(16);
+const fade = function (node) {
+  let level = 1;
+  const step = function () {
+    let hex = level.toString(16);
     node.style.backgroundColor = '#ffff' + hex + hex;
     if (level < 15) {
       level += 1;
@@ -46,8 +60,24 @@ var fade = function (node) {
   setTimeout(step, 100);
 };
 
-el = document.querySelector('h1');
-console.log(el.nodeName);
+let el = document.querySelector('.js-fade');
 
 fade(el);
+```
+
+
+## Fibonacci example
+
+```javascript
+function fibonacci(n) {
+  if (n === 1) {
+    return [0, 1];
+  } else {
+    let s = fibonacci(n - 1);
+    s.push(s[s.length - 2] + s[s.length - 1]);
+    return s;
+  }
+}
+
+console.log(fibonacci(10));  // [ 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55 ]
 ```
