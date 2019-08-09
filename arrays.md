@@ -28,6 +28,7 @@ Arrays are JavaScript's lists. Arrays can store any data types (including string
   * [Convert a string to an array with *split()*](#convert-a-string-to-an-array-with-split)
   * [Sort an array in place with *sort()*](#sort-an-array-in-place-with-sort)
 - [Array iteration methods](#array-iteration-methods)
+- [Unpacking arrays into variables](#unpacking-arrays-into-variables)
 - [Sneaky "reassignment" of an array](#sneaky-reassignment-of-an-array)
 
 <!-- tocstop -->
@@ -373,6 +374,20 @@ console.log(numArray);
 Arrays include a number of methods iterate over each item, performing some action/function each time.
 
 See: [iterators.md](iterators.md)
+
+
+## Unpacking arrays into variables
+
+With ES6 destructuring, you can unpack an array into multiple variables in a short assignment:
+
+```javascript
+let rgb = '127,255,212';
+
+let [r, g, b] = rgb.split(',');
+
+console.log(`red: ${r}, green: ${g}, blue: ${b}`);
+// red: 127, green: 255, blue: 212
+```
 
 
 ## Sneaky "reassignment" of an array
