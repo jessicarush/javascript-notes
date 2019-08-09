@@ -220,6 +220,23 @@ console.log(num.toString(16));
 // f
 ```
 
+Here's a function that converts rgb color values into hex using `toString()`:
+
+```javascript
+function rgbToHex(rgb) {
+  rgb = rgb.split(',').map(Number);
+  let [r, g, b] = rgb;
+  return `#${r.toString(16)}${g.toString(16)}${b.toString(16)}`;
+}
+
+let rgb1 = '127,255,212';
+let rgb2 = '104,58,249';
+
+console.log(rgbToHex(rgb1));  // #7fffd4
+console.log(rgbToHex(rgb2));  // #683af9
+```
+
+
 The [Number object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) has *static* methods that check if an instance in an integer or finite number, or *parse* a string into a float or integer. The two *parsing* methods are interesting because they tolerate and drop any non-numeric characters they encounter as they parse from left to right. Note that the string must start with a numeric character for it to be parsed. As soon as it reads a non-numeric character, it simply stops parsing.
 
 ```javascript
