@@ -28,7 +28,7 @@ function factorial(n) {
 console.log(factorial(5));  // 120
 ```
 
-and a variation that does the same thing:
+...and a variation that does the same thing:
 
 ```javascript
 function factorial(n, i) {
