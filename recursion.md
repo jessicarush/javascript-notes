@@ -15,28 +15,32 @@ A recursive function is a function that calls itself.
 
 ## Factorial example
 
-Here's are two example functions that determine a numbers factorial using recursion:
+Here's an example function that determines a numbers factorial using recursion:
 
 ```javascript
-function factorial_a(n, i) {
+function factorial(n) {
+  if (n === 0) {
+    return 1;
+  }
+  return n * factorial(n - 1);
+}
+
+console.log(factorial(5));  // 120
+```
+
+and a variation hat does the same thing:
+
+```javascript
+function factorial(n, i) {
   i = i || 1;
   if (n < 2) {
     return i;
   }
-  return factorial_a(n - 1, n * i);
+  return factorial(n - 1, n * i);
 }
 
 
-function factorial_b(n) {
-  if (n === 0) {
-    return 1;
-  }
-  return n * factorial_b(n - 1);
-}
-
-
-console.log(factorial_a(5));  // 120
-console.log(factorial_b(5));  // 120
+console.log(factorial(5));  // 120
 ```
 
 
