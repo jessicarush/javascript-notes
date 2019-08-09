@@ -18,7 +18,7 @@ JavaScript modules are reusable pieces of code that can be exported from one pro
   * [named export](#named-export)
   * [summary](#summary)
 - [ES6 Import Syntax](#es6-import-syntax)
-- [ES6 link your script as a module with type="module"](#es6-link-your-script-as-a-module-with-typemodule)
+- [ES6 indicate the script contains a module in your HTML](#es6-indicate-the-script-contains-a-module-in-your-html)
 - [Exporting Modules with module.exports - node only](#exporting-modules-with-moduleexports---node-only)
 - [Importing Modules with require() - node only](#importing-modules-with-require---node-only)
 
@@ -95,7 +95,7 @@ ES6 also introduced a new syntax for imports:
 import Menu from './menu';
 ```
 
-The `import` keyword begins the statement. `Menu` specifies the name of the variable to store the default export in. `from` specifies where to load the module from. When dealing with local files, it refers to the name of the file without the extension.
+The `import` keyword begins the statement. `Menu` specifies the name of the variable to store the default export in. `from` specifies where to load the module from. When dealing with local files, it refers to the name of the file without the extension. Note that in order for this to work properly, **the from filename string must be prefixed with (./, /, ../ or http://)**.
 
 When using named exports you would import like:
 
@@ -120,11 +120,11 @@ Whatever.isVegetarian();
 
 Note that `import` doesn't work in Node yet.
 
-## ES6 link your script as a module with type="module"
+## ES6 indicate the script contains a module in your HTML
 
 At some point, we'll want to include our main script in our HTML file. In order to have modules work properly in the browser we need to add the type attribute to the `<script>`, for example:
 
-```
+```html
 <script src="main.js" type="module" defer></script>
 ```
 
