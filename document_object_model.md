@@ -161,7 +161,7 @@ createElement()     // creates a new html element
 createTextNode()    // creates a new text node
 cloneNode()         // clones an element
 insertBefore()      // inserts a new child node before the an existing one
-appendChild()       // adds a new child node to an element as the one
+appendChild()       // adds a new child node to an element
 removeChild()       // removes a child node from an element
 ```
 
