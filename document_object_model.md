@@ -58,7 +58,7 @@ document.querySelector('li.js-nav');       // returns the first match only
 document.querySelectorAll('.js-nav');      // returns a NodeList
 ```
 
-Note you don't have to search the whole document. You can use these methods to search within a specific element too.
+Note you don't have to search the whole document. You can use these methods to search within a specific element too. `getElementById` is the only one of these methods that is always called on `document` because obviously since id's are unique, there's no need to search a specific element.
 
 ```javascript
 const section = document.getElementById('section-one');
