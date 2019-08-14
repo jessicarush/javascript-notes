@@ -101,6 +101,23 @@ About those observer options:
 
 **threshold** - Either a single number (0-1) or an array of numbers which indicate at what percentage of the target's visibility the observer's callback should be executed. If you only want to detect when visibility passes the 50% mark, use a value of 0.5. If you want the callback to run every time visibility passes another 25%, you would specify the array [0, 0.25, 0.5, 0.75, 1]. The default is 0 (meaning as soon as even one pixel is visible, the callback will be run). A value of 1.0 means that the threshold isn't considered passed until every pixel is visible.
 
+## Entry properties
+
+```javascript
+function observerCallback(entries, observer) {
+  entries.forEach(entry => {
+    console.log(entry.boundingClientRect);
+    console.log(entry.intersectionRatio);
+    console.log(entry.intersectionRect);
+    console.log(entry.isIntersecting);
+    console.log(entry.rootBounds);
+    console.log(entry.target);
+    console.log(entry.time);
+  });
+}
+```
+
+
 ## Notes
 
 The Intersection Observer specification is still *Working Draft* status but seems to work in all current browsers I've tested.
