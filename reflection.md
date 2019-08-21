@@ -5,8 +5,10 @@
 <!-- toc -->
 
 - [typeof operator](#typeof-operator)
-- [Object methods & instanceof operator](#object-methods--instanceof-operator)
+- [Object.is() method](#objectis-method)
+- [.isPrototypeOf() method & instanceof operator](#isprototypeof-method--instanceof-operator)
 - [Number methods](#number-methods)
+- [Array methods](#array-methods)
 
 <!-- tocstop -->
 
@@ -100,7 +102,7 @@ console.log(Array.isArray(b));  // true
 ```
 
 
-## Object methods & instanceof operator
+## Object.is() method
 
 ```javascript
 let a = 2 / 'string';  // NaN
@@ -111,7 +113,12 @@ console.log(Object.is(a, NaN));  // true
 console.log(Object.is(b, -0));   // true
 console.log(Object.is(b, 0));    // false
 console.log(Object.is(c, 0.3));  // false
+```
 
+
+## .isPrototypeOf() method & instanceof operator
+
+```javascript
 let obj1 = {};
 let obj2 = Object.create(obj1);
 
@@ -122,6 +129,7 @@ let obj4 = new obj3();
 
 console.log(obj4 instanceof obj3);  // true
 ```
+
 
 ## Number methods
 
@@ -144,4 +152,14 @@ console.log(Number.isNaN(c));          // false
 console.log(Number.isInteger(c));      // false
 console.log(Number.isFinite(c));       // true
 console.log(Number.isSafeInteger(c));  // false
+```
+
+## Array methods
+
+```javascript
+let a = {};
+let b = [];
+
+console.log(Array.isArray(a));  // false
+console.log(Array.isArray(b));  // true
 ```
