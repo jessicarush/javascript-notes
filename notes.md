@@ -143,13 +143,48 @@ const unicode = '\u25b6';
 
 ## Output
 
-This function is used to print (or log), text to the developer console. In this case, `console` is the object and `.log()` is the function call.
+These methods are used to print text to the developer console. In this case, `console` is the object and `.log()` is the function call.
 
 ```javascript
 console.info('info');
 console.error('error');
 console.warn('warn');
 console.log('log');
+```
+
+Most browsers also support the `.table()` method which outputs objects or arrays as a nicely formatted table. This can be particularly helpful when working with third party data.
+
+```javascript
+var users = [
+    {
+        name: 'jessica',
+        color: 'green',
+        date: '08-29-2019'
+    },
+    {
+        name: 'scott',
+        color: 'orange',
+        date: '08-27-2019'
+    },
+    {
+        name: 'pingpong',
+        color: 'pink',
+        date: '08-20-2019'
+    }
+];
+
+console.table(users);
+```
+
+You can conditionally log to the console using the `.assert()` method:
+
+```javascript
+var test = {
+    name: 'jessica'
+};
+
+console.assert(Array.isArray(test), 'not an array');
+// Assertion failed: not an array
 ```
 
 This function will print to the HTML page:
