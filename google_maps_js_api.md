@@ -75,7 +75,7 @@ function initMap() {
 
 function loadGoogleAPI() {
   const script = document.createElement('script');
-  script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBI6MWElC2dDGz1wZ-_HEEc_iH0DR-voSI&callback=initMap';
+  script.src = 'https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap';
   document.body.appendChild(script);
 }
 
