@@ -1,9 +1,9 @@
-// Computing Correlation
-// chapter 4: https://eloquentjavascript.net/
+// Computing Correlation Demo
+// From chapter 4 of https://eloquentjavascript.net/
 
 
 // import { JOURNAL } from './journal';
-const JOURNAL = require('./journal.js');
+const JOURNAL = require('./data/journal.js');
 
 
 // This function computes the ϕ coefficient from a four item array
@@ -74,7 +74,7 @@ console.log(journalEvents(JOURNAL));
 // [ 'carrot', 'exercise', 'weekend', 'bread', ... ]
 
 
-// Now we can pass each event
+// Now we can pass each event:
 
 for (let event of journalEvents(JOURNAL)) {
   console.log(event + ':', coefficient(frequencyFor(event, JOURNAL)));
