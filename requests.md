@@ -105,9 +105,9 @@ To make asynchronous event handling easier, [promises](https://developer.mozilla
 ### GET with fetch()
 
 `fetch()` is a web API that can be used to create requests. The `fetch()` function:
-1. Creates a request object that contains relevant information that an API needs.
-2. Sends that request object to the API endpoint provided.
-3. Returns a promise that ultimately resolves to a response object, which contains the status of the promise with information the API sent back.
+1. creates a request object that contains relevant information that an API needs.
+2. sends that request object to the API endpoint provided.
+3. returns a promise that ultimately resolves to a response object, which contains the status of the promise with information the API sent back.
 
 ```javascript
 fetch('https://api-to-call.com/endpoint').then(response => {
