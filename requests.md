@@ -26,9 +26,12 @@ To get a glimpse of how the event loop works the following example uses the setT
 ```javascript
 console.log('First');
 setTimeout(() => {
-   console.log('Last');
+  console.log('Last');
 }, 0);
 console.log('Second');
+// First
+// Second
+// Last
 ```
 
 Web developers use the event loop to create a smoother browsing experience by deciding when to call functions and how to handle asynchronous events. One set of tools for this is AJAX *(Asynchronous JavaScript and XML)*. AJAX enables requests to be made after the initial page load.

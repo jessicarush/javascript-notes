@@ -2,6 +2,7 @@
 
 See also:
 - [python-notes/ajax_notes.md](https://github.com/jessicarush/python-notes/blob/master/ajax_notes.md)  
+- [javascript-notes/requests.md](https://github.com/jessicarush/javascript-notes/blob/master/requests.md)  
 - [MDN XMLHttpRequest](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest)
 - [MDN Using XMLHttpRequest](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/Using_XMLHttpRequest)
 
@@ -146,14 +147,14 @@ function ajaxRequest() {
 
 The XMLHttpRequest events are:
 
-**progress** - fires when the amount of data that has been retrieved has changed.
-**load** - fires when the transfer is complete; all data is now in the response.
-**error** -  fires when the request encounters an error.
-**abort** - fires when a request has been aborted, for example because the program called `XMLHttpRequest.abort()`.
-**onreadystatechange** - fires whenever the `readyState` attribute changes.
-**loadend** -  fires when a request has completed, whether successfully (after load) or unsuccessfully (after abort or error).
-**loadstart** - fires when a request has started to load data.
-**timeout** - fires when progression is terminated due to preset time expiring.
+**progress** - fires when the amount of data that has been retrieved has changed.  
+**load** - fires when the transfer is complete; all data is now in the response.  
+**error** -  fires when the request encounters an error.  
+**abort** - fires when a request has been aborted, for example because the program called `XMLHttpRequest.abort()`.  
+**onreadystatechange** - fires whenever the `readyState` attribute changes.  
+**loadend** -  fires when a request has completed, whether successfully (after load) or unsuccessfully (after abort or error).  
+**loadstart** - fires when a request has started to load data.  
+**timeout** - fires when progression is terminated due to preset time expiring.  
 
 
 ## Triggering the request
