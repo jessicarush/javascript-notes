@@ -11,7 +11,7 @@
   * [2. using the .onload event handler](#2-using-the-onload-event-handler)
   * [3. using addEventListener()](#3-using-addeventlistener)
 - [Triggering the request](#triggering-the-request)
-- [See also:](#see-also)
+- [Links](#links)
 
 <!-- tocstop -->
 
@@ -162,7 +162,7 @@ Note that for all three examples above, the request can be triggered the same wa
 document.getElementById('js-ajax-requester').addEventListener('click', ajaxRequest);
 ```
 
-## See also:
+## Links
 
 - [python-notes/ajax_notes.md](https://github.com/jessicarush/python-notes/blob/master/ajax_notes.md)  
 - [javascript-notes/requests.md](https://github.com/jessicarush/javascript-notes/blob/master/requests.md)  
