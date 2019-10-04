@@ -154,6 +154,7 @@ node.nodeValue;     // return or set nodes value
 node.textContent;   // return or set all the text content of a node
 node.innerText      // return or set the text content of a node
 element.innerHTML;  // return or set the text and markup content of an element
+node.attributes     // returns a live collection of all attribute nodes registered to the specified node
 
 // some methods that let you create new nodes, add & remove
 
@@ -330,6 +331,7 @@ el.classList          // returns the class name(s) of an element.
 el.classList.add('mystyle')
 el.classList.remove('mystyle')
 el.classList.toggle('mystyle')
+el.classList.contains('mystyle')
 el.className          // sets or returns the value of the class attribute  
 el.clientHeight       // returns the height of an element, including padding  
 el.clientWidth        // returns the width of an element, including padding  
