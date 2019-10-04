@@ -121,7 +121,7 @@ The `substring()` method returns the part of the string between the start and en
 ```javascript
 let heading = ['name', 'date', 'age']
 let data = ['Rick', '11-19-1979', '40'];
-let space = '        ';
+let space = ' '.repeat(8);
 
 for (let i = 0; i < heading.length; i++) {
   console.log(heading[i] + ':' + space.substring(heading[i].length), data[i]);
@@ -147,11 +147,11 @@ function capitalize(string) {
   return words.join(' ');
 }
 
-let s = 'the great escape';
+let title = 'the great escape';
 
-console.log(capitalFirstLetter(s));
+console.log(capitalFirstLetter(title));
 // The great escape
-console.log(capitalize(s));
+console.log(capitalize(title));
 // The Great Escape
 ```
 
@@ -176,7 +176,7 @@ console.log(typeof num.toString());  // string
 
 ## Number
 
-The [Number object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) has quite a few *static* methods and *instance* methods. Some examples of a *instance* methods for numbers are `toFixed()`, `toPrecision()` and `toExponential()`:
+The [Number object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) has quite a few *static* methods and *instance* methods. Some examples of *instance* methods for numbers are `toFixed()`, `toPrecision()` and `toExponential()`:
 
 ```javascript
 const tax_rate = 0.12;
@@ -189,8 +189,10 @@ console.log(total);
 console.log(total.toFixed(2));
 // 11.19
 
-// You could call it like this
+// you could also do this
 total = (amount + (amount * tax_rate)).toFixed(2);
+
+// not that these methods returns a string
 console.log(typeof total);
 // string
 
@@ -225,7 +227,7 @@ Here's a function that converts rgb color values into hex using `toString()`:
 ```javascript
 function rgbToHex(rgb) {
   rgb = rgb.split(',').map(Number);
-  let [r, g, b] = rgb;
+  let {r, g, b} = rgb;
   return `#${r.toString(16)}${g.toString(16)}${b.toString(16)}`;
 }
 
@@ -278,11 +280,12 @@ let b = +a;
 let c = 8+ +a;
 let d = new Date();
 
-console.log(a, typeof Number(a));  // 42 number
-console.log(b, typeof b);          // 42 number
-console.log(c, typeof c);          // 40 number
-console.log(d, typeof d);          // 2019-03-29T18:09:28.164Z object
-console.log(+d, typeof +d);        // 1553883034866 number
+console.log(a, typeof Number(a));              // 42 number
+console.log(b, typeof b);                      // 42 number
+console.log(c, typeof c);                      // 40 number
+console.log(d, typeof d);                      // 2019-10-04T17:25:00.455Z object
+console.log(+d, typeof +d);                    // 1570209900455 number
+console.log(d.getTime(), typeof d.getTime());  // 1570209900455 number
 ```
 
 As of ES6, you can also use `Number` to access *machine epsilon* which is the commonly accepted tolerance value for comparing numbers where their binary floating point representations aren't exact in [IEEE 754](https://en.wikipedia.org/wiki/IEEE_754). For example:
@@ -314,7 +317,7 @@ console.log(Number.MIN_SAFE_INTEGER);
 // -9007199254740991
 ```
 
-The most common scenario in which JavaScript programs are dealing with such large number, is when working with 64-bit IDs from databases. These numbers cannot be represented accurately with the number type so the must be stored as a string.
+The most common scenario in which JavaScript programs are dealing with such large numbers, is when working with 64-bit IDs from databases. These numbers cannot be represented accurately with the number type so the must be stored as a string.
 
 
 ## Date
@@ -342,19 +345,21 @@ console.log(halloween);
 
 Once you've created a Date object, the following methods (these are just a few) can be used to get and set the time and date it represents:
 
-`getDate()`, `setDate()` - returns/sets day of the month (0-31)  
-`getDay()` - returns day of the week (0-6)  
-`getFullYear()`, `setFullYear()` - returns/sets year (4-digits)  
-`getHours()`, `setHours()` - returns/sets the hour (0-23)  
-`getMilliseconds()`, `setMilliseconds()` - returns/sets milliseconds (0-999)  
-`getMinutes()`, `setMinutes()` - returns/sets minutes (0-59)  
-`getMonth()`, `setMonth()` - returns/sets month (0-11)  
-`getSeconds()`, `setSeconds()` - returns/sets seconds (0-59)  
-`getTime()`, `setTime()` - milliseconds since epoch (Jan 1, 1970) UTC  
-`getTimezoneOffset()` - returns timezone offset in mins for locale  
-`toDateString()` - returns human-readable date string  
-`toTimeString()` - returns human-readable time string  
-`toString()` - returns human-readable date + time string  
+methods                                  | description
+-------                                  | -----------
+`getDate()`, `setDate()`                 | returns/sets day of the month (0-31)  
+`getDay()`                               | returns day of the week (0-6)  
+`getFullYear()`, `setFullYear()`         | returns/sets year (4-digits)  
+`getHours()`, `setHours()`               | returns/sets the hour (0-23)  
+`getMilliseconds()`, `setMilliseconds()` | returns/sets milliseconds (0-999)  
+`getMinutes()`, `setMinutes()`           | returns/sets minutes (0-59)  
+`getMonth()`, `setMonth()`               | returns/sets month (0-11)  
+`getSeconds()`, `setSeconds()`           | returns/sets seconds (0-59)  
+`getTime()`, `setTime()`                 | milliseconds from epoch (Jan 1, 1970) UTC  
+`getTimezoneOffset()`                    | timezone offset in mins for locale  
+`toDateString()`                         | returns human-readable date string  
+`toTimeString()`                         | returns human-readable time string  
+`toString()`                             | returns human-readable date + time string  
 
 ```javascript
 console.log(today.getTime());  
@@ -370,7 +375,7 @@ console.log(today.toString());
 // Wed Oct 24 2018 19:04:18 GMT-0700 (Pacific Daylight Time)
 ```
 
-Instead of creating a Date object, the static methods `Date.UTC()` and `Date.now()` return a time value as a number (milliseconds since epoch 1/1/1970). This is available as of ES5.
+Instead of creating a Date object, you can also use the static methods `Date.UTC()` and `Date.now()` which return a time value as a number (milliseconds since epoch 1/1/1970). This is available as of ES5.
 
 ```javascript
 
@@ -466,16 +471,18 @@ console.log(Math.floor(Math.random() * 10)); // 9
 
 Other Math methods include:
 
-`Math.floor()` - rounds down to the nearest integer.  
-`Math.round()` - returns the nearest integer.  
-`Math.ceil()` - rounds up to the nearest integer.    
-`Math.abs()` - returns the absolute value of a number.  
-`Math.min()` - returns the smallest value of a group.  
-`Math.max()` - returns the largest value of a group.  
-`Math.sqrt()` - returns the square root of a number.  
-`Math.cos()` - calculates cosine.  
-`Math.sin()` - calculates sine.  
-`Math.tan()` - calculates tangent.  
+method         | description
+------         | -----------
+`Math.floor()` | rounds down to the nearest integer.  
+`Math.round()` | returns the nearest integer.  
+`Math.ceil()`  | rounds up to the nearest integer.    
+`Math.abs()`   | returns the absolute value of a number.  
+`Math.min()`   | returns the smallest value of a group.  
+`Math.max()`   | returns the largest value of a group.  
+`Math.sqrt()`  | returns the square root of a number.  
+`Math.cos()`   | calculates cosine.  
+`Math.sin()`   | calculates sine.  
+`Math.tan()`   | calculates tangent.  
 
 ```javascript
 Math.floor(Math.random() * 10);  // 6
@@ -570,13 +577,15 @@ console.log(obj.secret);                         // undefined
 console.log(obj['secret']);                      // undefined
 console.log(obj[secret]);                        // secret property
 
+obj.name = 'test';
+
 let toStringSymbol = Symbol('toString');
 
 obj[toStringSymbol] = function () {
   return `I am ${this.name}.`;
 };
 
-console.log(obj[toStringSymbol]());              // I am test
+console.log(obj[toStringSymbol]());              // I am test.
 ```
 
 
