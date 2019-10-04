@@ -60,6 +60,7 @@ function windowSize() {
 
 windowSize();
 // 863 673
+
 console.log(window.screen.width, window.screen.height);
 // 1280 800
 ```
