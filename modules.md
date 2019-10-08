@@ -80,6 +80,19 @@ function isVegetarian() {
 export { specialty as special, isVegetarian as veg };
 ```
 
+Note that you can do both default and named exports:
+
+```javascript
+let specialty = 'Roasted Beet Burger';
+let seasonal = 'Pickled fiddleheads';
+
+function isVegetarian() {
+  console.log('Vegetarian');
+}
+
+export default isVegetarian;
+export { specialty, seasonal };
+```
 
 ### summary
 
@@ -118,7 +131,14 @@ Whatever.specialty;
 Whatever.isVegetarian();
 ```
 
+To import both default and names exports:
+
+```javascript
+import isVegetarian, { special, seasonal } from './menu';
+```
+
 Note that `import` doesn't work in Node yet.
+
 
 ## ES6 indicate the script contains a module in your HTML
 
