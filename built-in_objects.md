@@ -132,6 +132,39 @@ for (let i = 0; i < heading.length; i++) {
 // age:      40
 ```
 
+Here's a function that uses the same technique to zero pad a number:
+
+```javascript
+function zeroPadNumber(num, length=3) {
+  num = String(num);
+  if (num.length < length) {
+    let padding = '0'.repeat(length);
+    num = padding.substring(num.length) + num;
+  }
+  return num;
+}
+
+console.log(zeroPadNumber(7));
+// 007
+
+console.log(zeroPadNumber(7, 5));
+// 00007
+```
+
+Since we're on the topic, here's another way to pad using `slice()`:
+
+```javascript
+function zeroPadNumber(num, length=3) {
+  return (num <= 999) ? ('0'.repeat(length) + num).slice(-length): num;
+}
+
+console.log(zeroPadNumber(7));
+// 007
+
+console.log(zeroPadNumber(7, 5));
+// 00007
+```
+
 Note that JavaScript doesn't have a capitalize method for strings. Instead, you have to monkey one together like so:
 
 ```javascript
