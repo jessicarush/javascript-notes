@@ -24,3 +24,17 @@ setInterval(() => {
 }, 1000);
 
 ```
+
+## setTimeout()
+
+The setTimeout() method, offered on the [Window and Worker interfaces](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope), sets a timer which executes a function or specified piece of code once the timer expires.
+
+`scope.setTimeout(func[, delay, arg1, arg2, ...]);`
+
+```javascript
+// logs a random number to the console after 5 seconds
+setTimeout(() => {
+  let randomNum = Math.floor(Math.random() * 100);
+  console.log(randomNum);
+}, 5000);
+```
