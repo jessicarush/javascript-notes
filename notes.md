@@ -15,6 +15,7 @@ This document contains small bits of information that don't really fit anywhere 
 - [Output](#output)
 - [Input](#input)
 - [Strict mode](#strict-mode)
+- [Spread Syntax `...`](#spread-syntax-)
 - [JSHint](#jshint)
 - [Glossary](#glossary)
 
@@ -231,6 +232,51 @@ versus:
 
 function foo() {
 }
+```
+
+
+## Spread Syntax `...`
+
+*Spread syntax* allows an iterable such as an array or string to be expanded in places where zero or more arguments (for function calls) or elements (for array literals) are expected, or an object to be expanded in places where zero or more key-value pairs (for object literals) are expected.
+
+For example:
+
+```javascript
+const numbers = [1, 2, 3];
+
+const new_numbers = [...numbers, 4, 5];
+
+console.log(new_numbers);
+// [ 1, 2, 3, 4, 5 ]
+```
+
+Unpacking elements to pass to a function:
+
+```javascript
+let dateFields = [1970, 0, 1];
+
+let d = new Date(...dateFields);
+
+console.log(d.toDateString());
+// Thu Jan 01 1970
+```
+
+As *rest parameters* function arguments:
+
+```javascript
+function sum(...args) {
+  return args.reduce((accumulator, current) => {
+    return accumulator + current;
+  });
+}
+
+console.log(sum(1, 2, 3, 4));
+// 10
+
+const numbers = [1, 2, 3];
+
+console.log(sum(...numbers));
+// 6
 ```
 
 

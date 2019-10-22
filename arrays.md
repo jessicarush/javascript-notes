@@ -143,7 +143,7 @@ console.log(Array.isArray(a));  // true
 
 ### Array.from()
 
-As of ES6 we have this method which will convert array-like objects into actual array so that we can perform all the array methods. The most common example of this is working with DOM NodeLists (see [document_object_model.md](document_object_model.md)). While NodeLists look like arrays, they are not. If we try to use a `for...of` loop, it won't work. Here's were `Array.from()` is useful:
+As of ES6 we have this method which will convert array-like objects into actual arrays so that we can perform all the array methods. The most common example of this is working with DOM NodeLists (see [document_object_model.md](document_object_model.md)). While NodeLists look like arrays, they are not. If we try to use a `for...of` loop, it won't work. Here's were `Array.from()` is useful:
 
 ```javascript
 let els = document.querySelectorAll('li.nav');
@@ -151,6 +151,15 @@ let els = document.querySelectorAll('li.nav');
 for (let el of Array.from(els)) {
     // pass
 }
+```
+
+You can also make arrays from objects with a length property. For example, the following will create an array of 4 undefined or null:
+
+```javascript
+let myArray = Array.from({ length: 4 });
+
+console.log(myArray);
+// [ undefined, undefined, undefined, undefined ]
 ```
 
 
@@ -251,6 +260,8 @@ console.log(array2);  // [ 'a', 'b', 'c', 'd' ]
 console.log(array3);  // [ 'a', 'b', 'c' ]
 console.log(array4);  // [ 'a', 'b', 'c' ]
 ```
+
+The `...` method is called *spread syntax* or *rest parameters* when applied to functions. It allows an iterable such as an array to be expanded in places where zero or more elements are expected.
 
 
 ### Merge two arrays into a new one with *concat()*
