@@ -1,7 +1,12 @@
 # Common Helper Functions
 
 ## Table of Contents
+
 <!-- toc -->
+
+- [Random array element](#random-array-element)
+
+<!-- tocstop -->
 
 ## Random array element
 
