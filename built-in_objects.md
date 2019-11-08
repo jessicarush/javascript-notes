@@ -628,7 +628,8 @@ The [Map object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Referen
 
 ## Set
 
-The [Set object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set)
+The [Set object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set).  
+See [sets.md](sets.md).
 
 
 ## Global Functions
