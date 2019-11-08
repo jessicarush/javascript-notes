@@ -10,6 +10,7 @@ The Intersection Observer API provides a way to asynchronously observe changes i
 
 - [Background](#background)
 - [Creating an intersection observer](#creating-an-intersection-observer)
+- [Entry properties](#entry-properties)
 - [Notes](#notes)
 
 <!-- tocstop -->
