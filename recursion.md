@@ -9,7 +9,7 @@ A recursive function is a function that calls itself.
 
 - [Factorial example](#factorial-example)
 - [Color fade example](#color-fade-example)
-- [Fibonacci example](#fibonnaci-example)
+- [Fibonacci example](#fibonacci-example)
 
 <!-- tocstop -->
 
