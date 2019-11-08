@@ -7,6 +7,7 @@
 <!-- toc -->
 
 - [setInterval()](#setinterval)
+- [setTimeout()](#settimeout)
 
 <!-- tocstop -->
 
