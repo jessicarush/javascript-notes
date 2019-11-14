@@ -146,11 +146,11 @@ From what I can tell so far, classes are very similar to the constructor functio
 
 ## new... a constructor call
 
-Since we've used this keyword in two of the examples above, we should probably take a closer look at what `new` actually does. Pretty much any function (including built-in object functions like `Number()`) can be called with `new` in from of it. This makes the function call a *constructor call*.
+Since we've used this keyword in two of the examples above, we should probably take a closer look at what `new` actually does. Pretty much any function (including built-in object functions like `Number()`) can be called with `new` in front of it. This makes the function call a *constructor call*.
 
-When a function is invoked with new (a constructor call), the following things are done automatically:
+When a function is invoked with as a constructor call, the following things are done automatically:
 
-1. A brand new object is created (constructed)
+1. A brand new object is created
 2. The newly constructed object is prototype-linked to the functions prototype property
 3. The newly constructed object is set as the `this` binding for that function call
 4. Unless the function returns its own alternate object, the `new`-invoked function call will automatically return the newly constructed object.
@@ -173,7 +173,7 @@ console.log(foo.prototype.isPrototypeOf(a));
 //true
 ```
 
-Bottom line is functions aren't constructors, but rather function calls are *constructor calls* if and only if `new is used.`
+Bottom line is functions aren't constructors, but rather function calls are *constructor calls* if and only if `new` is used.
 
 
 ## Accessing Properties
@@ -185,7 +185,7 @@ console.log(obj.firstname);  // Jessica
 console.log(obj.age);        // 43
 console.log(obj.admin);      // true
 
-// or bracket notation:
+// or bracket notation
 
 console.log(obj['firstname']);  // Jessica
 console.log(obj['age']);        // 43
@@ -205,7 +205,7 @@ In addition we must use bracket notation when accessing keys that have numbers, 
 
 ## Delete and Add Properties
 
-You can assigned new properties or delete properties on an object:
+You can assign new properties or delete existing properties on an object:
 
 ```javascript
 const obj = {
@@ -218,7 +218,8 @@ obj.age = 100;
 obj.lastname = 'Rush';
 delete obj.admin;
 
-console.log(obj);  // { firstname: 'Jessica', age: 100, lastname: 'Rush' }
+console.log(obj);
+// { firstname: 'Jessica', age: 100, lastname: 'Rush' }
 ```
 
 
@@ -242,7 +243,7 @@ console.log('constructor' in obj);
 console.log(obj.hasOwnProperty('firstname'));
 // true
 
-console.log(obj.hasOwnProperty('property'));
+console.log(obj.hasOwnProperty('constructor'));
 // false
 ```
 
@@ -266,8 +267,11 @@ const ship = {
     },
 };
 
-ship.crew.captain.greeting();  // Welcome aboard
-console.log(ship.passengers[0].name);  // jessica
+ship.crew.captain.greeting();
+// Welcome aboard
+
+console.log(ship.passengers[0].name);
+// jessica
 ```
 
 
@@ -362,10 +366,10 @@ function Person(first, age, admin) {
   };
 }
 
-const constObj = new Person('Jessica', 43, true);
+const constructorObj = new Person('Jessica', 43, true);
 
 // Add a method to this object instance only
-constObj.special = function () {
+constructorObj.special = function () {
   console.log('special');
 };
 
@@ -375,8 +379,8 @@ Person.prototype.greeting = function () {
   console.log('Hello ' + capitalized);
 };
 
-constObj.special();  // special
-constObj.greeting()  // Hello Jessica
+constructorObj.special();  // special
+constructorObj.greeting()  // Hello Jessica
 ```
 
 ### Adding a method to a class
@@ -474,12 +478,12 @@ const garlic = Object.assign({name: `garlic`, edible: true}, spider, plant);
 coffee.name = 'coffee';
 
 console.log(Object.values(plant));
-console.log(Object.values(spider));
-console.log(Object.values(coffee));
-console.log(Object.values(garlic));
 // [ 'plant', 'full' ]
+console.log(Object.values(spider));
 // [ 'spider', 'moist' ]
+console.log(Object.values(coffee));
 // [ 'coffee', 'full' ]
+console.log(Object.values(garlic));
 // [ 'plant', true, 'moist', 'full' ]
 ```
 
@@ -523,7 +527,7 @@ console.log(desc);
 //   configurable: true }
 ```
 
-As we can see, there are three characteristics that describe each property. The default is for all of these to be true. If we wanted to change these characteristics, we can use  `Object.defineProperty()`. With this method we can add a new property or modify an existing one.
+As we can see, there are three additional characteristics that describe each property. The default is for all of these to be true. If we wanted to change these characteristics, we can use  `Object.defineProperty()`. With this method we can add a new property or modify an existing one.
 
 ### writeable
 
@@ -708,7 +712,7 @@ Some advantages of using a getter method:
 - Getters can return different values using conditionals.
 - In a getter, we can access the properties of the calling object using this.
 
-Keep in mind when using getter (and setter) methods is that properties cannot share the same name as the getter/setter function. If we do so, then calling the method will result in an infinite call stack error.
+Keep in mind when using getter (and setter) methods, regular properties cannot share the same name as the getter/setter function. If we do so, then calling the method will result in an infinite call stack error.
 
 ```javascript
 let plant = {
