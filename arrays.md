@@ -1,7 +1,7 @@
 # Arrays
 
 
-Arrays are JavaScript's lists. Arrays can store any data types (including strings, numbers, booleans, and other arrays). Like lists in Python, arrays are ordered and mutable, meaning each item has a numbered position and can be assigned a new value.
+JavaScript arrays are like lists in Python. Arrays can store any data types (including strings, numbers, booleans, and other arrays). Like lists in Python, arrays are ordered and mutable, meaning each item has a numbered position and can be assigned a new value.
 
 
 ## Table of Contents
@@ -143,7 +143,7 @@ console.log(Array.isArray(a));  // true
 
 ### Array.from()
 
-As of ES6 we have this method which will convert array-like objects into actual arrays so that we can perform all the array methods. The most common example of this is working with DOM NodeLists (see [document_object_model.md](document_object_model.md)). While NodeLists look like arrays, they are not. If we try to use a `for...of` loop, it won't work. Here's were `Array.from()` is useful:
+As of ES6 we have this method which will convert array-like objects into actual arrays so that we can perform all the array methods. The most common example of this is working with DOM NodeLists (see [document_object_model.md](document_object_model.md)). While NodeLists look like arrays, they are not. If we try to use a `for...of` loop, it won't work. Here's where `Array.from()` is useful:
 
 ```javascript
 let els = document.querySelectorAll('li.nav');
@@ -165,7 +165,7 @@ console.log(myArray);
 
 ## Array instance methods
 
-JavaScript also has a number of built-in *methods* which can be applied to arrays. Keep in mind, some methods will modify the original array, while others only return something from it.
+JavaScript also has a number of built-in *instance methods* which can be applied to arrays. Keep in mind, some methods will modify the original array, while others return something new.
 
 See the full list of [built-in methods for arrays here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array).
 
@@ -176,6 +176,7 @@ The `push()` method adds items to the end of an array and `unshift()` adds to th
 
 ```javascript
 const myArray = ['one', 'two', 'three'];
+
 myArray.push('four', 'five');
 myArray.unshift('zero');
 
@@ -190,6 +191,7 @@ The `pop()` method removes the last item and makes it available for use, `shift(
 
 ```javascript
 const myArray = ['one', 'two', 'three'];
+
 let removed = myArray.pop();
 
 console.log(myArray);   
@@ -208,14 +210,16 @@ console.log(removed);
 
 ### Get a section of an array with *slice()*
 
-Note this method does *not* modify/mutate the original array.
+Note this method does *not* modify/mutate the original array, but returns a new one.
 
 ```javascript
-const myArray = ['one', 'two', 'three', 'four', 'five'];
+const originalArray = ['one', 'two', 'three', 'four', 'five'];
 
-console.log(myArray.slice(1, 4));  
-// [ ''two', 'three', 'four' ]
-console.log(myArray);              
+let newArray = originalArray.slice(1, 4);
+
+console.log(newArray);  
+// [ two', 'three', 'four' ]
+console.log(originalArray);
 // [ 'one', 'two', 'three', 'four', 'five ']
 ```
 
@@ -253,7 +257,7 @@ const array2 = array1;          // not a copy!
 const array3 = array1.slice();  // old method to copy
 const array4 = [...array1];     // ES6+ method to copy
 
-array2.push('d');
+array1.push('d');
 
 console.log(array1);  // [ 'a', 'b', 'c', 'd' ]
 console.log(array2);  // [ 'a', 'b', 'c', 'd' ]
@@ -293,12 +297,16 @@ console.log(myArray.includes('four'));
 Both indexOf and lastIndexOf take an optional second argument that indicates where to start searching.
 
 ```javascript
-const myArray = ['one', 'two', 'three', 'four', 'one', 'five'];
+const myArray = ['one', 'two', 'three', 'one', 'four', 'five', 'six', 'one'];
 
 console.log(myArray.indexOf('one'));  
 // 0
-console.log(myArray.lastIndexOf('one'));  
-// 4
+
+console.log(myArray.indexOf('one', 2));  // start from index 2
+// 3
+
+console.log(myArray.lastIndexOf('one'));
+// 7
 ```
 
 
@@ -354,7 +362,7 @@ console.log(myArray);
 // [ 'apple', 'banana', 'corn', 'dairy', 'elderberry' ]
 ```
 
-The sort method uses a comparison function that assumes the values are string and therefor does not work well with numbers:
+The sort method uses a comparison function that assumes the values are strings and therefor does not work well with numbers:
 
 ```javascript
 let numArray = [2, 1001, 239, 25, 1, 12];
@@ -379,10 +387,20 @@ console.log(numArray);
 // [ 1, 2, 12, 25, 239, 1001 ]
 ```
 
+Here's the same function but written shorter using arrow syntax:
+
+```javascript
+let numArray = [2, 1001, 239, 25, 1, 12];
+
+numArray.sort((a, b) => a - b);
+
+console.log(numArray);
+// [ 1, 2, 12, 25, 239, 1001 ]
+```
 
 ## Array iteration methods
 
-Arrays include a number of methods iterate over each item, performing some action/function each time.
+Arrays include a number of methods that iterate over each item, performing some action/function each time.
 
 See: [iterators.md](iterators.md)
 
@@ -410,7 +428,7 @@ function foo(arg) {
   arg.push(4);
   console.log(arg);  // [1, 2, 3, 4]
 
-  arg = [5, 6, 7];   // new arg variable created!
+  arg = [5, 6, 7];   // new variable created!
   console.log(arg);  // [5, 6, 7]
 }
 
@@ -419,6 +437,7 @@ foo(a);
 console.log(a); // [1, 2, 3, 4]
 ```
 
+But check this out...
 ```javascript
 function foo(arg) {
   arg.push(4);
@@ -434,4 +453,4 @@ foo(a);
 console.log(a); // [5, 6, 7]
 ```
 
-Woah!
+Bananas!
