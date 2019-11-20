@@ -46,9 +46,19 @@ For more information see the [npm install page](https://docs.npmjs.com/cli/insta
 
 ## Misc commands
 
+To see th ecurrent npm version:
+```
+npm -v
+```
+
 To update npm:
 ```
 npm install -g npm
+```
+
+To install from a `package.json` locally:
+```
+npm install
 ```
 
 To list all the globally installed packages:
