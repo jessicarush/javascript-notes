@@ -29,6 +29,7 @@ JavaScript arrays are like lists in Python. Arrays can store any data types (inc
   * [Sort an array in place with *sort()*](#sort-an-array-in-place-with-sort)
 - [Array iteration methods](#array-iteration-methods)
 - [Unpacking arrays into variables](#unpacking-arrays-into-variables)
+- [Flattening arrays](#flattening-arrays)
 - [Sneaky "reassignment" of an array](#sneaky-reassignment-of-an-array)
 
 <!-- tocstop -->
@@ -416,6 +417,52 @@ let [r, g, b] = rgb.split(',');
 
 console.log(`red: ${r}, green: ${g}, blue: ${b}`);
 // red: 127, green: 255, blue: 212
+```
+
+## Flattening arrays
+
+There are a number of ways to "flatten" and array of arrays into one array. The simplest (I think) is the [`array.flat()` method but it's still in Draft version](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flat) and doesn't seem to work most places.
+
+Eventually though, this will be great:
+
+```javascript
+let arrays = [[1, 2, 3],[4, 5, 6],[7, 8, 9]];
+
+let flattenedArray = arrays.flat();
+
+console.log(flattenedArray);
+// [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
+```
+
+Until then, the next simplest is using the ES6 spread operator `...`:
+
+```javascript
+let arrays = [[1, 2, 3],[4, 5, 6],[7, 8, 9]];
+
+let flattenedArray = [].concat(...arrays);
+console.log(flattenedArray);
+// [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
+```
+
+Without the spread operator you could do like this:
+
+```javascript
+let arrays = [[1, 2, 3],[4, 5, 6],[7, 8, 9]];
+
+let flattenedArray = [].concat.apply([], arrays);
+console.log(flattenedArray);
+// [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
+```
+
+or this:
+```javascript
+let arrays = [[1, 2, 3],[4, 5, 6],[7, 8, 9]];
+
+let flattenedArray = arrays.reduce((acc, curr) => {
+  return acc.concat(curr);
+});
+console.log(flattenedArray);
+// [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
 ```
 
 
