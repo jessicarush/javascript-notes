@@ -444,6 +444,7 @@ HTML
   <div>Hover</div>
 </div>
 ```
+
 CSS
 ```css
 .color-box {
@@ -455,6 +456,7 @@ CSS
   background: var(--random-bg);
 }
 ```
+
 JavaScript
 ```javascript
 function randomBg() {
