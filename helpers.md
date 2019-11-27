@@ -7,6 +7,7 @@
 - [Random array element](#random-array-element)
 - [Random boolean](#random-boolean)
 - [Check if all values in array of arrays are equal](#check-if-all-values-in-array-of-arrays-are-equal)
+- [Random RGB color](#random-rgb-color)
 
 <!-- tocstop -->
 
@@ -67,4 +68,24 @@ function checkValuesEqualTo(array, value) {
 function checkValuesEqualTo(array, value) {
   return array.every(row => row.every(col => col === value));
 }
+```
+
+## Random RGB color
+
+```javascript
+/**
+ * Generate a random RGB color for CSS purposes
+ *
+ * Returns a string css rgb value like: rgb(255,120,10)
+ */
+function randomRGB() {
+  // Generate a random number between 0 and given number (inclusive)
+  function random(n) {
+    return Math.floor(Math.random() * (n + 1));
+  }
+  return `rgb(${random(255)},${random(255)},${random(255)})`;
+}
+
+console.log(randomRGB());
+// rgb(104,118,229)
 ```
