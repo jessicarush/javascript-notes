@@ -10,6 +10,7 @@ In JavaScript, objects are compound values where you can set properties (named l
 - [Syntax](#syntax)
 - [new... a constructor call](#new-a-constructor-call)
 - [Accessing Properties](#accessing-properties)
+- [Computed Property Names](#computed-property-names)
 - [Delete and Add Properties](#delete-and-add-properties)
 - [Check if a property exists](#check-if-a-property-exists)
 - [Nested Objects](#nested-objects)
@@ -201,6 +202,26 @@ console.log(obj[p]);
 ```
 
 In addition we must use bracket notation when accessing keys that have numbers, spaces, or special characters in them. Without bracket notation in these situations, our code would throw an error.
+
+
+## Computed Property Names
+
+As noted above, often you will use bracket notation to access a property value because the property name is stored in another variable. For example:
+
+```javascript
+let widgets = {};
+let serialNum = '42BX8357';
+widgets[serialNum] = 'Blue fizzle top';
+```
+
+As of ES6 we can also compute the property names inside the object literal like so:
+
+```javascript
+let serialNum = '42BX8357';
+let widgets = {
+  [serialNum]: 'Blue fizzle top'
+};
+```
 
 
 ## Delete and Add Properties
