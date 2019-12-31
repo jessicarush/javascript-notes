@@ -1,5 +1,6 @@
 # Modules
 
+
 In the past we've had *the module pattern* which is based on an outer function containing inner functions and variables and that returns a *public API*. See [functions.md](functions.md#module-pattern).
 
 JavaScript modules are reusable pieces of code that can be exported from one program and imported into another program. Modules are particularly useful for separating code with similar logic into files. The files themselves are called modules. The idea is that we can:

@@ -1,5 +1,6 @@
 # Errors, Exceptions & Debugging
 
+
 ## Table of Contents
 
 <!-- toc -->

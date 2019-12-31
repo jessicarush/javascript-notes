@@ -1,5 +1,6 @@
 # Common Helper Functions
 
+
 ## Table of Contents
 
 <!-- toc -->

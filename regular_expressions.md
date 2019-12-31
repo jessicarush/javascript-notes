@@ -1,5 +1,6 @@
 # Regular Expressions
 
+
 Regular expressions are used to search, replace, and extract information from strings. JavaScript's regular expression feature was borrowed from Perl. In general, regular expressions are more performant than the equivalent string operations.
 
 The rules for writing regular expressions can be complex because they interpret characters in some positions as operators, and in slightly different positions as literals. In addition, they don't allow comments or whitespace. This results in expressions that are difficult tp read and dangerous to modify. Tools such as <https://regex101.com/> are helpful in terms of quickly testing your expressions.

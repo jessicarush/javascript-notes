@@ -1,5 +1,6 @@
 # Loading JavaScript using async & defer
 
+
 [This article](https://flaviocopes.com/javascript-async-defer/) provides a great explanation. To summarize, there are a number of ways to load JavasScript into the browser. The method you choose will depend on what your script does and what, if any, DOM elements it needs access to.
 
 ## Table of Contents

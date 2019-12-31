@@ -1,5 +1,6 @@
 # Object Models
 
+
 An object model is a group of objects, each of which represents something in the real world. Together they form a model of something larger. There are three main groups of built-in objects that each have a different set of tools for writing scripts for web pages.
 
 1. [Browser Object Model](https://www.w3schools.com/js/js_window.asp) - creates the model of the browser tab or window.

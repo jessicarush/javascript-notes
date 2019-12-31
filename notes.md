@@ -1,5 +1,6 @@
 # Misc JavaScript Notes
 
+
 This document contains small bits of information that don't really fit anywhere else, or aren't big enough (yet) for their own file.
 
 ## Table of Contents

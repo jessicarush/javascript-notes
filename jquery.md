@@ -1,5 +1,6 @@
 # jQuery
 
+
 While the [necessity of jQuery is waning](https://flaviocopes.com/jquery/) in favour vanilla CSS and ES6 vanilla js, it's still good to know being that [it's currently used in millions of websites](https://trends.builtwith.com/javascript/jQuery). They key benefits/features of jQuery include simple access to elements using css-like selectors, methods that let you update the DOM, animate and loop, attach event listeners.
 
 

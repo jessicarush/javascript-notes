@@ -1,7 +1,6 @@
 # Ajax
 
 
-
 ## Table of Contents
 
 <!-- toc -->

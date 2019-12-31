@@ -1,5 +1,6 @@
 # Standard Built-in Objects
 
+
 Javascript has many built-in objects. Some of the names imply they're directly related to their primitive counterparts (see [data_types.md](data_types.md)) but, the relationship is slightly more complicated. These built-in objects have collections of static methods (that can be called **without an instance**), prototype methods (that can be called directly on an instance or primitive type) and properties. See [MDN for a complete list of built-in objects](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects).
 
 

@@ -123,12 +123,14 @@ startNode.previousSibling;         // returns the previous node
 startNode.nextSibling;             // returns the next node
 startNode.firstChild;              // returns the first child node
 startNode.lastChild;               // returns the last child node
+startNode.childNodes;              // returns a collection of all child nodes
 
 startNode.parentElement;           // returns the parent element node
 startNode.previousElementSibling;  // returns the previous element node
 startNode.nextElementSibling;      // returns the next element node
 startNode.firstElementChild;       // returns the first child element node
 startNode.lastElementChild;        // returns the last child element node
+startNode.children                 // returns a collection of all child elements
 
 startNode.firstElementChild.className = 'green';
 startNode.firstElementChild.nextElementSibling.className = 'blue';

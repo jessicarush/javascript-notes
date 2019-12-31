@@ -1,5 +1,6 @@
 # Variables
 
+
 As with many other languages, JavaScript variables are containers for storing data values.
 
 ## Table of Contents
