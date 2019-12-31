@@ -1,5 +1,6 @@
 # Google Maps Javascript API
 
+
 This API now requires that you create a billing account and obtain an API key. At the time of this writing (August 21, 2019), Google states that you can use [$200 worth of API calls per month for free](https://cloud.google.com/maps-platform/pricing/sheet/) but, they need your billing information to ensure you're not a robot.
 
 
