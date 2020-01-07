@@ -65,7 +65,7 @@ const section = document.getElementById('section-one');
 section.querySelector('.js-whatever');  
 ```
 
-Note that the `querySelector` method lets you select pretty much anything, including attributes, for example this selects an element with the attribute `type="submit"`:
+Note that the `querySelector` methods let you select pretty much anything, including attributes, for example this selects an element with the attribute `type="submit"`:
 
 ```javascript
 const submitBtn = document.querySelector('[type="submit"]');
@@ -79,7 +79,7 @@ const testBtns = document.getElementsByClassName('btn test');
 
 A **NodeList** is a special collection of nodes. They look like arrays, but they're not (they're a type of object called a collection). That being said, you can access individual items from this list by using the index notation as with arrays. Items will be indexed by the order that they appear in the HTML document. NodeLists also have a `.length` property.
 
-Note that NodeLists are *static*. The live version of this is called an *HTMLCollection*. With a live collection, when your script updates the page, the HTMLCollection is updated as well. All the methods beginning with `.getElementBy` are live. In a *static NodeList* when your script updates the page, those changes are *not* reflected in the resulting list. Methods beginning with `.querySelector` are static... they reflect the document when the original query was made.
+Note that NodeLists are *static*. The live version of this is called an **HTMLCollection**. With a live collection, when a script updates the DOM, the HTMLCollection is updated as well. All the methods beginning with `.getElementBy` are live. In a *static NodeList* when a script updates the DOM, those changes are *not* reflected in the resulting list. Methods beginning with `.querySelector` are static... they reflect the document when the original query was made.
 
 ```javascript
 // NodeList methods
@@ -150,7 +150,7 @@ for (let el of Array.from(myLiveList)) {
 
 ### Traverse the DOM
 
-You can also *traverse* from one element node to another related node using the following properties. There is a weirdness with this in that whitespace is considered a node. So in order for the first five to work as expected, you have to remove all whitespace in your HTML, including line breaks. No Thanks. The last five were added later (probably ES6) but are definitely useful.
+You can also *traverse* from one element node to another related node using the following properties. There is a weirdness with this in that whitespace is considered a node. So in order for the first six to work as expected, you have to remove all whitespace in your HTML, including line breaks. No Thanks. The last six were added later and are definitely more useful.
 
 ```javascript
 let startNode = document.getElementById('main-nav');
@@ -180,7 +180,7 @@ Another useful method for traversing the DOM is by using `closest()` demonstrate
 See [MDN Nodes](https://developer.mozilla.org/en-US/docs/Web/API/Node)
 and [MDN Elements](https://developer.mozilla.org/en-US/docs/Web/API/Element)  
 See also: [W3schools DOM Element](https://www.w3schools.com/jsref/dom_obj_all.asp)  
-See [here a full list of node types](https://developer.mozilla.org/en-US/docs/Web/API/Node).  
+See also: [a full list of node types](https://developer.mozilla.org/en-US/docs/Web/API/Node).  
 
 ```javascript
 let node = document.getElementById('main-nav');
@@ -191,18 +191,18 @@ node.nodeName;      // return name of the node (e.g. DIV, LI, #text)
 node.nodeType;      // return node type (1=element, 2=attribute, 3=text, ...)
 node.nodeValue;     // return or set nodes value
 node.textContent;   // return or set all the text content of a node
-node.innerText      // return or set the text content of a node
+node.innerText;     // return or set the text content of a node
 element.innerHTML;  // return or set the text and markup content of an element
-node.attributes     // returns a live collection of all attribute nodes registered to the specified node
+node.attributes;    // returns a live collection of all attribute nodes registered to the specified node
 
 // some methods that let you create new nodes, add & remove
 
-createElement()     // creates a new html element
-createTextNode()    // creates a new text node
-cloneNode()         // clones an element
-insertBefore()      // inserts a new child node before the an existing one
-appendChild()       // adds a new child node to an element
-removeChild()       // removes a child node from an element
+createElement();    // creates a new html element
+createTextNode();   // creates a new text node
+cloneNode();        // clones an element
+insertBefore();     // inserts a new child node before the an existing one
+appendChild();      // adds a new child node to an element
+removeChild();      // removes a child node from an element
 ```
 
 When you are working with an element node (rather than its text node), that element may contain markup. You have to choose whether to get & set the markup as well as the text. When you use these properties to update content, all the old content will be overwritten (both text and markup).
@@ -291,19 +291,19 @@ itemOne.appendChild(newEl);
 
 #### Adding elements
 
+This example combines uses both methods and properties to add new content:
+
 ```javascript
 let list = document.querySelector('ul.fancy-list');
 
 // Add an element to the end of a list
 let newLastItem = document.createElement('li');
-let newLastText = document.createTextNode('new last')
-newLastItem.appendChild(newLastText);
+newLastItem.textContent = 'last item';
 list.appendChild(newLastItem);
 
 // Add an element to the start of a list
 let newFirstItem = document.createElement('li');
-let newFirstText = document.createTextNode('new first')
-newFirstItem.appendChild(newFirstText);
+newFirstItem.textContent = 'first item';
 list.insertBefore(newFirstItem, list.firstElementChild);
 ```
 
@@ -311,8 +311,8 @@ list.insertBefore(newFirstItem, list.firstElementChild);
 
 ```javascript
 let removeEl = document.getElementsByClassName('item')[3];
-let containerEl = removeEl.parentNode;
-containerEl.removeChild(removeEl);
+let parentEl = removeEl.parentNode;
+parentEl.removeChild(removeEl);
 ```
 
 
@@ -338,13 +338,12 @@ Examples:
 
 ```javascript
 // Apply a new class
-let shipping = true;
-let elShipping = document.getElementById('shipping');
-elShipping.className = shipping;
-// For this example, the CSS would contain a class selector .true {}
+let shippingEl = document.getElementById('shipping');
+shippingEl.className = 'shipping-active';
 
 // check if a class exists, then add another
 let el = document.getElementById('one');
+
 if (el.hasAttribute('class')) {
   let attr = el.getAttribute('class');
   attr += ' test';
@@ -354,37 +353,37 @@ if (el.hasAttribute('class')) {
 }
 ```
 
-In case it's not already clear, the intention with `setAttribute()` is that you're using it to add/change an attribute on an element, for example: class, id, src, href, etc. If you want to change a particular CSS property, use `el.style.property` syntax.
+As we'll see below, there's actually easier methods to add and remove classes from a list but this just demonstrates the concept. In case it's not already clear, the intention with `setAttribute()` is that you're using it to add/change an attribute on an element, for example: class, id, src, href, etc. If you wanted to change a particular CSS property, use `el.style.property` syntax.
 
 
 ## More Element Properties & Methods
 
 For a full list see the links listed under [Working With Elements](#working-with-elements).
 Note that the `style` property gives you access to all CSS properties.
-[See here for a complete list of Style Object Properties](https://www.w3schools.com/jsref/dom_obj_style.asp).
+See here for a [complete list of Style Object Properties](https://www.w3schools.com/jsref/dom_obj_style.asp).
 
 ```javascript
-el.childElementCount  // returns the number of child elements  
-el.children           // returns a live 'HTMLCollection' of all the child elements  
-el.classList          // returns the class name(s) of an element.  
+el.childElementCount         // returns the number of child elements  
+el.children                  // returns a live 'HTMLCollection' of all the child elements  
+el.classList                 // returns the class name(s) of an element.  
 el.classList.add('mystyle')
 el.classList.remove('mystyle')
 el.classList.toggle('mystyle')
 el.classList.contains('mystyle')
-el.className          // sets or returns the value of the class attribute  
-el.clientHeight       // returns the height of an element, including padding  
-el.clientWidth        // returns the width of an element, including padding  
+el.className                 // sets or returns the value of the class attribute  
+el.clientHeight              // returns the height of an element, including padding  
+el.clientWidth               // returns the width of an element, including padding  
 el.innerHTML  
 el.id  
 el.name   
-el.scrollHeight       // entire height of an element including overflow and padding  
-el.scrollWidth        // entire width of an element including overflow and padding  
-el.style              // sets or returns the value of the style attribute.  
+el.scrollHeight              // entire height of an element including overflow and padding  
+el.scrollWidth               // entire width of an element including overflow and padding  
+el.style                     // sets or returns the value of the style attribute.  
 el.style.backgroundColor
 el.style.flexBasis  
-el.tagName             // returns the tag name of an element  
-el.title               // sets or returns the value of the title attribute  
-el.selectedIndex       // returns or sets the index (selected option) in a select menu  
+el.tagName                    // returns the tag name of an element  
+el.title                      // sets or returns the value of the title attribute  
+el.selectedIndex              // returns or sets the index (selected option) in a select menu  
 
 el.closest('.mystyle')        // returns the closest ancestor of the current element
 el.compareDocumentPosition()  // compares the document position of two elements  
