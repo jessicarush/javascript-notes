@@ -443,6 +443,18 @@ console.log(timestamp_then);
 // 1551600000
 ```
 
+Note that you can also convert an epoch back into a Date object:
+
+```javascript
+let myDate = new Date(2020, 9, 31);  // 2020-10-31T07:00:00.000Z
+
+console.log(myDate.getTime());       // 1604127600000
+
+let myDateFromEpoch = new Date(1604127600000);
+
+console.log(myDateFromEpoch);        // 2020-10-31T07:00:00.000Z
+```
+
 
 ## Boolean   
 
@@ -522,9 +534,10 @@ method         | description
 Math.floor(Math.random() * 10);  // 6
 Math.floor(4.5);  // 4
 Math.floor(4.9);  // 4
-Math.round(4.4);  // 4
+Math.round(4.2);  // 4
 Math.round(4.5);  // 5
 Math.round(4.9);  // 5
+Math.ceil(4.2);   // 5
 Math.ceil(4.5);   // 5
 Math.ceil(4.9);   // 5
 Math.ceil(-4.9);  // -4
