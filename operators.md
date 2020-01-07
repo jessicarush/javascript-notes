@@ -57,6 +57,13 @@ console.log(5 / 2);   // 2.5
 console.log(12 % 5);  // 2
 ```
 
+To get the python equivalent of `divmod()`, you'd have to do two separate assignments:
+
+```javascript
+const quotient = Math.floor(y / x);
+const remainder = y % x;
+```
+
 
 ## Compound assignment
 
