@@ -33,7 +33,7 @@ see also: [object_models.md](object_models.md)
 
 ## The DOM Tree
 
-The DOM Tree, made up of the object that represent everything in the HTML page, consists of four types of *nodes*.
+The DOM Tree, made up of the objects that represent everything in the HTML page, consists of four types of *nodes*.
 
 1. **The Document node**  
 Every tree has one *document node* which represents the entire page and also corresponds to the document object. When you access any element, attribute, or text node, you navigate to it via the document node, It is the starting port for all visits to the *DOM Tree*.
@@ -51,14 +51,14 @@ Once you have accessed an element, you can reach the text within that element. T
 ## Accessing Elements
 
 ```javascript
-document.getElementById('name');           // returns the element
-document.getElementsByTagName('p');        // returns a NodeList
-document.getElementsByClassName('js-nav')  // returns a NodeList
-document.querySelector('li.js-nav');       // returns the first match only
-document.querySelectorAll('.js-nav');      // returns a NodeList
+document.getElementById('name');               // returns the element
+document.getElementsByTagName('p');            // returns a live HTMLCollection
+document.getElementsByClassName('js-nav btn')  // returns a live HTMLCollection
+document.querySelector('li.js-nav');           // returns the first match only
+document.querySelectorAll('.js-nav');          // returns a static NodeList
 ```
 
-Note you don't have to search the whole document. You can use these methods to search within a specific element too. `getElementById` is the only one of these methods that is always called on `document` because obviously since id's are unique, there's no need to search a specific element.
+Note you don't have to search the whole document. You can use these methods to search within a specific element too. `getElementById` is the only one of these methods that is always called on `document` because ids are unique, there's no need to search a specific element.
 
 ```javascript
 const section = document.getElementById('section-one');
@@ -71,43 +71,80 @@ Note that the `querySelector` method lets you select pretty much anything, inclu
 const submitBtn = document.querySelector('[type="submit"]');
 ```
 
-A **NodeList** is a special collection of nodes. They look like arrays, but they're not (they're a type of object called a collection). That being said, you can access individual items from this list by using the name index notation as with arrays. Items will be indexed by the order that they appear in the HTML document. NodeLists also have a `.length` property.
+Note that the `getElementsByClassName` method lets you pass a string containing one or more class names to match on, separated by whitespace:
 
-Note that NodeLists can be *live* or *static*. In a *live NodeList*, when your script updates the page, the NodeList is updated as well. All the methods beginning with `.getElementBy` are live. In a *static NodeList* when your script updates the page, those changes are *not* reflected in the list. Methods beginning with `.querySelector` are static... they reflect the document when the original query was made.
+```javascript
+const testBtns = document.getElementsByClassName('btn test');
+```
+
+A **NodeList** is a special collection of nodes. They look like arrays, but they're not (they're a type of object called a collection). That being said, you can access individual items from this list by using the index notation as with arrays. Items will be indexed by the order that they appear in the HTML document. NodeLists also have a `.length` property.
+
+Note that NodeLists are *static*. The live version of this is called an *HTMLCollection*. With a live collection, when your script updates the page, the HTMLCollection is updated as well. All the methods beginning with `.getElementBy` are live. In a *static NodeList* when your script updates the page, those changes are *not* reflected in the resulting list. Methods beginning with `.querySelector` are static... they reflect the document when the original query was made.
 
 ```javascript
 // NodeList methods
 
-NodeList.item()     // returns an node by index given in parameter
+NodeList.item()     // returns a node given the zero-based index
 NodeList.entries()  // returns an iterator of key/value pairs
 NodeList.forEach()  // calls a callback given in parameter for each value pair
 NodeList.keys()     // returns an iterator of keys
 NodeList.values()   // returns an iterator of values
+
+// HTMLCollection methods
+
+HTMLCollection.item()  // returns a node given the zero-based index
 ```
 
-When working with a NodeList you'll either want to select one item or loop through the list. If you want one, you can use array syntax or the `item()` method (array syntax is simpler). If you want to loop through and modify all of them, some people use `.forEach()`, but I prefer e regular for loop.
+When working with a NodeList or live HTMLCollection, you'll either want to select one item or loop through the list. If you want one, you can use array syntax or the `item()` method (array syntax is simpler). If you want to loop through and modify all of them, you can use a regular `for` loop, or `.forEach()` if it's a static NodeList or convert either static or live lists to an array with `Array.from()`, then use `for...of`. My least favourite option is `.forEach()` method, simply because it bugs me that it only works on the static lists.
 
 
 Examples:
 ```javascript
-// returns a NodeList of all <li> elements that have an id attribute
-let elNavs = document.querySelectorAll('li[id]');
+// returns a static NodeList of all <li> elements that have an id attribute
+let myStaticList = document.querySelectorAll('li[id]');
 
 // modify the last one using array syntax
-elNavs[elNavs.length - 1].className = 'newclass';
+myStaticList[elNavs.length - 1].className = 'newclass';
 
 // modify the second one using item() method
-elNavs.item(1).className = 'newclass';
+myStaticList.item(1).className = 'newclass';
+
+// modify all elements in a static list using a traditional for loop
+for (let i = 0; i < elNavs.length; i++) {
+    myStaticList[i].className = 'newclass';
+}
+
+//  modify all elements in a static list using forEach()
+myStaticList.forEach(el => {
+  el.className = 'newclass';
+});
+
+// alternate syntax using forEach():
+myStaticList.forEach(
+  function (el) {
+    el.className = 'newclass';
+  }
+);
+
+// modify all by using for...of by converting to an array first
+for (let el of Array.from(myStaticList)) {
+    el.className = 'newclass';
+}
+
+// returns a live HTMLCollection of all elements that have the class 'myclass'
+let myLiveList = document.getElementsByClassName('myclass');
 
 // modify all using a traditional for loop
 for (let i = 0; i < elNavs.length; i++) {
-    elNavs[i].className = 'newclass';
+    myLiveList[i].className = 'newclass';
 }
 
 // modify all using for...of by converting to an array first
-for (let el of Array.from(elNavs)) {
+for (let el of Array.from(myLiveList)) {
     el.className = 'newclass';
 }
+
+// NOTE: the forEach() method does not work directly on live HTMLCollections!
 ```
 
 
@@ -267,7 +304,7 @@ list.appendChild(newLastItem);
 let newFirstItem = document.createElement('li');
 let newFirstText = document.createTextNode('new first')
 newFirstItem.appendChild(newFirstText);
-list.insertBefore(newFirstItem, list.firstChild);
+list.insertBefore(newFirstItem, list.firstElementChild);
 ```
 
 #### Removing elements
@@ -415,16 +452,15 @@ checkbox.addEventListener('click', function (e) {
 
 In addition to setting CSS properties with the syntax `el.style.propertyName = value` (which is a standard HTML DOM thing), there is also a [CSS Object Model](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model) method called [setProperty](https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleDeclaration/setProperty) that looks like: `el.style.setProperty('border-radius', '10px')`. I'm still sorting out the differences between these two approaches and haven't looked deeply at this [CSSStyleDeclaration](https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleDeclaration) thing but will add information here as I figure it out.
 
-I'm guessing that the key insight is that while the `el.style.propertyName` assignment method is modifying the style attribute in the DOM, the `el.style.setProperty()` method *"sets or modifies a CSS property in a CSS declaration block"*. In other words, being a CSS Object Model method, the property is being set in the the actual CSS document. This allows us to do weird stuff like modify custom CSS properties (--my-variable). There's an example of this below.
+So far it seems that the key insight is that while the `el.style.propertyName` assignment method is modifying the style attribute in the DOM, the `el.style.setProperty()` method *"sets or modifies a CSS property in a CSS declaration block"*. In other words, being a CSS Object Model method, the property *can* be set in the the actual CSS document. This allows us to do weird stuff like modify custom CSS properties (--my-variable). There's an example of this below.
 
-Some things discovered so far:
+One thing to point out is that this is only true if we pass in the stylesheet. See [MDN's example here](https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleDeclaration/setProperty). If the stylesheet and rule isn't passed in, then the styles will be added to the `style` attribute of the html tag, just like the `el.style.propertyName = value` method does.
 
-The *CSS Object Model* syntax allows us to write CSS property names as they are in CSS (hyphen-case) rather than their camelCase version. Actually, you can use the hyphen-case property name if you use bracket syntax, but most people don't seem to like bracket syntax. For example:
+Another thing to note: the *CSS Object Model* syntax allows us to write CSS property names as they are in CSS (hyphen-case) rather than their camelCase version. For example:
 
 ```javascript
 // using the DOM
 el.style.backgroundColor = '#000';
-el.style['background-color'] = '#000';
 
 // using the CSSOM
 el.style.setProperty('background-color', '#000');
