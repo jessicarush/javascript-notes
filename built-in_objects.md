@@ -455,6 +455,26 @@ let myDateFromEpoch = new Date(1604127600000);
 console.log(myDateFromEpoch);        // 2020-10-31T07:00:00.000Z
 ```
 
+You can use all the various *set* methods to increment the date by that particular unit of time. For example:
+
+```javascript
+// Today
+let d = new Date();
+console.log(d.toDateString()); // Wed Jan 15 2020
+
+// 14 days from today
+d.setDate(d.getDate() + 14);
+console.log(d.toDateString()); // Wed Jan 29 2020
+
+// 3 months before that
+d.setMonth(d.getMonth() - 3);
+console.log(d.toDateString()); // Tue Oct 29 2019
+
+// 6 years from that
+d.setFullYear(d.getFullYear() + 6);
+console.log(d.toDateString()); // Wed Oct 29 2025
+```
+
 
 ## Boolean   
 

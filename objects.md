@@ -201,7 +201,18 @@ let p = prompt('firstname, age or admin?');
 console.log(obj[p]);
 ```
 
-In addition we must use bracket notation when accessing keys that have numbers, spaces, or special characters in them. Without bracket notation in these situations, our code would throw an error.
+In addition we must use bracket notation when accessing working with keys that have numbers, spaces, or special characters in them. Without bracket notation in these situations, our code would throw an error. For example, if we wanted an object to have properties names that are date strings:
+
+```javascript
+const heatmap_data = {
+  '2019-04-10': 3,
+  '2019-04-12': 12,
+  '2019-04-14': 2
+};
+
+console.log(heatmap_data['2019-04-10']);
+// 3
+```
 
 
 ## Computed Property Names

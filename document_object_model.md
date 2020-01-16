@@ -27,6 +27,7 @@ see also: [object_models.md](object_models.md)
 - [Working With Attributes](#working-with-attributes)
 - [More Element Properties & Methods](#more-element-properties--methods)
   * [Special properties for special elements](#special-properties-for-special-elements)
+- [Getting the browser-rendered style](#getting-the-browser-rendered-style)
 - [CSS Object Model](#css-object-model)
 
 <!-- tocstop -->
@@ -445,6 +446,68 @@ const checkbox = document.getElementById('mycheckbox');
 checkbox.addEventListener('click', function (e) {
   console.log(e.target);
 },false);
+```
+
+
+## Getting the browser-rendered style
+
+If you want to get the value of an *inline* style property, you can use the same syntax as was used to set it. For example:
+
+```javascript
+let el = document.getElementById('test');
+
+// Set the font-size
+el.style.fontSize = '2rem';
+
+// Get the font-size
+console.log(el.style.fontSize);  // 2rem
+```
+
+To reiterate, this only works for inline styles. If a style is set via a stylesheet or the browser, the above `el.style.fontSize` would return `null`.  If we want to get the true CSS property that the browser is using an element we can use `getComputedStyle()` which is a method in the [Window API](https://developer.mozilla.org/en-US/docs/Web/API/Window).
+
+The `Window.getComputedStyle()` method returns an object containing the values of all CSS properties of a given element. Keep in mind though, this object is *read-only*. You cannot set css values this way. For example:
+
+```javascript
+// Get styles object
+let styles = window.getComputedStyle(el);
+
+console.log(styles);
+// TLDR
+```
+
+In *theory*, you can get any particular value directly by adding the property name:
+
+```javascript
+let size = window.getComputedStyle(el).fontSize;
+
+let color = window.getComputedStyle(el).color;
+
+console.log({size, color});
+// Object { size: "32px", color: "rgb(0, 0, 0)" }
+```
+
+You can also access property values via their real css names by using the `getPropertyValue()` method:
+
+```javascript
+let size = window.getComputedStyle(el).getPropertyValue('font-size');
+
+let color = window.getComputedStyle(el).getPropertyValue('color');
+
+console.log({size, color});
+// Object { size: "32px", color: "rgba(70, 70, 85, 0.9)" }
+```
+
+I've found though that often times the first method doesn't work. I'm too lazy to figure out why at this point, and will just stick to the second way of using the `getPropertyValue()`.
+
+Note that you can also pass an optional second argument that is a pseudo-element such as `::before` or `::after`:
+
+```javascript
+let color = window.getComputedStyle(el, ':after').getPropertyValue('color');
+
+let content = window.getComputedStyle(el, ':after').getPropertyValue('content');
+
+console.log({color, content});
+// Object { color: "rgb(255, 0, 0)", content: "\"!\"" }
 ```
 
 ## CSS Object Model
