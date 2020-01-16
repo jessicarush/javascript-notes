@@ -28,7 +28,9 @@ see also: [object_models.md](object_models.md)
 - [More Element Properties & Methods](#more-element-properties--methods)
   * [Special properties for special elements](#special-properties-for-special-elements)
 - [Getting the browser-rendered style](#getting-the-browser-rendered-style)
-- [CSS Object Model](#css-object-model)
+- [Avoiding inline styles](#avoiding-inline-styles)
+  * [Approach 1: Add global styles](#approach-1-add-global-styles)
+  * [Approach 2: Use the CSSStyleSheet API](#approach-2-use-the-cssstylesheet-api)
 
 <!-- tocstop -->
 
@@ -510,74 +512,58 @@ console.log({color, content});
 // Object { color: "rgb(255, 0, 0)", content: "\"!\"" }
 ```
 
-## CSS Object Model
 
-In addition to setting CSS properties with the syntax `el.style.propertyName = value` (which is a standard HTML DOM thing), there is also a [CSS Object Model](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model) method called [setProperty](https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleDeclaration/setProperty) that looks like: `el.style.setProperty('border-radius', '10px')`. I'm still sorting out the differences between these two approaches and haven't looked deeply at this [CSSStyleDeclaration](https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleDeclaration) thing but will add information here as I figure it out.
+## Avoiding inline styles
 
-So far it seems that the key insight is that while the `el.style.propertyName` assignment method is modifying the style attribute in the DOM, the `el.style.setProperty()` method *"sets or modifies a CSS property in a CSS declaration block"*. In other words, being a CSS Object Model method, the property *can* be set in the the actual CSS document. This allows us to do weird stuff like modify custom CSS properties (--my-variable). There's an example of this below.
+Using the style property syntax `el.style.propertyName` is perfectly fine but it does insert all the styles into the `style` attribute of the html element aka *inline*. If you're setting a number of styles, this can make your markup pretty messy. I've also heard that it’s less performant for browsers to render.
 
-One thing to point out is that this is only true if we pass in the stylesheet. See [MDN's example here](https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleDeclaration/setProperty). If the stylesheet and rule isn't passed in, then the styles will be added to the `style` attribute of the html tag, just like the `el.style.propertyName = value` method does.
+For example, here is my opening `<div>` element whose grid values needed to be set by my javascript:
 
-Another thing to note: the *CSS Object Model* syntax allows us to write CSS property names as they are in CSS (hyphen-case) rather than their camelCase version. For example:
-
-```javascript
-// using the DOM
-el.style.backgroundColor = '#000';
-
-// using the CSSOM
-el.style.setProperty('background-color', '#000');
-```
-
-Beyond that, here are some other differences:
-
-1. `setProperty()` takes an optional third *priority* parameter which lets you set the `!important` priority. For example:
-
-```javascript
-el.style.setProperty('background-color', '#000', 'important');
-```
-
-2. Since `setProperty()` is modifying the actual CSS Object, we can use it to modify custom properties (variables). This allows us to target a property that's part of a transition (not to be confused with animations), `:hover` or `:focus` selector. For example...
-
-HTML
 ```html
-<div class="flex-centered color-box">
-  <div>Hover</div>
-</div>
+<div id="js-calendar-heatmap" class="calendar-heatmap" style="grid-auto-flow: row; gap: 0.8rem; grid-template: repeat(2, calc(34.2px + 6rem)) / repeat(6, calc(21px + 7rem));">
 ```
 
-CSS
-```css
-.color-box {
-  background: #fff;
-  transition: background 0.5s;
-}
+So how do we set styles NOT inline?
 
-.color-box:hover {
-  background: var(--random-bg);
-}
-```
+### Approach 1: Add global styles
 
-JavaScript
+Basically we create a `<style>` element, place our selectors and styles into it, then inject that style element into the DOM.
+
 ```javascript
-function randomBg() {
-  // Generate a random number between 0 and given number (inclusive)
-  function random(n) {
-    return Math.floor(Math.random() * (n + 1));
-  }
-  // Generate a random rgb color
-  function randomRGB() {
-    let rgbColor = 'rgb(' + random(255) + ',' + random(255) + ',' + random(255) + ')';
-    return rgbColor;
-  }
-  // Set an elements --random-bg property to a random color
-  function changeBg() {
-    let el = document.querySelector('.color-box');
-    el.style.setProperty('--random-bg', randomRGB());
-  }
-  changeBg();
-}
+// Create the style element
+let style = document.createElement('style');
 
-randomBg();
+// Add css using innerHTML
+style.innerHTML =
+  `.my-element {
+    color: #fff;
+    background: rgb(50,50,55);
+    border-radius: 3px;
+    padding: 20px;
+  }`;
+
+// Find an existing element in the head
+let ref = document.querySelector('script');
+
+// Insert our new style before it
+ref.parentNode.insertBefore(style, ref);
 ```
 
-Note: The [CSS Object Model](https://drafts.csswg.org/cssom/#the-cssstyledeclaration-interface) is classified as a Working Draft.
+### Approach 2: Use the CSSStyleSheet API
+
+From MDN:
+
+> The CSSStyleDeclaration interface represents an object that is a CSS declaration block, and exposes style information and various style-related methods and properties.
+>
+> A CSSStyleDeclaration object can be exposed using three different APIs:
+>
+> - Via `HTMLElement.style`, which deals with the inline styles of a single element
+> - Via `Window.getComputedStyle()`, which exposes the CSSStyleDeclaration object as a read-only interface.
+> - Via the CSSStyleSheet API. For example, `document.styleSheets[0].cssRules[0].style` returns a CSSStyleDeclaration object on the first CSS rule in the document's first stylesheet.
+
+So far we've looked at the first two APIs, for this new one, see [css_object_model.md](css_object_model.md).
+
+
+Additional resources:
+- [CSSStyleDeclaration API](https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleDeclaration)  
+- [CSSStyleSheet API](https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleSheet)
