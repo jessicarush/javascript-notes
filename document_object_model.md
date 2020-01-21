@@ -561,7 +561,7 @@ From MDN:
 > - Via `Window.getComputedStyle()`, which exposes the CSSStyleDeclaration object as a read-only interface.
 > - Via the CSSStyleSheet API. For example, `document.styleSheets[0].cssRules[0].style` returns a CSSStyleDeclaration object on the first CSS rule in the document's first stylesheet.
 
-So far we've looked at the first two APIs, for this new one, see [css_object_model.md](css_object_model.md).
+So far we've looked at the first two APIs, for this new one, see: [css_object_model.md](css_object_model.md).
 
 
 Additional resources:
