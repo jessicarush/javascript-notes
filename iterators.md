@@ -10,8 +10,10 @@ Iterators are methods called on arrays to manipulate elements and return values.
 - [forEach()](#foreach)
 - [filter()](#filter)
 - [map()](#map)
+- [flatMap()](#flatmap)
 - [reduce() & reduceRight()](#reduce--reduceright)
 - [findIndex()](#findindex)
+- [fill()](#fill)
 - [some()](#some)
 - [every()](#every)
 - [keys()](#keys)
@@ -21,7 +23,7 @@ Iterators are methods called on arrays to manipulate elements and return values.
 
 ## forEach()
 
-The `forEach()` method calls a provided function once for each element in an array, in order. `forEach()` loops through the array and executes the callback function for each element. During each execution, the current element is passed as an argument to the callback function.
+The `forEach()` loops through an array and executes a provided function for each element. During each execution, the current array element is passed as an argument to the callback function.
 
 ```javascript
 const myArray = ['bob', 'rick', 'morty'];
@@ -30,7 +32,8 @@ function myFunc(firstname) {
   console.log('Name: ' + firstname);
 }
 
-myArray.forEach(myFunc); // forEach() takes one argument; a callback function.
+// forEach() takes one argument; a callback function.
+myArray.forEach(myFunc);
 // Name: bob
 // Name: rick
 // Name: morty
@@ -63,7 +66,8 @@ function onlyNumbers(item) {
 
 const numbers = items.filter(onlyNumbers);
 
-console.log(numbers);  // [ 5, 2.5, 100 ]
+console.log(numbers);  
+// [ 5, 2.5, 100 ]
 ```
 
 And an anonymous function that uses *Arrow* syntax:
@@ -75,7 +79,8 @@ const numbers = items.filter(item => {
   return typeof item === 'number';
 });
 
-console.log(numbers);  // [ 5, 2.5, 100 ]
+console.log(numbers);  
+// [ 5, 2.5, 100 ]
 ```
 
 
@@ -92,7 +97,8 @@ function square(num) {
 
 const squareNumbers = numbers.map(square);
 
-console.log(squareNumbers);  // [ 9, 25, 100 ]
+console.log(squareNumbers);
+// [ 9, 25, 100 ]
 ```
 
 This example passes an anonymous function that uses *Arrow* syntax:
@@ -104,9 +110,28 @@ const squareNumbers = numbers.map(num => {
   return num * num;
 });
 
-console.log(squareNumbers);  // [ 9, 25, 100 ]
+console.log(squareNumbers);
+// [ 9, 25, 100 ]
 ```
 
+
+## flatMap()
+
+The `flatMap() `method first maps each element using a mapping function, then flattens the result into a new array. It is identical to a `map()` followed by a `flat()` of depth 1, but `flatMap()` is often quite useful, as merging both into one method is slightly more efficient.
+
+```javascript
+const myArray = ['2 - 3456 Main Street', 'Vancouver', 'BC', 'V5Z2X5'];
+
+// using map() the result is lists withon a list
+myArray.map(x => x.split(' '));
+// [["2", "-", "3456", "Main", "Street"], ["Vancouver"], ["BC"], ["V5Z2X5"]]
+
+// using flatMap(), one (and only one) level is flattened
+myArray.flatMap(x => x.split(' '));
+// ["2", "-", "3456", "Main", "Street", "Vancouver", "BC", "V5Z2X5"]
+```
+
+\
 
 ## reduce() & reduceRight()
 
@@ -117,7 +142,8 @@ const randomNums = [5, 10, 1, 20];
 
 const reducedNum = randomNums.reduce((accumulator, currentValue) => accumulator * currentValue);
 
-console.log(reducedNum);  // 1000
+console.log(reducedNum);
+// 1000
 ```
 
 You can pass an optional second argument to `reduce()`. This second arg will be used as the accumulator start value:
@@ -127,7 +153,8 @@ const randomNums = [5, 10, 1, 20];
 
 const reducedNum = randomNums.reduce((accumulator, currentValue) => accumulator * currentValue, 50);
 
-console.log(reducedNum);  // 50000
+console.log(reducedNum);
+// 50000
 ```
 
 This example flattens an array of arrays into a single array using reduce() and .concat():
@@ -150,9 +177,23 @@ const randomNums = [123, 25, 78, 5, 9];
 
 const lessThanTen = randomNums.findIndex(num => num < 10);
 
-console.log(lessThanTen);  // 3
+console.log(lessThanTen);
+// 3
 ```
 
+## fill()
+
+This method changes all elements from a given start index to an end index in an array to a given static value. It returns the modified array.
+
+```javascript
+const myArray = [1, 2, 3, 4, 5, 6];
+
+// fill with 0 from position 3 to position 6
+myArray.fill(0, 3, 6);
+
+console.log(myArray);
+// [ 1, 2, 3, 0, 0, 0 ]
+```
 
 ## some()
 
