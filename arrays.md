@@ -23,6 +23,7 @@ JavaScript arrays are like lists in Python. Arrays can store any data types (inc
   * [Create a copy of an array with `...`](#create-a-copy-of-an-array-with-)
   * [Merge two arrays into a new one with *concat()*](#merge-two-arrays-into-a-new-one-with-concat)
   * [Find if an item is present with *includes()*](#find-if-an-item-is-present-with-includes)
+  * [Find an element via a test function with *find()*](#find-an-element-via-a-test-function-with-find)
   * [Find the index of an item with *indexOf(), lastIndexOf()*](#find-the-index-of-an-item-with-indexof-lastindexof)
   * [Reverse an array with *reverse()*](#reverse-an-array-with-reverse)
   * [Convert an array to a string with *join()*](#convert-an-array-to-a-string-with-join)
@@ -177,8 +178,10 @@ Some array instance methods iterate over arrays to manipulate elements and retur
 - [forEach()](iterators.md#foreach)
 - [filter()](iterators.md#filter)
 - [map()](iterators.md#map)
+- [flatMap()](iterators.md#flatmap)
 - [reduce() & reduceRight()](iterators.md#reduce--reduceright)
 - [findIndex()](iterators.md#findindex)
+- [fill()](iterators.md#fill)
 - [some()](iterators.md#some)
 - [every()](iterators.md#every)
 - [keys()](iterators.md#keys)
@@ -306,6 +309,23 @@ console.log(myArray.includes('four'));
 // true
 ```
 
+
+### Find an element via a test function with *find()*
+
+The find() method returns the value of the first element in the array that satisfies the provided testing function.
+
+```javascript
+const myArray = ['one', 'two', 'three', 'four', 'five'];
+
+function test(element) {
+  return element.startsWith('f');
+}
+
+const found =  myArray.find(test);
+
+console.log(found);
+// four
+```
 
 ### Find the index of an item with *indexOf(), lastIndexOf()*
 
