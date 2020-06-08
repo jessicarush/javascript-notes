@@ -168,6 +168,18 @@ console.log(myArray);
 
 JavaScript also has a number of built-in *instance methods* which can be applied to arrays. Keep in mind, some methods will modify the original array, while others return something new.
 
+Some array instance methods iterate over arrays to manipulate elements and return values. This iteration-type methods can be found in <iterators.md>.
+
+- [forEach()](iterators.md#foreach)
+- [filter()](#filter)
+- [map()](#map)
+- [reduce() & reduceRight()](#reduce--reduceright)
+- [findIndex()](#findindex)
+- [some()](#some)
+- [every()](#every)
+- [keys()](#keys)
+- [values()](#values)
+
 See the full list of [built-in methods for arrays here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array).
 
 
@@ -250,7 +262,7 @@ console.log(myArray);
 ```
 
 
-### Create a copy of an array
+### Create a copy of an array with `...`
 
 ```javascript
 const array1 = ['a', 'b', 'c'];
@@ -266,7 +278,7 @@ console.log(array3);  // [ 'a', 'b', 'c' ]
 console.log(array4);  // [ 'a', 'b', 'c' ]
 ```
 
-The `...` method is called *spread syntax* or *rest parameters* when applied to functions. It allows an iterable such as an array to be expanded in places where zero or more elements are expected.
+The `...` above is called *spread syntax* or *rest parameters* when applied to functions. It allows an iterable such as an array to be expanded in places where zero or more elements are expected.
 
 
 ### Merge two arrays into a new one with *concat()*
