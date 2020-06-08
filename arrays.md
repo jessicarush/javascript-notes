@@ -15,11 +15,12 @@ JavaScript arrays are like lists in Python. Arrays can store any data types (inc
   * [Array.isArray()](#arrayisarray)
   * [Array.from()](#arrayfrom)
 - [Array instance methods](#array-instance-methods)
+- [Iteration array methods](#iteration-array-methods)
   * [Add items with *push()* or *unshift()*](#add-items-with-push-or-unshift)
   * [Remove and use items with *pop()* and *shift()*](#remove-and-use-items-with-pop-and-shift)
   * [Get a section of an array with *slice()*](#get-a-section-of-an-array-with-slice)
   * [Replace or remove a section with *splice()*](#replace-or-remove-a-section-with-splice)
-  * [Create a copy of an array](#create-a-copy-of-an-array)
+  * [Create a copy of an array with `...`](#create-a-copy-of-an-array-with-)
   * [Merge two arrays into a new one with *concat()*](#merge-two-arrays-into-a-new-one-with-concat)
   * [Find if an item is present with *includes()*](#find-if-an-item-is-present-with-includes)
   * [Find the index of an item with *indexOf(), lastIndexOf()*](#find-the-index-of-an-item-with-indexof-lastindexof)
@@ -166,21 +167,22 @@ console.log(myArray);
 
 ## Array instance methods
 
-JavaScript also has a number of built-in *instance methods* which can be applied to arrays. Keep in mind, some methods will modify the original array, while others return something new.
+JavaScript also has a number of built-in *instance methods* which can be applied to arrays. Keep in mind, some methods will modify the original array, while others return something new. See the full list of [built-in methods for arrays here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array).
+
+
+## Iteration array methods
 
 Some array instance methods iterate over arrays to manipulate elements and return values. This iteration-type methods can be found in <iterators.md>.
 
 - [forEach()](iterators.md#foreach)
-- [filter()](#filter)
-- [map()](#map)
-- [reduce() & reduceRight()](#reduce--reduceright)
-- [findIndex()](#findindex)
-- [some()](#some)
-- [every()](#every)
-- [keys()](#keys)
-- [values()](#values)
-
-See the full list of [built-in methods for arrays here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array).
+- [filter()](iterators.md#filter)
+- [map()](iterators.md#map)
+- [reduce() & reduceRight()](iterators.md#reduce--reduceright)
+- [findIndex()](iterators.md#findindex)
+- [some()](iterators.md#some)
+- [every()](iterators.md#every)
+- [keys()](iterators.md#keys)
+- [values()](iterators.md#values)
 
 
 ### Add items with *push()* or *unshift()*
