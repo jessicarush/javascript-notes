@@ -1,7 +1,7 @@
 # Functions
 
 
-Functions are the fundamental modular modular unit of JavaScript. They are used for code reuse, information hiding, and composition. Functions are used to specify the behaviour of objects. They're also good for simply organizing related bits of code into named groups (even if you plan to only call it once). In JavaScript, Functions are objects are are linked to `Function.prototype` which is in turn linked to `Object.prototype`.
+Functions are the fundamental modular modular unit of JavaScript. They are used for code reuse, information hiding, and composition. Functions are used to specify the behaviour of objects. They're also good for simply organizing related bits of code into named groups (even if you plan to only call it once). In JavaScript, Functions are objects that are linked to `Function.prototype` which is in turn linked to `Object.prototype`.
 
 ## Table of Contents
 
@@ -119,30 +119,35 @@ foo(); // TypeError: foo is not a function
 var foo = function () {
   console.log('Foo');
 };
+
+bar(); // TypeError: bar is not a function
+
+var bar = function bar () {
+  console.log('Bar');
+};
 ```
 
-*Hoisting* works a bit differently for variables. Only the *declaration* (not the assignment) is hoisted... and this only happens with the `var` keyword; `let` and `const` declarations don't get hoisted. In the example below, the first `console.log(a);` returns `undefined` because the value isn't *assigned* until the next line. That being said it doesn't throw a `ReferenceError` which you might think would be the case since it isn't *declared* until the next line either. The `console.log(a);` in the `inner` function returns `1` because `inner` isn't called until after the `a` declaration/assignment:
+*Hoisting* works a bit differently for variables. Only the *declaration* (not the assignment) is hoisted... and this only happens with the `var` keyword; `let` and `const` declarations don't get hoisted. In the example below, the first `console.log(a);` returns `undefined` because the value isn't *assigned* until the next line. That being said it **doesn't** throw a `ReferenceError` which you might think would be the case since it isn't declared until the next line. The `console.log(a);` in the `inner` function returns `1` because `inner` isn't called until after the `a` declaration/assignment:
 
 ```javascript
 function outer() {
 
   function inner() {
-    console.log(a);  // 1
+    console.log(a);
   }
 
   console.log(a);  // undefined
   var a = 1;
-  inner();
+  inner();  // 1
 }
-outer();
 ```
 
-One last thing to note about hoisting is that function declarations always get hoisted before variable declarations for example:
+One last thing to note about hoisting is that function declarations always get hoisted **before** variable declarations for example:
 
 ```javascript
-foo();
-
 var foo;
+
+foo();
 
 foo = function () {
     console.log('foo the variable');
@@ -157,7 +162,7 @@ function foo() {
 
 ## Return
 
-When a function is invoked it begins executing the first statement after `{` and ends when it hits the `}` that closes the function body.This causes the function to return control to the part of the program that invoked the function. The `return` statement can be used to cause a function to return early. Any statements following `return` inside the function body will not be executed.
+When a function is invoked it begins executing the first statement after `{` and ends when it hits the `}` that closes the function body. This causes the function to return control to the part of the program that invoked the function. The `return` statement can be used to cause a function to return early. Any statements following `return` inside the function body will not be executed.
 
 A function always returns a value. If a value is not specified, the default value is `undefined`. If the function is called with the `new` prefix and the `return` value is not an object, then `this` is returned instead. **More investigation required on this**.
 
@@ -341,7 +346,7 @@ Note that the lexical scope look-up process only applies to *first-class identif
 
 ## Let in Functions
 
-In addition to declaring variables at the function level, ES6 lets you declare variables that belong to a specific block `{...}` by using the `let` keyword. By using `let` instead of `var`, `c` will belong only to the `if` statement and not to the whole `foo()` scope:
+In addition to declaring variables at the function level, ES6 lets you declare variables that belong to a specific block `{...}` with the `let` keyword. In this example, by using `let` instead of `var`, `c` will belong only to the `if` statement and not to the whole `foo()` scope:
 
 ```javascript
 function foo() {
@@ -406,7 +411,7 @@ logNum(); // 100
 console.log(num); // 50
 ```
 
-As a result, the general advice is it's best to **not** define variables in the global scope. It's also important to note that by limiting your variables to the local scopes in which they're used, it will save memory because the variable will cease to exist after the block finishes running.
+As a result, the general advice is it's best to **not** define variables in the global scope (or if you do, use `const`). It's also important to note that by limiting your variables to the local scopes in which they're used, it will save memory because the variable will cease to exist after the block finishes running.
 
 
 ## Hiding with Scope
@@ -448,23 +453,29 @@ function myTotal(a) {
 myTotal(5);
 ```
 
-That example isn't great, but going back to the first comment about wrapping your code in a function declaration to keep things private. Consider that though this is a decent solution, you're still polluting your code with a new function identifier and a function call. You could remove both of those by using a *IIFE function expression* described below.
+That example isn't great, but going back to the first comment about wrapping your code in a function declaration to keep things private: Consider that though this is a decent solution, you're still polluting your code with a new function identifier and a function call. Note that you could remove both of those by using a *IIFE function expression* described below.
 
 
 ## Collision Avoidance
 
-A benefit of hiding variables is *collision avoidance* which happens when you have two different identifiers with the same name. Collision often results in unexpected overwriting of values. Multiple libraries loaded into your program can easily collide with each other if they don't properly hide their internal/private functions and variables. Such libraries will often create a single variable declaration in the global scope (often an object) with a unique name. This object is used as the *namespace* for the library... all specific *exposures of functionality* are made as properties of that object rather than as top-level lexically scoped identifiers. For example:
+A benefit of hiding variables is *collision avoidance*. Collision happens when you have two different identifiers with the same name. Collision often results in unexpected overwriting of values. Multiple libraries loaded into your program can easily collide with each other if they don't properly hide their internal/private functions and variables. Such libraries will often create a single variable declaration in the global scope (often an object) with a unique name. This object is used as the *namespace* for the library... all specific *exposures of functionality* are made as properties of that object rather than as top-level lexically scoped identifiers. For example:
 
 ```javascript
 const MyAwesomeLibrary = {
   awesome: 'sauce',
   doSomething: function() {
-    // ...
+    return 'something';
   },
   doOtherthing: function() {
-    // ...
+    return 'other thing';
   }
 };
+
+console.log(MyAwesomeLibrary.awesome);
+//sauce
+
+console.log(MyAwesomeLibrary.doSomething());
+// something
 ```
 
 
@@ -512,7 +523,7 @@ baz(); // 2
 
 Whatever method we use to transport an inner function outside of its lexical scope, it will maintain a scope reference to where it was originally declared, and wherever we execute it, that closure will be exercised. Note however, without the execution of the outer function `foo`, the creation of the inner scope and the closures would not occur.
 
-Since Python was the first language I learned, this makes perfect sense to me but if you're coming from another language like *C*, apparently this is a bit of a head f*. Whatever.
+!!! Since Python was the first language I learned, this makes perfect sense to me but if you're coming from another language like *C*, apparently this is a bit of a head f*. Whatever.
 
 For more closure see [closure.md](closure.md)
 
