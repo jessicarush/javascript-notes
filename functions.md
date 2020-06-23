@@ -642,6 +642,18 @@ let x = (function foo() {
 })();
 
 console.log(x);
+// hello
+```
+
+If I wasn't using an IIFE, I would have to call `x`:
+
+```javascript
+let x = function foo() {
+  return 'hello';
+};
+
+console.log(x());
+// hello
 ```
 
 
@@ -657,7 +669,7 @@ When we communicate, our language includes vocabulary that allows us to convey m
 
 ## Pure Functions
 
-A pure function is a specific kind of value-producing function (it returns something) that not only has no side effects but also doesn’t rely on side effects from other code—for example, it doesn’t read global variables whose value might change. A pure function, when called with the same arguments, always produces the same value (and doesn’t do anything else). A call to such a function can be substituted by its return value without changing the meaning of the code. When you're not sure that a pure function is working correctly, you can test it by simply calling it and know that if it works in that context, it will work in any context. Non-pure functions tend to require more scaffolding to test.
+A *pure function* is a specific kind of value-producing function (it returns something) that not only has no side effects but also doesn’t rely on side effects from other code—for example, it doesn’t read global variables whose value might change. A pure function, when called with the same arguments, always produces the same value (and doesn’t do anything else). A call to such a function can be substituted by its return value without changing the meaning of the code. When you're not sure that a pure function is working correctly, you can test it by simply calling it and know that if it works in that context, it will work in any context. Non-pure functions tend to require more scaffolding to test.
 
 
 ## Higher-order Functions
@@ -700,7 +712,71 @@ function logFunction(func) {
   };
 }
 
-logFunction(Math.min)(7, 13, 5); // I have never seen this syntax before
+logFunction(Math.min)(7, 13, 5);
+// calling with:  [ 7, 13, 5 ]
+// returned:  5
+```
+
+For me personally, its this syntax that's actually the interesting part:
+
+```javascript
+myFunction(callback)(...args);  
+```
+When you see a double parentheses call like this `()()`, it means that the first function (myFunction) returns another function and then that returned function is called immediately.
+
+So a barebones example would look like:
+
+```javascript
+function myFunction(array) {
+  return array;
+}
+
+function documentFunction(func) {
+  return func;
+}
+
+let test = documentFunction(myFunction)([5, 100, 'foo', 'bar', true]);
+
+console.log(test);
+// [ 5, 100, 'foo', 'bar', true ]
+```
+
+The previous example returned an additional function so that it could log the args and result. Here I've expanded that out a bit more:
+
+```javascript
+function documentFunction(func) {
+  return function (...args) {
+    let result = func(...args);
+    console.log(`Function name: ${func.name}`);
+    console.log(`Arguments: ${args.length}`);
+    for (let i = 0; i < args.length; i++) {
+      console.log(`  arg${i + 1}: ${args[i]} <${typeof args[i]}>`);
+    }
+    console.log(`Returned: ${result} <${typeof result}> \n`);
+    return result;
+  };
+}
+
+function randomSelect(array) {
+  let randomIndex = Math.floor(Math.random() * array.length);
+  return array[randomIndex];
+}
+
+documentFunction(randomSelect)([5, 100, 'foo', 'bar', true]);
+// Function name: randomSelect
+// Arguments: 1
+//   arg1: 5,100,foo,bar,true <object>
+// Returned: 100 <number>
+
+documentFunction(Math.min)(5, 100, 12, 2000, 35);
+// Function name: min
+// Arguments: 5
+//   arg1: 5 <number>
+//   arg2: 100 <number>
+//   arg3: 12 <number>
+//   arg4: 2000 <number>
+//   arg5: 35 <number>
+// Returned: 5 <number>
 ```
 
 
@@ -752,24 +828,22 @@ const sunlight = spider.sunlight;
 // destructured assignment
 const {sunlight} = spider;
 ```
-TBH, as someone new to Javascript, this kind of shit makes me crazy. Moving on...
+TBH, I personally prefer the normal assignment as it's more clear to me.
 
 A more useful destructuring technique allows you to create variable names for the array items that you intend to pass to a function. This example is similar to the one for 'Rest Parameters':
 
 ```javascript
-function introduction2([name, occupation, city]) {
+function introduction1([name, occupation, city]) {
   console.log(`My name is ${name}, I'm a ${occupation} from ${city}.`);
 }
 
-introduction2(['rick', 'scientist', 'earth']);
-introduction2(['jessica', 'developer', 'vancouver']);
-// My name is rick, I'm a scientist from earth.
+introduction1(['jessica', 'developer', 'vancouver']);
 // My name is jessica, I'm a developer from vancouver.
 ```
 
 ### simulating named parameters
 
-An aspect of the new destructuring feature allows use to (sort of) use named parameters.
+An aspect of the new destructuring feature allows you to (sort of) use named parameters.
 
 ```javascript
 function introduction2({name, occupation, city}) {
@@ -778,6 +852,11 @@ function introduction2({name, occupation, city}) {
 
 introduction2({name: 'rick', occupation: 'scientist', city: 'earth'});
 introduction2({city: 'vancouver', name: 'jessica', occupation: 'developer'});
+console.log(`My name is ${name}, I'm a ${occupation} from ${city}.`);
+}
+
+introduction2({city: 'vancouver', name: 'jessica', occupation: 'developer'});
+// My name is jessica, I'm a developer from vancouver.
 ```
 
 
@@ -916,51 +995,64 @@ for (let i = 0; i <= 10; i += 1) {
 This works but it's doing a lot of unnecessary work. The fibonacci function ends up being called 453 times. If we memoize the function, we can significantly reduce its workload.
 
 ```javascript
-var fibonacci = (function () {
-  var memo = [0,1];
-  var fib = function (n) {
-    var result = memo[n];
+var fibonacci_memoize = (function () {
+  var memoize = [0, 1];
+  var fibonacci = function (n) {
+    var result = memoize[n];
     if (typeof result !== 'number') {
-      result = fib(n - 1) + fib(n - 2);
-      memo[n] = result;
+      result = fibonacci(n - 1) + fibonacci(n - 2);
+      memoize[n] = result;
     }
     return result;
   };
-  return fib;
+  return fibonacci;
 })();
 
 
 for (let i = 0; i <= 10; i += 1) {
-  console.log(fibonacci(i));
+  console.log(fibonacci_memoize(i));
 }
+// 0
+// 1
+// 1
+// 2
+// 3
+// 5;
+// 8
+// 13
+// 21
+// 34
+// 55
 ```
 
 I'm still wrapping my head around how the IIFE works here for the fibonacci variable. If I wanted to write it without the IFEE I'd have to do this:
 
 ```javascript
-var fibonacci = function () {
-  var memo = [0,1];
-  var fib = function (n) {
-    var result = memo[n];
+var fibonacci_memoize = function () {
+  var memoize = [0,1];
+  var fibonacci = function (n) {
+    var result = memoize[n];
     if (typeof result !== 'number') {
-      result = fib(n - 1) + fib(n - 2);
-      memo[n] = result;
+      result = fibonacci(n - 1) + fibonacci(n - 2);
+      memoize[n] = result;
     }
     return result;
   };
-  return fib;
+  return fibonacci;
 };
 
 
 for (let i = 0; i <= 10; i += 1) {
-  console.log(fibonacci()(i));  // since fibonacci() returns fib,
-}                               // fibonacci()(i) translates to fib(i)
+  console.log(fibonacci_memoize()(i));
+  // since fibonacci_memoize() returns fibonacci
+  // fibonacci_memoize()(i) translates to fibonacci(i)
+}
 ```
 
 
 ## Arrow Function Syntax
 
-ES6 introduced *arrow function syntax*, a shorter way to write function by using this special notation `() => {}`.
+ES6 introduced *arrow function syntax*, a shorter way to write functions by using this special notation `() => {}`.
 
 For example:
 ```javascript
@@ -994,15 +1086,17 @@ console.log(squareNumber(5));  // 25
 You can also drop the name to create an anonymous function. This can be useful when passing a function in as a parameter:
 
 ```javascript
-const timeFuncRuntime = funcParameter => {
+const timeFuncRuntime = func => {
    let t1 = Date.now();
-   funcParameter();
+   func();
    let t2 = Date.now();
+   console.log(`${t2 - t1} milliseconds`);
    return t2 - t1;
 };
 
-timeFuncRuntime(() => { // anonymous function passed to timeFuncRuntime();
-  for (let i = 10; i>0; i--){
+timeFuncRuntime(() => {
+  // anonymous function passed to timeFuncRuntime();
+  for (let i = 10; i > 0; i--){
     console.log(i);
   }
 });
