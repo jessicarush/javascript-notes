@@ -523,7 +523,7 @@ baz(); // 2
 
 Whatever method we use to transport an inner function outside of its lexical scope, it will maintain a scope reference to where it was originally declared, and wherever we execute it, that closure will be exercised. Note however, without the execution of the outer function `foo`, the creation of the inner scope and the closures would not occur.
 
-!!! Since Python was the first language I learned, this makes perfect sense to me but if you're coming from another language like *C*, apparently this is a bit of a head f*. Whatever.
+> :grey_exclamation: Since Python was the first language I learned, this makes perfect sense to me but if you're coming from another language like *C*, apparently this is a bit of a head f*. Whatever.
 
 For more closure see [closure.md](closure.md)
 
