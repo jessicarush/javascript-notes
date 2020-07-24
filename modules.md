@@ -20,8 +20,9 @@ JavaScript modules are reusable pieces of code that can be exported from one pro
   * [summary](#summary)
 - [ES6 Import Syntax](#es6-import-syntax)
 - [ES6 indicate the script contains a module in your HTML](#es6-indicate-the-script-contains-a-module-in-your-html)
-- [Exporting Modules with module.exports - node only](#exporting-modules-with-moduleexports---node-only)
-- [Importing Modules with require() - node only](#importing-modules-with-require---node-only)
+- [Exporting Modules with module.exports](#exporting-modules-with-moduleexports)
+- [Importing Modules with require()](#importing-modules-with-require)
+- [Importing npm packages](#importing-npm-packages)
 
 <!-- tocstop -->
 
@@ -109,7 +110,7 @@ ES6 also introduced a new syntax for imports:
 import Menu from './menu';
 ```
 
-The `import` keyword begins the statement. `Menu` specifies the name of the variable to store the default export in. `from` specifies where to load the module from. When dealing with local files, it refers to the name of the file without the extension. Note that in order for this to work properly, **the from filename string must be prefixed with (./, /, ../ or http://)**.
+The `import` keyword begins the statement. `Menu` specifies the name of the variable to store the default export in. `from` specifies where to load the module from. When dealing with local files, it refers to the name of the file without the extension. Note that in order for this to work properly, **the from filename string must be prefixed with (./, /, ../ or https://)**.
 
 When using named exports you would import like:
 
@@ -120,7 +121,7 @@ import { specialty, isVegetarian } from './menu';
 Optionally create an alias:
 
 ```javascript
-import { specialty as special, isVegetarian as veg} from './menu';
+import { specialty as special, isVegetarian as veg } from './menu';
 ```
 
 Another way of using aliases is to import the entire module as an alias:
@@ -149,13 +150,19 @@ At some point, we'll want to include our main script in our HTML file. In order 
 <script src="main.js" type="module" defer></script>
 ```
 
+Note: if you are writing a React app, your type will already be set as `type=text/jsx`, so changing it to `module` is not an option. In this case we would need to use another tool like [webpack](https://webpack.js.org/), [parcel](https://parceljs.org/), or [create-react-app](https://reactjs.org/docs/create-a-new-react-app.html).
 
-## Exporting Modules with module.exports - node only
+Note: if you are running your script in Node, to load an ES module, you will have to identify the type as module by adding `"type": "module"` in the `package.json`.
+
+
+## Exporting Modules with module.exports
+
+This method of exporting modules on its own is intended for the sever-side (Node). If you want to use this on the client side, you'll need an additional tool like [browserify](http://browserify.org/). See [node_package_manager.md](node_package_manager.md) for more information.
 
 The pattern we use to export modules is this:
 
 1. Define an object to represent the module.
-2. Add data or behavior to the module.
+2. Add data or behaviour to the module.
 3. Export the module.
 
 For example:
@@ -184,9 +191,11 @@ module.exports = {
 The idea here with module.exports is that you are exporting one module per file.
 
 
-## Importing Modules with require() - node only
+## Importing Modules with require()
 
-A common way to import a module is with the require() function. This function does not work in client-side (browser) javascript though. Provided the code above was saved in a file called `menu.js`, in another file we could do the following:
+A common way to import a module is with the require() function. To reiterate, this function does not work in standalone client-side (browser) javascript though. As mentioned above, you would been to include something like [browserify](http://browserify.org/) for that.
+
+Provided the code above was saved in a file called `menu.js`, in another file we could do the following:
 
 ```javascript
 const Menu = require('./menu.js');
@@ -199,3 +208,23 @@ function placeOrder() {
 
 placeOrder();  // My order is: Roasted Beet Burger
 ```
+
+## Importing npm packages
+
+Note that in addition to importing your own modules, you can also use `import` (or `require()`) to bring in npm packages. There are a couple ways to do this. The easiest is to use [jspm](https://jspm.org).
+
+> jspm provides a *module CDN* allowing any package from npm to be directly loaded in the browser and other JS environments as a fully optimized native JavaScript module.
+
+Importing a jspm package is easy. First, we need to make sure we have the main script's attribute set to module. (Reminder: only modern browsers support loading ECMAScript Modules.)
+
+```html
+<script src="js/main.js" type="module" defer></script>
+```
+
+Then in your javascript, import the package using the jspm.dev URL. All packages from npm are precomputed and served through jspm.dev and are available at their corresponding URLs.
+
+```javascript
+import { v4 as uuidv4 } from 'https://jspm.dev/uuid';
+```
+
+Another way of including packages is to use `npm init` and `npm intsall`. These will create a `package.json` and a `node_modules` directory. However, in order to use npm_modules via the syntax `import thing from "something";` for browsers, you'll need to set up a module bundler and ES6 compiler, such as [webpack](https://webpack.js.org/) and [babel](https://babeljs.io/) or [browserify](http://browserify.org/) and [watchify](https://github.com/browserify/watchify). See [node_package_manager.md](node_package_manager.md) for more information.
