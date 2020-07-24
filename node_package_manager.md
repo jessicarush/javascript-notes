@@ -11,7 +11,7 @@
 - [Installing packages](#installing-packages)
 - [Misc commands](#misc-commands)
 - [Working with npm_modules in client-side JavaScript](#working-with-npm_modules-in-client-side-javascript)
-  * [Using browserify & watchify](#using-browserify--watchify)
+  * [Using browserify, watchify & babelify](#using-browserify-watchify--babelify)
     + [A Barebones Process](#a-barebones-process)
     + [A Better Process](#a-better-process)
 
@@ -73,6 +73,11 @@ To install from a `package.json` locally:
 npm install
 ```
 
+To re-install from a `package.json` locally:
+```
+npm clean-install
+```
+
 To list all the globally installed packages:
 ```
 npm list -g
@@ -94,27 +99,26 @@ import uuid from '../node_modules/uuid/dist/esm-browser/v4.js'
 But what I actually want to do is this:
 
 ```javascript
-import uuidv4 from 'uuid/v4';
-// or
 import { v4 as uuidv4 } from 'uuid';
 // or
 const { v4: uuidv4 } = require('uuid');
 ```
 
-Normally, the string that follows the `from` keyword is a relative path. When that string doesn't begin with `./`, `/`, `../` or `https://`, node on the server-side or another tool on the client-side, will know to look in the `node_modules` directory. There are a number tools that can be used on the client-side.
+Normally, the string that follows the `from` keyword is a relative path. When that string doesn't begin with `./`, `/`, `../` or `https://`, Node on the server-side or another tool on the client-side, will know to look in the `node_modules` directory. There are a number tools that can be used on the client-side. (Side note: Node doesn't actally support `https://` URLs for its imports.)
 
-1. **[browserify](http://browserify.org/) and [watchify](https://github.com/browserify/watchify)**  
-browserify lets you `require('modules')` in the browser by bundling up all of your dependencies. As a result, it lets you directly import npm_modules. watchify simply adds watch mode for browserify builds so that you don't have to run the browserify command every time you save.
+1. **[browserify](http://browserify.org/), [watchify](https://github.com/browserify/watchify) and [babelify](https://www.npmjs.com/package/babelify)**  
+browserify lets you `require('modules')` in the browser by bundling up all of your dependencies. As a result, it lets you directly import npm_modules. watchify simply adds watch mode for browserify builds so that you don't have to run the browserify command every time you save. babelify lets you use the ES6 `import` syntax.
 
 2. **[webpack](https://webpack.js.org/) and [babel](https://babeljs.io/)**  
+TODO
 
-### Using browserify & watchify
+### Using browserify, watchify & babelify
 
 #### A Barebones Process
 
 This process installs browserify and watchify globally and will allow you to:
 - manage your packages with npm
-- import packages into your JavaScript using the `require()` method
+- import packages into your JavaScript using the `require()` syntax
 
 Step 1: Install browserify and watchify globally.
 ```
@@ -155,16 +159,16 @@ watchify js/main.js -o js/bundle.js
 
 Step 7: Include `bundle.js` in your html.
 ```html
-<script src="js/bundle.js" type="module" defer></script>
+<script src="js/bundle.js" defer></script>
 ```
 
 
 #### A Better Process
 
-This process installs browserify and watchify locally and will allow you to:
+This process installs browserify, watchify and babelify locally and will allow you to:
 - manage your packages with npm
-- import packages into your JavaScript using `import <thing> from '<package>';`
-- run the build process when changes are made with a simple command `npm run watch`
+- import packages into your JavaScript using ES6 `import <thing> from '<package>' syntax;`
+- watch and run the build process when changes are made with a simple command `npm run watch`
 
 Step 1: Create a `package.json` in your project root directory.
 ```
@@ -176,7 +180,7 @@ Step 2: Install browserify and watchify locally.
 npm install browserify watchify --save-dev
 ```
 
-Step 3: Install babel (this will allow us to use the ES6 `import` syntax).
+Step 3: Install babelify (this will allow us to use the ES6 `import` syntax).
 ```
 npm install @babel/core @babel/preset-env babelify --save-dev
 ```
