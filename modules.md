@@ -1,5 +1,24 @@
 # Modules
 
+## Table of Contents
+
+<!-- toc -->
+
+- [Introduction](#introduction)
+- [ES6: Export](#es6-export)
+  * [default export](#default-export)
+  * [named export](#named-export)
+  * [summary](#summary)
+- [ES6: Import](#es6-import)
+- [ES6: indicate the script contains a module in your HTML](#es6-indicate-the-script-contains-a-module-in-your-html)
+- [CommonJS: module.exports](#commonjs-moduleexports)
+- [CommonJS: require()](#commonjs-require)
+- [Importing npm packages](#importing-npm-packages)
+- [Summary](#summary)
+
+<!-- tocstop -->
+
+## Introduction
 
 In the past we've had *the module pattern* which is based on an outer function containing inner functions and variables and that returns a *public API*. See [functions.md](functions.md#module-pattern).
 
@@ -10,23 +29,27 @@ JavaScript modules are reusable pieces of code that can be exported from one pro
 - keep information private and protected from other modules
 - prevent pollution of the global namespace and potential naming collisions, by cautiously selecting the variables and behavior we load into a program
 
-## Table of Contents
+There are two main methods of importing and exporting modules. How you implement these methods will depend on whether you are running on the client-side (in the browser) or the server-side (in node.js). At the end of this doc, there is a table that summarizes the different use-cases. For now, know this:
 
-<!-- toc -->
+CommonJS | ES6
+-------- | ---
+`require()` and `module.exports` | `import` and `export`
 
-- [ES6 Export syntax](#es6-export-syntax)
-  * [default export](#default-export)
-  * [named export](#named-export)
-  * [summary](#summary)
-- [ES6 Import Syntax](#es6-import-syntax)
-- [ES6 indicate the script contains a module in your HTML](#es6-indicate-the-script-contains-a-module-in-your-html)
-- [Exporting Modules with module.exports](#exporting-modules-with-moduleexports)
-- [Importing Modules with require()](#importing-modules-with-require)
-- [Importing npm packages](#importing-npm-packages)
+**CommonJS** is a specification and standard used in` Node.js` for working with modules. Though it is a server-side specification, it can also be used client-side with the help of additional tools (a bundler).
 
-<!-- tocstop -->
+**ES6** added it's own built-in support for modules in JavaScript using `import` and `export` and can be used both client-side and server-side.
 
-## ES6 Export syntax
+Some differences between the two:
+
+- With ES6 `import`, you can selectively load only the pieces you need. This can save memory. You can't selectively load only the pieces you need with `require()`.
+
+- Loading is synchronous for `require()`, whereas `import` can be asynchronous (not waiting for previous import) so it can perform a little better than `require()`.
+
+- `require()` will automatically scan `node_modules` to find modules, but `import` won't (without the use of additional tools).
+
+Note that since ES6 is still relatively new, many people use `babel` to transpile `import` and `export`, which makes `import` act the same as `require()`.
+
+## ES6: Export
 
 ES6 implemented a more readable, flexible syntax for exporting modules. These are usually broken down into one of two techniques, default export and named exports. The default export syntax works similarly to the module.exports syntax, allowing us to export one module per file.
 
@@ -43,7 +66,7 @@ export default Menu;
 
 `export default` uses the JavaScript export statement to export objects, functions, and primitive data types. `Menu` refers to the name of the `Menu` object, which is the object that we are setting the properties on within our module.
 
-When using ES6 syntax, use `export default` in place of `module.exports`
+When using ES6 syntax, use `export default` in place of CommonJS `module.exports`
 
 
 ### named export
@@ -102,12 +125,12 @@ Use `export default` to export JavaScript objects, functions, and primitive data
 Use named exports to `export` data in variables.
 
 
-## ES6 Import Syntax
+## ES6: Import
 
 ES6 also introduced a new syntax for imports:
 
 ```javascript
-import Menu from './menu';
+import Menu from './menu.js';
 ```
 
 The `import` keyword begins the statement. `Menu` specifies the name of the variable to store the default export in. `from` specifies where to load the module from. When dealing with local files, it refers to the name of the file without the extension. Note that in order for this to work properly, **the from filename string must be prefixed with (./, /, ../ or https://)**.
@@ -115,19 +138,19 @@ The `import` keyword begins the statement. `Menu` specifies the name of the vari
 When using named exports you would import like:
 
 ```javascript
-import { specialty, isVegetarian } from './menu';
+import { specialty, isVegetarian } from './menu.js';
 ```
 
 Optionally create an alias:
 
 ```javascript
-import { specialty as special, isVegetarian as veg } from './menu';
+import { specialty as special, isVegetarian as veg } from './menu.js';
 ```
 
 Another way of using aliases is to import the entire module as an alias:
 
 ```javascript
-import * as Whatever from './menu';
+import * as Whatever from './menu.js';
 
 Whatever.specialty;
 Whatever.isVegetarian();
@@ -136,13 +159,13 @@ Whatever.isVegetarian();
 To import both default and names exports:
 
 ```javascript
-import isVegetarian, { special, seasonal } from './menu';
+import isVegetarian, { special, seasonal } from './menu.js';
 ```
 
 Note that `import` doesn't work in Node yet.
 
 
-## ES6 indicate the script contains a module in your HTML
+## ES6: indicate the script contains a module in your HTML
 
 At some point, we'll want to include our main script in our HTML file. In order to have modules work properly in the browser we need to add the type attribute to the `<script>`, for example:
 
@@ -150,12 +173,12 @@ At some point, we'll want to include our main script in our HTML file. In order 
 <script src="main.js" type="module" defer></script>
 ```
 
+Note: if you are running your script in Node, to load an ES6 module, you will have to identify the type as module by adding `"type": "module"` in the `package.json`.
+
 Note: if you are writing a React app, your type will already be set as `type=text/jsx`, so changing it to `module` is not an option. In this case we would need to use another tool like [webpack](https://webpack.js.org/), [parcel](https://parceljs.org/), or [create-react-app](https://reactjs.org/docs/create-a-new-react-app.html).
 
-Note: if you are running your script in Node, to load an ES module, you will have to identify the type as module by adding `"type": "module"` in the `package.json`.
 
-
-## Exporting Modules with module.exports
+## CommonJS: module.exports
 
 This method of exporting modules on its own is intended for the sever-side (Node). If you want to use this on the client side, you'll need an additional tool like [browserify](http://browserify.org/). See [node_package_manager.md](node_package_manager.md) for more information.
 
@@ -191,7 +214,7 @@ module.exports = {
 The idea here with module.exports is that you are exporting one module per file.
 
 
-## Importing Modules with require()
+## CommonJS: require()
 
 A common way to import a module is with the require() function. To reiterate, this function does not work in standalone client-side (browser) javascript though. As mentioned above, you would been to include something like [browserify](http://browserify.org/) for that.
 
@@ -227,4 +250,16 @@ Then in your javascript, import the package using the jspm.dev URL. All packages
 import { v4 as uuidv4 } from 'https://jspm.dev/uuid';
 ```
 
-Another way of including packages is to use `npm init` and `npm intsall`. These will create a `package.json` and a `node_modules` directory. However, in order to use npm_modules via the syntax `import thing from "something";` for browsers, you'll need to set up a module bundler and ES6 compiler, such as [webpack](https://webpack.js.org/) and [babel](https://babeljs.io/) or [browserify](http://browserify.org/) and [watchify](https://github.com/browserify/watchify). See [node_package_manager.md](node_package_manager.md) for more information.
+Another way of including packages is to use `npm init` and `npm intsall`. These will create a `package.json` and a `node_modules` directory. However, in order to use npm_modules via the syntax `import thing from "something";` for browsers, you'll need to set up a module bundler and ES6 compiler, such as [webpack](https://webpack.js.org/) and [babel](https://babeljs.io/) or [browserify](http://browserify.org/), [watchify](https://github.com/browserify/watchify) and [babelify](https://www.npmjs.com/package/babelify). See [node_package_manager.md](node_package_manager.md) for more information.
+
+## Summary
+
+
+What are you loading? | Where? | Solution(s)
+--------------------- | ------ | -----------
+Your own modules | client-side (index.html) | - use ES6 `import` and `export` syntax <br> - set `type=module` on the main `<script>` <br> *or* <br> - use `require()` and `module.exports` syntax <br> - use browserify, watchify and babelify to create a bundle.js <br>
+Your own modules | server-side (index.js) | - use ES6 `import` and `export` syntax <br> - set `"type": "module"` in your `package.json` <br> *or* <br> - use `require()` and `module.exports` syntax
+CDN packages  | client-side (index.html) | - use ES6 `import` synatx to import a jspm.dev URL <br> - set `type=module` on the main `<script>`
+CDN packages  | server-side (index.js) | - Nope. Only `file:` and `data:` URLs are supported. A specifier like `'https://example.com/app.js'` may be supported by browsers but it's not supported in Node.js.
+npm packages (node_modules) | client-side (index.html) | - use ES6 `import` and `export` syntax <br> - use browserify, watchify and babelify to create a bundle.js <br> - set `"type": "module"` in your `package.json` <br> *or* <br> - use `require()` and `module.exports` syntax <br> - use browserify, watchify and babelify to create a bundle.js
+npm packages (node_modules) | server-side (index.js) | -  use ES6 `import` and `export` syntax <br> - set `"type": "module"` in your `package.json` <br> *or* <br> - use `require()` and `module.exports` syntax
