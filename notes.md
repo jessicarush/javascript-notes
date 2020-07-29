@@ -280,6 +280,34 @@ console.log(sum(...numbers));
 // 6
 ```
 
+Key value pairs can be pulled out of object to create a new object:
+
+```javascript
+let todos = [
+  {id: 1, task: 'water plants', completed: false},
+  {id: 2, task: 'laundry', completed: false},
+  {id: 3, task: 'groceries', completed: false},
+];
+
+let test1 = {...todos[0], add: 'another'}
+console.log(test1);
+// { id: 1, task: "water plants", completed: false, add: "another" }
+```
+
+If you pass a key that already exists in the object, the new value will be used:
+
+```javascript
+let todos = [
+  {id: 1, task: 'water plants', completed: false},
+  {id: 2, task: 'laundry', completed: false},
+  {id: 3, task: 'groceries', completed: false},
+];
+
+let test2 = {...todos[2], completed: true}
+console.log(test2);
+// { id: 3, task: "groceries", completed: true }
+```
+
 
 ## JSHint
 
