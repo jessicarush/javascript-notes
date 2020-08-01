@@ -505,6 +505,25 @@ console.log(Boolean(g));  // false
 The base [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object).   
 See [objects.md](objects.md).
 
+The `Object.assign()` static method copies all enumerable own properties from one or more source objects to a target object and returns that target object. Note that duplicate keys will be assigned the last value.
+
+```javascript
+const target = {name: 'jessica', color: 'aquamarine'};
+const source1 = {number: 5, flower: 'orchid'};
+const source2 = {number: 7, name: 'anonymous'};
+
+const returnedTarget = Object.assign(target, source1, source2);
+
+console.log(returnedTarget);
+// { name: 'anonymous', color: 'aquamarine', number: 7, flower: 'orchid' }
+console.log(target);
+// { name: 'anonymous', color: 'aquamarine', number: 7, flower: 'orchid' }
+console.log(source1);
+// { number: 5, flower: 'orchid' }
+console.log(source2);
+// { number: 7, name: 'anonymous' }
+```
+
 ## Function
 
 The [Function object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function).  
