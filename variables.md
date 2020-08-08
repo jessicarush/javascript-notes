@@ -13,7 +13,7 @@ As with many other languages, JavaScript variables are containers for storing da
 - [let](#let)
 - [global variables](#global-variables)
 - [where to declare](#where-to-declare)
-- [naming](#naming)
+- [naming (reserved words)](#naming-reserved-words)
 
 <!-- tocstop -->
 
@@ -213,7 +213,7 @@ var b = 15;
 So, the convention of declaring most variables at the beginning of a function feels like a good one, but that doesn't mean we can't declare some where they appear when it makes sense to do so.
 
 
-## naming
+## naming (reserved words)
 
 Variable names (including function names) must be *valid identifiers*:
 - an identifier must start with `a-z`, `A-Z`, `$` or `_`.
