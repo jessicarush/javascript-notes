@@ -26,6 +26,7 @@ Javascript has many built-in objects. Some of the names imply they're directly r
 - [Symbol](#symbol)
 - [Map](#map)
 - [Set](#set)
+- [Promise](#promise)
 - [Global Functions](#global-functions)
 
 <!-- tocstop -->
@@ -683,6 +684,10 @@ The [Map object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Referen
 
 The [Set object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set).  
 See [sets.md](sets.md).
+
+## Promise
+
+The [Promise object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
 
 
 ## Global Functions
