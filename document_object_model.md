@@ -307,6 +307,7 @@ list.appendChild(newLastItem);
 // Add an element to the start of a list
 let newFirstItem = document.createElement('li');
 newFirstItem.textContent = 'first item';
+// parentNode.insertBefore(newNode, referenceNode)
 list.insertBefore(newFirstItem, list.firstElementChild);
 ```
 
