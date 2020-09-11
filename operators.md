@@ -369,3 +369,25 @@ There are a number of keyword operators in javascript which test/do various thin
 `delete` - deletes a property from an object.  
 `in` - determines whether an object has a given property.  
 `void` -discards an expression's return value.
+
+## *ES2020* Nullish Coalescing Operator
+
+> The nullish coalescing operator (??) is a logical operator that returns its right-hand side operand when its left-hand side operand is null or undefined, and otherwise returns its left-hand side operand.
+
+[Source: MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Nullish_coalescing_operator)
+
+```javascript
+let score = 0;
+let pass = score ?? 60;
+
+console.log(pass);
+// 0
+```
+
+```javascript
+let score;
+let pass = score ?? 60;
+
+console.log(pass);
+// 60
+```
