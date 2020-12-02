@@ -114,6 +114,16 @@ console.log(squareNumbers);
 // [ 9, 25, 100 ]
 ```
 
+Even more condensed *Arrow* syntax:
+```javascript
+const numbers = [3, 5, 10];
+
+const squareNumbers = numbers.map(num => num * num);
+
+console.log(squareNumbers);
+// [ 9, 25, 100 ]
+```
+
 
 ## flatMap()
 
