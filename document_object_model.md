@@ -138,7 +138,7 @@ for (let el of Array.from(myStaticList)) {
 let myLiveList = document.getElementsByClassName('myclass');
 
 // modify all using a traditional for loop
-for (let i = 0; i < elNavs.length; i++) {
+for (let i = 0; i < myLiveList.length; i++) {
     myLiveList[i].className = 'newclass';
 }
 
@@ -190,22 +190,29 @@ let node = document.getElementById('main-nav');
 
 // some properties for working with nodes:
 
-node.nodeName;      // return name of the node (e.g. DIV, LI, #text)
-node.nodeType;      // return node type (1=element, 2=attribute, 3=text, ...)
-node.nodeValue;     // return or set nodes value
-node.textContent;   // return or set all the text content of a node
-node.innerText;     // return or set the text content of a node
-element.innerHTML;  // return or set the text and markup content of an element
-node.attributes;    // returns a live collection of all attribute nodes registered to the specified node
+node.nodeName;        // return name of the node (e.g. DIV, LI, #text)
+node.nodeType;        // return node type (1=element, 2=attribute, 3=text, ...)
+node.nodeValue;       // return or set nodes value
+node.textContent;     // return or set all the text content of a node
+node.innerText;       // return or set the text content of a node
+element.innerHTML;    // return or set the text and markup content of an element
+node.attributes;      // returns a live collection of all attribute nodes registered to the specified node
 
 // some methods that let you create new nodes, add & remove
 
-createElement();    // creates a new html element
-createTextNode();   // creates a new text node
-cloneNode();        // clones an element
-insertBefore();     // inserts a new child node before the an existing one
-appendChild();      // adds a new child node to an element
-removeChild();      // removes a child node from an element
+document.createElement();   // creates a new html element
+document.createTextNode();  // creates a new text node
+node.cloneNode();           // clones an element
+node.insertBefore();        // inserts a new child node before the an existing one
+node.appendChild();         // adds a new child node to an element
+node.removeChild();         // removes a child node from an element
+node.replaceChild();        // replaces a node
+
+// Some newer ones (not supported in IE):
+parentNode.append()
+parentNode.prepend()
+childNode.after()
+childNode.before()
 ```
 
 When you are working with an element node (rather than its text node), that element may contain markup. You have to choose whether to get & set the markup as well as the text. When you use these properties to update content, all the old content will be overwritten (both text and markup).
@@ -398,6 +405,15 @@ el.matches('.mystyle')        // returns true if the element matches the selecto
 el.scroll()                   // scrolls the element to a particular set of coordinates
 el.scrollBy()                 // scrolls the element by a given amount
 el.toggleAttribute()          // toggles a Boolean attribute
+```
+
+Note: you can get all properties of a node using the attributes property:
+
+```javascript
+let test = document.getElementById('my_el');
+
+console.log(test.attributes);
+
 ```
 
 The `.matches()` method is particularly helpful for using [event delegation](events.md#event-delegation).
