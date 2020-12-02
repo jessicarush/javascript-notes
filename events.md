@@ -67,8 +67,8 @@ References:
 `blur` - fires when an element looses focus  
 
 **Form Events**  
-`input` - value in any `<input>`, `<select>` or `<textarea>` has changed  
-`change` - value in a select box, checkbox or radio button changes   
+`input` - value in an `<input>`, `<select>` or `<textarea>` has been changed
+`change` - value in an `<input>`, `<select>` or `<textarea>` has changed  
 `submit` - user submits a form  
 `reset` - user resets a form  
 `cut` - users cuts from a form field   
