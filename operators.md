@@ -3,7 +3,7 @@
 
 Operators that use two values are called *binary operators*, while those that take one are called *unary operators*. There is also a *ternary operator* `? :` that takes three values.
 
-Add: `+`  
+Add, concatenate, convert to number: `+`  
 Subtract: `-`  
 Multiply: `*`  
 Divide: `/`  
@@ -50,7 +50,7 @@ There are other, more complex ones (ie Bitwise operators). See: [MDN Expressions
 ## Basic math
 
 ```javascript
-console.log(3 + 4);   // 7 (+ is also used for string concatenation)
+console.log(3 + 4);   // 7
 console.log(5 - 1);   // 4
 console.log(4 * 2);   // 8
 console.log(5 / 2);   // 2.5
@@ -287,6 +287,20 @@ The conditional (ternary) operator `?` is the only one that takes 3 operands. It
 // condition ? value1 : value2
 
 let status = (age >= 18) ? 'adult' : 'minor';
+```
+
+## '+' as a unary operator
+
+In addition to addition and concatenation, `+` can be used as a *unary operator* to convert to a number. This is common when converting dates to an epoch timestamp number.
+
+```javascript
+let score = '200';
+let date = new Date();
+
+console.log(score, typeof score);    // 200 string
+console.log(+score, typeof +score);  // 200 number
+console.log(date, typeof date);      // 2020-10-20T01:41:09.140Z object
+console.log(+date, typeof +date);    // 1603158069140 number
 ```
 
 ## Operator Precedence
