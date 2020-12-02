@@ -208,6 +208,20 @@ console.log(typeof String(num));     // string
 console.log(typeof num.toString());  // string
 ```
 
+If I wanted to strip the units off a value string, I have a few options:
+
+```javascript
+let test = '10.0 A';
+
+let test2 = test.slice(0, -1);
+let test3 = test.replace(' A', '');
+let test4 = test.substring(0, test.length - 2);
+
+console.log(test2);  // 10.0
+console.log(test3);  // 10.0
+console.log(test4);  // 10.0
+```
+
 
 ## Number
 
