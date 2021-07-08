@@ -396,7 +396,7 @@ el.tagName                    // returns the tag name of an element
 el.title                      // sets or returns the value of the title attribute  
 el.selectedIndex              // returns or sets the index (selected option) in a select menu  
 
-el.closest('.mystyle')        // returns the closest ancestor of the current element
+el.closest('.mystyle')        // returns the closest ancestor of the current element (includes itself)
 el.compareDocumentPosition()  // compares the document position of two elements  
 el.contains()                 // returns true if a node is a descendant of a node  
 el.focus()                    // gives focus to an element  
@@ -405,6 +405,14 @@ el.matches('.mystyle')        // returns true if the element matches the selecto
 el.scroll()                   // scrolls the element to a particular set of coordinates
 el.scrollBy()                 // scrolls the element by a given amount
 el.toggleAttribute()          // toggles a Boolean attribute
+```
+
+Note: you can add and remove multiple classes:
+
+```javascript
+// add or remove multiple classes
+div.classList.add("foo", "bar", "baz");
+div.classList.remove("foo", "bar", "baz");
 ```
 
 Note: you can get all properties of a node using the attributes property:
