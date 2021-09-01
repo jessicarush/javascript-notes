@@ -152,6 +152,8 @@ console.info('info');
 console.error('error');
 console.warn('warn');
 console.log('log');
+console.dir(document);
+console.dir(document.URL);
 ```
 
 Most browsers also support the `.table()` method which outputs objects or arrays as a nicely formatted table. This can be particularly helpful when working with third party data.
@@ -176,6 +178,14 @@ var users = [
 ];
 
 console.table(users);
+```
+
+You can measure how long a script takes to run with `.time()` and `.timeEnd()`:
+
+```javascript
+console.time('Time test')
+  console.log('Running some code...');
+console.timeEnd('Time test')
 ```
 
 You can conditionally log to the console using the `.assert()` method:

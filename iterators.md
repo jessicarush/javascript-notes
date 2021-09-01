@@ -52,6 +52,16 @@ myArray.forEach(firstname => {
 // Name: morty
 ```
 
+Note with `forEach()` you hace access to the loop index:
+```javascript
+myArray.forEach((firstname, i) => {
+  console.log(i + ' Name: ' + firstname);
+});
+// 0 Name: bob
+// 1 Name: rick
+// 2 Name: morty
+```
+
 
 ## filter()
 

@@ -207,9 +207,10 @@ node.insertBefore();        // inserts a new child node before the an existing o
 node.appendChild();         // adds a new child node to an element
 node.removeChild();         // removes a child node from an element
 node.replaceChild();        // replaces a node
+element.replaceWith()       // replaces an element from its parent with another
 
 // Some newer ones (not supported in IE):
-parentNode.append()
+parentNode.append()         // lets you append multiple elements at a time!
 parentNode.prepend()
 childNode.after()
 childNode.before()
@@ -464,6 +465,7 @@ Note that some types of elements have their own unique properties. For example, 
 document.getElementById('mycheckbox').checked = true;
 document.getElementById('myfield').required = true;
 document.getElementById('myfield').disabled = true;
+document.getElementById('mylabel').htmlFor = 'myfield';
 ```
 
 So far I can't seem to find an MDN reference for these particular objects and their properties, but you could see what properties are available by logging an element as an event target to the console:
