@@ -90,3 +90,28 @@ function randomRGB() {
 console.log(randomRGB());
 // rgb(104,118,229)
 ```
+
+## Hex to RGB, RGB to Hex
+
+```javascript
+function rgbToHex(rgbString) {
+  const rgb = rgbString.split(',').map(Number);
+  const [r, g, b] = rgb;
+  return `#${r.toString(16)}${g.toString(16)}${b.toString(16)}`;
+}
+
+console.log(rgbToHex('127,255,212'));   // #7fffd4
+console.log(rgbToHex('104, 58, 249'));  // #683af9
+
+
+function hexToRgb(hexString) {
+  const hex = hexString.replace('#', '');
+  const r = parseInt(hex.slice(0, 2), 16);
+  const g = parseInt(hex.slice(2, 4), 16);
+  const b = parseInt(hex.slice(4, 6), 16);
+  return `${r}, ${g}, ${b}`;
+}
+
+console.log(hexToRgb('#7fffd4'));  // 127, 255, 212
+console.log(hexToRgb('683af9'));   // 104, 58, 249
+```
