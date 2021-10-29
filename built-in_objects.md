@@ -121,7 +121,7 @@ console.log('The weather is nice.'.replace('nice', 'gross'));
 The `substring()` method returns the part of the string between the start and end indexes, or to the end of the string. This can be used as a clever way to pad-tab output:
 
 ```javascript
-let heading = ['name', 'date', 'age']
+let heading = ['name', 'date', 'age'];
 let data = ['Rick', '11-19-1979', '40'];
 let space = ' '.repeat(8);
 
@@ -151,13 +151,17 @@ console.log(zeroPadNumber(7));
 
 console.log(zeroPadNumber(7, 5));
 // 00007
+
+console.log(zeroPadNumber(7001, 3));
+// 7001
 ```
 
 Since we're on the topic, here's another way to pad using `slice()`:
 
 ```javascript
 function zeroPadNumber(num, length=3) {
-  return (num <= 999) ? ('0'.repeat(length) + num).slice(-length): num;
+  const maxnum = Number('9'.repeat(length));
+  return (num <= maxnum) ? ('0'.repeat(length) + num).slice(-length): num;
 }
 
 console.log(zeroPadNumber(7));
@@ -165,6 +169,9 @@ console.log(zeroPadNumber(7));
 
 console.log(zeroPadNumber(7, 5));
 // 00007
+
+console.log(zeroPadNumber(7001, 3));
+// 7001
 ```
 
 Note that JavaScript doesn't have a capitalize method for strings. Instead, you have to monkey one together like so:

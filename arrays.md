@@ -244,26 +244,32 @@ console.log(originalArray);
 
 ### Replace or remove a section with *splice()*
 
-This method takes 3 arguments: the starting index number, the total number of elements to remove from that position, and the (optional) items to insert. For example:
+This method takes 3 arguments: the starting index number, the total number of elements to remove from that position, and the (optional) items to insert. It returns a new array of the items removed. For example:
 
 ```javascript
 const myArray = ['one', 'two', 'three', 'four', 'five'];
 
+myArray.splice(1, 1);
+console.log(myArray);
+// [ 'one', 'three', 'four', 'five' ]
+
 myArray.splice(2, 0, 'hey');
-console.log(myArray);  
-// [ 'one', 'two', 'hey', 'three', 'four', 'five' ]
+console.log(myArray);
+// [ 'one', 'three', 'hey', 'four', 'five' ]
 
 myArray.splice(2, 1, 'hello');
-console.log(myArray);  
-// [ 'one', 'two', 'hello', 'three', 'four', 'five' ]
+console.log(myArray);
+// [ 'one', 'three', 'hello', 'four', 'five' ]
 
 myArray.splice(1, 4, 'bye', 'farewell');
-console.log(myArray);  
-// [ 'one', 'bye', 'farewell', 'five' ]
-
-myArray.splice(1, 2);
 console.log(myArray);
-// [ 'one', 'five' ]
+// [ 'one', 'bye', 'farewell' ]
+
+let spliced = myArray.splice(1, 2);
+console.log(myArray);
+// [ 'one' ]
+console.log(spliced);
+// [ 'bye', 'farewell' ]
 ```
 
 
