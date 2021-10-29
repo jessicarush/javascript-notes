@@ -21,7 +21,7 @@ JavaScript is an asynchronous language. It uses an [event loop](https://develope
 
 ## Example
 
-To get a glimpse of how the event loop works the following example uses the setTimeout(), which will pass a function call to the queue. The first argument is a callback and the second argument is the number of milliseconds the program must wait before the callback can be run. The other console.log() calls are run from the stack.
+To get a glimpse of how the event loop works the following example uses ``setTimeout()``, which will pass a function call to the queue. The first argument is a callback and the second argument is the number of milliseconds the program must wait before the callback can be run. The other ``console.log()`` calls are run from the stack.
 
 ```javascript
 console.log('First');
@@ -113,8 +113,7 @@ To make asynchronous event handling easier, [promises](https://developer.mozilla
 fetch('https://api-to-call.com/endpoint').then(response => {
   if (response.ok) {
       return response.json();
-  }
-  else {
+  } else {
       throw new Error('Request failed!');
   }
 }, networkError => { console.log(networkError.message); }
@@ -139,8 +138,7 @@ fetch('https://api-to-call.com/endpoint', {
 }).then(response => {
   if (response.ok) {
       return response.json();
-  }
-  else {
+  } else {
       throw new Error('Request failed!');
   }
 }, networkError => { console.log(networkError.message); }
@@ -170,8 +168,7 @@ const getData = async () => {
       // until the promise status is resolved.
       const jsonResponse = await response.json();
       return jsonResponse;
-    }
-    else {
+    } else {
         throw new Error('Request failed!');
     }
   }
@@ -198,8 +195,7 @@ const getData = async () => {
     if (response.ok) {
       const jsonResponse = await response.json();
       return jsonResponse;
-    }
-    else {
+    } else {
         throw new Error('Request failed!');
     }
   }
@@ -213,3 +209,5 @@ const getData = async () => {
 ## Summary
 
 GET and POST requests can be created a variety of ways. `fetch()` and `async`/`await` are new functionalities developed in ES6 (promises) and ES8 respectively.
+
+See also: [promises.md](https://github.com/jessicarush/javascript-notes/blob/master/promises.md), [async_await.md](https://github.com/jessicarush/javascript-notes/blob/master/async_await.md)
