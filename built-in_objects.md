@@ -281,19 +281,39 @@ console.log(num.toString(16));
 Here's a function that converts rgb color values into hex using `toString()`:
 
 ```javascript
-function rgbToHex(rgb) {
-  rgb = rgb.split(',').map(Number);
-  let {r, g, b} = rgb;
+function rgbToHex(rgbString) {
+  const rgb = rgbString.split(',').map(Number);
+  const [r, g, b] = rgb;
   return `#${r.toString(16)}${g.toString(16)}${b.toString(16)}`;
 }
 
 let rgb1 = '127,255,212';
-let rgb2 = '104,58,249';
+let rgb2 = '104, 58, 249';
 
 console.log(rgbToHex(rgb1));  // #7fffd4
 console.log(rgbToHex(rgb2));  // #683af9
 ```
 
+While we're at it, here's a function that goes the other way using the built-in function ``parseInt()``:
+
+```javascript
+function hexToRgb(hexString) {
+  const hex = hexString.replace('#', '');
+  const r = parseInt(hex.slice(0, 2), 16);
+  const g = parseInt(hex.slice(2, 4), 16);
+  const b = parseInt(hex.slice(4, 6), 16);
+  return `${r}, ${g}, ${b}`;
+}
+
+console.log(hexToRgb('#7fffd4')); // 127, 255, 212
+console.log(hexToRgb('683af9'));  // 104, 58, 249
+```
+
+Note that ``parseInt()`` is a [global function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects) that is the same as ``Number.parseInt()`` described next.
+
+```javascript
+console.log(Number.parseInt === parseInt);  // true
+```
 
 The [Number object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) has *static* methods that check if an instance in an integer or finite number, or *parse* a string into a float or integer. The two *parsing* methods are interesting because they tolerate and drop any non-numeric characters they encounter as they parse from left to right. Note that the string must start with a numeric character for it to be parsed. As soon as it reads a non-numeric character, it simply stops parsing.
 
