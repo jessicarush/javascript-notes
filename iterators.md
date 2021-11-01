@@ -52,7 +52,8 @@ myArray.forEach(firstname => {
 // Name: morty
 ```
 
-Note with `forEach()` you hace access to the loop index:
+Note with `forEach()` you have access to the loop index:
+
 ```javascript
 myArray.forEach((firstname, i) => {
   console.log(i + ' Name: ' + firstname);
@@ -142,7 +143,7 @@ The `flatMap() `method first maps each element using a mapping function, then fl
 ```javascript
 const myArray = ['2 - 3456 Main Street', 'Vancouver', 'BC', 'V5Z2X5'];
 
-// using map() the result is lists withon a list
+// using map() the result is lists within a list
 myArray.map(x => x.split(' '));
 // [["2", "-", "3456", "Main", "Street"], ["Vancouver"], ["BC"], ["V5Z2X5"]]
 
