@@ -40,10 +40,12 @@ There are other, more complex ones (ie Bitwise operators). See: [MDN Expressions
 - [Comparison](#comparison)
 - [Logical](#logical)
 - [Conditional](#conditional)
+- ['+' as a unary operator](#-as-a-unary-operator)
 - [Operator Precedence](#operator-precedence)
 - [False and Falsy](#false-and-falsy)
 - [Shorthand (short-circuiting) with logical operators](#shorthand-short-circuiting-with-logical-operators)
 - [Keyword operators](#keyword-operators)
+- [*ES2020* Nullish Coalescing Operator](#es2020-nullish-coalescing-operator)
 
 <!-- tocstop -->
 
