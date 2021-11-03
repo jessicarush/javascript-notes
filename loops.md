@@ -1,7 +1,7 @@
 # Loops
 
 
-A loop includes a test condition as well as a block `{...}`. Each time a loop block executes it's called an iteration. The block will repeat until the condition no longer evaluates as true. There are different forms of loops: `for` lops, `while` loops and `do...while` loops.
+A loop includes a test condition as well as a block `{...}`. Each time a loop block executes it's called an iteration. The block will repeat until the condition no longer evaluates as true. There are different forms of loops: `for` loops, `while` loops and `do...while` loops.
 
 
 ## Table of Contents
@@ -29,6 +29,11 @@ while (countdown > 0) {
   console.log('Count...' + countdown);
   countdown -= 1;
 }
+// Count...5
+// Count...4
+// Count...3
+// Count...2
+// Count...1
 ```
 
 
@@ -43,6 +48,11 @@ do {
   console.log('Count...' + countdown);
   countdown -= 1;
 } while (countdown > 0);  // note you need a semicolon here
+// Count...5
+// Count...4
+// Count...3
+// Count...2
+// Count...1
 ```
 
 The only practical difference between these two is whether the conditional is tested before or after the first iteration. In the example above, if the countdown started at 0, the `while` loop would print nothing but the `do...while` loop would print once.
@@ -61,6 +71,10 @@ Put together, it looks like this:
 for (let i = 0; i <= 5; i++) {
   console.log('Count...' + i);
 }
+// Count...0
+// Count...1
+// Count...2
+// Count...3
 ```
 
 To iterate over an array, you would have to use the length parameter and index positions.
@@ -112,7 +126,7 @@ By using the `break` keyword, you can actually omit the the conditional clause i
 ```Javascript
 for (let num = 100; ; num++) {
   if (num % 7 === 0) {
-    console.log(num);
+    console.log(num);  // 105
     break;
   }
 }
@@ -179,42 +193,42 @@ for (let property in obj) {
 // undefined
 ```
 
-One weird thing is that when you want to access properties in nested objects, you have to explicitly list the path, for example:
+When you want to access properties in nested objects, you have to explicitly list the path, for example:
 
 ```javascript
 let spaceship = {
     crew: {
-    captain: {
-        name: 'Maeve',
-        degree: 'Computer Engineering',
+        captain: {
+            name: 'Maeve',
+            degree: 'Computer Engineering',
         },
-    'chief officer': {
-        name: 'Dan',
-        degree: 'Aerospace Engineering',
+        'chief officer': {
+            name: 'Dan',
+            degree: 'Aerospace Engineering',
         },
-    medic: {
-        name: 'Clementine',
-        degree: 'Physics',
+        medic: {
+            name: 'Clementine',
+            degree: 'Physics',
         },
     }
 };
 
 for (let person in spaceship.crew) {
-  console.log(`${person}: ${person.name}`);
+  console.log(`${person}: ${person.name}`);  // no
 }
 // captain: undefined
 // chief officer: undefined
 // medic: undefined
 
 for (let person in spaceship.crew) {
-  console.log(`${person}: ${[person].name}`);
+  console.log(`${person}: ${[person].name}`);  // no
 }
 // captain: undefined
 // chief officer: undefined
 // medic: undefined
 
 for (let person in spaceship.crew) {
-  console.log(`${person}: ${spaceship.crew[person].name}`);
+  console.log(`${person}: ${spaceship.crew[person].name}`);  // yes
 }
 // captain: Maeve
 // chief officer: Dan
@@ -273,7 +287,9 @@ for (let line = "#"; line.length < 6; line += "#")
 // #####
 
 
-function arrayToList(array) {
+// FYI Link lists are some weird C thing.
+
+function arrayToLinkList(array) {
   let list = null;
   for (let i = array.length - 1; i >= 0; i--) {
     list = {value: array[i], rest: list};
@@ -281,12 +297,12 @@ function arrayToList(array) {
   return list;
 }
 
-let test1 = arrayToList([1, 2, 3]);
+let test1 = arrayToLinkList([1, 2, 3]);
 console.log(test1);
-//{ value: 1, rest: { value: 2, rest: { value: 3, rest: null } } }
+// { value: 1, rest: { value: 2, rest: { value: 3, rest: null } } }
 
 
-function listToArray(list) {
+function linkListToArray(list) {
   let array = [];
   for (let node = list; node; node = node.rest) {
     array.push(node.value);
@@ -294,7 +310,7 @@ function listToArray(list) {
   return array;
 }
 
-let test2 = listToArray(test1);
+let test2 = linkListToArray(test1);
 console.log(test2);
 // [ 1, 2, 3 ]
 ```
