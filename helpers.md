@@ -9,6 +9,7 @@
 - [Random boolean](#random-boolean)
 - [Check if all values in array of arrays are equal](#check-if-all-values-in-array-of-arrays-are-equal)
 - [Random RGB color](#random-rgb-color)
+- [Hex to RGB, RGB to Hex](#hex-to-rgb-rgb-to-hex)
 
 <!-- tocstop -->
 
