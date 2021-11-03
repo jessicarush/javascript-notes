@@ -12,3 +12,13 @@ console.log(`Hello, my name is ${myName}.`);  // Hello, my name is Jessica.
 ```
 
 One of the biggest benefits to using template literals is the readability of the code. Using template literals, you can more easily tell what the new string will be. You also don't have to worry about escaping double quotes or single quotes.
+
+Note that when logging a variable, you can wrap the name in curly braces alone (no `$`) to
+log the variable name along with the value. For example:
+
+```javascript
+let [r, g, b] = [120, 50, 72];
+
+console.log({r}, {g}, {b});
+// { r: 120 } { g: 50 } { b: 72 }
+```
