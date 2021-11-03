@@ -206,8 +206,18 @@ document.writeln('Hello?');
 ```
 
 This function will write to an alert pop-up:
+
 ```javascript
 alert('Hello.');
+```
+
+Note that when logging a variable, you can wrap the name in curly braces to log the variable name along with the value. For example:
+
+```javascript
+let x, y = 2;
+
+console.log({x}, {y});
+// { x: undefined } { y: 2 }
 ```
 
 Note that you would likely never use these in production code.
