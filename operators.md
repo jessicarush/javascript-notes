@@ -170,7 +170,7 @@ if (!d) {
 
 ### Equality edge cases
 
-In the same way that booleans coerce to numbers when used with equality operators, empty strings also coerce to numbers: `0`. As we've seen above, arrays will have their `toString` method called. As a result, an empty array becomes an empty string which becomes also coerces to number `0`.
+In the same way that booleans coerce to numbers when used with equality operators, empty strings also coerce to numbers: `0`. As we've seen above, arrays will have their `toString` method called. As a result, an empty array becomes an empty string which coerces to number `0`.
 
 ```javascript
 // since false coerces to 0:
@@ -192,7 +192,7 @@ console.log([] == '0');     // false (because empty arrays are coerced to empty 
 
 ### Equality with null and undefined
 
-Another example of implicit coercion is seen with `null` and `undefined`. According to the spec, when compared with `==` the are considered equal to each other and themselves, but no other value in the language.
+Another example of implicit coercion is seen with `null` and `undefined`. According to the spec, when compared with `==` they are considered equal to each other and themselves, but no other value in the language.
 
 ```javascript
 let a = null;
@@ -333,9 +333,9 @@ Note that the following values will evaluate to false when checked as a conditio
 - **false** (Boolean)
 - **0** (Number)
 - **Empty strings** (String) such as `""` or `''`
-- **null** (Object) which represent when there is no value at all
-- **undefined** (Undefined) which represent when a declared variable lacks a value
-- **NaN** (Number) short for *Not a Number*, it is the result of an operation that cannot produce normal result. `Nan` is nit equal to any other value, including itself.
+- **null** (Object) when there is no value at all
+- **undefined** (Undefined) when a declared variable lacks a value
+- **NaN** (Number) short for *Not a Number*, the result of an operation that cannot produce a normal result. `Nan` is not equal to any other value, including itself.
 
 
 ## Shorthand (short-circuiting) with logical operators
@@ -377,14 +377,14 @@ This concept is also referred to as short-circuit evaluation. Remember that logi
 
 ## Keyword operators
 
-There are a number of keyword operators in javascript which test/do various things for example:  
+There are a number of keyword operators in javascript which test/do various things, for example:  
 `if` - test whether the given expression is truthy  
-`new` - turns a function call into a constructor call and creates an instance of the constructor.  
-`instanceof` -  determines whether an object is an instance of another function (i.e. it tests whether the prototype property of a constructor appears anywhere in the prototype chain of an object).  
-`typeof` - determines the type of a given object. FYI there is a good example of the usefulness of this operator in the *undeclared vs undefined* section of [variables.md](variables.md#undeclared-vs-undefined).  
-`delete` - deletes a property from an object.  
-`in` - determines whether an object has a given property.  
-`void` -discards an expression's return value.
+`new` - turns a function call into a constructor call and creates an instance of the constructor  
+`instanceof` -  determines whether an object is an instance of another function (i.e. it tests whether the prototype property of a constructor appears anywhere in the prototype chain of an object)  
+`typeof` - determines the type of a given object. FYI there is a good example of the usefulness of this operator in the *undeclared vs undefined* section of [variables.md](variables.md#undeclared-vs-undefined)  
+`delete` - deletes a property from an object  
+`in` - determines whether an object has a given property  
+`void` - discards an expression's return value  
 
 ## *ES2020* Nullish Coalescing Operator
 
