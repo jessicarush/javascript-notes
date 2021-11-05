@@ -108,7 +108,7 @@ function fail(error) {
 
 ## localStorage & sessionStorage
 
-These let you store information within the browser without relying on cookies. The main difference between the two is that with local storage, other open tabs and windows can also access the data and the data is stored even when the tab or window is closed. Commonly, browsers will allow 5MB of data per domain in a storage object. The data is stored as properties of the storage objects. The value is always a string. To protect the information in these objects, browsers use a *same origin policy*, which means only pages from the same `protocol://subdomain.domain:port` can access the data.
+These let you store information within the browser without relying on cookies. The main difference between the two is that with local storage, other open tabs and windows can also access the data and the data is stored even when the tab or window is closed. Commonly, browsers will allow 5MB of data per domain in a storage object. The data is stored as properties of the storage objects. The value is always a string. To protect the information in these objects, browsers use a *same origin policy*, which means only pages from the same `protocol://subdomain.domain:port` can access the data. Data in `sessionStorage` is cleared when the page session ends.
 
 Both local and session storage objects are implemented on the window object, so you don't need to prefix the method names with another object. Be aware that data for the storage objects are processed in a synchronous manner (all other processing stops while the script accesses or saves data).
 
