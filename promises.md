@@ -17,6 +17,7 @@ Once a promise is *resolved*, it becomes an *immutable* value. This makes it saf
 - [The promise constructor](#the-promise-constructor)
 - [Recognizing a promise](#recognizing-a-promise)
 - [Promise timeout pattern](#promise-timeout-pattern)
+- [Promise.all()](#promiseall)
 
 <!-- tocstop -->
 
@@ -311,3 +312,10 @@ As a result, it was decided that the best way to determine if something is a Pro
 
 
 ## Promise timeout pattern
+
+...
+
+
+## Promise.all()
+
+See [async_await.md](https://github.com/jessicarush/javascript-notes/blob/master/async_await.md)
