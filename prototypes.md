@@ -20,7 +20,7 @@ In classical languages, objects are instances of classes, and a class can inheri
 
 ## Overview
 
-JavaScript includes a *prototype linkage feature* that allows one object to reach the properties of another. In fact, all objects created from object literals are linked to `Object.prototype`, an object that comes standard with JavaScript. Function objects are linked to `Function.prototype` (which is in turn linked to `Object.prototype`). Strings are linked to `String.prototype`, arrays to `Array.prototype`, numbers to `Number.prototype` and so on. For a full list of these objects see [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects). **Note:** For each global object here, if you look at the sidebar you'll see a subheading **Inheritance:**. This tells you the next global object in the prototype chain. For example: `String` inherits from `Function` inherits from `Object`.
+JavaScript includes a *prototype linkage feature* that allows one object to reach the properties of another. In fact, all objects created from object literals are linked to `Object.prototype`, an object that comes standard with JavaScript. Function objects are linked to `Function.prototype` (which is in turn linked to `Object.prototype`). Strings are linked to `String.prototype`, arrays to `Array.prototype`, numbers to `Number.prototype` and so on. For a full list of these objects see [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects). **Note:** For each global object here, if you look at the sidebar you'll see a subheading: **Inheritance**. This tells you the next global object in the prototype chain. For example: `String` inherits from `Function` inherits from `Object`.
 
 
 ## Assigning the prototype
