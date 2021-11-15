@@ -11,6 +11,7 @@ As with many other languages, JavaScript variables are containers for storing da
 - [undeclared vs undefined](#undeclared-vs-undefined)
 - [constants](#constants)
 - [let](#let)
+- [which to use: const, let, var](#which-to-use-const-let-var)
 - [global variables](#global-variables)
 - [where to declare](#where-to-declare)
 - [naming (reserved words)](#naming-reserved-words)
@@ -101,7 +102,7 @@ if (typeof FLAG !== 'undefined') {
 
 ## constants
 
-Variables that are considered *constants*, should be written in uppercase with underscores and defined at the top of the program. For example:
+Traditionally, variables that are considered *constants*, would be written in uppercase with underscores and defined at the top of the program. For example:
 
 ```javascript
 var TAX_RATE = 0.12;  // 12% sales tax
@@ -114,12 +115,16 @@ const TAX_RATE = 0.12;  // 12% sales tax
 const ADMIN_FEE = 5;    // $5 flat admin fee
 ```
 
-A `const` variable cannot be reassigned because it is constant. If you try to reassign a const variable, you'll get a `TypeError`. `const` variables must be assigned a value when declared. If you try to declare a `const` variable without a value, you'll get a `SyntaxError`.
+However, these don't need to adhere to the uppercase, top of the program rules. Instead, `const` should simply be used for block-scoped variables where the value will not need to be reassigned. From MDN:
+
+> Constants are block-scoped, much like variables declared using the let keyword. The value of a constant can't be changed through reassignment (i.e. by using the assignment operator), and it can't be redeclared (i.e. through a variable declaration). However, if a constant is an object or array its properties or items can be updated or removed.
+
+If you try to reassign a const variable, you'll get a `TypeError`. `const` variables must be assigned a value when declared. If you try to declare a `const` variable without a value, you'll get a `SyntaxError`.
 
 
 ## let
 
-The `let` keyword was introduced in ES6. `let` allows you to declare variables that are limited in scope to the block, statement `{...}`, or expression on which it is used. This is unlike the var keyword, which defines a variable globally, or locally to an entire function regardless of block scope. `let` variables are usually used when there is a limited use of those variables. Say, in `for` loops, `while` loops or inside the scope of `if` conditions etc. Basically, where ever the scope of the variable has to be limited.
+The `let` keyword was also introduced in ES6. `let` allows you to declare variables that are limited in scope to the block, statement `{...}`, or expression on which it is used. This is unlike the var keyword, which defines a variable globally, or locally to an entire function regardless of block scope. `let` variables are usually used when there is a limited use of those variables. Say, in `for` loops, `while` loops or inside the scope of `if` conditions etc. Basically, where ever the scope of the variable has to be limited.
 
 ```javascript
 for (let i = 0; i <= 5; i++) {
@@ -157,6 +162,14 @@ console.log(this.y); // undefined
 
 Going forward the intention is that the `var` keyword is used in pre-ES6 versions of JS. `let` is the preferred way to declare a variable when it can be reassigned, and `const` is the preferred way to declare a variable with a constant value.
 
+## which to use: const, let, var
+
+A good rule of thumb:
+
+- use `const` by default
+- use `let` only when you need to reassign a variable
+- don't use `var`
+
 
 ## global variables
 
@@ -165,19 +178,19 @@ JavaScript makes it easy to define global variables that can hold all of the ass
 ```javascript
 const myapp = {};
 
+myapp.info = 'hello';
 myapp.something = {
     // code
 };
-
 myapp.other = function () {
-    //code
+    // code
 };
 ```
 
 Another method would be to use closure.
 
 ```javascript
-
+// todo
 ```
 
 As a side note: global variables are automatically also properties of the global object (`window` in browsers). It is therefor possible to reference a global variable indirectly as a property reference: `window.a` instead of directly by it's *lexical* name `a`. This technique gives access to values that that might otherwise be *shadowed* an inner scope.
