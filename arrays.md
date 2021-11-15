@@ -333,6 +333,25 @@ console.log(found);
 // four
 ```
 
+This can be useful for looking for values within objects like so:
+
+```javascript
+let items = [
+  {id: 1, data: 'one'},
+  {id: 2, data: 'two'},
+  {id: 3, data: 'three'}
+];
+
+
+if (items.find(o => o.id === 2)) {
+  console.log('Found it');
+} else {
+  console.log('Not found');
+}
+// Found it
+```
+
+
 ### Find the index of an item with *indexOf(), lastIndexOf()*
 
 Both indexOf and lastIndexOf take an optional second argument that indicates where to start searching.
