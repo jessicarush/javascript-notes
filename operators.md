@@ -337,6 +337,20 @@ Note that the following values will evaluate to false when checked as a conditio
 - **undefined** (Undefined) when a declared variable lacks a value
 - **NaN** (Number) short for *Not a Number*, the result of an operation that cannot produce a normal result. `Nan` is not equal to any other value, including itself.
 
+Unfortunately, empty arrays array are considered truthy. For example:
+
+```javascript
+const emptyArray = [];
+
+if (emptyArray) {
+  console.log('Truthy');
+}
+// Truthy
+if (emptyArray.length === 0) {
+  console.log('Is empty');
+}
+// Is empty
+```
 
 ## Shorthand (short-circuiting) with logical operators
 
