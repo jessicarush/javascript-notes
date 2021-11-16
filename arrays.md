@@ -458,6 +458,27 @@ console.log(numArray);
 // [ 1, 2, 12, 25, 239, 1001 ]
 ```
 
+Here's an example using an array of objects where we're sorting by one of the object properties:
+
+```javascript
+let people = [
+  {name: 'bob', votes: 10},
+  {name: 'rick', votes: 15},
+  {name: 'morty', votes: 1},
+  {name: 'scott', votes: 100}
+];
+
+let sortedPeople = people.sort((a, b) => b.votes - a.votes);
+
+console.log(sortedPeople);
+// [
+//   { name: 'scott', votes: 100 },
+//   { name: 'rick', votes: 15 },
+//   { name: 'bob', votes: 10 },
+//   { name: 'morty', votes: 1 }
+// ]
+```
+
 ## Array iteration methods
 
 Arrays include a number of methods that iterate over each item, performing some action/function each time.
