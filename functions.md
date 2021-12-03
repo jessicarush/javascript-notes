@@ -264,7 +264,7 @@ introduction(...b);
 
 ## Scope (*lexical scope*)
 
-Scope exists as a way to control the visibilty and lifetime of variables and paramters. This is important in programming as it reduces naming collisions and provides automatic memory management.
+Scope exists as a way to control the visibility and lifetime of variables and parameters. This is important in programming as it reduces naming collisions and provides automatic memory management.
 
 Each function has its own scope. Only code inside the function can access the function's *scoped variables* (variables declared within the function). Variable names must be unique within the same scope, but *can* be the same in different scopes. For example:
 
@@ -341,6 +341,7 @@ function outer(a) {
 }
 outer(2);         // assignment of 'a' happens here
 ```
+
 Note that the lexical scope look-up process only applies to *first-class identifiers* such as `a`, `b`, and `c` above. If you were referencing something through dot notation like `foo.bar.x`, lexical scope look-up would only apply for finding `foo`, but beyond that, *object property-access rules* take over to resolve `bar` and `x`.
 
 
@@ -399,6 +400,7 @@ console.log(num); // 100
 ```
 
  Versus:
+
 ```javascript
 let num = 50;
 
@@ -595,6 +597,7 @@ const x = function foo() {
   // note: semicolon is required after the assignment
 };
 ```
+
 Since the release of ES6, it is common practice to use `const` as the keyword to declare the variable containing a function expression.
 
 
@@ -722,6 +725,7 @@ For me personally, its this syntax that's actually the interesting part:
 ```javascript
 myFunction(callback)(...args);  
 ```
+
 When you see a double parentheses call like this `()()`, it means that the first function (myFunction) returns another function and then that returned function is called immediately.
 
 So a barebones example would look like:
@@ -828,6 +832,7 @@ const sunlight = spider.sunlight;
 // destructured assignment
 const {sunlight} = spider;
 ```
+
 TBH, I personally prefer the normal assignment as it's more clear to me.
 
 A more useful destructuring technique allows you to create variable names for the array items that you intend to pass to a function. This example is similar to the one for 'Rest Parameters':
@@ -1055,6 +1060,7 @@ for (let i = 0; i <= 10; i += 1) {
 ES6 introduced *arrow function syntax*, a shorter way to write functions by using this special notation `() => {}`.
 
 For example:
+
 ```javascript
 const rectangleArea = (width, height) => {
   let area = width * height;
@@ -1103,6 +1109,7 @@ timeFuncRuntime(() => {
 ```
 
 Here's an example of condensing a lengthy function:
+
 ```javascript
 // long version
 const plantNeedsWater = function (day) {
