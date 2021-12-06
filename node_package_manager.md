@@ -95,6 +95,13 @@ To list the directory of the globally installed packages:
 npm root -g
 ```
 
+To uninstall:
+```
+npm unistall -g packagename
+npm unistall packagename
+```
+
+
 ## Working with npm_modules in client-side JavaScript
 
 Though npm began as the package manager for Node.js, it is now common for it to be used in client-side front-end projects as well. That being said, without the use of *additional tools*, in order to import from an npm installed package called uuid, I'd have to do something like this:
