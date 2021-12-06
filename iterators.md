@@ -126,6 +126,7 @@ console.log(squareNumbers);
 ```
 
 Even more condensed *Arrow* syntax:
+
 ```javascript
 const numbers = [3, 5, 10];
 
@@ -138,7 +139,7 @@ console.log(squareNumbers);
 
 ## flatMap()
 
-The `flatMap() `method first maps each element using a mapping function, then flattens the result into a new array. It is identical to a `map()` followed by a `flat()` of depth 1, but `flatMap()` is often quite useful, as merging both into one method is slightly more efficient.
+The `flatMap()` method first maps each element using a mapping function, then flattens the result into a new array. It is identical to a `map()` followed by a `flat()` of depth 1, but `flatMap()` is often quite useful, as merging both into one method is slightly more efficient.
 
 ```javascript
 const myArray = ['2 - 3456 Main Street', 'Vancouver', 'BC', 'V5Z2X5'];
@@ -179,6 +180,7 @@ console.log(reducedNum);
 ```
 
 This example flattens an array of arrays into a single array using reduce() and .concat():
+
 ```javascript
 let arrays = [[1, 2, 3], [4, 5], [6]];
 
