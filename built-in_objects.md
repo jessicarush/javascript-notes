@@ -254,7 +254,7 @@ console.log(typeof total);
 
 // rounds to total number of places (returns a string)
 total = Number(total);
-console.log(total.toPrecision(3));   
+console.log(total.toPrecision(3));
 // 11.2
 
 // returns a string in exponential notation
@@ -423,22 +423,22 @@ Once you've created a Date object, the following methods (these are just a few) 
 
 methods                                  | description
 -------                                  | -----------
-`getDate()`, `setDate()`                 | returns/sets day of the month (0-31)  
-`getDay()`                               | returns day of the week (0-6)  
-`getFullYear()`, `setFullYear()`         | returns/sets year (4-digits)  
-`getHours()`, `setHours()`               | returns/sets the hour (0-23)  
-`getMilliseconds()`, `setMilliseconds()` | returns/sets milliseconds (0-999)  
-`getMinutes()`, `setMinutes()`           | returns/sets minutes (0-59)  
-`getMonth()`, `setMonth()`               | returns/sets month (0-11)  
-`getSeconds()`, `setSeconds()`           | returns/sets seconds (0-59)  
-`getTime()`, `setTime()`                 | milliseconds from epoch (Jan 1, 1970) UTC  
-`getTimezoneOffset()`                    | timezone offset in mins for locale  
-`toDateString()`                         | returns human-readable date string  
-`toTimeString()`                         | returns human-readable time string  
-`toString()`                             | returns human-readable date + time string  
+`getDate()`, `setDate()`                 | returns/sets day of the month (0-31)
+`getDay()`                               | returns day of the week (0-6)
+`getFullYear()`, `setFullYear()`         | returns/sets year (4-digits)
+`getHours()`, `setHours()`               | returns/sets the hour (0-23)
+`getMilliseconds()`, `setMilliseconds()` | returns/sets milliseconds (0-999)
+`getMinutes()`, `setMinutes()`           | returns/sets minutes (0-59)
+`getMonth()`, `setMonth()`               | returns/sets month (0-11)
+`getSeconds()`, `setSeconds()`           | returns/sets seconds (0-59)
+`getTime()`, `setTime()`                 | milliseconds from epoch (Jan 1, 1970) UTC
+`getTimezoneOffset()`                    | timezone offset in mins for locale
+`toDateString()`                         | returns human-readable date string
+`toTimeString()`                         | returns human-readable time string
+`toString()`                             | returns human-readable date + time string
 
 ```javascript
-console.log(today.getTime());  
+console.log(today.getTime());
 // 1553618191631
 
 console.log(today.toDateString());
@@ -518,7 +518,7 @@ console.log(d.toDateString()); // Wed Oct 29 2025
 ```
 
 
-## Boolean   
+## Boolean
 
 The [Boolean object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)
 
@@ -544,7 +544,7 @@ console.log(Boolean(g));  // false
 
 ## Object
 
-The base [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object).   
+The base [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object).
 See [objects.md](objects.md).
 
 The `Object.assign()` static method copies all enumerable own properties from one or more source objects to a target object and returns that target object. Note that duplicate keys will be assigned the last value.
@@ -568,12 +568,12 @@ console.log(source2);
 
 ## Function
 
-The [Function object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function).  
+The [Function object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function).
 See [functions.md](functions.md).
 
 ## Array
 
-The [Array object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array).  
+The [Array object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array).
 See [arrays.md](arrays.md).
 
 ## Math
@@ -600,16 +600,16 @@ Other Math methods include:
 
 method         | description
 ------         | -----------
-`Math.floor()` | rounds down to the nearest integer.  
-`Math.round()` | returns the nearest integer.  
-`Math.ceil()`  | rounds up to the nearest integer.    
-`Math.abs()`   | returns the absolute value of a number.  
-`Math.min()`   | returns the smallest value of a group.  
-`Math.max()`   | returns the largest value of a group.  
-`Math.sqrt()`  | returns the square root of a number.  
-`Math.cos()`   | calculates cosine.  
-`Math.sin()`   | calculates sine.  
-`Math.tan()`   | calculates tangent.  
+`Math.floor()` | rounds down to the nearest integer.
+`Math.round()` | returns the nearest integer.
+`Math.ceil()`  | rounds up to the nearest integer.
+`Math.abs()`   | returns the absolute value of a number.
+`Math.min()`   | returns the smallest value of a group.
+`Math.max()`   | returns the largest value of a group.
+`Math.sqrt()`  | returns the square root of a number.
+`Math.cos()`   | calculates cosine.
+`Math.sin()`   | calculates sine.
+`Math.tan()`   | calculates tangent.
 
 ```javascript
 Math.floor(Math.random() * 10);  // 6
@@ -723,7 +723,7 @@ The [Map object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Referen
 
 ## Set
 
-The [Set object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set).  
+The [Set object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set).
 See [sets.md](sets.md).
 
 ## Promise
