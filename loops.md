@@ -89,7 +89,7 @@ for (let i = 0; i < stupid.length; i++){
 
 If you're writing nested loops, be sure to use different variable names, for example, `i` and `j`:
 
-```javascript  
+```javascript
 const ricksFollowers = ['summer', 'bob', 'mary', 'bill'];
 const mortysFollowers = ['summer', 'phil', 'susan'];
 const mutualFollowers = [];
@@ -235,6 +235,42 @@ for (let person in spaceship.crew) {
 // medic: Clementine
 ```
 
+
+## Getting array index with for...in, for...of
+
+For-of doesn't offer syntax to get the index, but you can use `entries()` and destructing syntax. Alternatively you can use for-in which will loop over the index by default, For example, compare the following:
+
+```javascript
+const myarray = ['one', 'two', 'three'];
+
+for (let i of myarray) {
+  console.log(i);
+}
+// one
+// two
+// three
+
+for (let i in myarray) {
+  console.log(i);
+}
+// 0
+// 1
+// 2
+
+for (let [idx, i] of myarray.entries()) {
+  console.log(idx, i);
+}
+// 0 one
+// 1 two
+// 2 three
+
+for (let i in myarray) {
+  console.log(i, myarray[i]);
+}
+// 0 one
+// 1 two
+// 2 three
+```
 
 ## Loops and closure
 
