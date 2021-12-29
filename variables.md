@@ -64,7 +64,7 @@ Even if you want to check if a variables exists:
 
 ```javascript
 if (b) {  // ReferenceError: b is not defined
-  console.log('test');  
+  console.log('test');
 }
 ```
 
@@ -77,6 +77,7 @@ console.log(typeof b);  // undefined
 This behaviour makes the `typeof` operator useful when checking for a flag variable in multiple files. If we just check for the variable with `if`, then we need to make sure that variable is defined in every single file. If we don't want to do that you could use typeof instead.
 
 This won't work:
+
 ```javascript
 if (FLAG) {
   console.log('test');
@@ -84,6 +85,7 @@ if (FLAG) {
 ```
 
 This works:
+
 ```javascript
 var FLAG = false;
 
@@ -93,6 +95,7 @@ if (FLAG) {
 ```
 
 And this works:
+
 ```javascript
 if (typeof FLAG !== 'undefined') {
   console.log('test');
@@ -108,6 +111,7 @@ Traditionally, variables that are considered *constants*, would be written in up
 var TAX_RATE = 0.12;  // 12% sales tax
 var ADMIN_FEE = 5;    // $5 flat admin fee
 ```
+
 JavaScript ES6 introduced a new way to declare constants with the `const` keyword. For example:
 
 ```javascript
@@ -117,7 +121,7 @@ const ADMIN_FEE = 5;    // $5 flat admin fee
 
 However, these don't need to adhere to the uppercase, top of the program rules. Instead, `const` should simply be used for block-scoped variables where the value will not need to be reassigned. From MDN:
 
-> Constants are block-scoped, much like variables declared using the let keyword. The value of a constant can't be changed through reassignment (i.e. by using the assignment operator), and it can't be redeclared (i.e. through a variable declaration). However, if a constant is an object or array its properties or items can be updated or removed.
+> Constants are block-scoped, much like variables declared using the let keyword. The value of a constant can't be changed through reassignment (i.e. by using the assignment operator), and it can't be re-declared (i.e. through a variable declaration). However, if a constant is an object or array its properties or items can be updated or removed.
 
 If you try to reassign a const variable, you'll get a `TypeError`. `const` variables must be assigned a value when declared. If you try to declare a `const` variable without a value, you'll get a `SyntaxError`.
 
@@ -229,13 +233,14 @@ So, the convention of declaring most variables at the beginning of a function fe
 ## naming (reserved words)
 
 Variable names (including function names) must be *valid identifiers*:
+
 - an identifier must start with `a-z`, `A-Z`, `$` or `_`.
 - It can then contain any of those characters plus `0-9`
 - NO dashes `-`
 
 JavaScript has some reserved words and keywords that should not be used for variable names. In theory they can be used for property names but I'd stay away from them for clarity.
 
-```
+```text
 abstract            arguments           await*              boolean
 break               byte                case                catch
 char                class*              const               continue
@@ -255,7 +260,8 @@ volatile            while               with                yield
 ```
 
 These have been removed from the ECMAScript 5/6 standard but should still be avoided:
-```
+
+```text
 abstract            boolean             byte                char
 double              final               float               goto
 int                 long                native              short
@@ -263,7 +269,8 @@ synchronized        throws              transient           volatile
 ```
 
 Also avoid using the name of JavaScript built-in objects, properties, and methods:
-```
+
+```text
 Array               Date                eval                function
 hasOwnProperty      Infinity            isFinite            isNaN
 isPrototypeOf       length              Math                NaN
@@ -272,7 +279,8 @@ String              toString            undefined           valueOf
 ```
 
 You should also avoid using the name of HTML and Window objects and properties:
-```
+
+```text
 alert               all                 anchor              anchors
 area                assign              blur                button
 checkbox            clearInterval       clearTimeout        clientInformation
@@ -298,7 +306,8 @@ window
 ```
 
 In addition you should avoid using the name of all HTML event handlers:
-```
+
+```text
 onblur              onclick             onerror             onfocus
 onkeydown           onkeypress          onkeyup             onmouseover
 onload              onmouseup           onmousedown         onsubmit

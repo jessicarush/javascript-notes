@@ -100,7 +100,7 @@ three();  // three
 
 ## Hoisting
 
-As noted above, any **function declarations** in a given scope will get *"hoisted"* to the top of the scope which means you can start calling it before it's declaration. For example:
+As noted above, any **function declarations** in a given scope will get *hoisted* to the top of the scope which means you can start calling it before it's declaration. For example:
 
 ```javascript
 foo();
@@ -303,7 +303,7 @@ Lexical scope rules say that the reference to `a` inside `foo()` will will be re
 
 Another key contrast: lexical scope is write-time, whereas dynamic scope (and `this`) are runtime. Lexical scope cares where a function was declared, dynamic scope cares where a function was called. (`this` also cares where a function was called).
 
-Ok, back to lexical scope...  
+Ok, back to lexical scope...
 
 Lexical scope rules say that the code in a scope can access variables in the same scope **or any other outer scope**. Variables from inner scopes however, can not be accessed. Note that if you try to access a variables value in a scope where it's not available you'll get a `ReferenceError`. For example:
 
@@ -723,7 +723,7 @@ logFunction(Math.min)(7, 13, 5);
 For me personally, its this syntax that's actually the interesting part:
 
 ```javascript
-myFunction(callback)(...args);  
+myFunction(callback)(...args);
 ```
 
 When you see a double parentheses call like this `()()`, it means that the first function (myFunction) returns another function and then that returned function is called immediately.
