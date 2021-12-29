@@ -9,10 +9,10 @@ Debounce and throttle are both used to control how often a function or code is e
 
 - [Debounce](#debounce)
   * [Debounce example](#debounce-example)
-  * [Libraries with debounce](#libraries-with-debounce)
+  * [Debounce function](#debounce-function)
 - [Throttle](#throttle)
   * [Throttle example](#throttle-example)
-  * [Libraries with throttle](#libraries-with-throttle)
+  * [Throttle function](#throttle-function)
 
 <!-- tocstop -->
 
@@ -30,32 +30,101 @@ Use cases include:
 ### Debounce example
 
 ```javascript
-const debounce = (func, delay) => {
-  let timerId;
+const debounceTest = (func, wait) => {
+  let timeout;
   return function () {
-    clearTimeout(timerId);
-    timerId = setTimeout(() => func.apply(this, arguments), delay);
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func.apply(this, arguments), wait);
   };
 };
 
-function handleInput() {
-  callbackfn();
+const handleInput = debounceTest((e) => {
+  console.count('debounced!');
+  doSomething(e);
+}, 1000);
+
+function doSomething(e) {
+  console.count('function executed!');
 }
 
-function outputText() {
-  console.count('executed!');
-}
-
-let callbackfn = debounce(outputText, 1000);
 const searchInput = document.getElementById('search');
 searchInput.addEventListener('input', handleInput);
 ```
 
-### Libraries with debounce
+### Debounce function
 
-Lodash `_.debounce(callback, timeout)`
-Underscore `_.debounce(callback, timeout)`
+This debounce function could be used in production.
 
+```javascript
+/**
+ * Debounce a given function, by a given delay.
+ *
+ * Returns a function that, as long as it continues to be invoked, will not
+ * be executed. The function will be executed after it stops being called for
+ * N milliseconds.
+ * @param {function} func The function to be debounced
+ * @param {number} wait The debounce delay in milliseconds
+ * @return {function}
+ */
+const debounce = (func, wait) => {
+  let timeout = null;
+  return (...args) => {
+    window.clearTimeout(timeout);
+    timeout = window.setTimeout(() => {
+      func.apply(null, args);
+    }, wait);
+  };
+};
+
+const handleInput = debounce((e) => {
+  // Do your taxing stuff here
+  console.count('debounce execution!');
+}, 1000);
+
+const searchInput = document.getElementById('search');
+searchInput.addEventListener('input', handleInput);
+```
+
+An alernate version thatincludes an immediate param:
+
+```javascript
+/**
+ * Debounce a given function, by a given delay.
+ *
+ * Returns a function that, as long as it continues to be invoked, will not
+ * be executed. The function will be executed after it stops being called for
+ * N milliseconds. If 'immediate' is passed, trigger the function on the
+ * leading edge instead of the trailing edge of the delay.
+ *
+ * @param {function} func The function to be debounced
+ * @param {number} wait The debounce delay in milliseconds
+ * @param {boolean} immediate If true, triggers the function before delay
+ * @return {function}
+ */
+function debounce(func, wait, immediate) {
+  let timeout;
+  return function() {
+    let context = this;
+    let args = arguments;
+    const later = function() {
+      timeout = null;
+      if (!immediate) func.apply(context, args);
+    };
+    const callNow = immediate && !timeout;
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+    if (callNow) func.apply(context, args);
+  };
+};
+
+const handleInput = debounce(function() {
+  // Do your taxing stuff here
+  console.count('debounce execution!');
+}, 1000);
+
+const searchInput = document.getElementById('search');
+searchInput.addEventListener('input', handleInput);
+```
 
 ## Throttle
 
@@ -71,30 +140,63 @@ Use cases include:
 ### Throttle example
 
 ```javascript
-const throttle = (func, delay) => {
+const throttleTest = (func, interval) => {
   let toThrottle = false;
   return function () {
     if (!toThrottle) {
       toThrottle = true;
       func.apply(this, arguments);
-      setTimeout(() => {toThrottle = false}, delay);
+      setTimeout(() => {toThrottle = false}, interval);
     }
   };
 };
 
-function handleInput() {
-  callbackfn();
+const handleInput = throttleTest((e) => {
+  console.count('throttle!');
+  doSomething(e);
+}, 1000);
+
+function doSomething(e) {
+  console.count('function executed!');
 }
 
-function outputText() {
-  console.count('executed!');
-}
-
-let callbackfn = throttle(outputText, 1000);
 const searchInput = document.getElementById('search');
 searchInput.addEventListener('input', handleInput);
 ```
 
-### Libraries with throttle
+### Throttle function
 
-TODO
+This throttle function could be used in production.
+
+```javascript
+/**
+ * Throttle a given function, using a given interval.
+ *
+ * Returns a function that, no matter how often it is continuously invoked,
+ * will only be executed every N milliseconds.
+ * @param {function} func The function to be throttled
+ * @param {number} interval The throttle interval in milliseconds
+ * @return {function}
+ */
+const throttle = (func, interval) => {
+  let toThrottle = false;
+  return (...args) => {
+    if (!toThrottle) {
+      toThrottle = true;
+      func.apply(null, args);
+      window.setTimeout(() => {
+        toThrottle = false;
+      }, interval);
+    }
+  };
+};
+
+const handleInput = throttle((e) => {
+  // Do your taxing stuff here
+  console.count('throttle execution!');
+}, 1000);
+
+const searchInput = document.getElementById('search');
+searchInput.addEventListener('input', handleInput);
+```
+
