@@ -7,6 +7,14 @@ Debounce and throttle are both used to control how often a function or code is e
 
 <!-- toc -->
 
+- [Debounce](#debounce)
+  * [Debounce example](#debounce-example)
+  * [Libraries with debounce](#libraries-with-debounce)
+- [Throttle](#throttle)
+  * [Throttle example](#throttle-example)
+  * [Libraries with throttle](#libraries-with-throttle)
+
+<!-- tocstop -->
 
 ## Debounce
 
