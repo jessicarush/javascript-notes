@@ -38,16 +38,16 @@ see also: [object_models.md](object_models.md)
 
 The DOM Tree, made up of the objects that represent everything in the HTML page, consists of four types of *nodes*.
 
-1. **The Document node**  
+1. **The Document node**
 Every tree has one *document node* which represents the entire page and also corresponds to the document object. When you access any element, attribute, or text node, you navigate to it via the document node, It is the starting port for all visits to the *DOM Tree*.
 
-2. **Element nodes**  
+2. **Element nodes**
 These represent all the HTML elements (e.g. `<h1>`, `<div>`, `<p>`, `<img>`).
 
-3. **Attribute nodes**  
+3. **Attribute nodes**
 These represent any attributes found in HTML elements (e.g `class`, `src`, `href`). These attributes are not considered children of the elements, but rather part part of that element. Once you access an element, there are specific JavaScript methods and properties to read or change the element's attributes.
 
-4. **Text nodes**  
+4. **Text nodes**
 Once you have accessed an element, you can reach the text within that element. Text nodes do not have children.
 
 
@@ -65,7 +65,7 @@ Note you don't have to search the whole document. You can use these methods to s
 
 ```javascript
 const section = document.getElementById('section-one');
-section.querySelector('.js-whatever');  
+section.querySelector('.js-whatever');
 ```
 
 Note that the `querySelector` methods let you select pretty much anything, including attributes, for example this selects an element with the attribute `type="submit"`:
@@ -102,6 +102,7 @@ When working with a NodeList or live HTMLCollection, you'll either want to selec
 
 
 Examples:
+
 ```javascript
 // returns a static NodeList of all <li> elements that have an id attribute
 let myStaticList = document.querySelectorAll('li[id]');
@@ -181,9 +182,9 @@ Another useful method for traversing the DOM is by using `closest()` demonstrate
 ## Working With Elements
 
 See [MDN Nodes](https://developer.mozilla.org/en-US/docs/Web/API/Node)
-and [MDN Elements](https://developer.mozilla.org/en-US/docs/Web/API/Element)  
-See also: [W3schools DOM Element](https://www.w3schools.com/jsref/dom_obj_all.asp)  
-See also: [a full list of node types](https://developer.mozilla.org/en-US/docs/Web/API/Node).  
+and [MDN Elements](https://developer.mozilla.org/en-US/docs/Web/API/Element)
+See also: [W3schools DOM Element](https://www.w3schools.com/jsref/dom_obj_all.asp)
+See also: [a full list of node types](https://developer.mozilla.org/en-US/docs/Web/API/Node).
 
 ```javascript
 let node = document.getElementById('main-nav');
@@ -225,10 +226,12 @@ When you are working with an element node (rather than its text node), that elem
 <!-- original html -->
 <li id="one"><em>fresh</em> figs</li>
 ```
+
 ```javascript
 let itemOne = document.getElementById('one');
 itemOne.firstElementChild.firstChild.nodeValue = 'dried';
 ```
+
 ```html
 <!-- resulting html -->
 <li id="one"><em>dried</em> figs</li>
@@ -241,10 +244,12 @@ itemOne.firstElementChild.firstChild.nodeValue = 'dried';
 <!-- original html -->
 <li id="one"><em>fresh</em> figs</li>
 ```
+
 ```javascript
 let itemOne = document.getElementById('one');
 itemOne.textContent = 'dried fruit';
 ```
+
 ```html
 <!-- resulting html -->
 <li id="one">dried fruit</li>
@@ -259,10 +264,12 @@ itemOne.textContent = 'dried fruit';
 <!-- original html -->
 <li id="one"><em>fresh</em> figs</li>
 ```
+
 ```javascript
 let itemOne = document.getElementById('one');
 itemOne.innerHTML = '<em>dried</em> fruit';
 ```
+
 ```html
 <!-- resulting html -->
 <li id="one"><em>dried</em> fruit</li>
@@ -278,6 +285,7 @@ A safer (but longer) way of adding HTML content to a page involves using the met
 <!-- original html -->
 <li id="one"><em>fresh</em> figs</li>
 ```
+
 ```javascript
 // create a new element
 let newEl = document.createElement('li');
@@ -294,6 +302,7 @@ newEl.appendChild(newText);
 // insert the new element
 itemOne.appendChild(newEl);
 ```
+
 ```html
 <!-- resulting html -->
 <li id="one"><em>fresh</em> figs</li>
@@ -375,32 +384,32 @@ Note that the `style` property gives you access to all CSS properties.
 See here for a [complete list of Style Object Properties](https://www.w3schools.com/jsref/dom_obj_style.asp).
 
 ```javascript
-el.childElementCount         // returns the number of child elements  
-el.children                  // returns a live 'HTMLCollection' of all the child elements  
-el.classList                 // returns the class name(s) of an element.  
+el.childElementCount         // returns the number of child elements
+el.children                  // returns a live 'HTMLCollection' of all the child elements
+el.classList                 // returns the class name(s) of an element.
 el.classList.add('mystyle')
 el.classList.remove('mystyle')
 el.classList.toggle('mystyle')
 el.classList.contains('mystyle')
-el.className                 // sets or returns the value of the class attribute  
-el.clientHeight              // returns the height of an element, including padding  
-el.clientWidth               // returns the width of an element, including padding  
-el.innerHTML  
-el.id  
-el.name   
-el.scrollHeight              // entire height of an element including overflow and padding  
-el.scrollWidth               // entire width of an element including overflow and padding  
-el.style                     // sets or returns the value of the style attribute.  
+el.className                 // sets or returns the value of the class attribute
+el.clientHeight              // returns the height of an element, including padding
+el.clientWidth               // returns the width of an element, including padding
+el.innerHTML
+el.id
+el.name
+el.scrollHeight              // entire height of an element including overflow and padding
+el.scrollWidth               // entire width of an element including overflow and padding
+el.style                     // sets or returns the value of the style attribute.
 el.style.backgroundColor
-el.style.flexBasis  
-el.tagName                    // returns the tag name of an element  
-el.title                      // sets or returns the value of the title attribute  
-el.selectedIndex              // returns or sets the index (selected option) in a select menu  
+el.style.flexBasis
+el.tagName                    // returns the tag name of an element
+el.title                      // sets or returns the value of the title attribute
+el.selectedIndex              // returns or sets the index (selected option) in a select menu
 
 el.closest('.mystyle')        // returns the closest ancestor of the current element (includes itself)
-el.compareDocumentPosition()  // compares the document position of two elements  
-el.contains()                 // returns true if a node is a descendant of a node  
-el.focus()                    // gives focus to an element  
+el.compareDocumentPosition()  // compares the document position of two elements
+el.contains()                 // returns true if a node is a descendant of a node
+el.focus()                    // gives focus to an element
 el.getBoundingClientRect()    // returns size and position relative to the viewport.
 el.matches('.mystyle')        // returns true if the element matches the selector string.
 el.scroll()                   // scrolls the element to a particular set of coordinates
@@ -422,7 +431,6 @@ Note: you can get all properties of a node using the attributes property:
 let test = document.getElementById('my_el');
 
 console.log(test.attributes);
-
 ```
 
 The `.matches()` method is particularly helpful for using [event delegation](events.md#event-delegation).
@@ -438,6 +446,7 @@ The `.closest()` method is also really helpful in many situations. You can pass 
     </div>
 </section>
 ```
+
 ```javascript
 const el = document.getElementById('three');
 
@@ -592,5 +601,7 @@ So far we've looked at the first two APIs, for this new one, see: [css_object_mo
 
 
 Additional resources:
-- [CSSStyleDeclaration API](https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleDeclaration)  
+
+- [CSSStyleDeclaration API](https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleDeclaration)
 - [CSSStyleSheet API](https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleSheet)
+
