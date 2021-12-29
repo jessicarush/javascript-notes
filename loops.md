@@ -13,6 +13,7 @@ A loop includes a test condition as well as a block `{...}`. Each time a loop bl
 - [for](#for)
 - [for...of](#forof)
 - [for...in](#forin)
+- [Getting array index with for...in, for...of](#getting-array-index-with-forin-forof)
 - [Loops and closure](#loops-and-closure)
 - [Getting creative with the loop condition](#getting-creative-with-the-loop-condition)
 
@@ -67,6 +68,7 @@ JavaScript also has a `for` loop. These loops take three clauses:
 3. an update clause such as `i++` (not necessarily an increment or decrement...)
 
 Put together, it looks like this:
+
 ```javascript
 for (let i = 0; i <= 5; i++) {
   console.log('Count...' + i);
