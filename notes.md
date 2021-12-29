@@ -34,7 +34,9 @@ Good programs have a structure that anticipatesâ€”but is not overly burdened byâ
 
 
 ## Comments
+
 Code comments can be done in two ways:
+
 ```javascript
 // Single line comment
 a = 5;  // inline comment
@@ -63,6 +65,7 @@ Comments in your code should explain *why*, not *what*. They can also explain *h
 When to use semicolons in JavaScript? In general, you don't need semicolons after a block `{...}` *unless* that block is part of an assignment as with object assignments and function expressions.
 
 **YES semicolons after:**
+
 ```javascript
 // variable declarations
 let x;
@@ -90,6 +93,7 @@ do {...} while (...);
 ```
 
 **NO semicolons after:**
+
 ```javascript
 // conditional (control flow) statements
 if  (...) {...}
@@ -154,6 +158,7 @@ console.warn('warn');
 console.log('log');
 console.dir(document);
 console.dir(document.URL);
+console.count('something')
 ```
 
 Most browsers also support the `.table()` method which outputs objects or arrays as a nicely formatted table. This can be particularly helpful when working with third party data.
@@ -243,6 +248,7 @@ function foo() {
   // this functions code is strict mode
 }
 ```
+
 versus:
 
 ```javascript
@@ -338,7 +344,6 @@ When using a linter like JSHint, you can avoid ES6 syntax errors by creating a `
   "esversion": 6
 }
 ```
-
 
 ## Glossary
 
