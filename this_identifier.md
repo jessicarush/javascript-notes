@@ -222,6 +222,7 @@ setTimeout(bar, 100);  // 2
 ## this Context vs Explicit Context
 
 This example uses `this` to allow functions to be used against multiple objects:
+
 ```javascript
 function format() {
     return this.name.toUpperCase();
@@ -245,6 +246,7 @@ greet.call(jane);  // Hello JANE
 ```
 
 In the example above, the `call()` method calls a function with a given `this` value and arguments provided individually. Instead of using `this`, you could *explicitly pass in a context object*, like so:
+
 ```javascript
 function format(object) {
     return object.name.toUpperCase();
@@ -338,7 +340,6 @@ const myObject = {
 };
 
 myObject.double = function () {
-
   const helper = function () {
     this.value *= 2;  // TypeError: Cannot read property 'value' of undefined
   };
@@ -358,7 +359,6 @@ const myObject = {
 
 myObject.double = function () {
   const that = this;
-
   const helper = function () {
     that.value *= 2;
   };
@@ -455,6 +455,7 @@ Thing.prototype.logStringUpper.apply(notThing);  // BUMBLEBEE
 Here are some examples of different ways to approach creating a function that tracks how many times it was called:
 
 Using a global variable:
+
 ```javascript
 function foo(num) {
   console.log('foo: ' + num);
@@ -477,6 +478,7 @@ console.log(count);
 ```
 
 Using the lexical scope of an object:
+
 ```javascript
 function foo(num) {
   console.log('foo: ' + num);
@@ -501,6 +503,7 @@ console.log(data.count);
 ```
 
 Using the lexical scope of the function itself:
+
 ```javascript
 function foo(num) {
   console.log('foo: ' + num);
@@ -523,6 +526,7 @@ console.log(foo.count);
 ```
 
 First (incorrect) attempt to use this:
+
 ```javascript
 function foo(num) {
   console.log('foo: ' + num);
