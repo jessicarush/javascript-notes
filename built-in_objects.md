@@ -114,9 +114,17 @@ console.log('one two three'.split(' '));
 // [ 'one', 'two', 'three' ]
 console.log('ha'.repeat(3));
 // hahaha
-console.log('The weather is nice.'.replace('nice', 'gross'));
-// The weather is gross.
+console.log('The weather is nice nice.'.replace('nice', 'gross'));
+// The weather is gross nice.
+console.log('The weather is nice nice.'.replace(/nice/, 'gross'));
+// The weather is gross nice.
+console.log('The weather is nice nice.'.replace(/nice/g, 'gross'));
+// The weather is gross gross.
+console.log('The weather is nice nice.'.replaceAll('nice', 'gross'));
+// The weather is gross gross.
 ```
+
+Note `replaceAll()` method was introduced in EcmaScript 2021 and is supported in most modern browsers but as of this writing is not yet in node (v14.18.1).
 
 The `substring()` method returns the part of the string between the start and end indexes, or to the end of the string. This can be used as a clever way to pad-tab output:
 
