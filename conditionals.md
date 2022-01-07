@@ -1,7 +1,7 @@
 # Conditionals
 
 
-Any series of statements in JavaScript can be grouped together into a *block* using the curly braces `{...}`. When working with conditionals or loops, we'll have to move our statements into blocks. Note that you don't need a semicolon after a block `{...}`
+Any series of statements in JavaScript can be grouped together into a *block* using the curly braces `{...}`. When working with conditionals or loops, we'll have to move our statements into blocks. Note that you don't need a semicolon after a block `{...}`.
 
 
 ## Table of Contents
@@ -32,7 +32,7 @@ if (flag) {
 ## if...else statements
 
 ```javascript
-const legal_age = 19;  
+const legal_age = 19;
 const retire_age = 65;
 let age = prompt('Enter your age:');
 
@@ -62,7 +62,7 @@ else console.log('Get back to work!');
 
 ## switch statements
 
-This `if...else if...else` structure works but there's another option using `switch` that reduces the amount of code required to specify the condition **if you are comparing against single values** (in other words, `switch` does not work with `<, >`):
+This `if...else if...else` structure works but there's another option using `switch` that reduces the amount of code required to specify the condition **if you are comparing against single values** (in other words, `switch` does not work with `<` or `>`):
 
 ```javascript
 let day = prompt('What day of the week?').toLowerCase();
@@ -81,7 +81,7 @@ switch (day) {
 }
 ```
 
-The `switch` block usually includes the `break` and `default` keywords. These are both optional bur very much recommended. The `break` keyword breaks out of the switch block. This will stop the execution of code and/or case testing inside the block and continue on to the rest of the code. If `break` is omitted, the next code block in the switch statement is executed. The `default` keyword specifies some code to run if there is no case match. There can only be one `default` keyword in a switch. Although this is optional, it is recommended that you use it, as it takes care of unexpected cases. In this last `default` section, you technically don't need to `break` but many programmers add it anyways for consistency and because other languages require it.
+The `switch` block usually includes the `break` and `default` keywords. These are both optional but very much recommended. The `break` keyword breaks out of the switch block. This will stop the execution of code and/or case testing inside the block and continue on to the rest of the code. If `break` is omitted, the next code block in the switch statement is executed. The `default` keyword specifies some code to run if there is no case match. There can only be one `default` keyword in a switch. Although this is optional, it is recommended that you use it, as it takes care of unexpected cases. In this last `default` section, you technically don't need to `break` but many programmers add it anyways for consistency and because other languages require it.
 
 ### Returning values in switch statements
 
