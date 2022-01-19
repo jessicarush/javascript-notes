@@ -77,7 +77,7 @@ function onlyNumbers(item) {
 
 const numbers = items.filter(onlyNumbers);
 
-console.log(numbers);  
+console.log(numbers);
 // [ 5, 2.5, 100 ]
 ```
 
@@ -90,7 +90,7 @@ const numbers = items.filter(item => {
   return typeof item === 'number';
 });
 
-console.log(numbers);  
+console.log(numbers);
 // [ 5, 2.5, 100 ]
 ```
 
@@ -243,6 +243,21 @@ const evens = element => element % 2 === 0;
 
 console.log(array.every(evens));
 // false
+```
+
+Another example using an array of objects:
+
+```javascript
+const colors = [
+  { name: 'light gray', value: '#b9b9b9' },
+  { name: 'silver', value: '#cbcbcb' },
+  { name: 'fog', value: '#dbdbdb' },
+  { name: 'mist', value: '#ebebeb' }
+];
+
+function isNameUnique(value) {
+  return colors.every(c => c.name.toLowerCase() !== value.toLowerCase());
+}
 ```
 
 
