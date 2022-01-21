@@ -1,7 +1,7 @@
 # Recursion
 
 
-A recursive function is a function that calls itself.
+A recursive function is a function that calls itself over and over until it reaches the *base case*. The base case is a way to return without makeing a recursive call.
 
 ## Table of Contents
 
