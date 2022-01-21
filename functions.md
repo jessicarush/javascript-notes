@@ -553,6 +553,7 @@ console.log(foo.b);  // true
 console.log(foo.name);  // veryLongFunctionName
 ```
 
+
 ## Arguments
 
 A bonus property/parameter that is available to all functions when they are invoked is the `arguments` array (not actually an array but an array-like object). This gives the function access to all of the arguments that were passed in, whether they're used in the function or not.
@@ -590,6 +591,11 @@ const x = function () {
   // note: semicolon is required after the assignment
 };
 
+const x = () => {
+  // an anonymous function expression using ES6 arrow function syntax
+  // (described later in this doc)
+};
+
 const x = function foo() {
   // called a named function declaration/expression.
   // It's equivalent to first declaring the function foo,
@@ -599,6 +605,12 @@ const x = function foo() {
 ```
 
 Since the release of ES6, it is common practice to use `const` as the keyword to declare the variable containing a function expression.
+
+The main difference between function declarations and expressions is [hoisting](#hoisting). For this reason, it might seem that function declarations are more useful, however, function expressions are useful when you want to *avoid polluting the global scope*. It's helpful to think about when and where the function is needed.
+
+- Function declarations are processed before the code block is executed. They are visible everywhere in the block.
+- Function expressions are created when the execution flow reaches them.
+- Use function declarations when you want to create a function on the global scope and make it available throughout your code. Use function expressions to limit where the function is available, keeping your global scope light.
 
 
 ## Immediately Invoked Function Expressions *(IIFE)*
