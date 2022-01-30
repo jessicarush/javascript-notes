@@ -1,20 +1,38 @@
 # Ajax
 
-
 ## Table of Contents
 
 <!-- toc -->
 
-- [Creating a request & receiving the response](#creating-a-request--receiving-the-response)
-  * [1. using the .onreadystatechange property](#1-using-the-onreadystatechange-property)
-  * [2. using the .onload event handler](#2-using-the-onload-event-handler)
-  * [3. using addEventListener()](#3-using-addeventlistener)
-- [Triggering the request](#triggering-the-request)
-- [Links](#links)
+- [Introduction](#introduction)
+- [XMLHttpRequest](#xmlhttprequest)
+  * [Creating a request & receiving the response](#creating-a-request--receiving-the-response)
+    + [1. using the .onreadystatechange property](#1-using-the-onreadystatechange-property)
+    + [2. using the .onload event handler](#2-using-the-onload-event-handler)
+    + [3. using addEventListener()](#3-using-addeventlistener)
+  * [Triggering the request](#triggering-the-request)
+- [Additional links](#additional-links)
 
 <!-- tocstop -->
 
-## Creating a request & receiving the response
+## Introduction
+
+Ajax (Asynchronous JavaScript and XML) is a set of web development techniques that uses various web technologies on the client-side to send and retrieve data from a server asynchronously. The XMLHttpRequest API is the core of Ajax.
+
+**Important**
+
+That being said, asynchronous requests can be created in a number of ways. Traditionally these were done with `XMLHttpRequest` as described below. However, the Fetch API is a more modern interface for making Ajax-like requests in JavaScript. It uses ES6 promises and can be used in conjunction with ES8 async/await. These are considered to be the new low-level replacement for `XMLHttpRequest`.
+
+For more up-to-date methods of doing asynchronous requests see:
+
+- [requests.md](https://github.com/jessicarush/javascript-notes/blob/master/requests.md)
+
+
+## XMLHttpRequest
+
+> [XMLHttpRequest](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest) (XHR) objects are used to interact with servers. You can retrieve data from a URL without having to do a full page refresh. This enables a Web page to update just part of a page without disrupting what the user is doing. XMLHttpRequest is used heavily in AJAX programming.
+
+### Creating a request & receiving the response
 
 There are a few slight variations on how you can do this (mostly in receiving the response part). According to MDN:
 
@@ -22,7 +40,7 @@ There are a few slight variations on how you can do this (mostly in receiving th
 
 In other words, the method I'm showing first above is a fail-safe method supported in all browsers. The following are alternate methods (note that just the response handling part changes).
 
-### 1. using the .onreadystatechange property
+#### 1. using the .onreadystatechange property
 
 ```javascript
 function ajaxRequest() {
@@ -61,8 +79,7 @@ Value | State | Description
 
 4. The `send()` method actually sends the request. Optionally data (often a JSON string) can be sent with is by passing it as an argument.
 
-
-### 2. using the .onload event handler
+#### 2. using the .onload event handler
 
 ```javascript
 function ajaxRequest() {
@@ -82,7 +99,7 @@ function ajaxRequest() {
 }
 ```
 
-### 3. using addEventListener()
+#### 3. using addEventListener()
 
 ```javascript
 function ajaxRequest() {
@@ -143,17 +160,16 @@ function ajaxRequest() {
 
 The XMLHttpRequest events are:
 
-**progress** - fires when the amount of data that has been retrieved has changed.  
-**load** - fires when the transfer is complete; all data is now in the response.  
-**error** -  fires when the request encounters an error.  
-**abort** - fires when a request has been aborted, for example because the program called `XMLHttpRequest.abort()`.  
-**onreadystatechange** - fires whenever the `readyState` attribute changes.  
-**loadend** -  fires when a request has completed, whether successfully (after load) or unsuccessfully (after abort or error).  
-**loadstart** - fires when a request has started to load data.  
-**timeout** - fires when progression is terminated due to preset time expiring.  
+**progress** - fires when the amount of data that has been retrieved has changed.
+**load** - fires when the transfer is complete; all data is now in the response.
+**error** -  fires when the request encounters an error.
+**abort** - fires when a request has been aborted, for example because the program called `XMLHttpRequest.abort()`.
+**onreadystatechange** - fires whenever the `readyState` attribute changes.
+**loadend** -  fires when a request has completed, whether successfully (after load) or unsuccessfully (after abort or error).
+**loadstart** - fires when a request has started to load data.
+**timeout** - fires when progression is terminated due to preset time expiring.
 
-
-## Triggering the request
+### Triggering the request
 
 Note that for all three examples above, the request can be triggered the same way with something like:
 
@@ -161,9 +177,10 @@ Note that for all three examples above, the request can be triggered the same wa
 document.getElementById('js-ajax-requester').addEventListener('click', ajaxRequest);
 ```
 
-## Links
 
-- [python-notes/ajax_notes.md](https://github.com/jessicarush/python-notes/blob/master/ajax_notes.md)  
-- [javascript-notes/requests.md](https://github.com/jessicarush/javascript-notes/blob/master/requests.md)  
+## Additional links
+
+- [python-notes/ajax_notes.md](https://github.com/jessicarush/python-notes/blob/master/ajax_notes.md)
+- [javascript-notes/requests.md](https://github.com/jessicarush/javascript-notes/blob/master/requests.md)
 - [MDN XMLHttpRequest](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest)
 - [MDN Using XMLHttpRequest](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/Using_XMLHttpRequest)
