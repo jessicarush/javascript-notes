@@ -113,6 +113,7 @@ These let you store information within the browser without relying on cookies. T
 Both local and session storage objects are implemented on the window object, so you don't need to prefix the method names with another object. Be aware that data for the storage objects are processed in a synchronous manner (all other processing stops while the script accesses or saves data).
 
 To save an item into the storage object, use dot notation or `setItem()`. This method takes two arguments; a key and a value.
+
 ```javascript
 // methods
 localStorage.setItem('name', 'jessica');
@@ -123,6 +124,7 @@ sessionStorage.theme = 'dark';
 ```
 
 To retrieve an item from the storage object, use use dot notation or `getItem()`. This method takes one argument; a key.
+
 ```javascript
 // methods
 let name = localStorage.getItem('name');
@@ -133,18 +135,21 @@ theme = sessionStorage.theme;
 ```
 
 Remove an item from storage with `removeItem()`.
+
 ```javascript
 localStorage.removeItem('name');
 sessionStorage.removeItem('theme');
 ```
 
 Clear all information from the storage object with `clear()`.
+
 ```javascript
 localStorage.clear();
 sessionStorage.clear();
 ```
 
 Get the number of keys with the length property:
+
 ```javascript
 console.log(localStorage.length);
 console.log(sessionStorage.length);
