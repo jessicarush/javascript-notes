@@ -29,7 +29,6 @@ JavaScript arrays are like lists in Python. Arrays can store any data types (inc
   * [Convert an array to a string with *join()*](#convert-an-array-to-a-string-with-join)
   * [Convert a string to an array with *split()*](#convert-a-string-to-an-array-with-split)
   * [Sort an array in place with *sort()*](#sort-an-array-in-place-with-sort)
-- [Array iteration methods](#array-iteration-methods)
 - [Unpacking arrays into variables](#unpacking-arrays-into-variables)
 - [Flattening arrays](#flattening-arrays)
 - [Sneaky "reassignment" of an array](#sneaky-reassignment-of-an-array)
@@ -50,19 +49,19 @@ Array elements/items can be accessed with bracket notation:
 
 ```javascript
 // Array indexing starts at 0
-console.log(array1[0]);  
+console.log(array1[0]);
 // example
 
 // Access items within nested arrays:
-console.log(array1[3][0]);  
+console.log(array1[3][0]);
 // nested
 
 // FYI bracket notation works on strings too:
-console.log(array1[0][1]);  
+console.log(array1[0][1]);
 // x
 
 //If you try to access an index out of range, you'll get `undefined`
-console.log(array1[4]);  
+console.log(array1[4]);
 // undefined
 ```
 
@@ -129,7 +128,7 @@ console.log(array[2]);      // undefined
 console.log(array);         // [ 'one', 'two', <1 empty item> ]
 ```
 
-While the values at these empty positions appear to be `undefined`, they will not behave the same as an index explicitly set to `undefined` as in `array[0] = undefined;`. In general, be careful about creating these kinds of *sparse* arrays (leaving or creating empty/missing spots).  
+While the values at these empty positions appear to be `undefined`, they will not behave the same as an index explicitly set to `undefined` as in `array[0] = undefined;`. In general, be careful about creating these kinds of *sparse* arrays (leaving or creating empty/missing spots).
 
 
 ## Array static methods
@@ -198,7 +197,7 @@ const myArray = ['one', 'two', 'three'];
 myArray.push('four', 'five');
 myArray.unshift('zero');
 
-console.log(myArray);  
+console.log(myArray);
 // [ 'zero', 'one', 'two', 'three', 'four', 'five' ]
 ```
 
@@ -212,14 +211,14 @@ const myArray = ['one', 'two', 'three'];
 
 let removed = myArray.pop();
 
-console.log(myArray);   
+console.log(myArray);
 // [ 'one', 'two' ]
-console.log(removed);  
+console.log(removed);
 // three
 
 removed = myArray.shift();
 
-console.log(myArray);   
+console.log(myArray);
 // [ 'two' ]
 console.log(removed);
  // one
@@ -235,7 +234,7 @@ const originalArray = ['one', 'two', 'three', 'four', 'five'];
 
 let newArray = originalArray.slice(1, 4);
 
-console.log(newArray);  
+console.log(newArray);
 // [ two', 'three', 'four' ]
 console.log(originalArray);
 // [ 'one', 'two', 'three', 'four', 'five ']
@@ -359,7 +358,7 @@ Both indexOf and lastIndexOf take an optional second argument that indicates whe
 ```javascript
 const myArray = ['one', 'two', 'three', 'one', 'four', 'five', 'six', 'one'];
 
-console.log(myArray.indexOf('one'));  
+console.log(myArray.indexOf('one'));
 // 0
 
 console.log(myArray.indexOf('one', 2));  // start from index 2
@@ -388,12 +387,12 @@ console.log(myArray);
 const myArray = ['one', 'two', 'three', 'four', 'five'];
 
 // the argument passed is the separator
-let myString = myArray.join('_');  
+let myString = myArray.join('_');
 
-console.log(myString);  
+console.log(myString);
 // one_two_three_four_five
 
-console.log(typeof myString);  
+console.log(typeof myString);
 // string
 ```
 
@@ -404,9 +403,9 @@ console.log(typeof myString);
 const myString = 'one two three four five';
 
 // the argument passed is the separator
-let myArray = myString.split(' ');  
+let myArray = myString.split(' ');
 
-console.log(myArray);  
+console.log(myArray);
 // [ 'one', 'two', 'three', 'four', 'five' ]
 ```
 
@@ -478,12 +477,6 @@ console.log(sortedPeople);
 //   { name: 'morty', votes: 1 }
 // ]
 ```
-
-## Array iteration methods
-
-Arrays include a number of methods that iterate over each item, performing some action/function each time.
-
-See: [iterators.md](iterators.md)
 
 
 ## Unpacking arrays into variables
