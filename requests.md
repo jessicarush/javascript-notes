@@ -28,16 +28,17 @@ There are many ways to handle asynchronous communication with a server. Traditio
 
 `Fetch` is the newer standard API for handling network requests. It is similar to `XMLHttpRequest` and a bit like the definition of Ajax but it is built on the `Promise` object. The Fetch API simplifies code for asynchronous requests and handles responses better than the older `XMLHttpRequest`. Since it's built with promises, fetch can also be used in conjunction with async/await, which allows us to simplify code even further.
 
-
 ## First, the Event Loop
 
 JavaScript is an asynchronous language. It uses an [event loop](https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop) to handle asynchronous function calls. When a program is run, function calls are made and added to a stack. The functions that make requests that need to wait for servers to respond get sent to a separate queue. Once the stack has cleared, then the functions in the queue are executed one at a time.
 
-To get a glimpse of how the event loop works the following example uses ``setTimeout()``, which will pass a function call to the queue. The first argument is a callback and the second argument is the number of milliseconds the program must wait before the callback can be run. The other ``console.log()`` calls are run from the stack.
+To get a glimpse of how the event loop works the following example uses `setTimeout()`, which will pass a function call to the queue. The first argument is a callback and the second argument is the number of milliseconds the program must wait before the callback can be run. The other `console.log()` calls are run from the stack.
 
 ```javascript
 console.log('First');
-setTimeout(() => {console.log('Last')}, 0);
+setTimeout(() => {
+  console.log('Last');
+}, 0);
 console.log('Second');
 // First
 // Second
@@ -81,7 +82,6 @@ If you want to add additional parameters, use the `&` character to separate key/
 
 `https://api.datamuse.com/words?key1=value1&key2=value2`
 
-
 ### XMLHttpRequest POST
 
 The major difference between a GET request and POST request is that a POST request requires additional information to be sent through with the request. This additional information is sent in the body of the post request.
@@ -90,7 +90,7 @@ The major difference between a GET request and POST request is that a POST reque
 const xhr = new XMLHttpRequest();
 const url = 'https://api-to-call.com/endpoint';
 // converts data to a string:
-const data = JSON.stringify({id: '200'});
+const data = JSON.stringify({ id: '200' });
 
 xhr.responseType = 'json';
 xhr.onreadystatechange = () => {
@@ -101,13 +101,13 @@ xhr.onreadystatechange = () => {
 };
 
 xhr.open('POST', url);
+xhr.setRequestHeader('Content-Type', 'application/json');
 xhr.send(data);
 ```
 
 In short, writing GET and POST requests with XHR objects and vanilla JavaScript requires constructing the XHR object using new, setting the responseType, creating a function that will handle the response object, and opening and sending the request.
 
 Determining how to correctly write the actual requests and how to properly implement them requires carefully reading the documentation of the API with which you're working.
-
 
 ## Fetch API (ES6 requests with promises)
 
@@ -130,16 +130,22 @@ See also my notes in [promises.md](promises.md).
 3. returns a promise that ultimately resolves to a response object, which contains the status of the promise with information the API sent back.
 
 ```javascript
-fetch('https://api-to-call.com/endpoint').then(response => {
-  if (response.ok) {
-      return response.json();
-  } else {
-      throw new Error('Request failed!');
-  }
-}, networkError => { console.log(networkError.message); }
-).then(jsonResponse => {
+fetch('https://api-to-call.com/endpoint')
+  .then(
+    (response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error('Request failed!');
+      }
+    },
+    (networkError) => {
+      console.log(networkError.message);
+    }
+  )
+  .then((jsonResponse) => {
     return jsonResponse;
-});
+  });
 ```
 
 `.then()` will fire only after the promise status of `fetch()` has been resolved. the first argument passed to `then()` is a success callback which takes one parameter: `response`. The second argument passed to `then()` is a function that will handle any failures. This second function also takes a single parameter: `networkError`.
@@ -154,20 +160,26 @@ The main difference with POST requests with `fetch()`, is that the initial call 
 
 ```javascript
 fetch('https://api-to-call.com/endpoint', {
-    method: 'POST',
-    body: JSON.stringify({id: '200'})
-}).then(response => {
-  if (response.ok) {
-      return response.json();
-  } else {
-      throw new Error('Request failed!');
-  }
-}, networkError => { console.log(networkError.message); }
-).then(jsonResponse => {
+  method: 'POST',
+  body: JSON.stringify({ id: '200' }),
+  headers: new Headers({ 'content-type': 'application/json' })
+})
+  .then(
+    (response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error('Request failed!');
+      }
+    },
+    (networkError) => {
+      console.log(networkError.message);
+    }
+  )
+  .then((jsonResponse) => {
     return jsonResponse;
-});
+  });
 ```
-
 
 ## async/await fetch (ES8)
 
@@ -187,7 +199,6 @@ Some key points:
 - `await` can only be used in an `async` function. `await` allows a program to run (continue moving through the message queue) while waiting for a promise to resolve .
 - In a `try...catch` statement, code in the try block will be run and in the event of an exception/error, the code in the catch statement will run.
 
-
 ```javascript
 const getData = async () => {
   try {
@@ -198,17 +209,15 @@ const getData = async () => {
       const jsonResponse = await response.json();
       return jsonResponse;
     } else {
-        throw new Error('Request failed!');
+      throw new Error('Request failed!');
     }
-  }
-  catch(error) {
+  } catch (error) {
     console.log(error);
     // Generally, you would create a more sophisticated way of
     // handling the error, like redirecting users to another page.
   }
 };
 ```
-
 
 ### POST with async/await fetch()
 
@@ -218,17 +227,17 @@ As with the above POST with `fetch()` example, the main difference here between 
 const getData = async () => {
   try {
     const response = await fetch('https://api-to-call.com/endpoint', {
-        method: 'POST',
-        body: JSON.stringify({id: '200'})
+      method: 'POST',
+      body: JSON.stringify({ id: '200' }),
+      headers: new Headers({ 'content-type': 'application/json' })
     });
     if (response.ok) {
       const jsonResponse = await response.json();
       return jsonResponse;
     } else {
-        throw new Error('Request failed!');
+      throw new Error('Request failed!');
     }
-  }
-  catch(error) {
+  } catch (error) {
     console.log(error);
   }
 };
@@ -240,7 +249,36 @@ Represents response/request headers.
 
 The [Headers](https://developer.mozilla.org/en-US/docs/Web/API/Headers) interface of the Fetch API allows you to perform various actions on HTTP request and response headers. These actions include retrieving, setting, adding to, and removing headers from the list of the request's headers.
 
-TODO...
+See also:
+
+- [MDN - HTTP headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers)
+- [HTTP Headers cheat sheet](https://kapeli.com/cheat_sheets/HTTP_Header_Fields.docset/Contents/Resources/Documents/index)
+
+```javascript
+/**
+ * Send request and data using Fetch API
+ */
+const submitPost = async (title, body) => {
+  try {
+    const response = await fetch('/save_post', {
+      method: 'POST',
+      body: JSON.stringify({ title: title, body: body }),
+      // This is crucial in order to receive data on the flask side using
+      // request.get_json()
+      headers: new Headers({'content-type': 'application/json'})
+    });
+    if (response.ok) {
+      const jsonResponse = await response.json();
+      console.log(jsonResponse);
+      return jsonResponse;
+    } else {
+      throw new Error('Request failed!');
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+```
 
 ## Request Object
 
@@ -275,4 +313,3 @@ See also:
 - [Headers](https://developer.mozilla.org/en-US/docs/Web/API/Headers)
 - [Request](https://developer.mozilla.org/en-US/docs/Web/API/Request)
 - [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response)
-
