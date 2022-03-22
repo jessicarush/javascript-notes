@@ -41,7 +41,7 @@ While the [necessity of jQuery is waning](https://flaviocopes.com/jquery/) in fa
 
 ## Including jQuery
 
-In your HTML, you'll need to link to jQuery. [Select a download here](https://jquery.com/download/) or [select a CDN here](https://code.jquery.com/). Make sure link to the jQuery comes **before** any of your own scripts that use it.
+In your HTML, you'll need to link to jQuery. [Select a download here](https://jquery.com/download/) or [select a CDN here](https://code.jquery.com/). Make sure jQuery is included **before** any of your own scripts that use it.
 
 ```html
 <!-- download -->
@@ -54,9 +54,9 @@ In your HTML, you'll need to link to jQuery. [Select a download here](https://jq
 
 ## Selecting elements
 
-jQuery has a function `jQuery()` that is usually written as shorthand `$()`. This function takes one parameter, a css-style selector, and returns a jQuery object (also known as a *matched set* or *jquery selection*) containing all the elements matched by the selector. The main advantage of this over `querySelector()` and `querySelectorAll`, is that these two methods may not work in older browsers but jQuery has some fallback code built-in.
+jQuery has a function `jQuery()` that is usually written as shorthand `$()`. This function takes one parameter, a css-style selector, and returns a jQuery object (also known as a *matched set* or *jquery selection*) containing all the elements matched by the selector. The main advantage of this over `querySelector()` and `querySelectorAll()`, is that these two methods may not work in older browsers but jQuery has some fallback code built-in.
 
-note: When assigning a jQuery object to a variable, many give it a name starting with `$` to differentiate it from other variables in your scripts.
+Note: When assigning a jQuery object to a variable, many give it a name starting with `$` to differentiate it from other variables in your scripts.
 
 ```javascript
 // selects all headings with class="primary-heading":
@@ -65,7 +65,7 @@ $('h1.primary-heading')
 // selects all uls that contain at least one li with class="high-priority":
 $('ul:has(li.high-priority)')
 
-// assigns an element with id="js-message-box" to a variable $message:å
+// assigns an element with id="js-message-box" to a variable $message:
 const $message = $('#js-message-box');
 ```
 
