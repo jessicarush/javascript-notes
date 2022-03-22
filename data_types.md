@@ -11,7 +11,7 @@ type | description
 **Null** | Represents an empty value.|
 **Undefined** | Represents a missing value. Automatically assigned to variables that have just been declared or to formal arguments for which there are no actual arguments.|
 **Symbols** | (new to ES6) Used as the key for an object property when the property is intended to be private, for the internal use of a class or an object.|
-**Objects** | Refers to a compound value where you can set properties that each hold their own values of any type. Functions and arrays are considered subtypes of the object type. In fact, functions are simply considered *callable objects*.∏
+**Objects** | Refers to a compound value where you can set properties that each hold their own values of any type. Functions and arrays are considered subtypes of the object type. In fact, functions are simply considered *callable objects*.
 
 
 ## Table of Contents
@@ -37,7 +37,7 @@ console.log(Symbol());   // symbol
 console.log({a: 'b'});   // object
 ```
 
-Exponential numbers van be written like `1e10`, for example:
+Exponential numbers can be written like `1e10`, for example:
 
 ```javascript
 let num_exponent = 3e6;
