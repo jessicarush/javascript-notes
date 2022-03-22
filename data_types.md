@@ -4,7 +4,7 @@
 JavaScript uses six *primitive data types*, along with one complex type:
 
 type | description
----- | -----------
+:--- | :----------
 **Strings** | Any grouping of characters surrounded by single or double quotes.|
 **Numbers** | Any number, including numbers with decimals. Internally, they're represented as 64-bit floating point. |
 **Booleans** | Either true or false, with no quotations.|
