@@ -45,6 +45,7 @@ In JavaScript, objects are compound values where you can set properties (named l
 There are many, many ways to create an object. For example:
 
 **literal notation**
+
 ```javascript
 const obj1 = {
   firstname: 'Jessica',
@@ -54,6 +55,7 @@ const obj1 = {
 ```
 
 **constructor notation (using built-in Object)**
+
 ```javascript
 const obj2 = new Object();
 
@@ -68,6 +70,7 @@ obj2.admin = true;
 ```
 
 **constructor function**
+
 ```javascript
 function Person(first, age, admin) {
   this.firstname = first;
@@ -84,6 +87,7 @@ const obj3 = new Person('Jessica', 43, true);
 ```
 
 **class**
+
 ```javascript
 class Human {
   constructor(first, age, admin) {
@@ -97,6 +101,7 @@ const obj4 = new Human('Jessica', 43, true);
 ```
 
 **factory function**
+
 ```javascript
 const personFactory = (first, age, admin) => {
   return {
@@ -110,6 +115,7 @@ const obj5 = personFactory('Jessica', 43, true);
 ```
 
 **create a new instance of an existing object with Object.create()**
+
 ```javascript
 const personPrototype = {
     firstname: '',
@@ -665,7 +671,6 @@ myObj.new = 'something';
 // TypeError: Cannot add property new, object is not extensible
 ```
 
-
 ### seal
 
 `Object.seal()` creates a "sealed" object in that it takes an existing object, calls `Object.preventExtensions()` on it and marks all its existing properties as `configurable: false`. As a result, you can can't add any new properties or delete existing ones, but you can still modify the values.
@@ -680,7 +685,6 @@ myObj.year = 1901;
 myObj.new = 'something';
 // TypeError: Cannot add property new, object is not extensible
 ```
-
 
 ### freeze
 
@@ -776,7 +780,7 @@ Some methods return nothing (i.e. undefined). If we instead return `this`, we en
 For example:
 
 ```javascript
-var textProcesor = {
+var textProcessor = {
   text: '',
 
   reverseString: function () {
@@ -798,18 +802,18 @@ var textProcesor = {
 };
 
 
-textProcesor.text = 'Top hats and bees';
+textProcessor.text = 'Top hats and bees';
 
-// textProcesor.reverseString();
-// console.log(textProcesor.text);
+// textProcessor.reverseString();
+// console.log(textProcessor.text);
 // seeb dna stah poT
 
-// textProcesor.camelCase();
-// console.log(textProcesor.text);
+// textProcessor.camelCase();
+// console.log(textProcessor.text);
 // topHatsAndBees
 
-textProcesor.reverseString().camelCase();
-console.log(textProcesor.text);
+textProcessor.reverseString().camelCase();
+console.log(textProcessor.text);
 // seebDnaStahPot
 ```
 
@@ -897,10 +901,10 @@ console.log(arr);
 //  <1 empty item>,
 //  'testing',
 //  name: 'Jessica Array' ]
-
 ```
 
-see [arrays.md](arrays.md)
+See: [arrays.md](arrays.md)
+
 
 ## Functions
 
@@ -928,4 +932,4 @@ console.log(foo.bar);
 // baz
 ```
 
-see [functions.md](functions.md)
+See: [functions.md](functions.md)

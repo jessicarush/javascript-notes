@@ -265,8 +265,8 @@ let jane = {
     name: 'jane'
 };
 
-greet(bob);
-greet(jane);
+greet(bob);   // Hello BOB
+greet(jane);  // Hello JANE
 ```
 
 This method seems way simpler to me coming from Python, but apparently the `this` mechanism provides a more elegant way of implicitly passing along an object reference which can make a cleaner API design that's easier to reuse. The more complex the pattern, the messier it is to pass context around as an explicit parameter. **More to come to validate this point.**
@@ -318,7 +318,7 @@ When a function is stored as a property of an object (or in a class), it's a met
 
 const myObject = {
   value: 0,
-  increment: function (num) {
+  increment(num) {
     this.value += (typeof num === 'number' ? num : 1);
   }
 };
@@ -374,15 +374,15 @@ console.log(myObject.value);  // 6
 Constructor functions are one of the many ways to create an object. See [objects.md](objects.md). Constructor functions are invoked with the `new` prefix. The new object that's created has a hidden link to the functions prototype and `this` will be bound to that new object.
 
 ```javascript
-var Thing = function (string) {
+const Thing = function (string) {
   this.string = string;
   this.logString = function () {
     console.log(this.string);
   };
 };
 
-var thingOne = new Thing('confused');
-var thingTwo = new Thing('clear');
+const thingOne = new Thing('confused');
+const thingTwo = new Thing('clear');
 
 thingOne.logString();  // confused
 thingTwo.logString();  // clear
@@ -394,6 +394,8 @@ As a side note, if I wanted to assign a new method to a constructor function and
 Thing.logStringUpper = function () {
   console.log(this.string.toUpperCase());
 };
+
+thingOne.logStringUpper();
 // TypeError: thingOne.logStringUpper is not a function:
 ```
 
@@ -410,12 +412,18 @@ thingTwo.logStringUpper();  // CLEAR
 
 The `apply()` method is very similar to the `call()` method described briefly above in *The Calling Object*. The syntax is almost identical. The fundamental difference is that following the first parameter, call() accepts an argument list, while apply() accepts a single array of arguments.
 
+```
+func.apply(thisObj, [...])
+
+func.call(thisObj, arg1, arg2, arg3,...)
+```
+
 The `apply()` method lets us call a function with a given object to be used for the `this` value along with an array of other arguments. The syntax is `function.apply(thisArg, [additionalArgs])` For example:
 
 ```javascript
 console.log(Math.max(1, 10, 12, 5));  // 12
 
-var array = [1, 10, 12, 5];
+const array = [1, 10, 12, 5];
 
 console.log(Math.max.apply(null, array));  // 12
 ```
@@ -423,8 +431,8 @@ console.log(Math.max.apply(null, array));  // 12
 As a side note, you can use `apply()` in some interesting ways. For example, we could merge two arrays together as if we were using `concat()`:
 
 ``` javascript
-var myArray = ['a', 'b'];
-var myThis = [0, 1, 2];
+const myArray = ['a', 'b'];
+const myThis = [0, 1, 2];
 
 myThis.push.apply(myThis, myArray);
 
@@ -434,7 +442,7 @@ console.log(myThis);  // [ 0, 1, 2, 'a', 'b' ]
 And for the big finale, we can use `apply()` to invoke a method on an object where there is no existing prototype link.
 
 ```javascript
-var Thing = function (string) {
+const Thing = function (string) {
   this.string = string;
 };
 
@@ -442,7 +450,7 @@ Thing.prototype.logStringUpper = function () {
   console.log(this.string.toUpperCase());
 };
 
-var notThing = {
+const notThing = {
   string: 'bumblebee'
 };
 
@@ -596,7 +604,7 @@ The key takeaway from the example above is to avoid using arrow functions when u
 
 ## this Summary
 
-To clarify, `this` is not an *author-time binding* but a *runtime binding*. It is contextual based on the conditions of the functions invocation. It has nothing to do with where a function is declared, but everything to do with the manner in which the function is called.
+To clarify, `this` is not an *author-time binding* but a *runtime binding*. It is contextual, based on the conditions of the functions invocation. It has nothing to do with where a function is declared, but everything to do with the manner in which the function is called.
 
 When a function is invoked, an *activation record*, otherwise known as an execution context, is created. This record contains information about where the function was called from (the call-stack), how it was invoked, what parameters were passed an so on. One of the properties of this record is the `this` reference, which will be used for the duration of that function's execution.
 
