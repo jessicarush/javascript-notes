@@ -933,3 +933,67 @@ console.log(foo.bar);
 ```
 
 See: [functions.md](functions.md)
+
+## Destructuring
+
+There are a few ways to use destructuring syntax with oblects. For example:
+
+```javascript
+const data = {
+  name: 'bob',
+  list: ['a', 'b', 'c'],
+  id: 10
+};
+
+const { name, id, list } = data;
+
+console.log(name);  // bob
+console.log(list);  // ['a', 'b', 'c']
+console.log(id);    // 10
+```
+
+You don't have to unpack everything, just what you need:
+
+```javascript
+const data = {
+  name: 'bob',
+  list: ['a', 'b', 'c'],
+  id: 10
+};
+
+const { name } = data;
+
+console.log(name);  // bob
+```
+
+You can also do what's called *rest destructuring*:
+
+```javascript
+const data = {
+  name: 'bob',
+  list: ['a', 'b', 'c'],
+  id: 10
+};
+
+const { name, ...rest } = data;
+
+console.log(name);  // bob
+console.log(rest);  // { list: [ 'a', 'b', 'c' ], id: 10 }
+```
+
+## Spread operator 
+
+Not to be confused with the *rest destructuring*, the spread operator unpacks property value pairs from an object:
+
+```javascript
+const userDetails = {language: 'english', name: 'bob'};
+const userPrefs = {mode: 'dark'};
+
+const user = {
+  id: 1,
+  ...userDetails,
+  ...userPrefs
+};
+
+console.log(user);  // { id: 1, language: 'english', name: 'bob', mode: 'dark' }
+```
