@@ -250,7 +250,7 @@ Then in your javascript, import the package using the jspm.dev URL. All packages
 import { v4 as uuidv4 } from 'https://jspm.dev/uuid';
 ```
 
-Another way of including packages is to use `npm init` and `npm intsall`. These will create a `package.json` and a `node_modules` directory. However, in order to use npm_modules via the syntax `import thing from "something";` for browsers, you'll need to set up a module bundler and ES6 compiler, such as [webpack](https://webpack.js.org/) and [babel](https://babeljs.io/) or [browserify](http://browserify.org/), [watchify](https://github.com/browserify/watchify) and [babelify](https://www.npmjs.com/package/babelify). See [node_package_manager.md](node_package_manager.md) for more information.
+Another way of including packages is to use `npm init` and `npm install`. These will create a `package.json` and a `node_modules` directory. However, in order to use npm_modules via the syntax `import thing from "something";` for browsers, you'll need to set up a module bundler and ES6 compiler, such as [webpack](https://webpack.js.org/) and [babel](https://babeljs.io/) or [browserify](http://browserify.org/), [watchify](https://github.com/browserify/watchify) and [babelify](https://www.npmjs.com/package/babelify). See [node_package_manager.md](node_package_manager.md) for more information.
 
 ## Summary
 
@@ -259,7 +259,7 @@ What are you loading? | Where? | Solution(s)
 --------------------- | ------ | -----------
 Your own modules | client-side (index.html) | - use ES6 `import` and `export` syntax <br> - set `type=module` on the main `<script>` <br> *or* <br> - use `require()` and `module.exports` syntax <br> - use browserify, watchify and babelify to create a bundle.js <br>
 Your own modules | server-side (index.js) | - use ES6 `import` and `export` syntax <br> - set `"type": "module"` in your `package.json` <br> *or* <br> - use `require()` and `module.exports` syntax
-CDN packages  | client-side (index.html) | - use ES6 `import` synatx to import a jspm.dev URL <br> - set `type=module` on the main `<script>`
+CDN packages  | client-side (index.html) | - use ES6 `import` syntax to import a jspm.dev URL <br> - set `type=module` on the main `<script>`
 CDN packages  | server-side (index.js) | - Nope. Only `file:` and `data:` URLs are supported. A specifier like `'https://example.com/app.js'` may be supported by browsers but it's not supported in Node.js.
 npm packages (node_modules) | client-side (index.html) | - use ES6 `import` and `export` syntax <br> - use browserify, watchify and babelify to create a bundle.js <br> - set `"type": "module"` in your `package.json` <br> *or* <br> - use `require()` and `module.exports` syntax <br> - use browserify, watchify and babelify to create a bundle.js
 npm packages (node_modules) | server-side (index.js) | -  use ES6 `import` and `export` syntax <br> - set `"type": "module"` in your `package.json` <br> *or* <br> - use `require()` and `module.exports` syntax
