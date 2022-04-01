@@ -53,6 +53,7 @@ For more information see the [npm install page](https://docs.npmjs.com/cli/insta
 ## Misc commands
 
 To see the current npm version and node version:
+
 ```
 npm -v
 npm --version
@@ -61,41 +62,49 @@ node --version
 ```
 
 To update npm:
+
 ```
 npm install -g npm
 ```
 
 To instantly create a `package.json` and bypass all the questions:
+
 ```
 npm init -y
 ```
 
 To install from a `package.json` locally:
+
 ```
 npm install
 ```
 
 To re-install from a `package.json` locally:
+
 ```
 npm clean-install
 ```
 
 To install a package globally
+
 ```
 npm install -g markdown-toc
 ```
 
 To list all the globally installed packages:
+
 ```
 npm list -g
 ```
 
 To list the directory of the globally installed packages:
+
 ```
 npm root -g
 ```
 
 To uninstall:
+
 ```
 npm unistall -g packagename
 npm unistall packagename
@@ -135,22 +144,26 @@ This process installs browserify and watchify globally and will allow you to:
 - import packages into your JavaScript using the `require()` syntax
 
 Step 1: Install browserify and watchify globally.
+
 ```
 npm install -g browserify
 npm install -g watchify
 ```
 
 Step 2: Create a `package.json` in your project root directory.
+
 ```
 npm init
 ```
 
 Step 3: Install some production modules/packages.
+
 ```
 npm install uuid --save
 ```
 
 Step 4: Include the module/package in your JavaScript using `require()`.
+
 ```javascript
 /* js/main.js */
 
@@ -160,6 +173,7 @@ console.log(`Testing uuid: ${uuidv4()}`);
 ```
 
 Step 5: Bundle your JavaScript.
+
 ```
 browserify js/main.js -o js/bundle.js
 ```
@@ -167,11 +181,13 @@ browserify js/main.js -o js/bundle.js
 You’ll have to make a new bundle every time you make a change to your main.js. To make it a bit easier, you can run the watchify command, which will create a bundle every time you save your file.
 
 Step 6: Watch for changes.
+
 ```
 watchify js/main.js -o js/bundle.js
 ```
 
 Step 7: Include `bundle.js` in your html.
+
 ```html
 <script src="js/bundle.js" defer></script>
 ```
@@ -180,31 +196,37 @@ Step 7: Include `bundle.js` in your html.
 #### A Better Process
 
 This process installs browserify, watchify and babelify locally and will allow you to:
+
 - manage your packages with npm
 - import packages into your JavaScript using ES6 `import <thing> from '<package>' syntax;`
 - watch and run the build process when changes are made with a simple command `npm run watch`
 
 Step 1: Create a `package.json` in your project root directory.
+
 ```
 npm init
 ```
 
 Step 2: Install browserify and watchify locally.
+
 ```
 npm install browserify watchify --save-dev
 ```
 
 Step 3: Install babelify (this will allow us to use the ES6 `import` syntax).
+
 ```
 npm install @babel/core @babel/preset-env babelify --save-dev
 ```
 
 Step 4: Install some production modules/packages:
+
 ```
 npm install uuid --save
 ```
 
 Step 5: Include the module/package in your JavaScript using `import`.
+
 ```javascript
 /* js/main.js */
 
@@ -230,6 +252,7 @@ Step 6: Add a browserify preset to your `package.json` to transpile your code.
 ```
 
 Step 7: Add build and watch scripts to your `package.json`.
+
 ```json
 "scripts": {
   "build": "browserify js/main.js -o js/bundle.js",
@@ -238,16 +261,19 @@ Step 7: Add build and watch scripts to your `package.json`.
 ```
 
 Step 8: Include `bundle.js` in your html.
+
 ```html
 <script src="js/bundle.js" type="module" defer></script>
 ```
 
 Step 8: Run the build script.
+
 ```
 npm run build
 ```
 
 Step 9: Run the watch script.
+
 ```
 npm run watch
 ```
@@ -260,5 +286,5 @@ You will may find some issues (particularly with packages like React) when movin
 
 ```
 rm -rf node_modules
-npm intstall
+npm install
 ```
