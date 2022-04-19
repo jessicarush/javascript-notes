@@ -1,7 +1,7 @@
 # Google Maps Javascript API
 
 
-This API now requires that you create a billing account and obtain an API key. At the time of this writing (August 21, 2019), Google states that you can use [$200 worth of API calls per month for free](https://cloud.google.com/maps-platform/pricing/sheet/) but, they need your billing information to ensure you're not a robot.
+The [Google maps platform](https://mapsplatform.google.com/) API now requires that you create a billing account and obtain an API key. At the time of this writing (August 21, 2019), Google states that you can use [$200 worth of API calls per month for free](https://cloud.google.com/maps-platform/pricing/) but, they need your billing information to ensure you're not a robot.
 
 
 ## Table of Contents
@@ -22,7 +22,7 @@ This API now requires that you create a billing account and obtain an API key. A
 
 ## API Keys
 
-Regarding the API key, this will be included in the `<script src="">`. So basically, anyone could look at your code at copy your key. As a result, it's important to [restrict how your key can be used](https://developers.google.com/maps/api-key-best-practices). For example, in `APIs & Services` section of Google Cloud Platform, you can set:
+Regarding the API key, this will be included in the `<script src="">`. So basically, anyone could look at your code at copy your key. As a result, it's important to [restrict how your key can be used](https://developers.google.com/maps/api-key-best-practices). For example, in `APIs & Services` section of [Google Cloud Platform console](https://console.cloud.gppgle.com/home/dashboard), you can set:
 
 - which APIs your key is allowed to access
 - specific domains/urls that your key can be used from
@@ -85,7 +85,7 @@ window.onload = loadGoogleAPI;
 
 ## Options
 
-The two options *center* and *zoom*, are required but there are many additional optional ones. Foe example:
+The two options *center* and *zoom*, are required but there are many additional optional ones. For example:
 
 ```javascript
 function initMap() {
