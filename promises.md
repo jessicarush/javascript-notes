@@ -318,4 +318,9 @@ As a result, it was decided that the best way to determine if something is a Pro
 
 ## Promise.all()
 
-See [async_await.md](https://github.com/jessicarush/javascript-notes/blob/master/async_await.md)
+...
+
+
+## See also 
+
+[async_await.md](async_await.md)
