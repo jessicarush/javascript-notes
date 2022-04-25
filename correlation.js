@@ -1,17 +1,26 @@
 // Computing Correlation Demo
 // From chapter 4 of https://eloquentjavascript.net/
 
+// Correlation is a measure of dependence between statistical variables.
+// A statistical variable is not quite the same as a programming variable.
+// In statistics you typically have a set of measurements, and each variable is
+// measured for every measurement. Correlation between variables is usually
+// expressed as a value that ranges from -1 to 1. Zero correlation means the
+// variables are not related. A correlation of one indicates that the two are
+// perfectly related—if you know one, you also know the other. Negative one also
+// means that the variables are perfectly related but that they are opposites
+// —when one is true, the other is false.
 
 // import { JOURNAL } from './journal';
 const JOURNAL = require('./data/journal.js');
 
 
 // This function computes the ϕ coefficient from a four item array
-// where each item is the total number of occurances of each possible
+// where each item is the total number of occurrences of each possible
 // combination:
 
 // binary   decimal(index)   description
-// 00       0                no occurences of A or B
+// 00       0                no occurrences of A or B
 // 01       1                B (no A)
 // 10       2                A (no B)
 // 11       3                A and B
@@ -37,7 +46,7 @@ console.log(coefficient([76, 9, 4, 1]));
 
 // To extract a two-by-two table for a specific event from the journal,
 // we must loop over all the entries and tally how many times the event
-// occurs in relation to squirrel transformations.
+// occurs in relation to another event (squirrel transformations).
 
 function frequencyFor(event, journal) {
   let frequency = [0, 0, 0, 0];
