@@ -1069,7 +1069,7 @@ for (let i = 0; i <= 10; i += 1) {
 
 ## Arrow Function Syntax
 
-ES6 introduced *arrow function syntax*, a shorter way to write functions by using this special notation `() => {}`.
+ES6 introduced [arrow function syntax](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions), a shorter way to write functions by using this special notation `() => {}`.
 
 For example:
 
