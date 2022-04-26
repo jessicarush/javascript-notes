@@ -35,7 +35,7 @@ CommonJS | ES6
 -------- | ---
 `require()` and `module.exports` | `import` and `export`
 
-**CommonJS** is a specification and standard used in` Node.js` for working with modules. Though it is a server-side specification, it can also be used client-side with the help of additional tools (a bundler).
+**CommonJS** is a specification and standard used in `Node.js` for working with modules. Though it is a server-side specification, it can also be used client-side with the help of additional tools (a bundler).
 
 **ES6** added it's own built-in support for modules in JavaScript using `import` and `export` and can be used both client-side and server-side.
 
@@ -133,7 +133,7 @@ ES6 also introduced a new syntax for imports:
 import Menu from './menu.js';
 ```
 
-The `import` keyword begins the statement. `Menu` specifies the name of the variable to store the default export in. `from` specifies where to load the module from. When dealing with local files, it refers to the name of the file without the extension. Note that in order for this to work properly, **the from filename string must be prefixed with (./, /, ../ or https://)**.
+The `import` keyword begins the statement. `Menu` specifies the name of the variable to store the default export in. `from` specifies where to load the module from. When dealing with local files, it refers to the name of the file without the extension. Note that in order for this to work properly, **the from filename string must be prefixed with (`./`, `/`, `../` or `https://`)**.
 
 When using named exports you would import like:
 
@@ -162,7 +162,12 @@ To import both default and names exports:
 import isVegetarian, { special, seasonal } from './menu.js';
 ```
 
-Note that `import` doesn't work in Node yet.
+Note that `import` doesn't work in out-of-the-box. If you run it you will get teh following notice:
+
+> SyntaxError: Cannot use import statement outside a module
+> (node:65142) Warning: To load an ES module, set "type": "module" in the package.json or use the .mjs extension.
+
+So, if you're just testing, you can give all your files the `.mjs` extension and it will work in node, but the proper way would be to `npm init`, then add `"type": "module"` to your `package.json`.
 
 
 ## ES6: indicate the script contains a module in your HTML
@@ -175,7 +180,7 @@ At some point, we'll want to include our main script in our HTML file. In order 
 
 Note: if you are running your script in Node, to load an ES6 module, you will have to identify the type as module by adding `"type": "module"` in the `package.json`.
 
-Note: if you are writing a React app, your type will already be set as `type=text/jsx`, so changing it to `module` is not an option. In this case we would need to use another tool like [webpack](https://webpack.js.org/), [parcel](https://parceljs.org/), or [create-react-app](https://reactjs.org/docs/create-a-new-react-app.html).
+Note: if you are writing a React app, your type may already be set as `type=text/jsx`, so changing it to `module` may not an option. In this case we would be better off using another tool like [webpack](https://webpack.js.org/), [parcel](https://parceljs.org/), or [create-react-app](https://reactjs.org/docs/create-a-new-react-app.html).
 
 
 ## CommonJS: module.exports
@@ -256,7 +261,7 @@ Another way of including packages is to use `npm init` and `npm install`. These 
 
 
 What are you loading? | Where? | Solution(s)
---------------------- | ------ | -----------
+:-------------------- | :----- | :----------
 Your own modules | client-side (index.html) | - use ES6 `import` and `export` syntax <br> - set `type=module` on the main `<script>` <br> *or* <br> - use `require()` and `module.exports` syntax <br> - use browserify, watchify and babelify to create a bundle.js <br>
 Your own modules | server-side (index.js) | - use ES6 `import` and `export` syntax <br> - set `"type": "module"` in your `package.json` <br> *or* <br> - use `require()` and `module.exports` syntax
 CDN packages  | client-side (index.html) | - use ES6 `import` syntax to import a jspm.dev URL <br> - set `type=module` on the main `<script>`
