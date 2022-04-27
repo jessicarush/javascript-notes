@@ -492,6 +492,8 @@ console.log(`red: ${r}, green: ${g}, blue: ${b}`);
 // red: 127, green: 255, blue: 212
 ```
 
+See also: [destructuring.md](destructuring.md)
+
 ## Flattening arrays
 
 There are a number of ways to "flatten" and array of arrays into one array. The simplest (I think) is the [`array.flat()` method but it's still in Draft version](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flat) and doesn't seem to work most places.
