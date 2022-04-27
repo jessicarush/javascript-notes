@@ -845,9 +845,7 @@ const sunlight = spider.sunlight;
 const {sunlight} = spider;
 ```
 
-TBH, I personally prefer the normal assignment as it's more clear to me.
-
-A more useful destructuring technique allows you to create variable names for the array items that you intend to pass to a function. This example is similar to the one for 'Rest Parameters':
+Another useful destructuring technique allows you to create variable names for the array items that you intend to pass to a function. This example is similar to the one for 'Rest Parameters':
 
 ```javascript
 function introduction1([name, occupation, city]) {
