@@ -936,7 +936,7 @@ See: [functions.md](functions.md)
 
 ## Destructuring
 
-There are a few ways to use destructuring syntax with oblects. For example:
+There are a few ways to use destructuring syntax with objects. For example:
 
 ```javascript
 const data = {
