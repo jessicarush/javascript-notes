@@ -3,7 +3,7 @@
 
 ES6 added the `class` keyword which gives us the ability to create *class-like* functions. Classes are a tool for creating templates to quickly produce similar objects. They work similar to constructor functions but have a few key differences mainly `super` and `static` (described below).
 
-It should be noted JavaScript has tried to satisfy the desire to design with classes by providing class-like syntax, but classes in JS are *not* like classes in other languages. Under the hood, it's still just objects and prototypes. Basically, they're just faking it as best they can. For example, JavaScript doesn't provide a native mechanism for multiple inheritance the way say, Python does. What it boils down to is that classes in JavaScript are an optional design pattern that some developers prefer but they are not *real* classes and therefore will come with unexpected hiccups and behaviour. A better approach is *behaviour delegation* as demonstrated in [prototypes.md](prototypes.md).
+It should be noted JavaScript has tried to satisfy the desire to design with classes by providing class-like syntax, but classes in JS are *not* like classes in other languages. Under the hood, it's still just objects and prototypes. Basically, they're just faking it as best they can. For example, JavaScript doesn't provide a native mechanism for multiple inheritance the way say, Python does. What it boils down to is that classes in JavaScript are an optional design pattern that some developers prefer but they are not *real* classes and therefore will come with unexpected hiccups and behaviour. Another (better?) approach is *behaviour delegation* as demonstrated in [prototypes.md](prototypes.md).
 
 
 ## Table of Contents
@@ -28,12 +28,12 @@ class Contact {
   }
 }
 
-const scott = new Contact('Scott', 'scott@email.com');
+const user = new Contact('Scott', 'scott@email.com');
 
 console.log(typeof Contact);
 // function
 
-console.log(typeof scott);
+console.log(typeof user);
 // object
 ```
 
@@ -51,9 +51,9 @@ class Contact {
   }
 }
 
-const scott = new Contact('Scott', 'scott@email.com');
+const user = new Contact('Scott', 'scott@email.com');
 
-scott.greeting('Friday');
+user.greeting('Friday');
 // Hello Scott, happy Friday!
 ```
 
@@ -79,9 +79,9 @@ class Contact {
   }
 }
 
-const scott = new Contact('Scott', 'scott@email.com');
+const user = new Contact('Scott', 'scott@email.com');
 
-console.log(scott.email);
+console.log(user.email);
 // scott@email.com
 ```
 
@@ -124,7 +124,7 @@ class Family extends Contact {
   }
 }
 
-const scott = new Family('Scott', 'scott@email.com', 'BF');
+const user = new Family('Scott', 'scott@email.com', 'BF');
 ```
 
 ## Static Methods
@@ -159,11 +159,11 @@ class Contact {
   }
 }
 
-const scott = new Contact('Scott', 'scott@email.com');
+const user = new Contact('Scott', 'scott@email.com');
 
 console.log(Contact.randomColor());
 // Yellow
 
-// console.log(scott.randomColor());
-// TypeError: scott.randomColor is not a function
+// console.log(user.randomColor());
+// TypeError: user.randomColor is not a function
 ```
