@@ -22,3 +22,20 @@ let [r, g, b] = [120, 50, 72];
 console.log({r}, {g}, {b});
 // { r: 120 } { g: 50 } { b: 72 }
 ```
+
+You can do any expressions you want inside teh curly braces, for example:
+
+```javascript
+let tax_rate = 0.5;
+let amount = 9.99;
+
+console.log(`Your total is: $${(amount + (amount * tax_rate)).toFixed(2)}`);
+// Your total is: $14.98
+```
+
+Lastly, if you need to use a backtick `\`` in you string, just escape is with `\\`:
+
+```javascript
+`\`` === '`' // --> true
+```
+
