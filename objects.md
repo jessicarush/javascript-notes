@@ -42,9 +42,9 @@ In JavaScript, objects are compound values where you can set properties (named l
 
 ## Syntax
 
-There are many, many ways to create an object. For example:
+There are many, many ways to create an object.
 
-**literal notation**
+**Literal notation:**
 
 ```javascript
 const obj1 = {
@@ -54,7 +54,7 @@ const obj1 = {
 };
 ```
 
-**constructor notation (using built-in Object)**
+**Constructor notation (using built-in Object):**
 
 ```javascript
 const obj2 = new Object();
@@ -69,7 +69,7 @@ obj2.admin = true;
 // But, this leads us to the next example...
 ```
 
-**constructor function**
+**Constructor function:**
 
 ```javascript
 function Person(first, age, admin) {
@@ -86,7 +86,7 @@ const obj3 = new Person('Jessica', 43, true);
 // the new keyword is needed.
 ```
 
-**class**
+**Class:**
 
 ```javascript
 class Human {
@@ -100,7 +100,7 @@ class Human {
 const obj4 = new Human('Jessica', 43, true);
 ```
 
-**factory function**
+**Factory function:**
 
 ```javascript
 const personFactory = (first, age, admin) => {
@@ -114,7 +114,7 @@ const personFactory = (first, age, admin) => {
 const obj5 = personFactory('Jessica', 43, true);
 ```
 
-**create a new instance of an existing object with Object.create()**
+**Create a new prototype-linked object with Object.create():**
 
 ```javascript
 const personPrototype = {
@@ -133,18 +133,20 @@ obj6.admin = true;
 All the the methods above produce the same results:
 
 ```javascript
-console.log(typeof obj1, typeof obj2, typeof obj3, typeof obj4, typeof obj5, typeof obj6);
-// object object object object object object
+const allEqual = (arr) => arr.every(val => val === arr[0]);
 
-console.log(obj1.age, obj2.age, obj3.age, obj4.age, obj5.age, obj6.age);
-// 43 43 43 43 43 43
+const types = [typeof obj1, typeof obj2, typeof obj3, typeof obj4, typeof obj5, typeof obj6];
+const ages = [obj1.age, obj2.age, obj3.age, obj4.age, obj5.age, obj6.age]
+
+console.log(allEqual(types));  // true
+console.log(allEqual(ages));  // true
 ```
 
 While the first two don't pose too much of a question, We should be clear on the differences between the constructor, class, factory function and the `Object.create()` method. The main difference with a factory function is that, unlike constructor functions, there is no *prototype linkage* between it and the objects created from it. With a constructor function or `Object.create()`, I could add a new method to the constructor or prototype object, and that method would be available to all the objects that were created from it using the `new` keyword or `Object.create()` respectively.
 
 In terms of the difference between constructor functions and `Object.create()`... `Object.create()` builds an object that inherits directly from the one passed as its first argument. With constructor functions, the newly created object is linked to the constructor function's *prototype* property. For more see [prototypes.md](prototypes.md).
 
-From what I can tell so far, classes are very similar to the constructor functions.  They're newer (ES6) and were added to the language because of how common they are in other languages. Constructor functions (and prototype inheritance) however have been in JavaScript for a long time. You will likely see classes being used more in the future but they mostly do the same thing. Beyond that here are the main differences:
+From what I can tell so far, classes are very similar to the constructor functions.  They're newer (ES6) and were added to the language because of how common they are in other languages. Constructor functions (and prototype inheritance) however have been in JavaScript for a long time. You may or may not see classes being used more in the future but they mostly do the same thing. Beyond that here are the main differences:
 
 - function declarations are hoisted, classes are not.
 - classes allow you to use keywords like `super` for extending other classes and `static` for creating static methods.
@@ -155,7 +157,7 @@ From what I can tell so far, classes are very similar to the constructor functio
 
 Since we've used this keyword in two of the examples above, we should probably take a closer look at what `new` actually does. Pretty much any function (including built-in object functions like `Number()`) can be called with `new` in front of it. This makes the function call a *constructor call*.
 
-When a function is invoked with as a constructor call, the following things are done automatically:
+When a function is invoked as a constructor call, the following things are done automatically:
 
 1. A brand new object is created
 2. The newly constructed object is prototype-linked to the functions prototype property
@@ -177,7 +179,7 @@ console.log(foo.prototype);
 // foo {}
 
 console.log(foo.prototype.isPrototypeOf(a));
-//true
+// true
 ```
 
 Bottom line is functions aren't constructors, but rather function calls are *constructor calls* if and only if `new` is used.
@@ -207,7 +209,7 @@ let p = prompt('firstname, age or admin?');
 console.log(obj[p]);
 ```
 
-In addition we must use bracket notation when accessing working with keys that have numbers, spaces, or special characters in them. Without bracket notation in these situations, our code would throw an error. For example, if we wanted an object to have properties names that are date strings:
+In addition we must use bracket notation when working with keys that have numbers, spaces, or special characters in them. Without bracket notation in these situations, our code would throw an error. For example, if we wanted an object to have property names that are date strings:
 
 ```javascript
 const heatmap_data = {
@@ -263,7 +265,7 @@ console.log(obj);
 
 ## Check if a property exists
 
-The binary `in` operator, when applied to a string and an object, tells you whether that object or an object in its prototype chain has a property with that name. By contrast, the built-in method `hasOwnProperty()` lets you check if the object itself (not a prototype) has the property.
+The binary `in` operator, when applied to a string or an object, tells you whether that object (or an object in its prototype chain) has a property with that name. By contrast, the built-in method `hasOwnProperty()` lets you check if the object itself (not a prototype) has the property.
 
 ```javascript
 const obj = {
@@ -471,6 +473,9 @@ factoryObj.special = function () {
   console.log('special');
 };
 
+// No point adding a method to the factory function since
+// there's no prototype link to the objects it returns
+
 factoryObj.special();  // special
 ```
 
@@ -498,10 +503,12 @@ console.log(Object.values(spider));
 // [ 10, 'spider plant', 7, 'full' ]
 
 console.log(Object.entries(spider));
-// [ [ 'age', 10 ],
+// [
+//   [ 'age', 10 ],
 //   [ 'name', 'spider plant' ],
 //   [ 'waterFrequency', 7 ],
-//   [ 'sunlight', 'full' ] ]
+//   [ 'sunlight', 'full' ]
+// ]
 ```
 
 The `.assign()` method copies all properties from one or more source objects to a new target object. You pass two or more arguments: `Object.assign(target_object, source_object)`. The method copies properties from the source object(s) to the target object. Properties in the target object will be overwritten by properties in the source(s) if they have the same key. If the sources have the same keys, the last one in the argument list will be applied to the target.
@@ -523,6 +530,37 @@ console.log(Object.values(coffee));
 // [ 'coffee', 'full' ]
 console.log(Object.values(garlic));
 // [ 'plant', true, 'moist', 'full' ]
+```
+
+
+## Passing objects as parameters
+
+As a kind of a side note, you can also use destructing to pass objects as paramaters. For more, see destructuring below and in [destructuring.md](destructuring.md).
+
+```javascript
+const plantFactory = ({name, age, waterFrequency, sunlight}) => {
+  return {
+    age,
+    name,
+    waterFrequency,
+    sunlight
+  };
+};
+
+const data = {
+  name: 'spider plant',
+  waterFrequency: 7,
+  sunlight: 'full'}
+
+const spider = plantFactory({age: 15, ...data});
+
+console.log(Object.entries(spider));
+// [
+//   [ 'age', 15 ],
+//   [ 'name', 'spider plant' ],
+//   [ 'waterFrequency', 7 ],
+//   [ 'sunlight', 'full' ]
+// ]
 ```
 
 
@@ -555,14 +593,16 @@ console.log(j.toString());
 As of ES5 all object properties can be described in terms of a *property descriptor*. This data descriptor can be accessed using a built-in method that comes with `Object`, for example:
 
 ```javascript
-const plant = {name: 'plant', sunlight: 'full'}
+const plant = {name: 'bob', sunlight: 'full'}
 let desc = Object.getOwnPropertyDescriptor(plant, 'name');
 
 console.log(desc);
-// { value: 'plant',
+// { 
+//   value: 'bob',
 //   writable: true,
 //   enumerable: true,
-//   configurable: true }
+//   configurable: true
+// }
 ```
 
 As we can see, there are three additional characteristics that describe each property. The default is for all of these to be true. If we wanted to change these characteristics, we can use  `Object.defineProperty()`. With this method we can add a new property or modify an existing one.
@@ -572,7 +612,7 @@ As we can see, there are three additional characteristics that describe each pro
 `writeable` controls whether you can change the properties value.
 
 ```javascript
-const plant = {name: 'plant', sunlight: 'full'};
+const plant = {name: 'bob', sunlight: 'full'};
 
 Object.defineProperty(plant, 'special', {
   value: 'something',
@@ -593,7 +633,7 @@ plant.special = 'other';
 `configurable` controls whether you can modify any these characteristics. Once you change this characteristic to false, you can't change it back. An interesting side-effect of making a value *unconfigurable* is that it can't be deleted with `delete`:
 
 ```javascript
-const plant = {name: 'plant', sunlight: 'full'};
+const plant = {name: 'bob', sunlight: 'full'};
 
 Object.defineProperty(plant, 'special', {
   value: 'something',
@@ -614,7 +654,7 @@ delete plant.special
 `enumerable` controls whether the property will be included in enumerations such as the `for..in` loop. Interestingly, this means that the property will be hidden from some methods like `Object.keys()` but not `Object.getOwnPropertyNames()`.
 
 ```javascript
-const plant = {name: 'plant', sunlight: 'full'};
+const plant = {name: 'bob', sunlight: 'full'};
 
 Object.defineProperty(plant, 'special', {
   value: 'something',
@@ -629,7 +669,7 @@ console.log(plant.special);
 for (let property in plant) {
   console.log('property: ' + property + ', value: ' + plant[property]);
 };
-// property: name, value: plant
+// property: name, value: bob
 // property: sunlight, value: full
 
 console.log(Object.keys(plant));
@@ -980,6 +1020,9 @@ const { name, ...rest } = data;
 console.log(name);  // bob
 console.log(rest);  // { list: [ 'a', 'b', 'c' ], id: 10 }
 ```
+
+See [destructuring.md](destructuring.md)
+
 
 ## Spread operator 
 
