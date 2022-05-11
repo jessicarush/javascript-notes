@@ -46,6 +46,7 @@ There are other, more complex ones (ie Bitwise operators). See: [MDN Expressions
 - [Shorthand (short-circuiting) with logical operators](#shorthand-short-circuiting-with-logical-operators)
 - [Keyword operators](#keyword-operators)
 - [*ES2020* Nullish Coalescing Operator](#es2020-nullish-coalescing-operator)
+- [Spread Syntax `...`](#spread-syntax-)
 
 <!-- tocstop -->
 
@@ -420,4 +421,77 @@ let pass = score ?? 60;
 
 console.log(pass);
 // 60
+```
+
+
+## Spread Syntax `...`
+
+*Spread syntax* allows an iterable such as an array or string to be expanded in places where zero or more arguments (for function calls) or elements (for array literals) are expected, or an object to be expanded in places where zero or more key-value pairs (for object literals) are expected.
+
+For example:
+
+```javascript
+const numbers = [1, 2, 3];
+
+const new_numbers = [...numbers, 4, 5];
+
+console.log(new_numbers);
+// [ 1, 2, 3, 4, 5 ]
+```
+
+Unpacking elements to pass to a function:
+
+```javascript
+let dateFields = [1970, 0, 1];
+
+let d = new Date(...dateFields);
+
+console.log(d.toDateString());
+// Thu Jan 01 1970
+```
+
+As *rest parameters* function arguments:
+
+```javascript
+function sum(...args) {
+  return args.reduce((accumulator, current) => {
+    return accumulator + current;
+  });
+}
+
+console.log(sum(1, 2, 3, 4));
+// 10
+
+const numbers = [1, 2, 3];
+
+console.log(sum(...numbers));
+// 6
+```
+
+Key value pairs can be pulled out of an object to create a new object:
+
+```javascript
+let todos = [
+  {id: 1, task: 'water plants', completed: false},
+  {id: 2, task: 'laundry', completed: false},
+  {id: 3, task: 'groceries', completed: false},
+];
+
+let test1 = {...todos[0], add: 'another'}
+console.log(test1);
+// { id: 1, task: "water plants", completed: false, add: "another" }
+```
+
+If you pass a key that already exists in the object, the new value will be used:
+
+```javascript
+let todos = [
+  {id: 1, task: 'water plants', completed: false},
+  {id: 2, task: 'laundry', completed: false},
+  {id: 3, task: 'groceries', completed: false},
+];
+
+let test2 = {...todos[2], completed: true}
+console.log(test2);
+// { id: 3, task: "groceries", completed: true }
 ```
