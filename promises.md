@@ -18,6 +18,7 @@ Once a promise is *resolved*, it becomes an *immutable* value. This makes it saf
 - [Recognizing a promise](#recognizing-a-promise)
 - [Promise timeout pattern](#promise-timeout-pattern)
 - [Promise.all()](#promiseall)
+- [See also](#see-also)
 
 <!-- tocstop -->
 

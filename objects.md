@@ -21,6 +21,7 @@ In JavaScript, objects are compound values where you can set properties (named l
   * [Adding a method to a class](#adding-a-method-to-a-class)
   * [Adding a method to factory function](#adding-a-method-to-factory-function)
 - [Built-in Object Methods](#built-in-object-methods)
+- [Passing objects as parameters](#passing-objects-as-parameters)
 - [Polymorphism](#polymorphism)
 - [Property Descriptors](#property-descriptors)
   * [writeable](#writeable)
@@ -37,6 +38,8 @@ In JavaScript, objects are compound values where you can set properties (named l
 - [Passed by Reference](#passed-by-reference)
 - [Arrays](#arrays)
 - [Functions](#functions)
+- [Destructuring](#destructuring)
+- [Spread operator](#spread-operator)
 
 <!-- tocstop -->
 
