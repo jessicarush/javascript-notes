@@ -9,8 +9,8 @@ Also. there is nice [diagram here](https://html.spec.whatwg.org/images/asyncdefe
 
 <!-- toc -->
 
-- [background](#background)
-- [default behaviour (no async or defer attribute)](#default-behaviour-no-async-or-defer-attribute)
+- [Background](#background)
+- [Default behaviour (no async or defer attribute)](#default-behaviour-no-async-or-defer-attribute)
 - [async attribute](#async-attribute)
 - [defer attribute](#defer-attribute)
 - [Using DOMContentLoaded](#using-domcontentloaded)
