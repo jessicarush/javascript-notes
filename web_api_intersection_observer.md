@@ -36,7 +36,7 @@ $window.on('scroll', function () {
 
 There are a few problems with this. First, this is contrary to JavaScript's design methodology which is to *listen* for events rather than *poll* for events.
 
-In a 2011 blog post, John Resign writes:
+In a 2011 blog post, John Resig writes:
 
 > It’s a very, very, bad idea to attach handlers to the window scroll event. Depending upon the browser the scroll event can fire a lot and putting code in the scroll callback will slow down any attempts to scroll the page (not a good idea). Any performance degradation in the scroll handler(s) as a result will only compound the performance of scrolling overall. Instead it’s much better to use some form of a timer to check every X milliseconds OR to attach a scroll event and only run your code after a delay (or even after a given number of executions – and then a delay).
 
@@ -126,4 +126,7 @@ The Intersection Observer specification is still *Working Draft* status but seem
 
 Be aware that your callback is executed on the main thread. It should operate as quickly as possible; if anything time-consuming needs to be done, use [`Window.requestIdleCallback()`](https://developer.mozilla.org/en-US/docs/Web/API/Window/requestIdleCallback).
 
-Note that if you specified the `root` option, the target must be a descendant of the root element.
+> :warning: Note that if you specified the `root` option, the target must be a descendant of the root element.
+
+> :bookmark: There is a working demo of this in Coding/JavaScript/scripts/my_scripts/scroll-linked_events.
+
