@@ -129,6 +129,7 @@ To retrieve an item from the storage object, use use dot notation or `getItem()`
 // methods
 let name = localStorage.getItem('name');
 let theme = sessionStorage.getItem('theme');
+
 // dot notation
 name = localStorage.name;
 theme = sessionStorage.theme;

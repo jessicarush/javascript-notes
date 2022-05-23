@@ -120,7 +120,7 @@ Though much better than HTML event handlers (it does separate JS from HTML), thi
 
 ```javascript
 function checkUsername() {
-    // code that checks something
+  // code that checks something
 }
 
 let el = document.getElementById('username-field');
@@ -133,12 +133,12 @@ Event Listeners allow for one event to trigger multiple functions. This is by fa
 
 ```javascript
 function checkUsername() {
-    let errorMsg = document.getElementById('username-error');
-    if (this.value.length < 5) {
-        errorMsg.textContent = 'Username must be at least 5 characters';
-    } else {
-        errorMsg.textContent = '';
-    }
+  let errorMsg = document.getElementById('username-error');
+  if (this.value.length < 5) {
+    errorMsg.textContent = 'Username must be at least 5 characters';
+  } else {
+    errorMsg.textContent = '';
+  }
 }
 
 let el = document.getElementById('username-field');
@@ -163,14 +163,14 @@ If you need to pass parameters to your function, you cannot wrap it with an anon
 
 ```javascript
 function myFunction(p1, p2) {
-    // demonstrating a function that takes arguments
-    console.log(p1, p2);
+  // demonstrating a function that takes arguments
+  console.log(p1, p2);
 }
 
 let el = document.getElementById('username-field');
 
 el.addEventListener('blur', function () {
-    myFunction('hello', 'world');
+  myFunction('hello', 'world');
 }, false);
 ```
 
@@ -181,13 +181,13 @@ Many javascript developers recommend against adding event listeners to elements 
 
 ```javascript
 function processEvent() {
-    console.log('doing something');
- }
+  console.log('doing something');
+}
 
 const els = document.querySelectorAll('.js-test');
 
 for (let i = 0; i < els.length; i++) {
-    els[i].addEventListener('click', processEvent, false);
+  els[i].addEventListener('click', processEvent, false);
 }
 ```
 
@@ -197,10 +197,10 @@ To illustrate the problem when you try to use your `var i` counter variable with
 const els = document.querySelectorAll('.js-test');
 
 for (var i = 0; i < els.length; i++) {
-    console.log('1', els[i]);
-    els[i].addEventListener('click', function () {
-        console.log('2', els[i]); // will log undefined
-    }, false);
+  console.log('1', els[i]);
+  els[i].addEventListener('click', function () {
+    console.log('2', els[i]); // will log undefined
+  }, false);
 }
 ```
 However, if you use `let`, everything works fine:
@@ -209,10 +209,10 @@ However, if you use `let`, everything works fine:
 const els = document.querySelectorAll('.js-test');
 
 for (let i = 0; i < els.length; i++) {
-    console.log('1', els[i]);
-    els[i].addEventListener('click', function () {
-        console.log('2', els[i]); // will log the element as expected
-    }, false);
+  console.log('1', els[i]);
+  els[i].addEventListener('click', function () {
+    console.log('2', els[i]); // will log the element as expected
+  }, false);
 }
 ```
 
@@ -220,13 +220,13 @@ In terms of the second issue (performance), it feels like listening to every cli
 
 ```javascript
 function processEvent() {
-    console.log('doing something');
+  console.log('doing something');
 }
 
 document.addEventListener('click', function (e) {
-    if (e.target.matches('.js-test')) {
-        processEvent()
-    }
+  if (e.target.matches('.js-test')) {
+    processEvent()
+  }
 }, false);
 ```
 
@@ -247,12 +247,12 @@ Note that there is an important difference between passing named functions and a
  * event listeners will be registered on the js-menu element.
  */
 function processEvent() {
-    // do something
- }
+  // do something
+}
 
 function initializeSomething() {
-    const el = document.querySelector('.js-menu');
-    el.addEventListener('change', processEvent, false);
+  const el = document.querySelector('.js-menu');
+  el.addEventListener('change', processEvent, false);
 }
 ```
 
@@ -264,16 +264,18 @@ function initializeSomething() {
  * event listeners WILL be registered on the js-menu element.
  */
 function initializeSomething() {
-    const el = document.querySelector('.js-menu');
-    el.addEventListener('change', function () {
-        // do something
-    }, false);
+  const el = document.querySelector('.js-menu');
+  el.addEventListener('change', function () {
+    // do something
+  }, false);
 }
 ```
 
 So what do you do if you need to pass arguments to your event handler function, but also prevent duplicates because the outer function may be called more than once? One solution could be through *event delegation* as described above in the for loop section (and also below). Another untested theory is to simply name the anonymous function.
 
-As it's actually really hard to test this stuff (see [Debugging Event Listeners](#debugging-event-listeners) below), I'll have to test this at a later date and report back. **TODO**
+As it's actually really hard to test this stuff (see [Debugging Event Listeners](#debugging-event-listeners) below), I'll have to test this at a later date and report back. 
+
+TODO...
 
 
 ### Removing event listeners
@@ -282,9 +284,9 @@ There is a `removeEventListener()` method that removes an event listener from a 
 
 ```javascript
 function doOnce(e) {
-    // do something
-    console.log('Doing something once.');
-    e.target.removeEventListener('click', doOnce, false);
+  // do something
+  console.log('Doing something once.');
+  e.target.removeEventListener('click', doOnce, false);
 }
 
 let el = document.getElementById('username-field');
@@ -336,6 +338,7 @@ function hideDropdown(e) {
   }
 }
 ```
+
 `event.currentTarget` -  Refers to the element to which the event handler has been attached, as opposed to `event.target`, which identifies the element on which the event occurred.  
 
 `event.type` - The name of the event that was fired.  
@@ -434,12 +437,12 @@ let parentEl = document.querySelector('.js-form');
 let html_content = '<input type="text"> <button class="js-delete">×</button>';
 
 document.addEventListener('click', function (e) {
-    if (e.target.matches('.js-add')) {
-        addContent(parentEl, html_content)
-    }
-    if (e.target.matches('.js-delete')) {
-        deleteContent(e);
-    }
+  if (e.target.matches('.js-add')) {
+    addContent(parentEl, html_content)
+  }
+  if (e.target.matches('.js-delete')) {
+    deleteContent(e);
+  }
 }, false);
 ```
 
@@ -486,9 +489,9 @@ function showHide(e) {
 
 // Event listener
 window.addEventListener('click', function (e) {
-    if (e.target.matches('.js-showhide') || e.target.closest('.js-showhide')) {
-    showHide(e);
-    }
+  if (e.target.matches('.js-showhide') || e.target.closest('.js-showhide')) {
+  showHide(e);
+  }
 }, false);
 ```
 
@@ -528,7 +531,7 @@ listListeners();
 
 To make things super frustrating though, both Firefox and Chrome show all duplicate instances of event listeners on a target element even though MDN says [duplicate identical EventListeners registered on the same EventTarget are discarded](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener#Multiple_identical_event_listeners).
 
-**TODO** will have to look into this further.
+TODO... will have to look into this further.
 
 
 ## Mutation Observers
@@ -551,14 +554,13 @@ let config = { attributes: true, childList: true, subtree: true };
 
 // Callback function to execute when mutations are observed
 let updateCount = function (mutationsList, observer) {
-    for(let mutation of mutationsList) {
-        if (mutation.type == 'childList') {
-            updateNode.textContent = targetNode.childElementCount;
-        }
-        else if (mutation.type == 'attributes') {
-            console.log('The ' + mutation.attributeName + ' attribute was modified.');
-        }
+  for (let mutation of mutationsList) {
+    if (mutation.type == 'childList') {
+      updateNode.textContent = targetNode.childElementCount;
+    } else if (mutation.type == 'attributes') {
+      console.log('The ' + mutation.attributeName + ' attribute was modified.');
     }
+  }
 };
 
 // A function to add elements so we have something to observe
@@ -686,7 +688,7 @@ elClose.addEventListener('click', dismissAnnouncement, false);
 
 ### keydown, keypress, keyup
 
-Note that they `key...` events fire in that order. `keydown` and `keypress` events have a `keyCode` property which reports what key was pressed as an ASCII code. To convert it to the character, you can use the `String` objects built in method `fromCharCode()`. See the example below:
+Note that the `key...` events fire in that order. `keydown` and `keypress` events have a `keyCode` property which reports what key was pressed as an ASCII code. To convert it to the character, you can use the `String` objects built in method `fromCharCode()`. See the example below:
 
 ```javascript
 function charCount(e) {
@@ -722,7 +724,7 @@ let elMsg = document.getElementsByClassName('js-messages')[0];
 
 function showSets() {
   let unit = this.options[this.selectedIndex].value;
-  if(unit === 'reps') {
+  if (unit === 'reps') {
     elSets.removeAttribute('disabled');
     elSets.previousElementSibling.classList.remove('disabled');
   } else {
