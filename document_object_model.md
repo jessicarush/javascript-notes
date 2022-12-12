@@ -59,6 +59,7 @@ document.getElementsByTagName('p');            // returns a live HTMLCollection
 document.getElementsByClassName('js-nav btn')  // returns a live HTMLCollection
 document.querySelector('li.js-nav');           // returns the first match only
 document.querySelectorAll('.js-nav');          // returns a static NodeList
+document.documentElement      // returns to root element of the document: <html>
 ```
 
 Note you don't have to search the whole document. You can use these methods to search within a specific element too. `getElementById` is the only one of these methods that is always called on `document` because ids are unique, there's no need to search a specific element.
@@ -79,6 +80,8 @@ Note that the `getElementsByClassName` method lets you pass a string containing 
 ```javascript
 const testBtns = document.getElementsByClassName('btn test');
 ```
+
+:bulb: Tip: If you want to select the html tag, use the special `document.documentElement` which return the root element of a document. This is more performant than running a full document search using `document.querySelector('html')`.
 
 A **NodeList** is a special collection of nodes. They look like arrays, but they're not (they're a type of object called a collection). That being said, you can access individual items from this list by using the index notation as with arrays. Items will be indexed by the order that they appear in the HTML document. NodeLists also have a `.length` property.
 
