@@ -44,8 +44,8 @@ The second group of methods include the `prototype` property. This indicates tha
 The `String` object has the built-in `length` property that can be used on any instance or primitive, whereas the `Number` object mainly only has CONSTANT properties which are accessed from the object itself:
 
 ```javascript
-Number.EPSILON;  // 2.220446049250313e-16
 'hello'.length;  // 5
+Number.EPSILON;  // 2.220446049250313e-16
 ```
 
 ### Prototype (instance) methods
@@ -361,12 +361,12 @@ console.log(Number.parseFloat(obj));  // 48.75
 ```javascript
 let a = '42';
 let b = +a;
-let c = 8+ +a;
+let c = 8 + +a;
 let d = new Date();
 
 console.log(a, typeof Number(a));              // 42 number
 console.log(b, typeof b);                      // 42 number
-console.log(c, typeof c);                      // 40 number
+console.log(c, typeof c);                      // 50 number
 console.log(d, typeof d);                      // 2019-10-04T17:25:00.455Z object
 console.log(+d, typeof +d);                    // 1570209900455 number
 console.log(d.getTime(), typeof d.getTime());  // 1570209900455 number
