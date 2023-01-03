@@ -136,7 +136,7 @@ throwTest('thirteen');
 There are seven types of error objects built in to JavaScript, plus one, `InternalError`, that hasn't been standardized yet:
 
 Error object   | Description
-------------   | -----------
+:-----------   | :----------
 Error          | a generic error, the other errors are based off this one
 EvalError      | reports errors that occur in the global function eval()
 InternalError  | an error that occurs when an internal error in the JavaScript engine is thrown, e.g. "too much recursion"
