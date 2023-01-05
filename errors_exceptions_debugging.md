@@ -210,4 +210,4 @@ You can also add conditional breakpoints by right-clicking on a line number or e
 - Validation tools: always use a linter (jslint, jshint, jsonlint)
 - Search: stack overflow for similar issues
 - If you get to a point where you need to post your problem in a forum, consider setting it up in a code playground tool like: JSFiddle, Dabblet or CodePen
-- Try `console.log(JSON.parse(JSON.stringify(obj)))` to log objects, avoiding a [lazy evaluating issue in Chrome](https://stackoverflow.com/questions/4057440/is-chrome-s-javascript-console-lazy-about-evaluating-objects). 
+- Try `console.log(JSON.parse(JSON.stringify(obj)))` to log objects, avoiding a [lazy evaluating issue in Chrome](https://stackoverflow.com/questions/4057440/is-chrome-s-javascript-console-lazy-about-evaluating-objects).
