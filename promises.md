@@ -314,13 +314,57 @@ As a result, it was decided that the best way to determine if something is a Pro
 
 ## Promise timeout pattern
 
-...
+Todo...
 
 
 ## Promise.all()
 
-...
+> The Promise.all() static method takes an iterable of promises as input and returns a single Promise. This returned promise fulfills when all of the input's promises fulfill (including when an empty iterable is passed), with an array of the fulfillment values. It rejects when any of the input's promises rejects, with this first rejection reason.
 
+```javascript
+Promise.all([promise1, promise2, promise3])
+  .then(result) => {console.log(result)})
+  .catch(error => console.log(`Error in promises: ${error}`))
+```
+
+More fleshed out:
+
+```javascript
+const promise1 = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    console.log('The first promise has resolved');
+    resolve(10);
+  }, 1 * 1000);
+});
+
+const promise2 = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    console.log('The second promise has resolved');
+    resolve(20);
+  }, 2 * 1000);
+});
+
+const promise3 = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    console.log('The third promise has resolved');
+    resolve(30);
+  }, 3 * 1000);
+});
+
+Promise.all([promise1, promise2, promise3])
+  .then((results) => {
+    const total = results.reduce((p, c) => p + c);
+    console.log(`Results: ${results}`);
+    console.log(`Total: ${total}`);
+  })
+  .catch(error => console.log(`Error in promises: ${error}`));
+
+// The first promise has resolved
+// The second promise has resolved
+// The third promise has resolved
+// Results: 10,20,30
+// Total: 60
+```
 
 ## See also 
 
