@@ -20,7 +20,7 @@ Comparison: `<` `>` `<=` `>=`
 Logical and: `&&`  
 Logical or: `||`  
 Logical not: `!`  
-Conditional (ternary) operator: `?`  
+Conditional (ternary) operator: `? :`  
 
 There are other, more complex ones (ie Bitwise operators). See: [MDN Expressions and Operators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_Operators).
 
@@ -60,7 +60,7 @@ console.log(5 / 2);   // 2.5
 console.log(12 % 5);  // 2
 ```
 
-To get the python equivalent of `divmod()`, you'd have to do two separate assignments:
+To get the equivalent of python's `divmod()`, you'd have to do two separate assignments:
 
 ```javascript
 const quotient = Math.floor(y / x);
