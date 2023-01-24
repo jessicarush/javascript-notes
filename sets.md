@@ -15,6 +15,8 @@
   * [.forEach()](#foreach)
   * [.has()](#has)
   * [.values()](#values)
+- [example: remove duplicates from array](#example-remove-duplicates-from-array)
+- [example: common set operations](#example-common-set-operations)
 
 <!-- tocstop -->
 
@@ -22,19 +24,21 @@
 
 The [Set object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set) lets you store *unique* values of any type, whether primitive values or object references.
 
-You can create a new empty set object or create one from at iterable, like an array:
+The `Set` constructor accepts an iterable like a string or an array; all of its elements will be added to the new Set. If you don't specify this parameter, the new Set is empty.
 
 ```javascript
 const set1 = new Set();
 const set2 = new Set(['apple', 1, 2, 3]);
 const set3 = new Set('apple', 1, 2, 3);
+// const set4 = new Set(1, 2, 3, 'apple');
+// TypeError: number 1 is not iterable
 
 console.log(set1);
-// Set {}
+// Set(0) {}
 console.log(set2);
-// Set { 'apple', 1, 2, 3 }
+// Set(4) { 'apple', 1, 2, 3 }
 console.log(set3);
-// Set { 'a', 'p', 'l', 'e' }
+// Set(4) { 'a', 'p', 'l', 'e' }
 ```
 
 ## Properties
@@ -208,4 +212,75 @@ console.log(iterator.next().value);
 // 'hike'
 console.log(iterator.next().value);
 // undefined
+```
+
+## example: remove duplicates from array
+
+```javascript
+// To remove duplicate elements from an array:
+const numbers = [2,3,4,4,2,3,3,4,4,5,5,6,6,7,5,32,3,4,5]
+console.log([...new Set(numbers)])
+// [2, 3, 4, 5, 6, 7, 32]
+```
+
+## example: common set operations
+
+```javascript
+function isSuperset(set, subset) {
+  for (const elem of subset) {
+    if (!set.has(elem)) {
+      return false;
+    }
+  }
+  return true;
+}
+
+function union(setA, setB) {
+  const _union = new Set(setA);
+  for (const elem of setB) {
+    _union.add(elem);
+  }
+  return _union;
+}
+
+function intersection(setA, setB) {
+  const _intersection = new Set();
+  for (const elem of setB) {
+    if (setA.has(elem)) {
+      _intersection.add(elem);
+    }
+  }
+  return _intersection;
+}
+
+function difference(setA, setB) {
+  const _difference = new Set(setA);
+  for (const elem of setB) {
+    _difference.delete(elem);
+  }
+  return _difference;
+}
+
+function symmetricDifference(setA, setB) {
+  const _difference = new Set(setA);
+  for (const elem of setB) {
+    if (_difference.has(elem)) {
+      _difference.delete(elem);
+    } else {
+      _difference.add(elem);
+    }
+  }
+  return _difference;
+}
+
+// Examples
+const setA = new Set([1, 2, 3, 4])
+const setB = new Set([2, 3])
+const setC = new Set([3, 4, 5, 6])
+
+isSuperset(setA, setB)          // returns true
+union(setA, setC)               // returns Set {1, 2, 3, 4, 5, 6}
+intersection(setA, setC)        // returns Set {3, 4}
+difference(setA, setC)          // returns Set {1, 2}
+symmetricDifference(setA, setC) // returns Set {1, 2, 5, 6}
 ```
