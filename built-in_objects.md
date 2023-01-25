@@ -403,6 +403,19 @@ console.log(Number.MIN_SAFE_INTEGER);
 
 The most common scenario in which JavaScript programs are dealing with such large numbers, is when working with 64-bit IDs from databases. These numbers cannot be represented accurately with the number type so the must be stored as a string.
 
+One last example, if we wanted to truncate a number to a number of decimal points *without* rounding, we would have to do it in a couple of steps:
+
+```javascript
+function truncateNum(num, decimals) {
+  num = num.toString();
+  num = num.slice(0, (num.indexOf(".")) + 1 + decimals);
+  return Number(num);
+}
+
+console.log(truncateNum(10.3599, 2));
+// 10.35
+```
+
 
 ## Date
 
