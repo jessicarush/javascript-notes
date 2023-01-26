@@ -61,6 +61,7 @@ node -v
 node --version
 ```
 
+To update to the latest version of Node, just use the [download page](https://nodejs.org/en/).
 To update npm:
 
 ```
@@ -133,7 +134,7 @@ Normally, the string that follows the `from` keyword is a relative path. When th
 browserify lets you `require('modules')` in the browser by bundling up all of your dependencies. As a result, it lets you directly import npm_modules. watchify simply adds watch mode for browserify builds so that you don't have to run the browserify command every time you save. babelify lets you use the ES6 `import` syntax.
 
 2. **[webpack](https://webpack.js.org/) and [babel](https://babeljs.io/)**  
-TODO
+TODO...
 
 ### Using browserify, watchify & babelify
 
