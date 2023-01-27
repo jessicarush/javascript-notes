@@ -35,9 +35,9 @@ let parse_url = /^(?:([A-Za-z]+):)?(?:\/{0,3})([0-9.\-A-Za-z]+)(?::(\d+))?(?:\/(
 Some insights:
 - `\ / [ ] ( ) { } ? + * - | . ^ $` are special characters
 - a regular expression literal starts and finishes with `/` forward slash
-- `^` indicates the beginning of a string
-- `$` indicates the end of a string
-- `(?:)` indicates a *non-capturing group* which basically means, don't include this in the *results array*
+- `^` indicates the beginning of input
+- `$` indicates the end of input. If the multiline flag is set to true, also matches immediately before a line break character.
+- `(?:)` indicates a *non-capturing group* which basically means, don't include this in the *results array*. The main reason to specify a non-capturing group is that it would be more performant.
 - `()` indicates a *capturing group* which means, do include this in the *results array*
 - `[]` indicates a *character class* or *character set* which matches a single character to whatever is in this list
 - `[A-Z]` indicates a single character that can range from uppercase A to Z. The range `-` symbol can only be used in a character class/set `[]`.
@@ -54,8 +54,6 @@ Some insights:
 - `.` matches any character except a line end `\n` character
 - `|` means or and can often be the same as using `[]` for example, a or b could be written as both `a|b` or `[ab]`
 
-Note that the main reason to specify a non-capturing group is that it would be more performant.
-
 Note that when using `|`, the attempt to match stops if the first option is a success, for example in `'hello'.match(/he|hell/)` *hell* wouldn't match because *he* was successful.
 
 To see some results:
@@ -67,6 +65,20 @@ let groups = ['url', 'scheme', 'host', 'port', 'path', 'query', 'hash'];
 let tab = '       ';
 
 const result = parse_url.exec(url);
+
+console.log(result);
+// [
+//   'http://www.ora.com:80/goodparts?q#fragment',
+//   'http',
+//   'www.ora.com',
+//   '80',
+//   'goodparts',
+//   'q',
+//   'fragment',
+//   index: 0,
+//   input: 'http://www.ora.com:80/goodparts?q#fragment',
+//   groups: undefined
+// ]
 
 for (let i = 0; i < groups.length; i++) {
   console.log(groups[i] + ':' + tab.substring(groups[i].length), result[i]);
@@ -86,7 +98,7 @@ for (let i = 0; i < groups.length; i++) {
 JavaScript allows us to add optional *flags* after the closing `/` forward slash. For example, the `i` flag means *ignore case*:
 
 ```javascript
-let hex_color = /^#([0-9a-f]){3,6}$/i;
+let hex_color = /^#([0-9a-f]{3,8})$/i;
 
 let string = '#32CD32';
 
@@ -115,14 +127,26 @@ There are methods in both the `String` and `RegExp` built-in objects that work w
 The `exec()` regexp method executes a search for a match in a specified string and returns a result array of information or `null` on a mismatch.
 
 ```javascript
-let hex_color = /^#([0-9a-fA-F]){3,6}$/;
+let hex_color = /^#([0-9a-fA-F]{3,8})$/;
 
 let string = '#32CD32';
 
 let result = hex_color.exec(string);
 
 console.log(result);
-// [ '#32CD32', '2', index: 0, input: '#32CD32', groups: undefined ]
+// [ '#32CD32', '32CD32', index: 0, input: '#32CD32', groups: undefined ]
+
+// Return value:
+// If the match fails, the exec() method returns null, and sets the regex's 
+// lastIndex to 0 (Not sure what that actually means). 
+// If the match succeeds, the exec() method returns an array and updates the 
+// lastIndex property of the regular expression object. The returned array has
+// the entire matched text as the first item, and then each capturing group of
+// the matched text. The array also has the following properties:
+// index: The 0-based index of the match in the string.
+// input: The original string that was matched against.
+// groups: An object of named capturing groups.
+// indices: the index ranges of captured groups (only if flag /d is switched on)
 ```
 
 
@@ -131,7 +155,7 @@ console.log(result);
 The `test()` regexp method executes a search for a match between a regular expression and a specified string and returns true or false.
 
 ```javascript
-let hex_color = /^#([0-9a-fA-F]){3,6}$/;
+let hex_color = /^#([0-9a-fA-F]{3,6})$/;
 
 let string = '#32CD32';
 
@@ -147,14 +171,14 @@ console.log(result);
 The `match()` string method returns an array containing all of the matches, including capturing groups, or `null` if no match is found.
 
 ```javascript
-let hex_color = /^#([0-9a-fA-F]){3,6}$/;
+let hex_color = /^#([0-9a-fA-F]{3,6})$/;
 
 let string = '#32CD32';
 
 let result = string.match(hex_color);
 
 console.log(result);
-// [ '#32CD32', '2', index: 0, input: '#32CD32', groups: undefined ]
+// [ '#32CD32', '32CD32', index: 0, input: '#32CD32', groups: undefined ]
 ```
 
 
@@ -163,7 +187,7 @@ console.log(result);
 The `replace()` string method executes a search for a match in a string, and replaces the matched substring with a replacement substring.
 
 ```javascript
-let hex_color = /#([0-9a-fA-F]){3,6}$/;
+let hex_color = /#([0-9a-fA-F]{3,6})$/;
 
 let string = 'color: #32CD32';
 
@@ -179,7 +203,7 @@ console.log(result);
 The `search()` string method tests for a match in a string. It returns the index of the match, or -1 if the search fails.
 
 ```javascript
-let hex_color = /#([0-9a-fA-F]){3,6}$/;
+let hex_color = /#([0-9a-fA-F]{3,6})$/;
 
 let string = 'color: #32CD32';
 
