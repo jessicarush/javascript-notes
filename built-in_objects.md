@@ -658,7 +658,7 @@ console.log(Math.PI);
 
 See also: [regular_expressions.md](regular_expressions.md)
 
-The [RegExp object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp) as a constructor has a reasonable utility in terms of dynamically defining a pattern for a regular expression.
+The [RegExp object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp) as a constructor has a reasonable utility in terms of dynamically defining a pattern (string) for a regular expression.
 
 Note that when creating a regular expression in javascript the literal notation is that `/` is used to mark the start and end of a regexp. In addition, after the closing `/`, you can add any number of *flags*. For example, in `pattern1`, `i` means ignore case, `g` means global match; find all matches rather than stopping after the first match.
 
@@ -675,6 +675,9 @@ let pattern2 = new RegExp('\\b(?:' + word + ')+\\b', 'ig' );
 console.log(someText.match(pattern1));  // [ 'blah', 'blah', 'blah' ]
 console.log(someText.match(pattern2));  // [ 'blah', 'blah', 'blah' ]
 ```
+
+Since the RegExp object creates the regex from a string, you can concatenate
+variables into the pattern.
 
 ## Error
 
