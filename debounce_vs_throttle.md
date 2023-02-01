@@ -64,7 +64,7 @@ This debounce function could be used in production.
  * N milliseconds.
  * @param {function} func The function to be debounced
  * @param {number} wait The debounce delay in milliseconds
- * @return {function}
+ * @returns {function}
  */
 const debounce = (func, wait) => {
   let timeout = null;
@@ -99,7 +99,7 @@ An alernate version thatincludes an immediate param:
  * @param {function} func The function to be debounced
  * @param {number} wait The debounce delay in milliseconds
  * @param {boolean} immediate If true, triggers the function before delay
- * @return {function}
+ * @returns {function}
  */
 function debounce(func, wait, immediate) {
   let timeout;
@@ -176,7 +176,7 @@ This throttle function could be used in production.
  * will only be executed every N milliseconds.
  * @param {function} func The function to be throttled
  * @param {number} interval The throttle interval in milliseconds
- * @return {function}
+ * @returns {function}
  */
 const throttle = (func, interval) => {
   let toThrottle = false;

@@ -157,7 +157,7 @@ console.warn('warn');
 console.log('log');
 console.dir(document);
 console.dir(document.URL);
-console.count('something')
+console.count('something');
 ```
 
 Most browsers also support the `.table()` method which outputs objects or arrays as a nicely formatted table. This can be particularly helpful when working with third party data.
