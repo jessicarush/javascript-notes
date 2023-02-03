@@ -136,7 +136,7 @@ To specify that we are transpiling code from an ES6+ source, we have to add the 
 Instead of running Babel directly from the command line we're going to put our commands in npm scripts which will use our local version. Simply add to "scripts" in to your `package.json` and put the babel command inside there as build.
 
 ```json
-...
+// ...
 "scripts": {
   "test": "echo \"Error: no test specified\" && exit 1",
   "build": "babel src -d lib"
