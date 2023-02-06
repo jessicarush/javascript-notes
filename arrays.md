@@ -172,7 +172,7 @@ JavaScript also has a number of built-in *instance methods* which can be applied
 
 ## Iteration array methods
 
-Some array instance methods iterate over arrays to manipulate elements and return values. This iteration-type methods can be found in <iterators.md>.
+Some array instance methods iterate over arrays to manipulate elements and return values. These iteration-type methods can be found in [iterators.md](iterators.md).
 
 - [forEach()](iterators.md#foreach)
 - [filter()](iterators.md#filter)
