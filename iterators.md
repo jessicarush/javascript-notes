@@ -94,6 +94,20 @@ console.log(numbers);
 // [ 5, 2.5, 100 ]
 ```
 
+Here's a an example of using `filter()` to counting the number of occurrences of particular property value in array of objects:
+
+```javascript
+const fruit = [
+  {id : 1, name : 'apple'},
+  {id : 2, name : 'apple'},
+  {id : 3, name : 'orange'},
+  {id : 4, name : 'apple'}
+]
+
+const count = fruit.filter((obj) => obj.name === 'apple').length;
+
+console.log(count); // 3
+```
 
 ## map()
 
