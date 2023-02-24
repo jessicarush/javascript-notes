@@ -156,6 +156,8 @@ The last boolean argument passed there is optional and has to do with event flow
 
 Another way to explain it would be: by setting this option to `true`, you are indicating that events of this type will be dispatched to the registered listener before being dispatched to any EventTarget *beneath* it in the DOM tree.
 
+See [Bubbling and Capturing at javascript.info](https://javascript.info/bubbling-and-capturing) for a really good explantaion.
+
 
 ### Passing arguments to event listener functions
 
@@ -230,7 +232,7 @@ document.addEventListener('click', function (e) {
 }, false);
 ```
 
-`e.target` is a reference to the *element* that triggered the event and is described in its own section below.   
+`e.target` is a reference to the *element* that triggered the event and is described in its own section below. 
 
 `matches()` is a method available to all *element objects* and is described in [document_object_model.md](document_object_model.md).
 
@@ -304,9 +306,14 @@ When an event occurs, the *event object* provides useful information about the e
 // will use the parameter name: e, evt, or event
 
 function logEventInfo(e) {
-  console.log(e);            // the full event object
-  console.log(e.target);     // the HTML element and all its properties
-  console.log(e.type);       // click
+  // the full event object
+  console.log(e);
+  // event type (e.g. click)
+  console.log(e.type);
+  // the HTML element that triggered the event (and all its properties)
+  console.log(e.target);
+  // the HTML element that is handling the event (and all its properties)
+  console.log(e.currentTarget);  
 }
 
 let el = document.getElementById('js-box');
@@ -469,7 +476,11 @@ window.addEventListener('click', function (e) {
 }, false);
 ```
 
-What will happen here is the sometimes (maybe all the time), the `img` will end up being the `event.target` instead of the button. One easy way to prevent this (at least on buttons) is to add the following css:
+What will happen here is the sometimes (maybe all the time), the `img` will end up being the `event.target` instead of the button.
+
+> :bookmark: Remember: if we weren't doing event delegation and instead attached the event listener directly to the button, `e.currentTarget` would refer to the button and `e.target` would refer to the image. With event delegation, since we are attaching the event listener to the window, `e.currentTarget` isn't useful.
+
+One easy way to prevent this (at least on buttons) is to add the following css:
 
 ```css
 button > * {
