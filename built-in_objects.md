@@ -237,6 +237,56 @@ console.log(test3);  // 10.0
 console.log(test4);  // 10.0
 ```
 
+Note that `indexOf()` returns `-1` if the search string is not found. As a result, it could be used to filter a list:
+
+```javascript
+const fruit = [
+  { id: 1, name: 'Apple', fresh: true },
+  { id: 2, name: 'Cherries', fresh: true },
+  { id: 3, name: 'Green apple', fresh: false },
+  { id: 4, name: 'Pineapple', fresh: true}
+];
+
+function filterProducts(products, filterText, freshOnly) {
+  const results = [];
+
+  products.forEach((product) => {
+    if (product.name.toLowerCase().indexOf(filterText.toLowerCase()) === -1) {
+      return;
+    }
+    if (freshOnly && !product.fresh) {
+      return;
+    }
+    results.push(product.name);
+  });
+  return results;
+}
+
+console.log(filterProducts(fruit, 'apple', false));
+// [ 'Apple', 'Green apple', 'Pineapple' ]
+
+console.log(filterProducts(fruit, 'apple', true));
+// [ 'Apple', 'Pineapple' ]
+```
+
+That example came from the latest React.dev docs. That being said, if I were doing it, I would do this instead:
+
+```javascript
+function filterProducts(products, filterText, freshOnly) {
+  return products.filter(product => {
+    const nameMatches = product.name.toLowerCase().includes(filterText.toLowerCase());
+    return nameMatches && (!freshOnly || product.fresh);
+    })
+    .map(product => product.name);
+}
+
+console.log(filterProducts(fruit, 'apple', false));
+// [ 'Apple', 'Green apple', 'Pineapple' ]
+
+console.log(filterProducts(fruit, 'apple', true));
+// [ 'Apple', 'Pineapple' ]
+```
+
 
 ## Number
 
