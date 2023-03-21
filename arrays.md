@@ -368,6 +368,15 @@ console.log(myArray.lastIndexOf('one'));
 // 7
 ```
 
+If the search element is no found, it returns -1:
+
+```javascript
+const myArray = ['one', 'two', 'three', 'one', 'four', 'five', 'six', 'one'];
+
+console.log(myArray.indexOf('orange'));
+// -1
+```
+
 
 ### Reverse an array with *reverse()*
 
