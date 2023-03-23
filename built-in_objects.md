@@ -589,6 +589,41 @@ console.log(d.toDateString()); // Wed Oct 29 2025
 ```
 
 
+## Intl 
+
+The [Internationalization object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects#internationalization) adds language-sensitive functionalities to the ECMAScript core.
+
+### Intl.DateTimeFormat
+
+The [Intl.DateTimeFormat object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat) enables language-sensitive date and time formatting.
+
+```javascript
+const today = new Date();
+
+console.log(today.getDay());
+// 3
+
+console.log(new Intl.DateTimeFormat('en-US').format(today));
+// "3/22/2023"
+
+let options = {
+  weekday: "long",
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+};
+
+console.log(new Intl.DateTimeFormat('en-US', options).format(today));
+// Wednesday, March 22, 2023
+
+console.log(new Intl.DateTimeFormat('de-DE', options).format(today));
+// Mittwoch, 22. März 2023
+
+console.log(new Intl.DateTimeFormat(undefined, { weekday: 'long' }).format(today));
+// Wednesday
+```
+
+
 ## Boolean
 
 The [Boolean object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)
