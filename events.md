@@ -156,7 +156,7 @@ The last boolean argument passed there is optional and has to do with event flow
 
 Another way to explain it would be: by setting this option to `true`, you are indicating that events of this type will be dispatched to the registered listener before being dispatched to any EventTarget *beneath* it in the DOM tree.
 
-See [Bubbling and Capturing at javascript.info](https://javascript.info/bubbling-and-capturing) for a really good explantaion.
+See [Bubbling and Capturing at javascript.info](https://javascript.info/bubbling-and-capturing) for a really good explanation.
 
 
 ### Passing arguments to event listener functions
