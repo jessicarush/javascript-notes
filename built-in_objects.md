@@ -702,6 +702,14 @@ To round it to an integer
 console.log(Math.floor(Math.random() * 10)); // 9
 ```
 
+To drop 
+
+```javascript
+let num = 1.932;
+
+console.log(Math.trunc(num)); // 1
+```
+
 Other Math methods include:
 
 method         | description
@@ -716,6 +724,7 @@ method         | description
 `Math.cos()`   | calculates cosine.
 `Math.sin()`   | calculates sine.
 `Math.tan()`   | calculates tangent.
+`Math.trunc()` | returns the integer part of a number by removing any fractional digits.
 
 ```javascript
 Math.floor(Math.random() * 10);  // 6
