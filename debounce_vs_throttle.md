@@ -85,7 +85,7 @@ const searchInput = document.getElementById('search');
 searchInput.addEventListener('input', handleInput);
 ```
 
-An alernate version thatincludes an immediate param:
+An alternate version that includes an immediate param:
 
 ```javascript
 /**
