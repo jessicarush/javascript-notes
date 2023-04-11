@@ -14,6 +14,7 @@ As with many other languages, JavaScript variables are containers for storing da
 - [which to use: const, let, var](#which-to-use-const-let-var)
 - [global variables](#global-variables)
 - [where to declare](#where-to-declare)
+- [globalThis](#globalthis)
 - [naming (reserved words)](#naming-reserved-words)
 
 <!-- tocstop -->

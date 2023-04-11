@@ -11,6 +11,7 @@
   * [summary](#summary)
 - [ES6: Import](#es6-import)
 - [ES6: indicate the script contains a module in your HTML](#es6-indicate-the-script-contains-a-module-in-your-html)
+- [ES2020: dynamic imports](#es2020-dynamic-imports)
 - [CommonJS: module.exports](#commonjs-moduleexports)
 - [CommonJS: require()](#commonjs-require)
 - [Importing npm packages](#importing-npm-packages)

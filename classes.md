@@ -11,6 +11,7 @@ It should be noted JavaScript has tried to satisfy the desire to design with cla
 <!-- toc -->
 
 - [Syntax](#syntax)
+- [Private variables](#private-variables)
 - [Inheritance](#inheritance)
 - [Static Methods](#static-methods)
 

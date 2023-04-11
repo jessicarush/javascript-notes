@@ -47,8 +47,9 @@ There are other, more complex ones (ie Bitwise operators). See: [MDN Expressions
 - [False and Falsy](#false-and-falsy)
 - [Shorthand (short-circuiting) with logical operators](#shorthand-short-circuiting-with-logical-operators)
 - [Keyword operators](#keyword-operators)
-- [*ES2020* Nullish Coalescing Operator](#es2020-nullish-coalescing-operator)
 - [Spread Syntax `...`](#spread-syntax-)
+- [*ES2020* Nullish Coalescing Operator](#es2020-nullish-coalescing-operator)
+- [*ES2020* Conditional chaining](#es2020-conditional-chaining)
 
 <!-- tocstop -->
 

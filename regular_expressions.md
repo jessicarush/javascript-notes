@@ -17,6 +17,7 @@ See also: [Regular Expressions on MDN](https://developer.mozilla.org/en-US/docs/
   * [regexp.exec()](#regexpexec)
   * [regexp.test()](#regexptest)
   * [string.match()](#stringmatch)
+  * [string.matchAll()](#stringmatchall)
   * [string.replace()](#stringreplace)
   * [string.search()](#stringsearch)
   * [string.split()](#stringsplit)
