@@ -236,6 +236,12 @@ doFirst()
 // [Finished in 0.664s]
 ```
 
+
+
+
+
+
+
 ## The promise constructor
 
 the promise constructor takes one argument, a callback with two parameters, fulfill and reject. It's customary, but not, required, to reject with an Error object. The benefit of using an Error object is that they capture a stack trace, making debugging tools more helpful.
@@ -365,6 +371,47 @@ Promise.all([promise1, promise2, promise3])
 // Results: 10,20,30
 // Total: 60
 ```
+
+## Promise.allSettled()
+
+The `Promise.allSettled` method accepts an array of Promises and only resolves when all of them are settled – either resolved or rejected. The return is an array of objects where each object describes the outcome of input promises. By comparison, `promise.all` rejects with the first rejection of any of the promises given as input. 
+
+```javascript
+const promise1 = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    console.log('The first promise has resolved');
+    resolve(10);
+  }, 1 * 1000);
+});
+
+const promise2 = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    console.log('The second promise is rejected');
+    reject('nope');
+  }, 2 * 1000);
+});
+
+const promise3 = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    console.log('The third promise has resolved');
+    resolve(30);
+  }, 3 * 1000);
+});
+
+Promise.allSettled([promise1, promise2, promise3]).then((data) => {
+    console.log(data);
+});
+// The first promise has resolved
+// The second promise is rejected
+// The third promise has resolved
+// (3) [{...}, {...}, {...}]
+// 0: {status: 'fulfilled', value: 10}
+// 1: {status: 'rejected', reason: 'nope'}
+// 2: {status: 'fulfilled', value: 30}
+// length: 3
+// [[Prototype]]: Array(0)
+```
+
 
 ## See also 
 

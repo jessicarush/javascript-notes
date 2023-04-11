@@ -156,6 +156,9 @@ The `test()` regexp method executes a search for a match between a regular expre
 
 ```javascript
 let hex_color = /^#([0-9a-fA-F]{3,6})$/;
+// Technically the above will match a regex with 3 or 4 or 5 or 6 characters.
+// If we want to match only 3 or 6 we would have to do:
+hex_color = /^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/;
 
 let string = '#32CD32';
 
@@ -168,17 +171,45 @@ console.log(result);
 
 ### string.match()
 
-The `match()` string method returns an array containing all of the matches, including capturing groups, or `null` if no match is found.
+The `match()` string method returns an array containing all the matches, including capturing groups, or `null` if no match is found. 
 
 ```javascript
-let hex_color = /^#([0-9a-fA-F]{3,6})$/;
+let hex_color = /#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})/;
 
-let string = '#32CD32';
+let string = 'The foreground is #32CD32 and the background is #fff';
 
 let result = string.match(hex_color);
 
 console.log(result);
-// [ '#32CD32', '32CD32', index: 0, input: '#32CD32', groups: undefined ]
+// ['#32CD32', '32CD32', index: 18, input: 'The foreground is #32CD32 and the background is #fff', groups: undefined]
+
+// If we use the global flag `g`, we get all occurrences and none of the other stuff:
+hex_color = /#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})/g;
+
+result = string.match(hex_color);
+
+console.log(result);
+// ['#32CD32', '#fff']
+```
+
+### string.matchAll()
+
+`matchAll()` is a new method as of ES2020. It returns an iterator containing all of the matches, including capturing groups. Note you MUST use the *global* flag with `matchAll`, or it will throw an Error.
+
+```javascript
+// Note, when using matchAll, you MUST add the `g` global flag to your regex.
+// If there is no g flag present, that matchAll will throw a TypeError.
+const hex_color = /#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})/g;
+
+const string = 'The foreground is #32CD32 and the background is #fff';
+
+// unpack the iterator into an Array:
+const result = [...string.matchAll(hex_color)];
+
+console.log(result);
+// [
+//  ['#32CD32', '32CD32', index: 18, input: 'The foreground is #32CD32 and the background is #fff', groups: undefined],
+// ['#fff', 'fff', index: 48, input: 'The foreground is #32CD32 and the background is #fff', groups: undefined]
 ```
 
 

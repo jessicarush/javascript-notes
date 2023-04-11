@@ -230,6 +230,19 @@ var b = 15;
 So, the convention of declaring most variables at the beginning of a function feels like a good one, but that doesn't mean we can't declare some where they appear when it makes sense to do so.
 
 
+## globalThis
+
+ES2020 introduced `globalThis` which always refers to the global object, no matter where you are executing your code.
+
+Previously, if you wrote some cross-platform JavaScript code which could run on Node, in the browser environment, and also inside web-workers, you'd have a hard time getting hold of the global object. This is because it is `window` for browsers, `global` for Node, and `self` for web workers. 
+
+```javascript
+console.log(globalThis); // Window {...} for browsers
+console.log(globalThis); // Object [global] {...} for Node
+console.log(globalThis); // DedicatedWorkerGlobalScope {...} for Web Workers
+```
+
+
 ## naming (reserved words)
 
 Variable names (including function names) must be *valid identifiers*:

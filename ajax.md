@@ -180,7 +180,7 @@ document.getElementById('js-ajax-requester').addEventListener('click', ajaxReque
 
 ## Additional links
 
-- [python-notes/ajax_notes.md](https://github.com/jessicarush/python-notes/blob/master/ajax_notes.md)
 - [javascript-notes/requests.md](https://github.com/jessicarush/javascript-notes/blob/master/requests.md)
+- [python-notes/ajax_notes.md](https://github.com/jessicarush/python-notes/blob/master/ajax_notes.md)
 - [MDN XMLHttpRequest](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest)
 - [MDN Using XMLHttpRequest](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/Using_XMLHttpRequest)

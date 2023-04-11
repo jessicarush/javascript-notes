@@ -85,6 +85,56 @@ console.log(user.email);
 // scott@email.com
 ```
 
+Note that the variables `_name` and `_email` aren'y actually private. The underscore her is just a naming convention to indicate intention. You can still access them directly:
+
+```javascript
+console.log(user._name);
+// Scott
+```
+
+However, ES2020 introduced...
+
+
+## Private variables 
+
+ES2020 introduces [private class fields](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Private_class_fields).
+
+Here's the example from above:
+
+```javascript
+class Contact {
+  // pivate fields must be declared first:
+  #name;
+  #email;
+
+  constructor(name, email) {
+    this.#name = name;
+    this.#email = email;
+  }
+
+  get name() {
+    return this.#name;
+  }
+
+  get email() {
+    return this.#email;
+  }
+
+  greeting(day) {
+      console.log(`Hello ${this.name}, happy ${day}!`);
+  }
+}
+
+const user = new Contact('Scott', 'scott@email.com');
+
+console.log(user.email);
+// scott@email.com
+
+console.log(user.#name);
+// SyntaxError
+```
+
+
 ## Inheritance
 
 With inheritance, you can create a parent class (also known as a superclass) with properties and methods that multiple child classes (also known as subclasses) share. The child classes inherit the properties and methods from their parent class.

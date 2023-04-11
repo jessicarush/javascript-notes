@@ -467,6 +467,41 @@ console.log(truncateNum(10.3599, 2));
 ```
 
 
+## BigInt
+
+BigInt values represent numeric values which are too large to be represented by the number primitive.
+
+```javascript
+let maxNum = Number.MAX_SAFE_INTEGER;
+
+console.log(maxNum); // 9007199254740991
+console.log(++maxNum); // 9007199254740992
+console.log(++maxNum); // 9007199254740992
+console.log(++maxNum); // 9007199254740992
+
+let bigint = 9007199254740992n;
+
+console.log(bigint); // 9007199254740992n
+console.log(++bigint); // 9007199254740993n
+console.log(++bigint); // 9007199254740994n
+console.log(++bigint); // 9007199254740995n
+
+const bigintByMethod = BigInt('9007199254740995');
+
+console.log(typeof bigint); // bigint
+console.log(typeof bigintByMethod); // bigint
+console.log(bigint === bigintByMethod); // true
+```
+
+> BigInt values are similar to Number values in some ways, but also differ in a few key matters: A BigInt value cannot be used with methods in the built-in Math object and cannot be mixed with a Number value in operations; they must be coerced to the same type. Be careful coercing values back and forth, however, as the precision of a BigInt value may be lost when it is coerced to a Number value.
+
+The following operators may be used with BigInt values or object-wrapped BigInt values:
+
+```
++ * - % **
+```
+
+
 ## Date
 
 The [Date object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) has a few static methods but mainly contains instance methods to be applied to objects constructed with `new Date()`.

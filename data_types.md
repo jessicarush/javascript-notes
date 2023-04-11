@@ -1,17 +1,18 @@
 # Data Types
 
 
-JavaScript uses six *primitive data types*, along with one complex type:
+JavaScript uses seven *primitive data types*, along with one complex type:
 
 type | description
 :--- | :----------
-**Strings** | Any grouping of characters surrounded by single or double quotes.|
-**Numbers** | Any number, including numbers with decimals. Internally, they're represented as 64-bit floating point. |
-**Booleans** | Either true or false, with no quotations.|
-**Null** | Represents an empty value.|
-**Undefined** | Represents a missing value. Automatically assigned to variables that have just been declared or to formal arguments for which there are no actual arguments.|
-**Symbols** | (new to ES6) Used as the key for an object property when the property is intended to be private, for the internal use of a class or an object.|
-**Objects** | Refers to a compound value where you can set properties that each hold their own values of any type. Functions and arrays are considered subtypes of the object type. In fact, functions are simply considered *callable objects*.
+**string** | Any grouping of characters surrounded by single or double quotes.
+**number** | Any number, including numbers with decimals. Internally, they're represented as 64-bit floating point.
+**bigint** | Numeric values which are too large to be represented by the number primitive.
+**boolean** | Either true or false, with no quotations.
+**null** | Represents an empty value.
+**undefined** | Represents a missing value. Automatically assigned to variables that have just been declared or to formal arguments for which there are no actual arguments.
+**symbol** | (new to ES6) Used as the key for an object property when the property is intended to be private, for the internal use of a class or an object.
+**Object** | Refers to a compound value where you can set properties that each hold their own values of any type. Functions and arrays are considered subtypes of the object type. In fact, functions are simply considered *callable objects*.
 
 
 ## Table of Contents
@@ -28,13 +29,14 @@ type | description
 ## Syntax
 
 ```javascript
-console.log('Hello');    // string
-console.log(40.7);       // number
-console.log(true);       // boolean
-console.log(null);       // null
-console.log(undefined);  // undefined
-console.log(Symbol());   // symbol
-console.log({a: 'b'});   // object
+console.log('Hello');                        // string
+console.log(40.7);                           // number
+console.log(9879846412313194464434496849n);  // bigint
+console.log(true);                           // boolean
+console.log(null);                           // null
+console.log(undefined);                      // undefined
+console.log(Symbol());                       // symbol
+console.log({a: 'b'});                       // object
 ```
 
 Exponential numbers can be written like `1e10`, for example:
@@ -81,6 +83,9 @@ console.log(typeof a);  // string
 
 a = 43;
 console.log(typeof a);  // number
+
+a = 9879846412313194464434496849n;
+console.log(typeof a);  // bigint
 
 a = true;
 console.log(typeof a);  // boolean

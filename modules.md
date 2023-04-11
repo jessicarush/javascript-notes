@@ -180,7 +180,43 @@ At some point, we'll want to include our main script in our HTML file. In order 
 
 Note: if you are running your script in Node, to load an ES6 module, you will have to identify the type as module by adding `"type": "module"` in the `package.json`.
 
-Note: if you are writing a React app, your type may already be set as `type=text/jsx`, so changing it to `module` may not an option. In this case we would be better off using another tool like [webpack](https://webpack.js.org/), [parcel](https://parceljs.org/), or [create-react-app](https://reactjs.org/docs/create-a-new-react-app.html).
+Note: if you are writing a React app, your type may already be set as `type=text/jsx`, so changing it to `module` may not an option. In this case we would be better off using another tool like [webpack](https://webpack.js.org/), [parcel](https://parceljs.org/), [create-react-app](https://reactjs.org/docs/create-a-new-react-app.html) or [Vite](https://vitejs.dev/).
+
+
+## ES2020: dynamic imports
+
+Dynamic imports allow us to import js files as modules into our application conditionally. This feature helps to support code splitting by requesting code on demand (allowing lazy loading), where you would normally need another tool like webpack.
+
+> Code splitting is a technique used in JavaScript applications to optimize performance by splitting the application code into smaller, more manageable chunks. This technique is used primarily in applications with large codebases that can take a long time to load, causing the application to appear slow to the user.
+>
+> Code splitting works by breaking up the code into smaller pieces or "chunks" that can be loaded separately as needed, instead of loading the entire application code upfront. These chunks can be loaded either on demand or asynchronously, depending on the specific use case.
+>
+> There are several tools and libraries available for implementing code splitting in JavaScript, including Webpack, Rollup, and Browserify, among others.
+
+Here's how it works:
+
+```javascript
+// greeting.js
+
+const greeting = (name) => {
+  return `Hello ${name}`;
+}
+
+export { greeting };
+```
+
+Then in my main file:
+
+```javascript
+let name = 'Bob';
+
+if (name) {
+  const module = await import('./greeting.js');
+  console.log(module.greeting(name));
+}
+```
+
+The good thing is that you actually import a module, and so it never pollutes the global namespace.
 
 
 ## CommonJS: module.exports

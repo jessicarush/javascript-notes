@@ -21,6 +21,8 @@ Logical and: `&&`
 Logical or: `||`  
 Logical not: `!`  
 Conditional (ternary) operator: `? :`  
+Nullish coalescing: `??`  
+Optional chaining: `?.`  
 
 There are other, more complex ones (ie Bitwise operators). See: [MDN Expressions and Operators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_Operators).
 
@@ -401,28 +403,6 @@ There are a number of keyword operators in javascript which test/do various thin
 `in` - determines whether an object has a given property  
 `void` - discards an expression's return value  
 
-## *ES2020* Nullish Coalescing Operator
-
-> The nullish coalescing operator (??) is a logical operator that returns its right-hand side operand when its left-hand side operand is null or undefined, and otherwise returns its left-hand side operand.
-
-[Source: MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Nullish_coalescing_operator)
-
-```javascript
-let score = 0;
-let pass = score ?? 60;
-
-console.log(pass);
-// 0
-```
-
-```javascript
-let score;
-let pass = score ?? 60;
-
-console.log(pass);
-// 60
-```
-
 
 ## Spread Syntax `...`
 
@@ -494,4 +474,88 @@ let todos = [
 let test2 = {...todos[2], completed: true}
 console.log(test2);
 // { id: 3, task: "groceries", completed: true }
+```
+
+
+## *ES2020* Nullish Coalescing Operator
+
+> The nullish coalescing operator (??) is a logical operator that returns its right-hand side operand when its left-hand side operand is null or undefined, and otherwise returns its left-hand side operand.
+
+[Source: MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Nullish_coalescing_operator)
+
+```javascript
+// Left value is undefined
+let score;
+console.log(score ?? 100);
+// 100
+
+// Left value is null
+score = null;
+console.log(score ?? 100);
+// 100
+
+// Left value is false
+score = false;
+console.log(score ?? 100);
+// false
+
+// Left value is 0
+score = 0;
+console.log(score ?? 100);
+// 0
+
+// Left value is an empty string
+score = '';
+console.log(score ?? 100);
+// ''
+
+// Left value is NaN
+score = NaN;
+console.log(score ?? 100);
+// NaN
+```
+
+By comparison `||` would always return `100` in the examples above.
+
+
+## *ES2020* Conditional chaining
+
+The `?.` operator short circuits an object property evaluation. Instead of returning an Error by keeping on evaluating, optional chaining terminates as soon as it finds the first undefined/null in the chain and returns undefined.
+
+Note that `?.` only works where it is placed in the chain:
+
+```javascript
+const animalHierarchy = {
+  animal: 'Mammal',
+  species: {
+    name: 'Lion',
+    habitat: 'Grasslands',
+    diet: {
+      type: 'Carnivorous',
+      prey: {
+        name: 'Gazelle'
+      }
+    }
+  }
+};
+
+let result = animalHierarchy.species.diet.type.toLowerCase();
+console.log(result);
+// carnivorous
+
+// result = animalHierarchy.species.food.type.toLowerCase();
+// console.log(result);
+// TypeError
+
+result = animalHierarchy.species.food?.type.toLowerCase();
+console.log(result);
+// undefined
+
+result = animalHierarchy?.species?.food?.type?.toLowerCase();
+console.log(result);
+// undefined
+
+result = animalHierarchy.species.diet.type.someFunc?.();
+console.log(result);
+// undefined
 ```
