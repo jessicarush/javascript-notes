@@ -11,7 +11,11 @@
 - [geolocation](#geolocation)
 - [localStorage & sessionStorage](#localstorage--sessionstorage)
 - [history](#history)
-- [location object](#location-object)
+- [location](#location)
+- [navigator](#navigator)
+- [crypto](#crypto)
+- [URLSearchParams](#urlsearchparams)
+- [HTMLDialogElement](#htmldialogelement)
 
 <!-- tocstop -->
 
@@ -235,7 +239,7 @@ window.onpopstate = function () {
 ```
 
 
-## location object
+## location
 
 Note that there is a `location` object that represents the browsers address bar. When the user presses back or forward, the address bar will update itself. You can get its current information:
 
@@ -249,3 +253,41 @@ console.log(location.port);      // 8000
 console.log(location.pathname);  // /
 console.log(location.hash);      // #content
 ```
+
+
+## navigator
+
+The `navigator` interface lets you detect if the client browser is online:
+
+```javascript
+if (navigator.onLine) {
+  console.log('online')
+}
+```
+
+
+## crypto
+
+The `randomUUID()` method of the `crypto` interface is used to generate a v4 UUID using a cryptographically secure random number generator. It is faster than using an external package like `uuid`.
+
+```jsx 
+const uuid = crypto.randomUUID();
+```
+
+
+## URLSearchParams
+
+The `URLSearchParams` interface defines utility methods to work with the query string of a URL.
+
+```jsx
+const url = 'https://log.zebro.id/api_demo_two';
+const data = { value: 'rgb' };
+const params = new URLSearchParams(data);
+const results = useFetch(`${url}?${params}`);
+```
+
+
+## HTMLDialogElement
+
+Todo...
+
