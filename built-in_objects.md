@@ -545,6 +545,9 @@ methods                                  | description
 `toDateString()`                         | returns human-readable date string
 `toTimeString()`                         | returns human-readable time string
 `toString()`                             | returns human-readable date + time string
+`toISOString()`                          | returns in an ISO 8601 string format
+
+Note the `toISOString()` format is useful for the `datetime` attribute of the `<time>` element in HTML.
 
 ```javascript
 console.log(today.getTime());
@@ -558,6 +561,9 @@ console.log(today.toTimeString());
 
 console.log(today.toString());
 // Wed Oct 24 2018 19:04:18 GMT-0700 (Pacific Daylight Time)
+
+console.log(today.toISOString());
+// 2018-10-25T02:05:00.000Z
 ```
 
 Instead of creating a Date object, you can also use the static methods `Date.UTC()` and `Date.now()` which return a time value as a number (milliseconds since epoch 1/1/1970). This is available as of ES5.
