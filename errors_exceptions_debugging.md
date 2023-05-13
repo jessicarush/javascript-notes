@@ -133,6 +133,17 @@ throwTest('thirteen');
 // Number Error: thirteen is not a number!
 ```
 
+You could also create your own error class by extending the `Error` class:
+
+```javascript
+class AuthRequiredError extends Error {
+  constructor(message='Auth is required to access this page.') {
+    super(message);
+    this.name = 'AuthRequiredError';
+  }
+}
+```
+
 There are seven types of error objects built in to JavaScript, plus one, `InternalError`, that hasn't been standardized yet:
 
 Error object   | Description
