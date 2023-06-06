@@ -892,6 +892,12 @@ See [sets.md](sets.md).
 
 The [Promise object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
 
+## Proxy
+
+The [Proxy object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy) enables you to create a proxy for another object, which can intercept and redefine fundamental operations for that object.
+
+See [JavaScript Proxy tutorial](https://www.javascripttutorial.net/es6/javascript-proxy/).
+
 
 ## Global Functions
 
