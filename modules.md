@@ -217,6 +217,39 @@ if (name) {
 }
 ```
 
+In other words:
+
+```javascript
+if (someCondition) {
+    const module = await import('./heavyModule.js');
+    module.someFunction();
+  }
+```
+
+You could also use promise syntax:
+
+```javascript
+if (someCondition) {
+  import('./heavyModule.js')
+    .then((module) => {
+      module.someFunction();
+    });
+}
+```
+
+Keep in mind that `await` will block the rest of the code in an `async` function from executing until the promise is resolved. This means that if you have multiple dynamic imports that could be loaded in parallel, you might want to use `Promise.all()` instead of await to avoid unnecessarily delaying your code:
+
+```javascript
+async function loadModules() {
+  const [moduleA, moduleB] = await Promise.all([
+    import('./moduleA.js'),
+    import('./moduleB.js'),
+  ]);
+
+  // Use moduleA and moduleB...
+}
+```
+
 The good thing is that you actually import a module, and so it never pollutes the global namespace.
 
 
