@@ -30,6 +30,7 @@ Javascript has many built-in objects. Some of the names imply they're directly r
 - [Map](#map)
 - [Set](#set)
 - [Promise](#promise)
+- [Proxy](#proxy)
 - [Global Functions](#global-functions)
 
 <!-- tocstop -->
@@ -188,21 +189,21 @@ console.log(zeroPadNumber(7001, 3));
 Note that JavaScript doesn't have a capitalize method for strings. Instead, you have to monkey one together like so:
 
 ```javascript
-function capitalFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
+export function capitalizeFirstWord(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
 function capitalize(string) {
   let words = [];
   string.split(' ').forEach(word => {
-    words.push(capitalFirstLetter(word));
+    words.push(capitalizeFirstWord(word));
   });
   return words.join(' ');
 }
 
 let title = 'the great escape';
 
-console.log(capitalFirstLetter(title));
+console.log(capitalizeFirstWord(title));
 // The great escape
 console.log(capitalize(title));
 // The Great Escape
