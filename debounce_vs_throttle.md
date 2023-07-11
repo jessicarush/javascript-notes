@@ -178,7 +178,7 @@ This throttle function could be used in production.
  * @param {number} interval The throttle interval in milliseconds
  * @returns {function}
  */
-const throttle = (func, interval) => {
+const throttle = (func, interval=1000) => {
   let toThrottle = false;
   return (...args) => {
     if (!toThrottle) {
