@@ -5,6 +5,8 @@
 
 <!-- toc -->
 
+- [Capitalize first word](#capitalize-first-word)
+- [Capitalize](#capitalize)
 - [Random array element](#random-array-element)
 - [Random boolean](#random-boolean)
 - [Check if all values in array of arrays are equal](#check-if-all-values-in-array-of-arrays-are-equal)
@@ -12,6 +14,44 @@
 - [Hex to RGB, RGB to Hex](#hex-to-rgb-rgb-to-hex)
 
 <!-- tocstop -->
+
+## Capitalize first word
+
+```javascript
+/**
+ * capitalizeFirstWord
+ *
+ * - Takes a string and capitalizes the first word.
+ * - For example 'the great escape' => 'The great escape'
+ *
+ * @param {string} string The string to modify
+ * @returns {string} The string with the first word capitalized.
+ */
+export function capitalizeFirstWord(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+```
+
+## Capitalize
+
+```javascript
+/**
+ * capitalize
+ *
+ * - Takes a string and capitalize the first letter of each word.
+ * - For example 'the great escape' => 'The Great Escape'
+ *
+ * @param {string} string The string to modify
+ * @returns {string} The string with each word capitalized.
+ */
+export function capitalize(string) {
+  let words = [];
+  string.split(' ').forEach((word) => {
+    words.push(capitalizeFirstWord(word));
+  });
+  return words.join(' ');
+}
+```
 
 ## Random array element
 
