@@ -62,10 +62,11 @@ node --version
 ```
 
 To update to the latest version of Node, just use the [download page](https://nodejs.org/en/).
+
 To update npm:
 
 ```
-npm install -g npm
+npm install -g npm@latest
 ```
 
 To instantly create a `package.json` and bypass all the questions:
