@@ -86,7 +86,7 @@ console.log(user.email);
 // scott@email.com
 ```
 
-Note that the variables `_name` and `_email` aren'y actually private. The underscore her is just a naming convention to indicate intention. You can still access them directly:
+Note that the variables `_name` and `_email` aren't actually private. The underscore her is just a naming convention to indicate intention. You can still access them directly:
 
 ```javascript
 console.log(user._name);
