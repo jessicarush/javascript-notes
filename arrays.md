@@ -74,6 +74,15 @@ console.log(array1);
 // [ 'example', 10, true, false ]
 ```
 
+The `at()` method for arrays in JavaScript was introduced in ECMAScript 2022. This provides a more readable syntax for accessing elements at a specific index, especially with its support for negative indices:
+
+```javascript
+const fruit = ['apple', 'orange', 'avocado', 'banana'];
+
+let third = fruit.at(2);  // avocado
+let last = fruit.at(-1);  // banana
+```
+
 
 ## Properties
 
