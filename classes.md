@@ -93,10 +93,10 @@ console.log(user._name);
 // Scott
 ```
 
-However, ES2020 introduced...
+Note: ES2020 introduces real private variables and methods...
 
 
-## Private variables 
+## Private variables and methods
 
 ES2020 introduces [private class fields](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Private_class_fields).
 
@@ -104,7 +104,7 @@ Here's the example from above:
 
 ```javascript
 class Contact {
-  // pivate fields must be declared first:
+  // private fields must be declared first:
   #name;
   #email;
 
@@ -134,6 +134,8 @@ console.log(user.email);
 console.log(user.#name);
 // SyntaxError
 ```
+
+The `#` can be applied to methods as well to make them private.
 
 
 ## Inheritance
