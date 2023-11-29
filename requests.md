@@ -47,6 +47,8 @@ console.log('Second');
 
 Web developers use the event loop to create a smoother browsing experience by deciding when to call functions and how to handle asynchronous events. One set of tools for this is AJAX *(Asynchronous JavaScript and XML)*. AJAX enables requests to be made after the initial page load.
 
+See also: [Jake Archibald on the web browser event loop, setTimeout…](https://www.youtube.com/watch?v=cCOL7MC4Pl0)
+
 
 ## XMLHttpRequest
 
