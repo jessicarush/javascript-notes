@@ -132,9 +132,10 @@ const { v4: uuidv4 } = require('uuid');
 Normally, the string that follows the `from` keyword is a relative path. When that string doesn't begin with `./`, `/`, or `../`, Node on the server-side or another tool on the client-side, will know to look in the `node_modules` directory. There are a number tools that can be used on the client-side.
 
 1. **[browserify](http://browserify.org/), [watchify](https://github.com/browserify/watchify) and [babelify](https://www.npmjs.com/package/babelify)**  
-browserify lets you `require('modules')` in the browser by bundling up all of your dependencies. As a result, it lets you directly import npm_modules. watchify simply adds watch mode for browserify builds so that you don't have to run the browserify command every time you save. babelify lets you use the ES6 `import` syntax.
+browserify lets you `require('modules')` in the browser by bundling up all of your dependencies. As a result, it lets you directly import npm_modules. watchify simply adds watch mode for browserify builds so that you don't have to run the browserify command every time you save. Lastly, babelify lets you use the ES6 `import` syntax.
 
 2. **[webpack](https://webpack.js.org/) and [babel](https://babeljs.io/)**  
+
 TODO...
 
 ### Using browserify, watchify & babelify
@@ -142,6 +143,7 @@ TODO...
 #### A Barebones Process
 
 This process installs browserify and watchify globally and will allow you to:
+
 - manage your packages with npm
 - import packages into your JavaScript using the `require()` syntax
 
