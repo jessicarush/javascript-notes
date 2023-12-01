@@ -74,7 +74,7 @@ logAmount(9.9888, 2);  // 19.98
 logAmount(5);          // 5.00
 ```
 
-Functions are often declared in an assignment to a variable. When assigning to a variable, the function can be named or anonymous. The main difference with these approaches is related to *hoisting*, described in more detail below. Basically, function declarations get defined at parse-time but variables get defined at run-time. As a result, you can call a function before it's declaration, but not if it's assigned to a variable. In terms of anonymous vs named functions, this is just a preference thing. Named functions are more helpful when it comes to debugging. Here's a comparison:
+Functions are often declared in an assignment to a variable. When assigning to a variable, the function can be named or anonymous. The main difference with these approaches is related to *hoisting*, described in more detail below. Basically, function declarations get defined at parse-time but variables get defined at run-time. As a result, you can call a function before it's declaration, but not if it's assigned to a variable. In terms of anonymous vs named functions, this is just a preference thing. Named functions were traditionally considered more helpful for debugging, but I believe most tools have sorted this out. Here's a comparison:
 
 ```javascript
 // Function declaration:
@@ -92,9 +92,16 @@ var three = function three() {
   console.log(three.name);
 };
 
+// Anonymous function assigned to a variable (ES6 arrow functon syntax):
+
+var four = () => {
+  console.log(four.name);
+};
+
 one();    // one
 two();    // two
 three();  // three
+four();   // four
 ```
 
 
@@ -591,16 +598,16 @@ const x = function () {
   // note: semicolon is required after the assignment
 };
 
-const x = () => {
-  // an anonymous function expression using ES6 arrow function syntax
-  // (described later in this doc)
-};
-
 const x = function foo() {
   // called a named function declaration/expression.
   // It's equivalent to first declaring the function foo,
   // then assigning it to the variable x.
   // note: semicolon is required after the assignment
+};
+
+const x = () => {
+  // an anonymous function expression using ES6 arrow function syntax
+  // (described later in this doc)
 };
 ```
 
