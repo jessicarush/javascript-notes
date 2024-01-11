@@ -346,7 +346,7 @@ function hideDropdown(e) {
 }
 ```
 
-`event.currentTarget` -  Refers to the element to which the event handler has been attached, as opposed to `event.target`, which identifies the element on which the event occurred.  
+`event.currentTarget` - Refers to the element to which the event handler has been attached, as opposed to `event.target`, which identifies the element on which the event occurred.  
 
 `event.type` - The name of the event that was fired.  
 
