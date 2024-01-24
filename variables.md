@@ -31,7 +31,7 @@ a = a * 2;
 console.log(a);  // 12
 ```
 
-You can declare more than one variable using the same `var` (or `const`,`let`) keyword:
+You can declare more than one variable using the same `var`, `const` or `let` keyword. This is called *comma-separated variable declaration*.
 
 ```javascript
 var a = 5, b = 10, c = 100;
