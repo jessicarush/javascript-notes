@@ -60,7 +60,7 @@ export function capitalize(string) {
  * Returns a random element from a given list
  */
  function randomSelect(array) {
-   let randomIndex = Math.floor(Math.random() * array.length);
+   const randomIndex = Math.floor(Math.random() * array.length);
    return array[randomIndex];
  }
 
