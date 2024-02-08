@@ -164,6 +164,13 @@ for (let el of Array.from(els)) {
 }
 ```
 
+You can also pass an optional mapping function:
+
+```javascript
+console.log(Array.from([1, 2, 3], (x) => x + x));
+// [2, 4, 6]
+```
+
 You can also make arrays from objects with a length property. For example, the following will create an array of 4 undefined or null:
 
 ```javascript
@@ -171,6 +178,16 @@ let myArray = Array.from({ length: 4 });
 
 console.log(myArray);
 // [ undefined, undefined, undefined, undefined ]
+```
+
+If we combine this with the optional mapping function, we can also use the length object to produce a sequence array. To do this we use the `i` index that automatically available after the value argument `(x, i) => i`. Since we are not actually using the `x` value here, it is common practice to name it `_`.
+
+```javascript
+// Generate a sequence of numbers
+// Since the array is initialized with `undefined` on each position,
+// the value of `_` below will be `undefined`
+Array.from({ length: 5 }, (_, i) => i + 1);
+// [1, 2, 3, 4, 5]
 ```
 
 
