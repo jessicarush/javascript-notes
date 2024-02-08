@@ -126,6 +126,8 @@ const searchInput = document.getElementById('search');
 searchInput.addEventListener('input', handleInput);
 ```
 
+FYI there is also a [debounce library](https://github.com/xnimorz/use-debounce).
+
 ## Throttle
 
 Throttling is when, no matter how many times a user fires the event, the attached function will be executed *only once in a given time period/interval*.
