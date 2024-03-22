@@ -226,6 +226,12 @@ if (someCondition) {
   }
 ```
 
+You can also get the exported variable directly:
+
+```js
+const { db } = await import('./app/_lib/database');
+```
+
 You could also use promise syntax:
 
 ```javascript
