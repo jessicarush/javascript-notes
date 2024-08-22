@@ -1043,3 +1043,14 @@ const user = {
 
 console.log(user);  // { id: 1, language: 'english', name: 'bob', mode: 'dark' }
 ```
+
+Note that you can use the spread operator to conditionally add properties to an object:
+
+```javascript
+let type = 'admin';
+const user = {
+  id: 1,
+  name: 'bob',
+  ...(type === 'admin' ? { admin: [] } : {})
+};
+```
