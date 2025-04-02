@@ -108,10 +108,40 @@ npm root -g
 To uninstall:
 
 ```
-npm unistall -g packagename
-npm unistall packagename
+npm uninstall -g packagename
+npm uninstall packagename
 ```
 
+## Global npm prefix directory
+
+When installing npm packages globally, instead of using `sudo` to install in the default `user/local/lib`, it is recommended that you create a custom directory and configure npm to use that directory. This avoids modifying system directory permissions and follows security best practices:
+
+```bash
+# Create a directory for your global packages
+mkdir -p ~/.npm-global
+
+# Configure npm to use the new directory path
+npm config set prefix ~/.npm-global
+
+# Note: Replace ~/.bash_profile with /.bashrc, ~/.zshrc, ~/.profile, or other file for your shell
+echo 'export PATH=~/.npm-global/bin:$PATH' >> ~/.bash_profile
+
+# Apply the new PATH setting
+source ~/.bash_profile
+
+# Now install packages in the new location
+npm install -g @anthropic-ai/claude-code
+```
+
+To list your global packages you would now run:
+
+```bash
+# For your user directory
+npm list -g --depth=0 
+
+# For the system directory
+npm list -g --depth=0 --prefix=/usr/local
+```
 
 ## Working with npm_modules in client-side JavaScript
 
