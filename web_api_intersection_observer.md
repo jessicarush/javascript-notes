@@ -97,7 +97,7 @@ observer.observe(target);
 ```
 About those observer options:
 
-**root** - The element that is used as the viewport for checking the visiblity of the target. Must be the ancestor of the target. Defaults to the browser viewport if not specified or if null
+**root** - The element that is used as the viewport for checking the visibility of the target. Must be the ancestor of the target. Defaults to the browser viewport if not specified or if null
 
 **rootMargin** - Margin around the root. Can have values similar to the CSS margin property, e.g. "10px 20px 30px 40px"). This set of values serves to grow or shrink each side of the root element's bounding box before computing intersections. Defaults to all zeros.
 
