@@ -10,6 +10,7 @@
 - [package.json](#packagejson)
 - [Installing packages](#installing-packages)
 - [Misc commands](#misc-commands)
+- [Global npm prefix directory](#global-npm-prefix-directory)
 - [Working with npm_modules in client-side JavaScript](#working-with-npm_modules-in-client-side-javascript)
   * [Using browserify, watchify & babelify](#using-browserify-watchify--babelify)
     + [A Barebones Process](#a-barebones-process)
